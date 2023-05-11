@@ -1,0 +1,19 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.contactanos{
+    margin-top: 40px;
+    padding: 40px;
+}
+
+.gracias{
+    text-align: end;
+    margin-top: 10px;
+}
+.envio{
+    margin-top: 50px;
+}
+.comentario{
+    resize: none;
+}

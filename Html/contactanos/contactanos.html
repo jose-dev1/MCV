@@ -29,7 +29,7 @@
         <header>
             <nav class="navbar bg-body-tertiary">
                 <div class="container">
-                    <a class="navbar-brand" href="/index.html" ><img src="/Img/Img-inicio/logo.png" alt="" /></a>
+                    <a class="navbar-brand" href="/index.html"><img src="/Img/Img-inicio/logo.png" alt="" /></a>
                     <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" />
                         <button class="btn btn-outline-success" type="submit">
@@ -83,40 +83,49 @@
         </header>
 
         <div class="container contactanos">
-            <form action="#">
-                <h1>Contactanos</h1>
-                <div class="row">
-                    <div class="form-floating mb-3 col-6">
-                        <input type="text" class="form-control border-0 border-bottom" placeholder="Leave a comment here"
-                            id="floatingTextareaDisabled"></input>
-                        <label for="floatingTextareaDisabled">Nombre</label>
-                    </div>
-    
-                    <div class="form-floating mb-3 col-6">
-                        <input type="text" class="form-control border-0 border-bottom" placeholder="Leave a comment here"
-                            id="floatingTextareaDisabled"></input>
-                        <label for="floatingTextareaDisabled">Apellido</label>
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control border-0 border-bottom" placeholder="Leave a comment here"
-                        id="floatingTextarea2Disabled"></input>
-                    <label for="floatingTextarea2Disabled">Email*</label>
-                </div>
+            <div class="row">
+                <div class="col-6 mensajes">
+                    <form action="#">
+                        <h1>Contactanos</h1>
+                        <div class="row">
+                            <div class="form-floating mb-3 col-6">
+                                <input type="text" class="form-control" placeholder="Leave a comment here"
+                                    id="floatingTextareaDisabled"></input>  
+                                <label for="floatingTextareaDisabled">Nombre</label>
+                            </div>
 
-                <div class="form-floating">
-                    <textarea class="form-control border-0 border-bottom comentario" maxlength="500" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Comments</label>
+                            <div class="form-floating mb-3 col-6">
+                                <input type="text" class="form-control" placeholder="Leave a comment here"
+                                    id="floatingTextareaDisabled"></input>
+                                <label for="floatingTextareaDisabled">Apellido</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea2Disabled"></input>
+                            <label for="floatingTextarea2Disabled">Email*</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control comentario" maxlength="500" placeholder="Leave a comment here"
+                                id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Comments</label>
+                        </div>
+                        <div class="row">
+                            <div class="boton_enviar col-6 envio">
+                                <button href="/Html/Home/Login.html" class="btn btn-outline-success col-6"type="submit"><i class="fas fa-envelope"></i> Enviar</button>
+                            </div>
+                            <div class="col-6 gracias">
+                                <p>¡Gracias por tu mensaje!</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="boton_enviar col-6 envio">
-                        <button href="/Html/Home/Login.html" class="btn btn-outline-success col-6" type="submit"><i class="fas fa-envelope"></i> Enviar</button>
-                    </div>
-                    <div class="col-6 gracias">
-                        <p>¡Gracias por tu mensaje!</p>
-                    </div>
+                <div class="col-6 row imagen">
+                    <img src="/Img/foto01.png" alt="">
+                    <p>No importa el tamaño, todos los animalitos tienen un lugar especial en nuestros corazones.</p>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!--::::Pie de Pagina::::::-->

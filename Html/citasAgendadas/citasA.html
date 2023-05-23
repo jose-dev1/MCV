@@ -110,25 +110,60 @@
                   </div>
                 </div>
               </div>
-        
-              <div class="todo_contenido col-md-6  modal_contenido" id="modal" >
-                <div class="card text-center carda-pup">
-                  <div class="card-header">
-                    <span>Cita <strong>Activa</strong></span>
+
+              <div class="col-md-6 formulario_com">
+                <div class="form-floating formulario_dentro">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>Mascota 1</option>
+                      <option value="1">Mascota 2</option>
+                    </select>
+                    <label for="floatingSelect">Modificar mascota</label>
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Dia de  ###</h5>
-        
-                    <p class="card-text">Hora : 1:30  </p>
-                    <p class="card-text">Mascota : dylan  </p>
-                    <p class="card-text"></p>
+                  <div class="form-floating formulario_dentro">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>Peluqueria</option>
+                      <option value="1">Cita Veterinaria</option>
+                      <option value="2">Vacunacion</option>
+                      <option value="3">Operacion</option>
+                      <option value="4">Certificados</option>
+                      <option value="5">Examenes medicos</option>
+                    </select>
+                    <label for="floatingSelect">Modificar tipo de servicio</label>
                   </div>
-                  <div class="card-footer text-muted">
-                    <button type="button" class="btn btn-outline-dark" id="close">Cerrar </button>
-                    <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                  <div class="form-floating formulario_dentro">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>19:00</option>
+                      <option value="1">21:00</option>
+                      <option value="2">13:30</option>
+                    </select>
+                    <label for="floatingSelect">Modificar horarios</label>
                   </div>
-                </div>
+                  <div class="btn_agendar">
+                    <button href="#" class="btn btn-outline-success "type="submit"><i class="fa-light fa-dog"></i>Agendar</button>
+                  </div>
               </div>
+
+              <div class="alert">
+                  <div class="todo_contenido col-md-6  modal_contenido" id="modal" >
+                    <div class="card text-center carda-pup">
+                      <div class="card-header">
+                        <span>Cita <strong>Activa</strong></span>
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">Dia de  ###</h5>
+            
+                        <p class="card-text">Hora : 1:30  </p>
+                        <p class="card-text">Mascota : dylan  </p>
+                        <p class="card-text"></p>
+                      </div>
+                      <div class="card-footer text-muted">
+                        <button type="button" class="btn btn-outline-dark" id="close">Cerrar </button>
+                        <button type="button" class="btn btn-outline-danger">Eliminar</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        
             </div>
           </div>
 

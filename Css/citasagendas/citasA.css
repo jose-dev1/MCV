@@ -132,3 +132,19 @@ header .current-date{
   opacity: 1;
   visibility: visible;
 }
+
+.formulario_dentro{
+  margin-top: 60px;
+}
+
+.formulario_com{
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.btn_agendar{
+  justify-content: end;
+  display: flex;
+  margin: 10px;
+}

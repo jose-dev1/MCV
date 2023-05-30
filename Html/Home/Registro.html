@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/Css/Home_Style/Registro.css"/>
     <link rel="stylesheet" href="/Font-Awesome/css/fontawesome.min.css">
+    <!---integracion de swetaler2-->
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
     <title>Registro</title>
 </head>
 <body>
@@ -15,7 +18,7 @@
         <div class="container">
             <h2>Crear cuenta gratis</h2>
             <br/>
-            <form id="formularioRegistro" action="" name="formularioRegistro" class="needs-validation" novalidate >
+            <form id="formularioRegistro" action="" name="formularioRegistro">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInput" placeholder="Nombre Completo">
                     <label for="floatingInput">Nombre Completo</label>
@@ -103,8 +106,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn" onclick="alerta_p()" type="submit">Enviar</button>
             </form>
+            <button class="btn" onclick="alerta()" type="submit">Enviar</button>
         </div>
     </div>
     <div class="pos-img">
@@ -115,16 +118,18 @@
     </div>
     <footer>
         <p>&copy; 2023 - Todos los derechos reservados</p>
-      </footer>      
-</body>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/node_modules/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="/js/registro.js"></script>
-    <script type="text/javascript">
-        import swal from 'sweetalert';
-        function alerta_p(){
-            swal("Felicidades!", "Usted ha sido registrado!", "success");
+      </footer>
+      <script>
+        function alerta () {
+            Swal.fire(
+                'Felicidades!',
+                'Su cuenta ha sido registrada!',
+                'success'
+            );
         }
-    </script>
+    </script>   
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/registro.js"></script>
+</body>
+    
 </html>

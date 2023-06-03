@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+
+    <!--Link de goole fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- inicio del codigo de la barra lateral  -->
+        <div class="sidebar-container">
+            <div class="menu">
+                <div class="logo">
+                    <span class="navbar-brand">
+                        <a href="/Html/DashBoard/Dahs.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo">
+                            <span class="Degradado">MCV</span></a>
+                    </span>
+                </div>
+                <!-- Opciones del menu -->
+                <a href="#" class="d-block barra_lateral active"><i class="fa-solid fa-house"></i> <span>
+                        Inicio </span> </a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-regular fa-calendar-check icono"></i> <span>
+                        Agenda </span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-book-medical icono"></i> <span>
+                        Historias
+                        Clinicas</span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-file-medical icono"></i>
+                    <span> Hospitalizaciones</span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-check icono"></i> <span>
+                        Certificados</span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-syringe icono"></i> <span>
+                        Vacunacion</span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-tablets icono"></i> <span>
+                        Desparacitaciones</span></a>
+                <a href="#" class="d-block barra_lateral"> <i class="fa-solid fa-x-ray icono"></i> <span>
+                        Examenes</span></a>
+            </div>
+        </div>
+        <!-- fin de la barra lateral -->
+
+        <!-- inicio del codigo del nadvar -->
+        <div class="w-100">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+
+                <div class="container-fluid">
+                    <button class="btnlist" type="button" id="menu-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div id="barra_superior">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                    <!-- codigo para la carga de la imagen de perfil -->
+                            <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                                class="img-fluid rounded-circle mr-2 profile-photo"></a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="text-center">Edwin Baca</li>
+                            <li class="text-muted text-center "><small>Veterinario</small></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="form-check form-switch form-check-reverse oscuro">
+                                    <input class="form-check-input" type="checkbox" id="modo-oscuro">
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
+                                            oscuro</small> </label>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                                    Cerrar sesion</a></li>
+                        </ul>
+
+                    </div>
+            </nav>
+        </div>
+
+        <!-- final del codigo del nadvar -->
+
+        <!-- espacio para el contenido de la pagina -->
+
+        <div class="d-flex">
+
+            <div class="w-100">
+                <div id="content">
+                    <!-- ejemplo de codigo para manejar secciones -->
+                    <section class="py-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h1 class="font-weight-bold mb-0">Bienvenido Edwin</h1>
+                                    <p class="leaded text-muted">Revisa la ultima informacion</p>
+                                </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- referencia para las animaciones -->
+    <script src="/Html/DashBoard/Dash.js"></script>
+</body>
+
+</html>

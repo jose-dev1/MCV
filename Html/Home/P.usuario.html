@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
 </head>
 
 <body>
@@ -74,80 +75,214 @@
                 </div>
             </div>
         </header>
-    <!---aqui inicia el contenido del perfil de usuario-->
-    <section class="seccion-perfil-usuario">
-        <div class="perfil-usuario-header">
-            <div class="perfil-usuario-portada">
-                <div class="perfil-usuario-avatar">
-                    <img src="/Img/perfil1.png" alt="img-avatar">
-                    <button type="button" class="boton-avatar">
-                        <i class="far fa-image"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="perfil-usuario-body mt-6 mb-5" >
-            <div class="perfil-usuario-bio">
-                <h3 class="titulo">Jose Alfredo Castaño Muñoz</h3>
-                <p class="texto">Hola este es mi perfil de usuario Donde puedo ver mi citas agendadas y mis mascotas</p>
-            </div>
-            <div class="perfil-usuario-footer mb-3">
-                <ul class="lista-datos">
-                    <li><i class="icono fas fa-map-signs"></i> Direccion de usuario:</li>
-                    <li><i class="icono fas fa-phone-alt"></i> Telefono:</li>
-                    <li><i class="icono fas fa-map-marker-alt"></i> Ubicacion.</li>
-                    <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento.</li>
-                    <li><i class="icono fas fa-user-check"></i> Estado.</li>
-                </ul>
-            </div><br>
-            <h2>Tus Mascotas</h2>
-            <div class="acciones-u">
-                <a href="" class="boton-general certificado fas fa-download"><i class="icon-descarga"></i></a>
-                <a href="" class="boton-general eMedico fas fa-download"><i class="icon-descarga"></i></a>
-                <a href="" class="boton-general HistoriaC fas fa-download"><i class="icon-descarga"></i></a>
-                <a href="" class="boton-general Mperfil fas fa-user-cog"><i class="icon-modificar"></i></a>
-                <a href="" class="boton-general eliminar fas fa-user-times"><i class="icon-eliminar"></i></a>
-            </div>
-        </div>
-        <div class="container__card">
-            <div class="card__father">
-                <div class="card">
-                    <div class="card__front" style="background-image: url(/Img/perfilg.jpg);">
-                        <div class="bg"></div>
-                        <div class="body__card_front">
-                            <h1>Tommy</h1>
-                        </div>
-                    </div>
-                    <div class="card__back">
-                        <div class="body__card_back">
-                            <h1>Datos</h1>
-                            <p>Datos de la mascota</p>
-                            <input type="button" value="Acciones">
-                        </div>
+        <!---aqui inicia el contenido del perfil de usuario-->
+    <form action="" name="accion_user">
+        <section class="seccion-perfil-usuario">
+            <div class="perfil-usuario-header">
+                <div class="perfil-usuario-portada">
+                    <div class="perfil-usuario-avatar">
+                        <img src="/Img/perfil1.png" alt="img-avatar">
+                        <button type="button" class="boton-avatar">
+                            <i class="far fa-image"></i>
+                        </button>
                     </div>
                 </div>
             </div>
-    
-            <div class="card__father">
-                <div class="card">
-                    <div class="card__front" style="background-image: url(/Img/perfildog.jpg);">
-                        <div class="bg"></div>
-                        <div class="body__card_front">
-                            <h1>Zeus</h1>
+            <div class="perfil-usuario-body mt-6 mb-5" >
+                <div class="perfil-usuario-bio">
+                    <h3 class="titulo">Jose Alfredo Castaño Muñoz</h3>
+                    <p class="texto">Hola este es mi perfil de usuario Donde puedo ver mi citas agendadas y mis mascotas</p>
+                </div>
+                <div class="perfil-usuario-footer mb-3">
+                    <ul class="lista-datos">
+                        <li><i class="icono fas fa-map-signs"></i> Direccion de usuario:</li>
+                        <li><i class="icono fas fa-phone-alt"></i> Telefono:</li>
+                        <li><i class="icono fas fa-map-marker-alt"></i> Ubicacion.</li>
+                        <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento.</li>
+                        <li><i class="icono fas fa-user-check"></i> Estado.</li>
+                    </ul>
+                </div><br>
+                <h2>Tus Mascotas</h2>
+                <div class="acciones-u">
+                    <a href="" class="boton-general certificado fas fa-download"><i class="icon-descarga"></i></a>
+                    <a href="" class="boton-general eMedico fas fa-download"><i class="icon-descarga"></i></a>
+                    <a data-bs-toggle="modal" href="#idcer" class="boton-general HistoriaC fas fa-download"><i class="icon-descarga"></i></a>
+                    <a data-bs-toggle="modal"  href="#exampleModal" class="boton-general Mperfil fas fa-user-cog"><i class="icon-modificar"></i></a>
+                    <a onclick="eliminar()" class="boton-general eliminar fas fa-user-times"><i class="icon-eliminar"></i></a>
+                </div>
+            </div>
+            <div class="container__card">
+                <div class="card__father">
+                    <div class="card">
+                        <div class="card__front" style="background-image: url(/Img/perfilg.jpg);">
+                            <div class="bg"></div>
+                            <div class="body__card_front">
+                                <h1>Tommy</h1>
+                            </div>
+                        </div>
+                        <div class="card__back">
+                            <div class="body__card_back">
+                                <h1>Datos</h1>
+                                <p>Datos de la mascota</p>
+                                <input type="button" value="Acciones">
+                            </div>
                         </div>
                     </div>
-                    <div class="card__back">
-                        <div class="body__card_back">
-                            <p>Datos</p>
-                            <p>datos de la mascota</p>
-                            <input type="button" value="Acciones">
+                </div>
+                <div class="card__father">
+                    <div class="card">
+                        <div class="card__front" style="background-image: url(/Img/perfildog.jpg);">
+                            <div class="bg"></div>
+                            <div class="body__card_front">
+                                <h1>Zeus</h1>
+                            </div>
+                        </div>
+                        <div class="card__back">
+                            <div class="body__card_back">
+                                <p>Datos</p>
+                                <p>datos de la mascota</p>
+                                <input type="button" value="Acciones">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-    </section>
+            <!---Este es modal de actualizacion de usuario-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Nombre Usuario">
+                                    <label for="floatingInput">Nombre</label>
+                                  </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="email">
+                                    <label for="floatingInput">Correo</label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Apellido">
+                                    <label for="floatingInput">Apellido</label>
+                                  </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                    <label for="floatingInput">Fecha de nacimiento</label>
+                                </div>
+                            </div>  
+                        </div>
+                            <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Direccion">
+                            <label for="floatingInput">Direccion</label>
+                            </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="floatingInput" placeholder="Contraseña">
+                                    <label for="floatingInput">Contraseña</label>
+                                  </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                                      <option value="1">Sleccione</option>
+                                      <option value="2">Hombre</option>
+                                      <option value="3">Mujer</option>
+                                      <option value="2">Sexo indefinido</option>
+                                    </select>
+                                    <label for="floatingSelectGrid">Genero</label>
+                                  </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="actualizar()" class="btn btn-primary">Actualizar</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </section>
+        <!---Aqui inicia el modal de descargas clinicas-->
+        <div class="modal fade modalCertificado" id="idcer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Descarga Certificado</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" id="tableCertificado">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre Mascota</th>
+                            <th scope="col">Fecha Historia Clinica</th>
+                            <th scope="col">Tipo de Historia Clinica</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form>
     <!--::::Pie de Pagina::::::-->
     <footer class="pie-pagina">
         <div class="grupo-1">
@@ -179,11 +314,16 @@
     </footer>
 
 </div>
+    <script src="/Js/alertas_usuario.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
     <script src="/Font-Awesome/js/fontawesome.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/Vendor/datatables.min.js"></script>
+    <script src="/Js/modalgrup.js"></script>
+    <script src="/Js/usuario.js"></script>
 </body>
 
 </html>

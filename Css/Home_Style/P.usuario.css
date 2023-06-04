@@ -210,3 +210,7 @@ body {
         margin-top: 0;
     }
 }
+
+div.modalCertificado div.modal-dialog{
+    max-width: 1000px !important;
+}

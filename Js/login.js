@@ -20,6 +20,7 @@ function loginsucc(){
 		}
 	  })
 }
+
 function rpass(){
 	Swal.fire({
 		title: 'Digite su correo electronico',

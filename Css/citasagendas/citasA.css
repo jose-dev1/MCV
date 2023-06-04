@@ -7,9 +7,7 @@
   font-family: 'Poppins', sans-serif;
 }
 body{
-  display: flex;
   align-items: center;
-  padding: 0 10px;
   justify-content: center;
   min-height: 100vh;
 }
@@ -113,24 +111,10 @@ header .current-date{
     width: 90%;
 }
 
-.modal_contenido{
-  position: fixed;
-  top: 25%;
-  right: 0;
-  left: auto;
-  bottom: 0;
-  align-items: center;
-  justify-content: flex-end;
-  opacity: 0;
-  transition: opacity 0.2s ease,visibility 0.2s ease;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-
 .modal_contenido.show {
   opacity: 1;
   visibility: visible;
+  z-index: 4;
 }
 
 .formulario_dentro{
@@ -146,5 +130,30 @@ header .current-date{
 .btn_agendar{
   justify-content: end;
   display: flex;
-  margin: 10px;
+  margin: 15px;
+}
+
+.btnagendar{
+  display: flex;
+}
+
+.todo_contenido{
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 991px) {
+  .todo_calendario_citas{
+    display: flex;
+  }
+  
+  .absoluto_contenedor{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .opcionesM{
+    width: 400px;
+    justify-content: end;
+  }
 }

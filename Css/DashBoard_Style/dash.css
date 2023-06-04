@@ -1,0 +1,259 @@
+/* variable de colores y propiedades */
+:root {
+    --color-primary: #9d4edd;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-info-dark:#7d8da1;
+    --color-dark:#212529;
+    --color-light:rgba(132,139,200,0.18);
+    --color-prymary-variant: #c481fa;
+    --color-dark-variant: #677483;
+    --color-background: #fff;
+    --color-background-variant: #f6f6f9;
+
+
+    --card-border-radius: 32px;
+    --border-radius-1: 6.4px;
+    --border-raidus-2: 12,8px;
+    --border-radius-3: 19.2px;
+
+    --card-padding: 2.8px;
+    --padding-1: 19.2px;
+
+    --box-shadow: 0 32px 48px var(--color-light);
+}
+
+/* variables tema oscuro */
+
+.dark-theme-variables {
+    --color-background: #181a1e;
+    --color-white: #202528;
+    --color-dark: #edeffd;
+    --color-dark-variant: #a3bdcc;
+    --color-light: rgba(0, 0, 0, 0.4);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/* configuraciones iniciales de la pagina */
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: none;
+    border: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Secular One', sans-serif;
+}
+
+/* configuraciones basicas de la pagina */
+
+body {
+    overflow: hidden;
+    background: var(--color-background); 
+    font-weight: 300;
+    color: var(--color-dark); 
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+h3 {
+    font-size: 0.87rem;
+}
+
+h4 {
+    font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.77rem;
+}
+small {
+    font-size: 0.9rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.text-muted {
+    color:var(--color-info-dark);
+}
+
+
+/* configuraciones de la barra lateral */
+
+.sidebar-container {
+    height: 100%;
+}
+
+.logo{
+    padding: 25px;
+}
+.logo img {
+    width: 30px;
+}
+
+/* configuracion degradado letras mcv */
+
+.Degradado {
+    background: linear-gradient(to right,#e372f2,#3f6ca6,#3fbfb2);
+    background-clip: content-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+
+.sidebar-container .menu {
+    width: 14.5rem;
+    background: var(--color-background-variant);
+    flex-direction: column;
+    position: fixed;
+    width: 14.5rem;
+    z-index: 3;
+    height: 100vh;
+    padding-right: var(--card-padding);
+    display: none; 
+    left: -100%;
+}
+
+/* animacion para cerrado y apertura de barra */
+
+.ocultar {
+    animation: cerrar 0.5s ease forwards;  
+}
+
+.mostrar {
+    animation: abrir 0.5s ease forwards;
+}
+
+
+@keyframes abrir {
+    from {
+      left: -100%;
+    }
+    to {
+      left: 0;
+    }
+  }
+  
+  @keyframes cerrar {
+    from {
+      left: 0;
+    }
+    to {
+      left: -100%;
+    }
+  }
+
+/* configuracion de las opciones internas del menu*/
+
+.sidebar-container .menu .barra_lateral {
+    padding: 10px;
+    color: var(--color-dark);
+    display: flex;
+    gap: 1rem;
+    align-items:center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 150ms ease;
+}
+
+.sidebar-container .menu .barra_lateral .icono {
+    font-size: 25px;
+}
+
+.sidebar-container .menu .barra_lateral span {
+    font-size: 0.95rem;
+}
+
+.sidebar-container .menu a i {
+    font-size: 1.6rem;
+    transition: all 300ms ease;
+}
+
+
+.sidebar-container .menu a.active {
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left:0;
+}
+
+.sidebar-container .menu a.active:before {
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+
+.sidebar-container .menu a.active i {
+    color: var(--color-primary);
+    margin-left: calc(0.1rem + 19px);
+}
+
+.sidebar-container .menu a.active:hover i {
+    margin-left: 2.3rem;
+}
+
+.sidebar-container .menu a:hover {
+    color: var(--color-primary);
+}
+
+.sidebar-container .menu a:hover i {
+    margin-left: 1rem;
+}
+
+/* configuracion de estilos del nadvar */
+
+.btn_busqueda {
+    right: 5px;
+}
+
+.profile-photo {
+    max-width: 35px;
+}
+
+.barra img {
+    width: 30px;
+    height: 30px;
+    margin-left: 2.5px;
+}
+
+.oscuro {
+    margin-left: 8px;
+}
+
+
+.btnlist {
+    border: none;
+    font-size: 25px;
+    transition: all 150ms ease;
+    background-color: var(--color-background);
+}
+
+.btnlist:hover {
+    color: var(--color-primary);
+}
+
+/* configuracion para el contenido de la pagina */
+
+#content{
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5rem;
+
+}
+
+

@@ -26,7 +26,7 @@
 
 /* variables tema oscuro */
 
-.dark-theme-variables {
+.DarkThemeVariables {
     --color-background: #181a1e;
     --color-white: #202528;
     --color-dark: #edeffd;
@@ -85,21 +85,21 @@ a {
     text-decoration: none;
 }
 
-.text-muted {
+.TextMuted {
     color:var(--color-info-dark);
 }
 
 
 /* configuraciones de la barra lateral */
 
-.sidebar-container {
+.SidebarContainer {
     height: 100%;
 }
 
-.logo{
+.Logo{
     padding: 25px;
 }
-.logo img {
+.Logo img {
     width: 30px;
 }
 
@@ -116,7 +116,7 @@ a {
 }
 
 
-.sidebar-container .menu {
+.SidebarContainer .Menu {
     width: 14.5rem;
     background: var(--color-background-variant);
     flex-direction: column;
@@ -131,11 +131,11 @@ a {
 
 /* animacion para cerrado y apertura de barra */
 
-.ocultar {
+.Ocultar {
     animation: cerrar 0.5s ease forwards;  
 }
 
-.mostrar {
+.Mostrar {
     animation: abrir 0.5s ease forwards;
 }
 
@@ -160,7 +160,7 @@ a {
 
 /* configuracion de las opciones internas del menu*/
 
-.sidebar-container .menu .barra_lateral {
+.SidebarContainer .Menu .BarraLateral {
     padding: 10px;
     color: var(--color-dark);
     display: flex;
@@ -171,47 +171,47 @@ a {
     transition: all 150ms ease;
 }
 
-.sidebar-container .menu .barra_lateral .icono {
+.SidebarContainer .Menu .BarraLateral .Icono {
     font-size: 25px;
 }
 
-.sidebar-container .menu .barra_lateral span {
+.SidebarContainer .Menu .BarraLateral span {
     font-size: 0.95rem;
 }
 
-.sidebar-container .menu a i {
+.SidebarContainer .Menu a i {
     font-size: 1.6rem;
     transition: all 300ms ease;
 }
 
 
-.sidebar-container .menu a.active {
+.SidebarContainer .Menu a.Active {
     background: var(--color-light);
     color: var(--color-primary);
     margin-left:0;
 }
 
-.sidebar-container .menu a.active:before {
+.SidebarContainer .Menu a.Active:before {
     content: '';
     width: 6px;
     height: 100%;
     background: var(--color-primary);
 }
 
-.sidebar-container .menu a.active i {
+.SidebarContainer .Menu a.Active i {
     color: var(--color-primary);
     margin-left: calc(0.1rem + 19px);
 }
 
-.sidebar-container .menu a.active:hover i {
+.SidebarContainer .Menu a.Active:hover i {
     margin-left: 2.3rem;
 }
 
-.sidebar-container .menu a:hover {
+.SidebarContainer .Menu a:hover {
     color: var(--color-primary);
 }
 
-.sidebar-container .menu a:hover i {
+.SidebarContainer .Menu a:hover i {
     margin-left: 1rem;
 }
 
@@ -221,31 +221,32 @@ a {
     right: 5px;
 }
 
-.profile-photo {
+.ProfilePhoto {
     max-width: 35px;
 }
 
-.barra img {
-    width: 30px;
-    height: 30px;
-    margin-left: 2.5px;
-}
-
-.oscuro {
+.Oscuro {
     margin-left: 8px;
 }
 
 
-.btnlist {
+.BtnList {
     border: none;
     font-size: 25px;
     transition: all 150ms ease;
     background-color: var(--color-background);
 }
 
-.btnlist:hover {
+.BtnList:hover {
     color: var(--color-primary);
 }
+
+/*clase para el cambio del tema oscuri*/
+
+.DarkDropdown {
+    background-color: #343a40;
+    color: #fff;
+  }
 
 /* configuracion para el contenido de la pagina */
 

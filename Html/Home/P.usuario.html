@@ -104,8 +104,8 @@
                 </div><br>
                 <h2>Tus Mascotas</h2>
                 <div class="acciones-u">
-                    <a href="" class="boton-general certificado fas fa-download"><i class="icon-descarga"></i></a>
-                    <a href="" class="boton-general eMedico fas fa-download"><i class="icon-descarga"></i></a>
+                    <a href="#Certificado" data-bs-toggle="modal" class="boton-general certificado fas fa-download"><i class="icon-descarga"></i></a>
+                    <a href="#Examen" data-bs-toggle="modal" class="boton-general eMedico fas fa-download"><i class="icon-descarga"></i></a>
                     <a data-bs-toggle="modal" href="#idcer" class="boton-general HistoriaC fas fa-download"><i class="icon-descarga"></i></a>
                     <a data-bs-toggle="modal"  href="#exampleModal" class="boton-general Mperfil fas fa-user-cog"><i class="icon-modificar"></i></a>
                     <a onclick="eliminar()" class="boton-general eliminar fas fa-user-times"><i class="icon-eliminar"></i></a>
@@ -282,6 +282,133 @@
               </div>
             </div>
           </div>
+          <div class="modal fade modalCertificado" id="Certificado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Descarga Tipos de Certificado</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" id="tablaTipoCertificado">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre Mascota</th>
+                            <th scope="col">Fecha Cita</th>
+                            <th scope="col">Tipo de Certificado</th>
+                            <th scope="col">Descargar Certificado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade modalCertificado" id="Examen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Descarga Examen Medico</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table" id="tableExamen">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre Mascota</th>
+                            <th scope="col">Fecha Cita</th>
+                            <th scope="col">Tipo de Examen</th>
+                            <th scope="col">Descargar Examen</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry the Bird</td>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
     </form>
     <!--::::Pie de Pagina::::::-->
     <footer class="pie-pagina">

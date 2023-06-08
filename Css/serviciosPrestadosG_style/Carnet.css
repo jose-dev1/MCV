@@ -25,6 +25,7 @@ form{
 
 
 input{
+    border: none;
     margin-top: 10px;
     margin-left: 10px;
     border-bottom: 1px #000 solid;
@@ -36,28 +37,57 @@ input{
     width: 180px;
 }
 
-.img-perfil input{
-    
-    width: 20%;
-    margin: auto;
-    display: block;
-    border: none;
-    padding: 10px;
-    color: #fff;
-    font-size: 14px;
-    border-radius: 10px;
-}
-
 .todo-tabla{
     margin-top: 50px;
 }
 
-.foto_tabla{
-    width: 30px;
+.toto_tabla{
+    width: 100px;
 }
 
 form button{
     display: block;
     margin: auto;
     margin: 10px;
+}
+
+
+
+.todo-form {
+    width: 30%;
+    
+}
+
+
+.todo-form input{
+    width: 100%;
+    
+}
+
+
+
+.todo-form p{
+    font-size: 10px;
+    
+}
+
+
+
+.todo-form img{
+    width: 120px;
+    display: block;
+    margin: auto;    
+}
+.todo-tabla{
+    margin-top: 200px;
+}
+
+
+i{
+    text-align: center;
+    font-size: 15px;
+}
+
+.todo-tablamodal img{
+    width: 30px;
 }

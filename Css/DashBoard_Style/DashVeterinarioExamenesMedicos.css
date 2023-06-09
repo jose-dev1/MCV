@@ -1,0 +1,96 @@
+.todo_form{
+    padding:20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+
+.img-perfil{
+    margin-top: 50px;
+}
+
+form{
+    margin-top: 30px;
+}
+
+.img-perfil img{
+    display: block;
+    margin:10px  auto;
+    width: 150px;
+    border-radius: 30%;
+}
+
+.subirFoto{
+    width: 28%;
+    margin: auto;
+    display: block;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+}
+
+input{
+    margin-top: 10px;
+    margin-left: 10px;
+    border-bottom: 1px #000 solid;
+    size: auto;
+}
+
+.img-perfil button{
+    margin: auto;
+    display: block;
+    border: none;
+    background-color: green;
+    padding: 5px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.todo-tabla{
+    margin-top: 50px;
+}
+
+.foto_tabla{
+    width: 30px;
+}
+
+form button{
+    display: block;
+    margin: auto;
+    margin: 10px;
+}
+
+.seleccionables{
+    margin: 10px;
+}
+
+.btnmodal{
+    align-self: center;
+    border: none;
+}
+.imgModal img{
+    display: flex;
+    margin:10px  auto;
+    width: 150px;
+    border-radius: 30%;
+}
+.fechaModal{
+    margin-right: 60px;
+}
+
+.subirFotoModal{
+    width: 32%;
+    /* margin: auto; */
+    display: flex;
+    border: none;
+    /* padding: 10px; */
+    color: #fff;
+    font-size: 14px;
+}
+
+.modalImag{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

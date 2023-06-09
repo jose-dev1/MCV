@@ -1,0 +1,93 @@
+.todo_form{
+    padding:20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+
+
+
+.img-perfil{
+    margin-top: 50px;
+}
+
+form{
+    margin-top: 30px;
+}
+
+
+
+.img-perfil img{
+    display: block;
+    margin:20px  auto;
+    width: 150px;
+    border-radius: 30%;
+}
+
+
+input{
+    border: none;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-bottom: 1px #000 solid;
+}
+
+.selec{
+    margin-left: 2%;
+    margin-top: 10px;
+    width: 180px;
+}
+
+.todo-tabla{
+    margin-top: 50px;
+}
+
+.toto_tabla{
+    width: 100px;
+}
+
+form button{
+    display: block;
+    margin: auto;
+    margin: 10px;
+}
+
+
+
+.todo-form {
+    width: 30%;
+    
+}
+
+
+.todo-form input{
+    width: 100%;
+    
+}
+
+
+
+.todo-form p{
+    font-size: 10px;
+    
+}
+
+
+
+.todo-form img{
+    width: 120px;
+    display: block;
+    margin: auto;    
+}
+.todo-tabla{
+    margin-top: 200px;
+}
+
+
+i{
+    text-align: center;
+    font-size: 15px;
+}
+
+.todo-tablamodal img{
+    width: 30px;
+}

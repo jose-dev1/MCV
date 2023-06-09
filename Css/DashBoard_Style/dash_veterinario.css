@@ -1,0 +1,80 @@
+.todo_form {
+    padding:20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+
+.img-perfil {
+    margin-top: 50px;
+}
+
+form {
+    margin-top: 30px;
+}
+
+
+.img-perfil img {
+    display: block;
+    margin:20px  auto;
+    width: 80px;
+    border-radius: 50%;
+}
+
+
+input {
+    margin-top: 12px;
+    margin-left: 10px;
+    border-bottom: 1px #000 solid;
+}
+
+.Borde {
+    border: none !important;
+    border-radius: 0 !important; 
+    border-bottom: 1px #000 solid !important;
+    width: 199px;
+    margin-left: 10px;
+}
+.Date {
+    width: 199px; 
+}
+.Causa {
+    margin-left: 29px;
+}
+
+.Descripcion {
+    margin-top: 12px;
+    margin-left: 10px;
+    min-width: 427px;
+    max-width: 427px;
+    min-height: 199px;
+    max-height: 199px;
+    border: 1px #000 solid;
+    border-radius: 6.4px;
+}
+
+
+
+.img-perfil button {
+    margin: auto;
+    display: block;
+    border: none;
+    background-color: green;
+    padding: 5px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.todo-tabla {
+    margin-top: 50px;
+}
+
+.foto_tabla {
+    width: 30px;
+}
+
+form button {
+    display: block;
+    margin: auto;
+    margin: 10px;
+}

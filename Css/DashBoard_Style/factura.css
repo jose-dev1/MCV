@@ -10,4 +10,8 @@ section .facturaG div.container {
     text-align: center;
   }
 
+  .btn-1 {
+      display: flex;
+      justify-content: center;  
+  }
 

@@ -41,3 +41,11 @@ function alerta () {
       'success'
   );
 }
+
+function alerta1 () {
+  Swal.fire(
+      'Felicidades!',
+      'Su Certificado ha sido generado!',
+      'success'
+  );
+}

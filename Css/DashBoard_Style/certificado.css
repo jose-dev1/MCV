@@ -1,0 +1,16 @@
+section .containe{
+    padding: 30px;
+    margin: 30px;
+    height: 20vh; 
+	max-width: 400px;
+}
+
+
+.info{
+    text-align: center;
+}
+
+section .container{
+    padding: 30px;
+    margin: 30px;
+}

@@ -1,0 +1,20 @@
+section .historiaC div.container {
+    padding: 20px;
+    height: 90vh; 
+	max-width: 800px;
+	background-color: #FFFFFF;
+	box-shadow: 0px 0px 10px #D8D8D8;
+
+  }
+  .historiaC h2{
+    text-align: center;
+  }
+
+  .historiaC h3{
+    text-align: center;
+  }
+
+  .btn-1 {
+      display: flex;
+      justify-content: center;  
+  }

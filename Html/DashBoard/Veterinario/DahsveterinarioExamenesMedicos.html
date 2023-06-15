@@ -21,6 +21,8 @@
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <!-- link estilos datatable -->
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
 
 </head>
 
@@ -71,7 +73,7 @@
                     <div id="BarraSuperior">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                    <!-- codigo para la carga de la imagen de perfil -->
+                            <!-- codigo para la carga de la imagen de perfil -->
                             <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
                         <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
@@ -90,7 +92,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesion</a></li>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i>Cerrar sesion</a></li>
                         </ul>
 
                     </div>
@@ -99,288 +102,309 @@
 
         <!-- final del codigo del nadvar -->
 
-<!-- espacio para el contenido de la pagina -->
+        <!-- espacio para el contenido de la pagina -->
 
-<div class="d-flex">
+        <div class="d-flex">
 
-    <div class="w-100">
-        <div id="content">
-            <!-- ejemplo de codigo para manejar secciones -->
-            <section class="py-3">
-                <div class="container">
+            <div class="w-100">
+                <div id="content">
+                    <!-- ejemplo de codigo para manejar secciones -->
+                    <section class="py-3">
+                        <div class="container">
 
-                    <div class="row  todo_form">
-                        <div class="col-md-6">
-                            <h1>Registro de Mascota</h1>
-                            <form action="">
-                                <input type="text" placeholder="Nombre Mascota">
-                                <input type="text" placeholder="Fecha Examen">
-                                <br>
+                            <div class="row  todo_form">
+                                <div class="col-md-6">
+                                    <h1>Registro de Mascota</h1>
+                                    <form action="">
+                                        <input type="text" placeholder="Nombre Mascota">
+                                        <input type="text" placeholder="Fecha Examen">
+                                        <br>
 
-                                <input type="text" placeholder="No Documento Dueño">
-                                <br> <br>
- 
-                                <div class="form-floating col-md-6">
-                                    <select class="form-select selecform opcionEx" id="floatingSelect" aria-label="Floating label select example" onchange="mostrarAlerta()">
-                                        <option selected>Seleccione</option>
-                                        <option value="1">Test CPV</option>
-                                        <option value="2">FIV AB/FeLV</option>
-                                        <option value="3">CDV Ag Test</option>
-                                        </select>
-                                        <label for="floatingSelect">Tipo de examen</label>
-                                  </div>
+                                        <input type="text" placeholder="No Documento Dueño">
+                                        <br> <br>
 
-                                <button type="button" class="btn btn-outline-success" id="btnRegistrar">Registrar</button>
-                            </form>
-                        </div>
+                                        <div class="form-floating col-md-6">
+                                            <select class="form-select selecform opcionEx" id="floatingSelect"
+                                                aria-label="Floating label select example" onchange="mostrarAlerta()">
+                                                <option selected>Seleccione</option>
+                                                <option value="1">Test CPV</option>
+                                                <option value="2">FIV AB/FeLV</option>
+                                                <option value="3">CDV Ag Test</option>
+                                            </select>
+                                            <label for="floatingSelect">Tipo de examen</label>
+                                        </div>
 
-                        <div class="col-md-6 img-perfil">
-                            <img src="/Img/perfil1.png" alt="">
-                            <div class="mb-3 ">
-                                <input class="form-control subirFoto" type="file" id="formFile">
+                                        <button type="button" class="btn btn-outline-success"
+                                            id="btnRegistrar">Registrar</button>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-6 img-perfil">
+                                    <img src="/Img/perfil1.png" alt="">
+                                    <div class="mb-3 ">
+                                        <input class="form-control subirFoto" type="file" id="formFile">
+                                    </div>
+                                    <p class="text-center">Subir Imagen</p>
+                                </div>
                             </div>
-                            <p class="text-center">Subir Imagen</p>
+
+                            <!-- tabla informacion-->
+                            <div class="row  todo-tabla">
+                                <h1 class="text-center">Titulo Tabla</h1>
+                                <table class="table" id="tablaExamenesMedicos">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Tipo De Mascota</th>
+                                            <th scope="col">Nombre Del Dueño</th>
+                                            <th scope="col">Documento</th>
+                                            <th scope="col">Tipo examen</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Perro</td>
+                                            <td>Emanuel</td>
+                                            <td>1023242323</td>
+                                            <td>CDV Ag Test</td>
+                                            <td>03/02/2023</td>
+                                            <td><button type="button" class="btn btn-outline-info"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
+                                                        class="fa-solid fa-trash"></i></button></td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Gato</td>
+                                            <td>Carlos</td>
+                                            <td>1234432224</td>
+                                            <td>FIV AB/FeLV</td>
+                                            <td>03/02/2023</td>
+                                            <td><button type="button" class="btn btn-outline-info"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
+                                                        class="fa-solid fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Perro</td>
+                                            <td>Marcela</td>
+                                            <td>1232422336</td>
+                                            <td>Test CPV</td>
+                                            <td>03/02/2023</td>
+                                            <td><button type="button" class="btn btn-outline-info"
+                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
+                                                        class="fa-solid fa-trash"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
-                    </div>
-
-                    <!-- tabla informacion-->
-                    <div class="row  todo-tabla">
-                        <h1 class="text-center">Titulo Tabla</h1>
-                        <table class="table" id="tablaExamenesMedicos">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Tipo De Mascota</th>
-                                    <th scope="col">Nombre Del Dueño</th>
-                                    <th scope="col">Documento</th>
-                                    <th scope="col">Tipo examen</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name</th>
-                                    <td>Perro</td>
-                                    <td>Emanuel</td>
-                                    <td>1023242323</td>
-                                    <td>CDV Ag Test</td>
-                                    <td>03/02/2023</td>
-                                    <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
-                                    
-                                </tr>
-                                <tr>
-                                    <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name</th>
-                                    <td>Gato</td>
-                                    <td>Carlos</td>
-                                    <td>1234432224</td>
-                                    <td>FIV AB/FeLV</td>
-                                    <td>03/02/2023</td>
-                                    <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt="">  Name</th>
-                                    <td>Perro</td>
-                                    <td>Marcela</td>
-                                    <td>1232422336</td>
-                                    <td>Test CPV</td>
-                                    <td>03/02/2023</td>
-                                    <td><button type="button" class="btn btn-outline-info"data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
 
 
 
 
-            </section>
-        </div>
-    </div>
-</div>
-        <!-- Modal test CPV -->
-        <div class="modal fade pirmModal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Test CPV</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="row todoModal">
-                    <div>
-                        <form action="">
-                            <input type="text" placeholder="Nombre Paciente">
-                            <input type="text" placeholder="Especie">
-                            <br>
-    
-                            <input type="text" placeholder="Raza">
-                            <input type="text" placeholder="Color">
-                            <br>
-                            
-                            <input class="fechaModal" type="date" name="" id="">
-                            <input type="text" placeholder="Sexo">
-                            <br>
-
-                            <input type="text" placeholder="Edad">
-                            <input type="text" placeholder="Resultado de Prueva">
-                            <br>
-                        </form>
-                    </div>
-                    <div class=" imgModal">
-                        <img src="/Img/perfil1.png" alt="">
-                        <div class="modalImag">
-                            <label for="">Subir test</label>
-                            <input class="form-control subirFotoModal" type="file" id="formFile">
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="modal-footer btnmodal">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
+                    </section>
                 </div>
             </div>
+        </div>
+        <!-- Modal test CPV -->
+        <div class="modal fade pirmModal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Test CPV</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row todoModal">
+                            <div>
+                                <form action="">
+                                    <input type="text" placeholder="Nombre Paciente">
+                                    <input type="text" placeholder="Especie">
+                                    <br>
+
+                                    <input type="text" placeholder="Raza">
+                                    <input type="text" placeholder="Color">
+                                    <br>
+
+                                    <input class="fechaModal" type="date" name="" id="">
+                                    <input type="text" placeholder="Sexo">
+                                    <br>
+
+                                    <input type="text" placeholder="Edad">
+                                    <input type="text" placeholder="Resultado de Prueva">
+                                    <br>
+                                </form>
+                            </div>
+                            <div class=" imgModal">
+                                <img src="/Img/perfil1.png" alt="">
+                                <div class="modalImag">
+                                    <label for="">Subir test</label>
+                                    <input class="form-control subirFotoModal" type="file" id="formFile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer btnmodal">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Modal FIV AB/FeLV -->
-        <div class="modal fade pirmModal" id="FIVAB_FeLV" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade pirmModal" id="FIVAB_FeLV" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">FIV AB/FeLV</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="row todoModal">
-                    <div>
-                        <form action="">
-                            <input type="text" placeholder="Nombre Paciente">
-                            <input type="text" placeholder="Especie">
-                            <br>
-    
-                            <input type="text" placeholder="Raza">
-                            <input type="text" placeholder="Color">
-                            <br>
-                            
-                            <input class="fechaModal" type="date" name="" id="">
-                            <input type="text" placeholder="Sexo">
-                            <br>
-
-                            <input type="text" placeholder="Edad">
-                            <input type="text" placeholder="Resultado de Prueva">
-                            <br>
-                        </form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">FIV AB/FeLV</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class=" imgModal">
-                        <img src="/Img/perfil1.png" alt="">
-                        <div class="modalImag">
-                            <label for="">Subir test</label>
-                            <input class="form-control subirFotoModal" type="file" id="formFile">
+                    <div class="modal-body">
+                        <div class="row todoModal">
+                            <div>
+                                <form action="">
+                                    <input type="text" placeholder="Nombre Paciente">
+                                    <input type="text" placeholder="Especie">
+                                    <br>
+
+                                    <input type="text" placeholder="Raza">
+                                    <input type="text" placeholder="Color">
+                                    <br>
+
+                                    <input class="fechaModal" type="date" name="" id="">
+                                    <input type="text" placeholder="Sexo">
+                                    <br>
+
+                                    <input type="text" placeholder="Edad">
+                                    <input type="text" placeholder="Resultado de Prueva">
+                                    <br>
+                                </form>
+                            </div>
+                            <div class=" imgModal">
+                                <img src="/Img/perfil1.png" alt="">
+                                <div class="modalImag">
+                                    <label for="">Subir test</label>
+                                    <input class="form-control subirFotoModal" type="file" id="formFile">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer btnmodal">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
+                    </div>
                 </div>
-                </div>
-                <div class="modal-footer btnmodal">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
-                </div>
-            </div>
             </div>
         </div>
 
         <!-- Modal CDV Ag Test -->
-        <div class="modal fade pirmModal" id="CDVAgTest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade pirmModal" id="CDVAgTest" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="row todoModal">
-                    <div>
-                        <form action="">
-                            <input type="text" placeholder="Nombre Paciente">
-                            <input type="text" placeholder="Especie">
-                            <br>
-    
-                            <input type="text" placeholder="Raza">
-                            <input type="text" placeholder="Color">
-                            <br>
-                            
-                            <input class="fechaModal" type="date" name="" id="">
-                            <input type="text" placeholder="Sexo">
-                            <br>
-
-                            <input type="text" placeholder="Edad">
-                            <input type="text" placeholder="Resultado de Prueva">
-                            <br>
-                        </form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class=" imgModal">
-                        <img src="/Img/perfil1.png" alt="">
-                        <div class="modalImag">
-                            <label for="">Subir test</label>
-                            <input class="form-control subirFotoModal" type="file" id="formFile">
+                    <div class="modal-body">
+                        <div class="row todoModal">
+                            <div>
+                                <form action="">
+                                    <input type="text" placeholder="Nombre Paciente">
+                                    <input type="text" placeholder="Especie">
+                                    <br>
+
+                                    <input type="text" placeholder="Raza">
+                                    <input type="text" placeholder="Color">
+                                    <br>
+
+                                    <input class="fechaModal" type="date" name="" id="">
+                                    <input type="text" placeholder="Sexo">
+                                    <br>
+
+                                    <input type="text" placeholder="Edad">
+                                    <input type="text" placeholder="Resultado de Prueva">
+                                    <br>
+                                </form>
+                            </div>
+                            <div class=" imgModal">
+                                <img src="/Img/perfil1.png" alt="">
+                                <div class="modalImag">
+                                    <label for="">Subir test</label>
+                                    <input class="form-control subirFotoModal" type="file" id="formFile">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer btnmodal">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
+                    </div>
                 </div>
-                </div>
-                <div class="modal-footer btnmodal">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
-                </div>
-            </div>
             </div>
         </div>
 
 
         <!-- Modal editar informacion mascota -->
-        <div class="modal fade pirmModal" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade pirmModal" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <div class="row todoModal">
-                    <div>
-                        <form action="">
-                            <input type="text" placeholder="Nombre Paciente">
-                            <input type="text" placeholder="Especie">
-                            <br>
-    
-                            <input type="text" placeholder="Raza">
-                            <input type="text" placeholder="Color">
-                            <br>
-                            
-                            <input class="fechaModal" type="date" name="" id="">
-                            <input type="text" placeholder="Sexo">
-                            <br>
-
-                            <input type="text" placeholder="Edad">
-                            <input type="text" placeholder="Resultado de Prueva">
-                            <br>
-                        </form>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class=" imgModal">
-                        <img src="/Img/perfil1.png" alt="">
-                        <div class="modalImag">
-                            <label for="">Subir test</label>
-                            <input class="form-control subirFotoModal" type="file" id="formFile">
+                    <div class="modal-body">
+                        <div class="row todoModal">
+                            <div>
+                                <form action="">
+                                    <input type="text" placeholder="Nombre Paciente">
+                                    <input type="text" placeholder="Especie">
+                                    <br>
+
+                                    <input type="text" placeholder="Raza">
+                                    <input type="text" placeholder="Color">
+                                    <br>
+
+                                    <input class="fechaModal" type="date" name="" id="">
+                                    <input type="text" placeholder="Sexo">
+                                    <br>
+
+                                    <input type="text" placeholder="Edad">
+                                    <input type="text" placeholder="Resultado de Prueva">
+                                    <br>
+                                </form>
+                            </div>
+                            <div class=" imgModal">
+                                <img src="/Img/perfil1.png" alt="">
+                                <div class="modalImag">
+                                    <label for="">Subir test</label>
+                                    <input class="form-control subirFotoModal" type="file" id="formFile">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer btnmodal">
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
+                    </div>
                 </div>
-                </div>
-                <div class="modal-footer btnmodal">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ageregar examen</button>
-                </div>
-            </div>
             </div>
         </div>
-</div>
+    </div>
 
 
     <!-- para que muestre los modales de cada examen -->

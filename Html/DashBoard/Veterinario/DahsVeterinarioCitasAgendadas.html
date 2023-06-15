@@ -22,6 +22,9 @@
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
 
+    <!-- link estilos datatable -->
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
+
 </head>
 
 <body>
@@ -39,7 +42,8 @@
                 <!-- Opciones del menu -->
                 <a href="#" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span>
                         Inicio </span> </a>
-                <a href="#" class="d-block BarraLateral Active"> <i class="fa-regular fa-calendar-check Icono"></i> <span>
+                <a href="#" class="d-block BarraLateral Active"> <i class="fa-regular fa-calendar-check Icono"></i>
+                    <span>
                         Agenda </span></a>
                 <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span>
                         Historias
@@ -71,7 +75,7 @@
                     <div id="BarraSuperior">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                    <!-- codigo para la carga de la imagen de perfil -->
+                            <!-- codigo para la carga de la imagen de perfil -->
                             <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
                         <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
@@ -90,7 +94,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i>
                                     Cerrar sesion</a></li>
                         </ul>
 
@@ -102,83 +107,91 @@
 
         <!-- espacio para el contenido de la pagina -->
 
-            <div class="d-flex">
+        <div class="d-flex">
 
-                <div class="w-100">
-                    <div id="content">
-                        <!-- ejemplo de codigo para manejar secciones -->
-                        <section class="py-3">
-                            <div class="container">
+            <div class="w-100">
+                <div id="content">
+                    <!-- ejemplo de codigo para manejar secciones -->
+                    <section class="py-3">
+                        <div class="container">
 
-                                <div class="row  todo-tabla">
-                                    <h1 class="text-center">Lista de citas</h1>
-                                    <table class="table" id="tblCitasAgenVet">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Nombre del cliente</th>
-                                                <th scope="col">Descripción</th>
-                                                <th scope="col">Tipo de mascota</th>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name</th>
-                                                <td>Cita para desparacitación</td>
-                                                <td>Perro</td>
-                                                <td>17/03/2023</td>
-                                                <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i class="fa-solid fa-arrow-left"></i>Declinar</button>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt="">  Name</th>
-                                                <td>Cita de control</td>
-                                                <td>Gato</td>
-                                                <td>17/03/2023</td>
-                                                <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i class="fa-solid fa-arrow-left"></i>Declinar</button>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name</th>
-                                                <td>Cita de cirugia</td>
-                                                <td>Perro</td>
-                                                <td>17/03/2023</td>
-                                                <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i class="fa-solid fa-arrow-left"></i>Declinar</button>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt="">  Name</th>
-                                                <td>Cita para Vacunacion</td>
-                                                <td>Gato</td>
-                                                <td>17/03/2023</td>
-                                                <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i class="fa-solid fa-arrow-left"></i>Declinar</button>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="row  todo-tabla">
+                                <h1 class="text-center">Lista de citas</h1>
+                                <table class="table" id="tblCitasAgenVet">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre del cliente</th>
+                                            <th scope="col">Descripción</th>
+                                            <th scope="col">Tipo de mascota</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Cita para desparacitación</td>
+                                            <td>Perro</td>
+                                            <td>17/03/2023</td>
+                                            <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i
+                                                        class="fa-solid fa-arrow-left"></i>Declinar</button>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Cita de control</td>
+                                            <td>Gato</td>
+                                            <td>17/03/2023</td>
+                                            <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i
+                                                        class="fa-solid fa-arrow-left"></i>Declinar</button>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Cita de cirugia</td>
+                                            <td>Perro</td>
+                                            <td>17/03/2023</td>
+                                            <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i
+                                                        class="fa-solid fa-arrow-left"></i>Declinar</button>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            </th>
+                                            <td>Cita para Vacunacion</td>
+                                            <td>Gato</td>
+                                            <td>17/03/2023</td>
+                                            <td><button type="button" class="btn btn-danger" id="btnDeclinar"><i
+                                                        class="fa-solid fa-arrow-left"></i>Declinar</button>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </section>
-                    </div>
+                        </div>
+                    </section>
                 </div>
             </div>
+        </div>
 
-    <!-- refecencia para boostrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        <!-- refecencia para boostrap-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
 
-    <!-- sweetalert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- sweetalert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- referencia para las animaciones -->
-    <script src="/Js/AnimacionesDash.js"></script>
-    <script src="/Js/DahsVeterinarioCitasAgendadas.js"></script>
+        <!-- referencia para las animaciones -->
+        <script src="/Js/AnimacionesDash.js"></script>
+        <script src="/Js/DahsVeterinarioCitasAgendadas.js"></script>
 
-    <!-- referencias para datatable -->
-    <script src="/Js/jquery.min.js"></script>
-    <script src="/Vendor/datatables.min.js"></script>
-    <script src="/Js/modalgrup.js"></script>
-    <script src="/Js/usuario.js"></script>
+        <!-- referencias para datatable -->
+        <script src="/Js/jquery.min.js"></script>
+        <script src="/Vendor/datatables.min.js"></script>
+        <script src="/Js/modalgrup.js"></script>
+        <script src="/Js/usuario.js"></script>
 </body>
 
 </html>

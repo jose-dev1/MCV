@@ -1,11 +1,20 @@
 const btnsTerminar = document.querySelectorAll("#terminar")
 const btnRegistrar = document.querySelector("#registrar")
 const btnsDescargar = document.querySelectorAll("#guardar")
-
+const btnActualizar = document.querySelector("#actualizar")
 
 btnRegistrar.addEventListener("click", () => {
   Swal.fire(
     'Hospitalización Registrada',
+    '',
+    'success'
+  )
+});
+
+
+btnActualizar.addEventListener("click", () => {
+  Swal.fire(
+    'Actualizacion registrada',
     '',
     'success'
   )
@@ -17,7 +26,7 @@ btnsTerminar.forEach(button => {
   button.addEventListener("click", () => {
 
     Swal.fire({
-      title: '¿Desea cerrar el servicio?',
+      title: '¿Desea eliminar el servicio?',
       icon: 'warning',
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
@@ -26,7 +35,7 @@ btnsTerminar.forEach(button => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Servicio Terminado',
+          'Servicio Eliminado',
           '',
           'success'
         )

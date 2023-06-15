@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/inicioVeterinario.css">
+
+    <!--Link de goole fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- inicio del codigo de la barra lateral  -->
+        <div class="SidebarContainer">
+            <div class="Menu">
+                <div class="Logo">
+                    <span class="navbar-brand">
+                        <a href="/Html/DashBoard/Dahs.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo">
+                            <span class="Degradado">MCV</span></a>
+                    </span>
+                </div>
+                <!-- Opciones del menu -->
+                <a href="#" class="d-block BarraLateral Active"><i class="fa-solid fa-house"></i> <span>
+                        Inicio </span> </a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span>
+                        Agenda </span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span>
+                        Historias
+                        Clinicas</span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-file-medical Icono"></i>
+                    <span> Hospitalizaciones</span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-check Icono"></i> <span>
+                        Certificados</span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span>
+                        Vacunacion</span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-tablets Icono"></i> <span>
+                        Desparacitaciones</span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span>
+                        Examenes</span></a>
+            </div>
+        </div>
+        <!-- fin de la barra lateral -->
+
+        <!-- inicio del codigo del nadvar -->
+        <div class="w-100">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+
+                <div class="container-fluid">
+                    <button class="BtnList" type="button" id="menuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div id="BarraSuperior">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <!-- codigo para la carga de la imagen de perfil -->
+                            <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
+                            <li class="text-center">Edwin Vaca</li>
+                            <li class="text-muted text-center "><small>Veterinario</small></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="form-check form-switch form-check-reverse Oscuro">
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro">
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
+                                            oscuro</small> </label>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i>
+                                    Cerrar sesion</a></li>
+                        </ul>
+
+                    </div>
+            </nav>
+        </div>
+
+        <!-- final del codigo del nadvar -->
+
+        <!-- espacio para el contenido de la pagina -->
+
+        <div class="d-flex">
+
+            <div class="w-100">
+                <div id="content">
+                    <!-- ejemplo de codigo para manejar secciones -->
+                    <section class="bienvenida">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h1 class="font-weight-bold mb-0">Bienvenido Edwin</h1>
+                                    <p class="leaded TextMuted">Revisa la ultima informacion</p>
+                                </div>
+                    </section>
+
+                    <div class="d-flex">
+
+                        <div class="col-6">
+                            <section>
+                                <div class="d-flex">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-people-group"></i>
+                                                            <p class="card-text numeros">40</p>
+                                                        </div>
+                                                        <p class="card-text">Clientes registrados en el sistema.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-calendar-check"></i>
+                                                            <p class="card-text numeros">38</p>
+                                                        </div>
+                                                        <p class="card-text">Citas atendidas en el mes.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-hand-holding-medical"></i>
+                                                            <p class="card-text numeros">5</p>
+                                                        </div>
+                                                        <p class="card-text">Cirugias programadas recientemente.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section>
+                                <div class="d-flex">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-star-of-life"></i>
+                                                            <p class="card-text numeros">35</p>
+                                                        </div>
+                                                        <p class="card-text">Vacunas aplicadas recientemente.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-house-medical-circle-exclamation"></i>
+                                                            <p class="card-text numeros">3</p>
+                                                        </div>
+                                                        <p class="card-text">Hozpitalizaciones activas.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-prescription"></i>
+                                                            <p class="card-text numeros">6</p>
+                                                        </div>
+                                                        <p class="card-text">Solicitudes de examenes.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section>
+                                <div class="d-flex">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-capsules"></i>
+                                                            <p class="card-text numeros">6</p>
+                                                        </div>
+                                                        <p class="card-text">Solicitudes de desparacitacion.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-house-medical-circle-check"></i>
+                                                            <p class="card-text numeros">6</p>
+                                                        </div>
+                                                        <p class="card-text">Solicitudes de certificados.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card cartas">
+                                                    <div class="card-body">
+                                                        <div class="d-flex">
+                                                            <i class="fa-solid fa-user-doctor"></i>
+                                                            <p class="card-text numeros">15</p>
+                                                        </div>
+                                                        <p class="card-text">Citas activas restantes del dia.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="col-6">
+                            <section class="notificaciones">
+                                <h2> Ultimas citas agendadas</h2>
+                                <div class="d-flex">
+                                    <div class="profile-photo">
+                                        <img src="/Img/perfil1.png" alt=""
+                                            class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                    </div>
+                                    <div class="message">
+                                        <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <button type="button" class="btn botonInfo">Info</button>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="profile-photo">
+                                        <img src="/Img/perfil1.png" alt=""
+                                            class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                    </div>
+                                    <div class="message">
+                                        <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                    </div>
+                                    <div class=" ms-auto">
+                                        <button type="button" class="btn botonInfo">Info</button>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="profile-photo">
+                                        <img src="/Img/perfil1.png" alt=""
+                                            class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                    </div>
+                                    <div class="message">
+                                        <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                    </div>
+                                    <div class=" ms-auto">
+                                        <button type="button" class="btn botonInfo">Info</button>
+                                    </div>
+
+                                </div>
+                                <hr>
+                                <div class="d-flex">
+                                    <div class="profile-photo">
+                                        <img src="/Img/perfil1.png" alt=""
+                                            class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                    </div>
+                                    <div class="message">
+                                        <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                    </div>
+                                    <div class=" ms-auto">
+                                        <button type="button" class="btn botonInfo">Info</button>
+                                    </div>
+                                </div>
+                                <a href=""><h3>Ver agenda</h3></a>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- referencia para las animaciones -->
+    <script src="/Js/AnimacionesDash.js"></script>
+</body>
+
+</html>

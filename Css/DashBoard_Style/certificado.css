@@ -10,7 +10,16 @@ section .containe{
     text-align: center;
 }
 
-section .container{
-    padding: 30px;
-    margin: 30px;
+.btn-2{
+    display: flex;
+    justify-content: center;
+}
+
+.certificado .container{
+    padding: 20px;
+    height: auto; 
+	max-width: 800px;
+	background-color: #FFFFFF;
+	box-shadow: 0px 0px 10px #D8D8D8;
+
 }

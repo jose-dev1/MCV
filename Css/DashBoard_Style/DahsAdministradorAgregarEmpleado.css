@@ -63,3 +63,32 @@ form button{
     color: #fff;
     font-size: 14px;
 }
+
+.subirFotoModal{
+    width: 32%;
+    /* margin: auto; */
+    display: flex;
+    border: none;
+    /* padding: 10px; */
+    color: #fff;
+    font-size: 14px;
+}
+
+.modalImag{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imgModal img{
+    display: flex;
+    margin:10px  auto;
+    width: 150px;
+    border-radius: 30%;
+}
+
+.tipoCorreoEditar select{
+    border: none;
+    margin-left: -30px;
+    margin-top: 5px;
+}

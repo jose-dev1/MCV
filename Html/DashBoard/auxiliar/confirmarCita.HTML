@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia citas</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/DashVeterinarioCitasAgendadas.css">
+
+    <!--Link de goole fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        
+        <!-- inicio del codigo de la barra lateral  -->
+        <div class="SidebarContainer">
+            <div class="Menu">
+                <div class="Logo">
+                    <span class="navbar-brand">
+                        <a href="/Html/DashBoard/Dahs.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo">
+                            <span class="Degradado">MCV</span></a>
+                    </span>
+                </div>
+                <!-- Opciones del menu -->
+                <a href="#" class="d-block BarraLateral "><i class="fa-solid fa-house"></i> <span>
+                        Inicio </span> </a>
+                <a href="#" class="d-block BarraLateral Active"> <i class="fa-solid fa-user-check"></i> <span>
+                        Asistencia citas </span></a>
+                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-cash-register"></i> <span>
+                        Facturacion</span></a>
+            </div>
+        </div>
+        <!-- fin de la barra lateral -->
+
+        <!-- inicio del codigo del nadvar -->
+        <div class="w-100">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+
+                <div class="container-fluid">
+                    <button class="BtnList" type="button" id="menuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div id="BarraSuperior">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                    <!-- codigo para la carga de la imagen de perfil -->
+                            <img src="/Img/Img-dashboard/Fotos-perfil/Auxiliar Veterinario.jpg" alt="perfil"
+                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
+                            <li class="text-center">Karen Rodríguez</li>
+                            <li class="text-muted text-center "><small>Auxiliar veterinaria</small></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="form-check form-switch form-check-reverse Oscuro">
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro">
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
+                                            oscuro</small> </label>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                                    Cerrar sesion</a></li>
+                        </ul>
+
+                    </div>
+            </nav>
+        </div>
+
+        <!-- final del codigo del nadvar -->
+
+
+        <!-- espacio para el contenido de la pagina -->
+
+            <div class="d-flex">
+
+                <div class="w-100">
+                    <div id="content">
+                        <!-- ejemplo de codigo para manejar secciones -->
+                        <section class="py-3">
+                            <div class="container">
+
+                                <div class="row  todo-tabla">
+                                    <h1 class="text-center">Lista de citas hoy</h1>
+                                    <table class="table" id="tblCitasAgenVet">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nombre del cliente</th>
+                                                <th scope="col">Descripción</th>
+                                                <th scope="col">Tipo de mascota</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Hora</th>
+                                                <th scope="col">Asistencia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"><img class="foto_tabla  rounded-circle " src="/Img/perfil1.png" alt=""> Name</th>
+                                                <td>Cita para peluqueria</td>
+                                                <td>Perro</td>
+                                                <td>17/03/2023</td>
+                                                <td>17:05</td>
+                                                <td><button type="button" class="btn btn-outline-success" id="si"><i class="fa-solid fa-check"></i></button>  <button type="button" class="btn btn-outline-danger" id="no"><i class="fa-solid fa-xmark"></i></button></td>
+                                                
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><img class="foto_tabla rounded-circle " src="/Img/perfil1.png" alt="">  Name</th>
+                                                <td>Cita de control</td>
+                                                <td>Gato</td>
+                                                <td>17/03/2023</td>
+                                                <td>17:05</td>
+                                                <td><button type="button" class="btn btn-outline-success" id="si"><i class="fa-solid fa-check"></i></button>  <button type="button" class="btn btn-outline-danger" id="no"><i class="fa-solid fa-xmark"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><img class="foto_tabla rounded-circle " src="/Img/perfil1.png" alt=""> Name</th>
+                                                <td>Cita de cirugia</td>
+                                                <td>Perro</td>
+                                                <td>17/03/2023</td>
+                                                <td>19:05</td>
+                                                <td><button type="button" class="btn btn-outline-success" id="si"><i class="fa-solid fa-check"></i></button>  <button type="button" class="btn btn-outline-danger" id="no"><i class="fa-solid fa-xmark"></i></button></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row"><img class="foto_tabla rounded-circle " src="/Img/perfil1.png" alt="">  Name</th>
+                                                <td>Cita para peluqueria</td>
+                                                <td>Gato</td>
+                                                <td>17/03/2023</td>
+                                                <td>20:05</td>
+                                                <td><button type="button" class="btn btn-outline-success" id="si"><i class="fa-solid fa-check"></i></button>  <button type="button" class="btn btn-outline-danger" id="no"><i class="fa-solid fa-xmark"></i></button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!-- sweetalert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- referencia para las animaciones -->
+    <script src="/Js/AnimacionesDash.js"></script>
+    <script src="/Js/confirmarCita.js"></script>
+
+    <!-- referencias para datatable -->
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/Vendor/datatables.min.js"></script>
+    <script src="/Js/modalgrup.js"></script>
+    <script src="/Js/usuario.js"></script>
+</body>
+
+</html>

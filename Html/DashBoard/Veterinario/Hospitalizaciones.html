@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Hospitalizaciones</title>
     <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
 
     <!--Link boostrap-->
@@ -72,7 +72,7 @@
                     <div id="BarraSuperior">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                    <!-- codigo para la carga de la imagen de perfil -->
+                            <!-- codigo para la carga de la imagen de perfil -->
                             <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
                         <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
@@ -91,7 +91,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i>
                                     Cerrar sesion</a></li>
                         </ul>
 
@@ -107,62 +108,54 @@
             <div class="w-100">
                 <div id="content">
                     <!-- ejemplo de codigo para manejar secciones -->
-                    <section class="py-3">
+                    <section class="py-4 hospitalizacion">
 
                         <div class="container">
 
                             <div class="row  todo_form">
-                                <div class="col-md-6">
-                                    <h1>Registrar una nueva hospitalización</h1>
-                                    <form action="">
+                                <h1>Registrar una nueva hospitalización</h1>
+                                <form action="">
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingNombre"
+                                            placeholder="Nombre">
+                                        <label for="floatingNombre">Documento propietario</label>
+                                    </div>
+                                    <div class="btn-1">
+                                        <button type="button" class="btn btn-outline-success mt-1 mb-3">Cargar
+                                            datos</button>
+                                    </div>
+
+                                    <select class="form-select mb-3" aria-label="Default select example">
+                                        <option selected>Seleccione una mascota</option>
+                                        <option value="1">Max</option>
+                                        <option value="2">Coco</option>
+                                        <option value="3">Arthur</option>
+                                    </select>
 
 
-                                        <div class="d-flex">
-                                            <div class="mr-auto">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingInput"
+                                            placeholder="dd/mm/aaaa">
+                                        <label for="floatingInput">Fecha de hospitalización</label>
+                                    </div>
 
-                                                <div class="search-container">
-                                                    <input type="text" class="form-text-inline" id="search-input" placeholder="No De Documento">
-                                                    <i class="fa fa-search" id="search-icon"></i>
-                                                  </div>
-                                              
-                                            </div>
-                                            <div>
-                                                <select class="form-select Borde form-select-inline" aria-label="Default select example">
-                                                    <option selected>Nombre Mascota</option>
-                                                    <option value="1">Mark</option>
-                                                    <option value="2">Oscar</option>
-                                                    <option value="3">Arthur</option>
-                                                  </select>
-
-                                            </div>
-                                          </div>
-
-                                          <div class="d-flex">
-                                            <div class="mr-auto">
-                                              <input type="date" class="Date" name="" id="">
-                                            </div>
-                                            <div>
-                                                <input class="Causa" type="text" placeholder="Causa">
-                                            </div>
-                                          </div>
-
-                                          <textarea class="Descripcion" name="" id="" cols="46" rows="10" placeholder="Descripcion"></textarea>
-
-                                          <br>
-
-                                          <button type="button" class="btn btn-success" id="registrar">Registrar</button>   
-                                    </form>
-                                </div>
-
-                                <div class="col-md-6 img-perfil">
-                                    <img src="/Img/perfil1.png" alt="">
-                                </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-3 mb-4" style="resize: none; height: 200px;"
+                                            placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Observaciones</label>
+                                    </div>
+                                    <div class="btn-1">
+                                        <button type="button" class="btn btn-outline-success mt-1 mb-3"
+                                            id="registrar">Registrar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
                     </section>
 
-                    <section class="py-1">
+                    <section>
 
                         <div class="container">
 
@@ -182,33 +175,54 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img class="rounded-circle foto_tabla" src="/Img/perfil1.png" alt="">  Mark</th>
+                                            <th scope="row"><img class="rounded-circle foto_tabla"
+                                                    src="/Img/perfil1.png" alt=""> Mark</th>
                                             <td>Perro</td>
                                             <td>Otto</td>
                                             <td>CC 1012755695</td>
                                             <td>21/05/2023</td>
                                             <td>Activo</td>
-                                            <td><button type="button" class="btn btn-info" id="editar">Editar</button>  <button type="button" class="btn btn-danger" id="terminar">Terminar</button></td>
-                                            
+                                            <td><button type="button" class="btn btn-outline-primary" id="editar"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="terminar"><i
+                                                        class="fa-regular fa-circle-check"></i></button> <button
+                                                    type="button" class="btn btn-outline-success" id="guardar"><i
+                                                        class="fa-solid fa-cloud-arrow-down"></i></button></td>
+
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="rounded-circle foto_tabla" src="/Img/perfil1.png" alt="">  Mark</th>
+                                            <th scope="row"><img class="rounded-circle foto_tabla"
+                                                    src="/Img/perfil1.png" alt=""> Mark</th>
                                             <td>Perro</td>
                                             <td>Otto</td>
                                             <td>CC 1012755695</td>
                                             <td>21/05/2023</td>
                                             <td>Activo</td>
-                                            <td><button type="button" class="btn btn-info" id="editar">Editar</button>  <button type="button" class="btn btn-danger" id="terminar">Terminar</button></td>
-                                            
+                                            <td><button type="button" class="btn btn-outline-primary" id="editar"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="terminar"><i
+                                                        class="fa-regular fa-circle-check"></i></button> <button
+                                                    type="button" class="btn btn-outline-success" id="guardar"><i
+                                                        class="fa-solid fa-cloud-arrow-down"></i></button></td>
+
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="rounded-circle foto_tabla" src="/Img/perfil1.png" alt="">  Mark</th>
+                                            <th scope="row"><img class="rounded-circle foto_tabla"
+                                                    src="/Img/perfil1.png" alt=""> Mark</th>
                                             <td>Perro</td>
                                             <td>Otto</td>
                                             <td>CC 1012755695</td>
                                             <td>21/05/2023</td>
                                             <td>Inactivo</td>
-                                            <td><button type="button" class="btn btn-info" id="editar">Editar</button>  <button type="button" class="btn btn-danger" id="terminar">Terminar</button></td>
+                                            <td><button type="button" class="btn btn-outline-primary" id="editar"
+                                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button> <button
+                                                    type="button" class="btn btn-outline-danger" id="terminar"><i
+                                                        class="fa-regular fa-circle-check"></i></button> <button
+                                                    type="button" class="btn btn-outline-success" id="guardar"><i
+                                                        class="fa-solid fa-cloud-arrow-down"></i></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -217,6 +231,71 @@
 
                     </section>
 
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Actualizar Hospitalización
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre"
+                                                placeholder="Nombre" disabled value="1012755695">
+                                            <label for="floatingNombre">Documento propietario</label>
+                                        </div>  
+                                        
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre"
+                                                placeholder="Nombre" disabled value="Mark">
+                                            <label for="floatingNombre">Nombre mascota</label>
+                                        </div> 
+                                        
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre"
+                                                placeholder="Nombre" disabled value="21/05/2023">
+                                            <label for="floatingNombre">Fecha de ingreso</label>
+                                        </div> 
+    
+                                        <div class="form-floating">
+                                            <textarea class="form-control mt-3 mb-3" style="resize: none; height: 190px;"
+                                                placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                            <label for="floatingTextarea">Observaciones</label>
+                                        </div>
+
+                                        <label for="">¿Ha finalizado el servicio?</label>
+                                        <div class="d-flex">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                  Si
+                                                </label>
+                                              </div>
+                                              <div class="form-check ms-3">
+                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                  No 
+                                                </label>
+                                              </div>
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-outline-primary" id="actualizar">Actualizar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -224,7 +303,7 @@
     </div>
 
     <!-- refecencia sweet alert-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- refecencia para boostrap-->
@@ -243,7 +322,7 @@
     <script src="/Vendor/datatables.min.js"></script>
     <script src="/Js/modalgrup.js"></script>
     <script src="/Js/usuario.js"></script>
-    
+
 </body>
 
 </html>

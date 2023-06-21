@@ -166,13 +166,15 @@
                                         <td>Otto</td>
                                         <td>@mdo</td>
                                         <td>@mdo</td>
-                                        <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#facturaDash"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button><button
-                                                type="button" class="btn btn-outline-danger m-2"><i
+                                        <td>
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop"><i
+                                                    class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" class="btn btn-outline-danger m-2"><i
                                                     class="fa-solid fa-trash"></i>
                                             </button>
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop"> <i
                                                     class="fa-solid fa-eye"></i></button>
 
 
@@ -187,12 +189,13 @@
                                         <td>@fat</td>
                                         <td>@fat</td>
                                         <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#facturaDash"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button><button
-                                                type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i
-                                                    class="fa-solid fa-trash"></i>
+                                            data-bs-target="#staticBackdrop"><i
+                                                class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" onclick="eliminar()"
+                                                class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
                                             </button>
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop"> <i
                                                     class="fa-solid fa-eye"></i></button>
 
 
@@ -206,14 +209,15 @@
                                         <td>@fat</td>
                                         <td>@fat</td>
                                         <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                                data-bs-target="#facturaDash"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button><button
-                                                type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i
+                                            data-bs-target="#staticBackdrop"><i
+                                                class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i
                                                     class="fa-solid fa-trash"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> <i
-                                                class="fa-solid fa-eye"></i></button>
+                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop"> <i
+                                                    class="fa-solid fa-eye"></i></button>
 
                                         </td>
                                     </tr>
@@ -263,8 +267,8 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -274,6 +278,113 @@
                     </div>
 
 
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">Carnet : Otto</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+
+
+
+                                    <div class="row  todo-tabla">
+                                        <table class="table" id="tableServiciosA">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Fecha</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Vacuna</th>
+                                                    <th scope="col">Fecha proxima</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"><input type="date" name="" id=""></th>
+                                                    <td><input type="number" name="" id=""></td>
+                                                    <td>
+                                                        <select class="form-select form-select-sm"
+                                                            aria-label=".form-select-sm example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+
+                                                    </td>
+                                                    <td>
+
+                                                        <input type="date">
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><input type="date" name="" id="">
+                                                    </th>
+                                                    <td><input type="number" name="" id=""></td>
+                                                    <td>
+                                                        <select class="form-select form-select-sm"
+                                                            aria-label=".form-select-sm example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+
+                                                    </td>
+                                                    <td> <input type="date"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"><input type="date" name="" id=""> </th>
+                                                    <td><input type="number" name="" id=""></td>
+                                                    <td>
+
+                                                        <select class="form-select form-select-sm"
+                                                            aria-label=".form-select-sm example">
+                                                            <option selected>Open this select menu</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input type="date">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">cancelar</button>
+                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Modal editar-->
+
+                    <!-- Button trigger modal -->
 
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -296,7 +407,6 @@
                             </div>
                         </div>
                     </div>
-
 
 
 

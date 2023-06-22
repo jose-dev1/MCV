@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desparacitacion</title>
+    <title>Facturacion</title>
     <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
 
     <!--Link boostrap-->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
     <link rel="stylesheet" href="/Css/DashBoard_Style/Auxiliar/factura.css">
@@ -22,9 +21,10 @@
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/Vendor/datatables.min.css">
-    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <!--SweetAlert-->
     <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
 
 </head>
 
@@ -36,18 +36,13 @@
             <div class="Menu">
                 <div class="Logo">
                     <span class="navbar-brand">
-                        <a href="/Html/DashBoard/Veterinario/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+                        <a href="/Html/DashBoard/auxiliar/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
                     </span>
                 </div>
                 <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/Veterinario/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/Veterinario/CitasAgendadas.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
-                <a href="/Html/DashBoard/Veterinario/HistoriaClinica.html" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span> Historias Clinicas</span></a>
-                <a href="/Html/DashBoard/Veterinario/Hospitalizaciones.html" class="d-block BarraLateral"> <i class="fa-solid fa-file-medical Icono"></i> <span> Hospitalizaciones</span></a>
-                <a href="/Html/DashBoard/Veterinario/Certificado.html" class="d-block BarraLateral"> <i class="fa-solid fa-check Icono"></i> <span> Certificados</span></a>
-                <a href="/Html/DashBoard/Veterinario/Vacunacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span> Vacunacion</span></a>
-                <a href="/Html/DashBoard/Veterinario/Desparacitacion.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-tablets Icono"></i> <span> Desparacitaciones</span></a>
-                <a href="/Html/DashBoard/Veterinario/ExamenesMedicos.html" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span> Examenes</span></a>
+                <a href="/Html/DashBoard/auxiliar/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/auxiliar/ConfirmarCita.HTML" class="d-block BarraLateral "> <i class="fa-solid fa-user-check"></i> <span> Asistencia citas </span></a>
+                <a href="/Html/DashBoard/auxiliar/Facturacion.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-cash-register"></i> <span> Facturacion</span></a>
             </div>
         </div>
         <!-- fin de la barra lateral -->
@@ -66,11 +61,11 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                     <!-- codigo para la carga de la imagen de perfil -->
-                            <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                            <img src="/Img/Img-dashboard/Fotos-perfil/Auxiliar Veterinario.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
                         <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
-                            <li class="text-center">Edwin Vaca</li>
-                            <li class="text-muted text-center "><small>Veterinario</small></li>
+                            <li class="text-center">Karen Rodríguez</li>
+                            <li class="text-muted text-center "><small>Auxiliar veterinaria</small></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -89,29 +84,32 @@
                     </div>
             </nav>
         </div>
+
         <!-- final del codigo del nadvar -->
+
+        <!-- espacio para el contenido de la pagina -->
         <!-- espacio para el contenido de la pagina -->
         <div class="d-flex">
             <div class="w-100">
                 <div id="content">
-                    <section class="py-3">
+                    <section class="py-4" >
                         <div class="facturaG">
                             <div class="container">
                                 <div class="half">
                                   <div class="content">
-                                    <h2>Desparacitacion</h2>
+                                    <h2>Factura</h2>
                                     <br>
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-floating mb-3">
-                                                <input type="date" class="form-control" id="floatingfecha" placeholder="dd/mm/aaaa">
-                                                <label for="floatingfecha">Fecha</label>
+                                                <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                                <label for="floatingNombre">Nombre</label>
                                               </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-floating">
                                                 <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
-                                                <label for="floatingCedula">Peso</label>
+                                                <label for="floatingCedula">Cedula</label>
                                               </div>
                                         </div>
                                     </div>
@@ -119,80 +117,84 @@
                                         <div class="col-md">
                                             <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" id="floatingPrecio" placeholder="Precio">
-                                                <label for="floatingPrecio">Vacuna</label>
+                                                <label for="floatingPrecio">Precio</label>
                                             </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-floating mb-3">
                                                 <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
-                                                <label for="floatingInput">Proximo Control</label>
+                                                <label for="floatingInput">Fecha de compra</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-floating">
-                                        <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                                         <label for="floatingTextarea">Descripcion</label>
                                     </div>
                                     <div class="btn-1">
-                                        <button type="button" onclick="alerta()" class="btn btn-outline-success">Guardar</button>
+                                        <button type="button" onclick="alerta()" class="btn btn-outline-success">Generar Factura</button>
                                     </div>
                                   </div>
                                   </div>
                                 </div>
                         </div>
-                    </section>
-                    <div class="container">
-                        <table class="table" id="tablaDesparacitacion">
-                            <thead>
-                              <tr>
-                                <th scope="col">Nombre Mascota</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Cedula</th>
-                                <th scope="col">Acciones</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">Tommy</th>
-                                <td>13/05/2023</td>
-                                <td>102438733</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Zeus</th>
-                                <td>14/06/2023</td>
-                                <td>156841665</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Venus</th>
-                                <td>19/07/2023</td>
-                                <td>10365984</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="desparacitar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        </section>
+                        <section class="py-1">
+                            <div class="half">
+                                <div class="container">
+                                  <table class="table" id="tablaFactura">
+                                      <thead>
+                                        <tr>
+                                          <th scope="col">Numero Factura</th>
+                                          <th scope="col">Fecha</th>
+                                          <th scope="col">Valor</th>
+                                          <th scope="col">Acciones</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr>
+                                          <th scope="row">AC13342332</th>
+                                          <td>10/08/2023</td>
+                                          <td>12.00</td>
+                                          <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#facturaDash"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">AC6464343</th>
+                                          <td>11/08/2023</td>
+                                          <td>42.00</td>
+                                          <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#facturaDash"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                          <th scope="row">AC7854543</th>
+                                          <td>30/05/2023</td>
+                                          <td>52.00</td>
+                                          <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#facturaDash"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                              </div>
+                            </div>
+                        </section>
+                      <div class="modal fade" id="facturaDash" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                        <div class="modal-content">
+                          <div class="modal-content">
                             <div class="modal-header">
-                            <h2 class="modal-title" id="staticBackdropLabel">Editar informacion</h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <h2 class="modal-title" id="staticBackdropLabel">Editar Factura</h2>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="floatingfecha" placeholder="dd/mm/aaaa">
-                                            <label for="floatingfecha">Fecha</label>
+                                            <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                            <label for="floatingNombre">Nombre</label>
                                           </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
-                                            <label for="floatingCedula">Peso</label>
+                                            <label for="floatingCedula">Cedula</label>
                                           </div>
                                     </div>
                                 </div>
@@ -200,43 +202,41 @@
                                     <div class="col-md">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="floatingPrecio" placeholder="Precio">
-                                            <label for="floatingPrecio">Vacuna</label>
+                                            <label for="floatingPrecio">Precio</label>
                                         </div>
                                     </div>
                                     <div class="col-md">
                                         <div class="form-floating mb-3">
                                             <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
-                                            <label for="floatingInput">Proximo Control</label>
+                                            <label for="floatingInput">Fecha de compra</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">Descripcion</label>
+                                    <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Comments</label>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" onclick="actualizar()" class="btn btn-outline-primary">Actualizar</button>
+                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-outline-primary" onclick="actualizar()">Guardad Cambios</button>
                             </div>
-                        </div>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- refecencia para boostrap-->
+        <!--Fin del contenido de la paguina-->
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/Vendor/datatables.min.js"></script>
+    <script src="/Js/Cliente/TablasUsuario.js"></script>
+    <script src="/Js/DashBoard/Auxiliar/AlertaFactura.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     <!-- referencia para las animaciones -->
     <script src="/Js/DashBoard/AnimacionesDash.js"></script>
-
-    <!-- datatables -->
-    <script src="/Js/jquery.min.js"></script>
-    <script src="/Vendor/datatables.min.js"></script>
-    <script src="/Js/modalgrup.js"></script>
-    <script src="/Js/DashBoard/Veterinario/Desparacitacion.js"></script>
 </body>
 
 </html>

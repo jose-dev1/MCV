@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
-    <link rel="stylesheet" href="/Css/DashBoard_Style/dash_veterinario.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Hospitalizaciones.css">
 
     <!--Link de goole fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,28 +36,18 @@
             <div class="Menu">
                 <div class="Logo">
                     <span class="navbar-brand">
-                        <a href="/Html/DashBoard/Dahs.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo">
-                            <span class="Degradado">MCV</span></a>
+                        <a href="/Html/DashBoard/Veterinario/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
                     </span>
                 </div>
                 <!-- Opciones del menu -->
-                <a href="#" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span>
-                        Inicio </span> </a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span>
-                        Agenda </span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span>
-                        Historias
-                        Clinicas</span></a>
-                <a href="#" class="d-block BarraLateral Active"> <i class="fa-solid fa-file-medical Icono"></i>
-                    <span> Hospitalizaciones</span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-check Icono"></i> <span>
-                        Certificados</span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span>
-                        Vacunacion</span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-tablets Icono"></i> <span>
-                        Desparacitaciones</span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span>
-                        Examenes</span></a>
+                <a href="/Html/DashBoard/Veterinario/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/Veterinario/CitasAgendadas.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
+                <a href="/Html/DashBoard/Veterinario/HistoriaClinica.html" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span> Historias Clinicas</span></a>
+                <a href="/Html/DashBoard/Veterinario/Hospitalizaciones.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-file-medical Icono"></i> <span> Hospitalizaciones</span></a>
+                <a href="/Html/DashBoard/Veterinario/Certificado.html" class="d-block BarraLateral"> <i class="fa-solid fa-check Icono"></i> <span> Certificados</span></a>
+                <a href="/Html/DashBoard/Veterinario/Vacunacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span> Vacunacion</span></a>
+                <a href="/Html/DashBoard/Veterinario/Desparacitacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-tablets Icono"></i> <span> Desparacitaciones</span></a>
+                <a href="/Html/DashBoard/Veterinario/ExamenesMedicos.html" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span> Examenes</span></a>
             </div>
         </div>
         <!-- fin de la barra lateral -->
@@ -86,17 +76,14 @@
                             </li>
                             <li>
                                 <div class="form-check form-switch form-check-reverse Oscuro">
-                                    <input class="form-check-input" type="checkbox" id="modoOscuro">
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
-                                            oscuro</small> </label>
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
                                 </div>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i
-                                        class="fa-solid fa-right-from-bracket"></i>
-                                    Cerrar sesion</a></li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
                         </ul>
 
                     </div>
@@ -315,21 +302,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- refecencia para boostrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     <!-- referencia para las animaciones -->
-    <script src="/Js/AnimacionesDash.js"></script>
-
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
+    
     <!-- referencia principal-->
-    <script src="/Js/Dash Veterinario/Hospitalizaciones.js"></script>
-
+    
     <!-- referencia data table-->
     <script src="/Js/jquery.min.js"></script>
     <script src="/Vendor/datatables.min.js"></script>
     <script src="/Js/modalgrup.js"></script>
-    <script src="/Js/usuario.js"></script>
+    <script src="/Js/DashBoard/Veterinario/Hospitalizaciones.js"></script>
 
 </body>
 

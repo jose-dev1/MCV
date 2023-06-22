@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Prestado</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Groomer/DashGroomer.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Carnet.css">
+
+    <!--Link de goole fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
+
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- inicio del codigo de la barra lateral  -->
+        <div class="SidebarContainer">
+            <div class="Menu">
+                <div class="Logo">
+                    <span class="navbar-brand">
+                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+                    </span>
+                </div>
+                <!-- Opciones del menu -->
+                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
+                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
+            </div>
+        </div>
+        <!-- fin de la barra lateral -->
+
+        <!-- inicio del codigo del nadvar -->
+        <div class="w-100">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+
+                <div class="container-fluid">
+                    <button class="BtnList" type="button" id="menuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div id="BarraSuperior">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <!-- codigo para la carga de la imagen de perfil -->
+                            <img src="/Img/Img-dashboard/Fotos-perfil/Foto Perfil groomer.jpg" alt="perfil"
+                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
+                            <li class="text-center">Freddy Lozano</li>
+                            <li class="text-muted text-center "><small>Groomer</small></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="form-check form-switch form-check-reverse Oscuro">
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
+                        </ul>
+
+                    </div>
+            </nav>
+        </div>
+
+        <!-- final del codigo del nadvar -->
+
+        <!-- espacio para el contenido de la pagina -->
+
+        <div class="d-flex">
+
+            <div class="w-100">
+                <div id="content">
+                    <!-- ejemplo de codigo para manejar secciones -->
+                    <section class="py-3">
+                        <div class="container">
+
+                            <div class="row  todo_form">
+                                <div class="col-md-6">
+                                    <h1>Resgitra El Servicio</h1>
+                                    <form action="">
+                                        <input type="text" placeholder="Nombre">
+                                        <input type="text" placeholder="Edad">
+                                        <br>
+                                        <input type="text" placeholder="Color">
+                                        <input type="text" placeholder="Tipo De Mascota">
+                                        <br>
+
+
+                                        <input type="text" placeholder="No Documento Dueño">
+                                        <br>
+
+                                        <select class="form-select  selec" aria-label="Default select example">
+                                            <option selected>Servicio Prestado</option>
+                                            <option value="1">Baño</option>
+                                            <option value="2">Corte De Pelo</option>
+                                            <option value="3">Arreglo Estetico</option>
+                                        </select>
+
+                                        <button type="file" id="inputGroupFile01"
+                                            class="btn btn-success">Registrar</button>
+
+
+                                    </form>
+                                </div>
+
+                                <div class="col-md-6 img-perfil">
+                                    <img src="/Img/perfil1.png" alt="">
+
+
+
+                                    <div class="input-group mb-3">
+                                        <input type="file"></input>
+
+                                    </div>
+
+                                    <p class="text-center">Subir Imagen</p>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="row  todo-tabla">
+                                <h1 class="text-center">Historial De Servicios</h1>
+                                <table class="table" id="tableServiciosA">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Tipo De Mascota</th>
+                                            <th scope="col">Nombre Del Dueño</th>
+                                            <th scope="col">Documento</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            </th>
+                                            <td>Perro</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td>
+
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button><button
+                                                    type="button" onclick="eliminar()"
+                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            </th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                            <td>@fat</td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button><button
+                                                    type="button" onclick="eliminar()"
+                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            </th>
+                                            <td>Larry the Bird</td>
+                                            <td>@twitter</td>
+                                            <td>@fat</td>
+                                            <td>@fat</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button><button
+                                                    type="button" onclick="eliminar()"
+                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h1>Resgitra El Servicio</h1>
+                                        <form action="">
+                                            <input type="text" placeholder="Nombre">
+                                            <input type="text" placeholder="Edad">
+                                            <br>
+                                            <input type="text" placeholder="Color">
+                                            <input type="text" placeholder="Tipo De Mascota">
+                                            <br>
+
+
+                                            <input type="text" placeholder="No Documento Dueño">
+                                            <br>
+
+                                            <select class="form-select  selec" aria-label="Default select example">
+                                                <option selected>Servicio Prestado</option>
+                                                <option value="1">Baño</option>
+                                                <option value="2">Corte De Pelo</option>
+                                                <option value="3">Arreglo Estetico</option>
+                                            </select>
+
+                                        </form>
+
+                                        <div class="img-perfil">
+                                            <img src="/Img/perfil1.png" alt="">
+
+                                            <button type="button" class="btn btn-success">Subir imagen</button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Guarda
+                                            cambios</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Modal-->
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- referencia para las animaciones -->
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>       
+    
+    <!-- links datatable -->
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/Vendor/datatables.min.js"></script>
+    <script src="/Js/modalgrup.js"></script>
+    <script src="/Js/DashBoard/Groomer/Servicios.js"></script>
+    
+</body>
+
+</html>

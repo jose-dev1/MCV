@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historias Clinicas</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/HistoriaClinica.css">
+
+    <!--Link de goole fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="/Vendor/datatables.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- inicio del codigo de la barra lateral  -->
+        <div class="SidebarContainer">
+            <div class="Menu">
+                <div class="Logo">
+                    <span class="navbar-brand">
+                        <a href="/Html/DashBoard/Veterinario/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+                    </span>
+                </div>
+                <!-- Opciones del menu -->
+                <a href="/Html/DashBoard/Veterinario/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/Veterinario/CitasAgendadas.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
+                <a href="/Html/DashBoard/Veterinario/HistoriaClinica.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-book-medical Icono"></i> <span> Historias Clinicas</span></a>
+                <a href="/Html/DashBoard/Veterinario/Hospitalizaciones.html" class="d-block BarraLateral"> <i class="fa-solid fa-file-medical Icono"></i> <span> Hospitalizaciones</span></a>
+                <a href="/Html/DashBoard/Veterinario/Certificado.html" class="d-block BarraLateral"> <i class="fa-solid fa-check Icono"></i> <span> Certificados</span></a>
+                <a href="/Html/DashBoard/Veterinario/Vacunacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span> Vacunacion</span></a>
+                <a href="/Html/DashBoard/Veterinario/Desparacitacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-tablets Icono"></i> <span> Desparacitaciones</span></a>
+                <a href="/Html/DashBoard/Veterinario/ExamenesMedicos.html" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span> Examenes</span></a>
+            </div>
+        </div>
+        <!-- fin de la barra lateral -->
+
+        <!-- inicio del codigo del nadvar -->
+        <div class="w-100">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+
+                <div class="container-fluid">
+                    <button class="BtnList" type="button" id="menuBtn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div id="BarraSuperior">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                    <!-- codigo para la carga de la imagen de perfil -->
+                            <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
+                            <li class="text-center">Edwin Vaca</li>
+                            <li class="text-muted text-center "><small>Veterinario</small></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="form-check form-switch form-check-reverse Oscuro">
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-fa-right-from-bracket"></i> Cerrar sesion</a></li>
+                        </ul>
+
+                    </div>
+            </nav>
+        </div>
+        <!-- final del codigo del nadvar -->
+        <!-- espacio para el contenido de la pagina -->
+        <div class="d-flex">
+            <div class="w-100">
+                <div id="content">
+                    <section class="py-3">
+                        <div class="historiaC">
+                            <div class="container">
+                                <h2>Historia Clinica</h2><br>
+                                <h3>Puedes auto cargar los datos, buscando el numero de cedula del cliente, execto la fecha de control</h3><br>
+                                <div class="form-floating ">
+                                    <input type="text" class="form-control" id="floatingBuscar" placeholder="Buscar">
+                                    <label for="floatingBuscar">Buscar Cedula</label>
+                                </div>
+                                <div class="btn-1">
+                                    <button type="button" class="btn btn-outline-success mt-3 mb-3">Cargar Datos</button>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                            <label for="floatingNombre">Paciente</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingEspecie" placeholder="Especie">
+                                            <label for="floatingEspecie">Especie</label>
+                                          </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingRaza" placeholder="Raza">
+                                            <label for="floatingRaza">Raza</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingColor" placeholder="Color">
+                                            <label for="floatingColor">Color</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingSexo" placeholder="Sexo">
+                                            <label for="floatingSexo">Sexo</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingEdad" placeholder="Edad">
+                                            <label for="floatingEdad">Edad</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                            <label for="floatingInput">Fecha de control</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-floating">
+                                    <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Observaciones</label>
+                                </div>
+                                <div class="btn-1">
+                                    <button type="button" onclick="alerta()" class="btn btn-outline-success">Guardar Historia</button>
+                                </div>
+                              </div>
+                              </div>
+                    </section> 
+                    <section class="py-4">
+                        <div class="container">
+                            <table class="table" id="tablaHistoria">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Fecha de atencion</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Tommy</td>
+                                    <td>20/10/2022</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Zeus</td>
+                                    <td>10/10/2023</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>Bruno</td>
+                                    <td>30/11/2023</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </section>
+                        <div class="modal fade" id="historiaC" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Actualizar Historia Clinica</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                                <label for="floatingNombre">Paciente</label>
+                                              </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="floatingEspecie" placeholder="Especie">
+                                                <label for="floatingEspecie">Especie</label>
+                                              </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingRaza" placeholder="Raza">
+                                                <label for="floatingRaza">Raza</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingColor" placeholder="Color">
+                                                <label for="floatingColor">Color</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingSexo" placeholder="Sexo">
+                                                <label for="floatingSexo">Sexo</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingEdad" placeholder="Edad">
+                                                <label for="floatingEdad">Edad</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                                <label for="floatingInput">Fecha de control</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Observaciones</label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" onclick="actualizar()"  class="btn btn-outline-primary">Actualizar Datos</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/Vendor/datatables.min.js"></script>
+    <script src="/Js/modalgrup.js"></script>
+    <script src="/Js/Cliente/TablasUsuario.js"></script>
+    <script src="/Js/DashBoard/Auxiliar/AlertaFactura.js"></script>
+    <script src="/Js/Cliente/AlertaHistoriaClinica.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    
+    <!-- referencia para las animaciones -->
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
+</body>
+
+</html>

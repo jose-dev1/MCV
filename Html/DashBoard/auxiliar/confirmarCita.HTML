@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
-    <link rel="stylesheet" href="/Css/DashBoard_Style/DashVeterinarioCitasAgendadas.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Auxiliar/ConfirmarCita.css">
 
     <!--Link de goole fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,17 +36,13 @@
             <div class="Menu">
                 <div class="Logo">
                     <span class="navbar-brand">
-                        <a href="/Html/DashBoard/Dahs.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo">
-                            <span class="Degradado">MCV</span></a>
+                        <a href="/Html/DashBoard/auxiliar/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
                     </span>
                 </div>
                 <!-- Opciones del menu -->
-                <a href="#" class="d-block BarraLateral "><i class="fa-solid fa-house"></i> <span>
-                        Inicio </span> </a>
-                <a href="#" class="d-block BarraLateral Active"> <i class="fa-solid fa-user-check"></i> <span>
-                        Asistencia citas </span></a>
-                <a href="#" class="d-block BarraLateral"> <i class="fa-solid fa-cash-register"></i> <span>
-                        Facturacion</span></a>
+                <a href="/Html/DashBoard/auxiliar/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/auxiliar/ConfirmarCita.HTML" class="d-block BarraLateral Active"> <i class="fa-solid fa-user-check"></i> <span> Asistencia citas </span></a>
+                <a href="/Html/DashBoard/auxiliar/Facturacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-cash-register"></i> <span> Facturacion</span></a>
             </div>
         </div>
         <!-- fin de la barra lateral -->
@@ -75,16 +71,14 @@
                             </li>
                             <li>
                                 <div class="form-check form-switch form-check-reverse Oscuro">
-                                    <input class="form-check-input" type="checkbox" id="modoOscuro">
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
-                                            oscuro</small> </label>
+                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
                                 </div>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Home/Login.html"><i class="fa-solid fa-right-from-bracket"></i>
-                                    Cerrar sesion</a></li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
                         </ul>
 
                     </div>
@@ -106,7 +100,7 @@
 
                                 <div class="row  todo-tabla">
                                     <h1 class="text-center">Lista de citas hoy</h1>
-                                    <table class="table" id="tblCitasAgenVet">
+                                    <table class="table" id="CitasT">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Nombre del cliente</th>
@@ -170,14 +164,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- referencia para las animaciones -->
-    <script src="/Js/AnimacionesDash.js"></script>
-    <script src="/Js/confirmarCita.js"></script>
-
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
+    
     <!-- referencias para datatable -->
     <script src="/Js/jquery.min.js"></script>
     <script src="/Vendor/datatables.min.js"></script>
     <script src="/Js/modalgrup.js"></script>
-    <script src="/Js/usuario.js"></script>
+    <script src="/Js/DashBoard/Auxiliar/ConfirmarCita.js"></script>
 </body>
 
 </html>

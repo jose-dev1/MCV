@@ -17,25 +17,26 @@
 			<img src="/Img/foto01.png">
 		</div>
 		<div class="login-content">
-			<form action="">
+			<form id="loginForm">
 				<img src="/Img/MVC.png">
 				<h2 class="title">Bienvenido</h2>
 				<div class="login">
 					<div class="form-floating ">
-						<input type="email" class="form-control mt-4 mb-4" id="floatingInput" placeholder="name@example.com">
-						<label for="floatingInput">Email</label>
+						<input type="email"  class="form-control mt-4 mb-4" id="email" placeholder="name@example.com" required>
+						<label for="email">Email</label>
 					</div>
 					<div class="form-floating ">
-						<input type="password" class="form-control" id="floatingInput" placeholder="Password">
-						<label for="floatingInput">Contraseña</label>
+						<input type="password" class="form-control" id="password" placeholder="Password" required>
+						<label for="contrasena">Contraseña</label>
 					</div>
 				</div>
-				<button type="button" onclick="progres()" class="btn mt-6 mb-5">Login</button>	
+				<button type="submit" onclick="" class="btn mt-6 mb-5">Login</button>	
 				<a onclick="rpass()">Olvido la contraseña?</a>
 				<a href="/Html/Home/Registro.html">Registrese Aqui</a></p>
 			</form>
         </div>
     </div>
+	<script src="/Js/Autenticacion.js"></script>
 	<script src="/Js/login.js"></script>
     <script type="text/javascript" src="/Js/login.js"></script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>

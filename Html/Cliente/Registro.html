@@ -1,136 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+    <link rel="stylesheet" href="/Css/cliente/Registro.css">
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/Css/cliente/Registro.css"/>
-    <link rel="stylesheet" href="/Font-Awesome/css/fontawesome.min.css">
-    <!---integracion de swetaler2-->
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
     <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
     <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
-    <title>Registro</title>
 </head>
 <body>
-    <!--contenedor de registro-->
-    <div class="contenedor">
-        <div class="container">
-            <h2>Crear cuenta gratis</h2>
-            <br/>
-            <form id="formularioRegistro" action="" name="formularioRegistro">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Nombre Completo">
-                    <label for="floatingInput">Nombre Completo</label>
-                </div>
-    <!--formulario dividio por filas y columnas-->
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Correo</label>
-                          </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Contraseña</label>
-                          </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Nombre Usuario">
-                            <label for="floatingInput">Usuario</label>
-                          </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Numero de telefono">
-                            <label for="floatingInput">Telefono</label>
-                          </div>
-                    </div>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Direccion">
-                    <label for="floatingInput">Direccion</label>
-                </div>
-                <div class="row g-2">
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                              <option value="1">Cedula de ciudadania</option>
-                              <option value="2">Pasaporte</option>
-                              <option value="3">Carnet de extrangeria</option>
-                            </select>
-                            <label for="floatingSelectGrid">Tipo de documento</label>
-                          </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="numero de documento">
-                            <label for="floatingInput">Numero de documento</label>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
-                            <label for="floatingInput">Fecha de nacimiento</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <label for="acuerdoPrivacidad" class="form-check-label" id="invalidCheck">Estoy de acuerdo con el acuerdo de privacidad. </label><a data-bs-toggle="modal"  href="#staticBackdrop">Terminos y condiciones</a>
-                            <input type="checkbox" class="form-check-input " name="acuerdoPrivacidad" id="acuerdoPrivacidad">
-                        </div>   
-                        <div class="invalid-feedback">
-                            Debe Aceptar los terminos y condiciones
-                          </div> 
-                    </div>
-                  </div>
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Terminos y condiciones</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="root">
+        <form  class="form-register " novalidate>
+            <div class="form-register__header">
+                <ul class="progressbar">
+                    <li class="progressbar__option active">paso 1</li>
+                    <li class="progressbar__option">paso 2</li>
+                    <li class="progressbar__option">paso 3</li>
+                </ul>
+            </div>
+            <div class="form-register__body">
+                <div class="step active" id="step-1">
+                    <div class="step__header">
+                        <h2 class="step__title">Informacion Basica</h2>
+                    </div><br>
+                    <div class="step__body">
+                        <fieldset>
+                            <div class="form-row">
+                                    <div class="form-file">
+                                        <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                        <label for="your_picture">
+                                            <figure>
+                                                <img src="/Img/your-picture.png" alt="" class="your_picture_image">
+                                            </figure>
+                                            <span class="file-button">Subir imagen</span>
+                                        </label>
+                                    </div>
+                                <div class="form-group-flex">
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="frist_name" placeholder="Nombre">
+                                            <label for="frist_name">Nombre de usuario</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input type="password" class="form-control" id="last_name" placeholder="">
+                                            <label for="frist_name">Contraseña</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                            <label for="floatingInput">Correo</label>
+                                          </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                esto es una prueba
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
+                        </fieldset>
+                    </div><br>
+                    <div class="footer">
+                        <div class="btn1">
+                            <button type="button" class="btn btn-primary step__button--next" data-to_step="2" data-step="1">Siguiente<i class="fas fa-angle-double-right"></i></button>
+                        </div>       
                     </div>
                 </div>
-            </form>
-            <button class="btn" onclick="alerta()" type="submit">Enviar</button>
-        </div>
+                <div class="step" id="step-2">
+                    <div class="step__header">
+                        <h2 class="step__title">Información de personal</h2>
+                    </div><br>
+                    <div class="step__body">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Nombre">
+                                        <label for="floatingInput">Primer Nombre</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="Text" class="form-control" id="floatingPassword" placeholder="Segundo Nombre">
+                                        <label for="floatingPassword">Segundo Nombre</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="primer apellido">
+                                        <label for="floatingInput">Primer Apellido</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="segundo apellido">
+                                        <label for="floatingInput">Segundo Apellido</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                            <option selected>Tipo de documento</option>
+                                            <option value="1">Cedula de Ciudadania</option>
+                                            <option value="2">Pasaporte</option>
+                                            <option value="3">Carnet de Extrangeria</option>
+                                          </select>
+                                          <label for="floatingSelect">Desplegar opciones</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Numero de documento">
+                                        <label for="floatingInput">Numero de documento</label>
+                                      </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                        <label for="floatingInput">Lugar de Expedicion</label>
+                                    </div>
+                                </div>
+                            </div>
+                    </fieldset>
+                    </div>
+                    <div class="footer">
+                        <div class="btn1">
+                            <button type="button" class=" btn btn-primary step__button--next" data-to_step="3" data-step="2">Siguiente<i class="fas fa-angle-double-right"></i></button>
+                        </div>
+                        <button type="button" class="btn btn-primary step__button--back" data-to_step="1" data-step="2">Atras<i class="fas fa-angle-double-left"></i></button>
+                    </div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step__header">
+                        <h2 class="step__title">Ubicacion</h2>
+                    </div><br>
+                    <div class="step__body">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                        <label for="floatingInput">Fecha de Nacimiento</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                            <option selected>Lugar de nacimiento</option>
+                                            <option value="1">Bogota</option>
+                                            <option value="2">Medellin</option>
+                                            <option value="3">Cali</option>
+                                            <option value="2">Cartagena</option>
+                                            <option value="3">Otro</option>
+                                          </select>
+                                          <label for="floatingSelect">Desplegar opciones</label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="direccion">
+                                    <label class="label" for="floatingInput">Direccion</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div><br>
+                    <div class="footer">
+                        <div class="btn1">
+                            <button type="submit" onclick="registro()" class="btn btn-primary">Registrarse</button>
+                        </div>
+                        <button type="button" class=" btn btn-primary step__button--back" data-to_step="2" data-step="3">Atras<i class="fas fa-angle-double-left"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="pos-img">
-        <img src="/Img/MVC.png">
-        <div class="pos-tex">
-            Cuidamos a tu mascota, MCV aplicacion te mejorara el cuidado de tu mascota
-        </div>
-    </div>
-    <footer>
-        <p>&copy; 2023 - Todos los derechos reservados</p>
-      </footer>
-      <script>
-        function alerta () {
-            Swal.fire(
-                'Felicidades!',
-                'Su cuenta ha sido registrada!',
-                'success'
-            );
-        }
-    </script>   
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/Cliente/registro.js"></script>
+    <script src="/Js/jquery.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Font-Awesome/js/fontawesome.min.js"></script>
+    <script src="/Js/Cliente/registro.js"></script>
 </body>
-    
 </html>

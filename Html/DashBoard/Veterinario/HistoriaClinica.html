@@ -97,13 +97,24 @@
                             <div class="container">
                                 <h2>Historia Clinica</h2><br>
                                 <h3>Puedes auto cargar los datos, buscando el numero de cedula del cliente, execto la fecha de control</h3><br>
-                                <div class="form-floating ">
-                                    <input type="text" class="form-control" id="floatingBuscar" placeholder="Buscar">
-                                    <label for="floatingBuscar">Buscar Cedula</label>
-                                </div>
-                                <div class="btn-1">
-                                    <button type="button" class="btn btn-outline-success mt-3 mb-3">Cargar Datos</button>
-                                </div>
+                                <div class="form-file">
+                                    <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                    <label for="your_picture">
+                                        <figure>
+                                            <img src="/Img/your-picture.png" alt="" class="your_picture_image">
+                                        </figure>
+                                        <span class="file-button">Subir imagen</span>
+                                    </label>
+                                
+                                </div><br>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating ">
+                                            <input type="text" class="form-control" id="floatingBuscar" placeholder="Buscar">
+                                            <label for="floatingBuscar">Cedula del cliente</label>
+                                        </div>
+                                    </div>
+                                </div><br>
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-floating mb-3">
@@ -153,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div class="form-floating">
-                                    <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                                     <label for="floatingTextarea">Observaciones</label>
                                 </div>
                                 <div class="btn-1">
@@ -178,19 +189,19 @@
                                     <th scope="row">1</th>
                                     <td>Tommy</td>
                                     <td>20/10/2022</td>
-                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Addservicio"><i class="fa-solid fa-file-circle-plus"></i></button></td>
                                   </tr>
                                   <tr>
                                     <th scope="row">2</th>
                                     <td>Zeus</td>
                                     <td>10/10/2023</td>
-                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Addservicio"><i class="fa-solid fa-file-circle-plus"></i></button></button></td>
                                   </tr>
                                   <tr>
                                     <th scope="row">3</th>
                                     <td>Bruno</td>
                                     <td>30/11/2023</td>
-                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#historiaC"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Addservicio"><i class="fa-solid fa-file-circle-plus"></i></button></button></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -200,7 +211,7 @@
                             <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Actualizar Historia Clinica</h5>
+                                <h2 class="modal-title" id="staticBackdropLabel">Actualizar Historia Clinica</h2>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -253,7 +264,7 @@
                                         </div>
                                     </div>
                                     <div class="form-floating">
-                                        <textarea class="form-control mt-6 mb-5" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                                         <label for="floatingTextarea">Observaciones</label>
                                     </div>
                                 </div>
@@ -262,6 +273,56 @@
                                 <button type="button" onclick="actualizar()"  class="btn btn-outline-primary">Actualizar Datos</button>
                                 </div>
                             </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="Addservicio" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h2 class="modal-title" id="staticBackdropLabel">Añadir servicio</h2>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="servicio">
+                                                <label for="floatingInput">Servicio</label>
+                                              </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <input type="date" class="form-control" id="floatingPassword" placeholder="fecha de servicio">
+                                                <label for="floatingPassword">Fecha de servicio</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                          <option value="1">Veterinaria</option>
+                                          <option value="2">Groomer</option>
+                                          <option value="3">Hospitalizaciones</option>
+                                        </select>
+                                        <label for="floatingSelect">Selecione el tipo de servicio</label>
+                                    </div><br>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="resize: none; height: 100px;"></textarea>
+                                        <label for="floatingTextarea2">Descripcion</label>
+                                    </div><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Activo</label>
+                                      </div>
+                                      <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Desactivado</label>
+                                      </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+                                  <button type="button" class="btn btn-outline-primary">Añadir</button>
+                                </div>
+                              </div>
                             </div>
                         </div>
                 </div>

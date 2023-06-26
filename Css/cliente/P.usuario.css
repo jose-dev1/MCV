@@ -181,8 +181,6 @@ body {
     background-color: #ed0202;
 }
 
-
-
 @media (max-width: 750px) {
     .seccion-perfil-usuario .lista-datos {
         width: 100%;

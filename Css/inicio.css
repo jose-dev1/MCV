@@ -17,6 +17,11 @@
     width: 90px;
 }
 
+.navbar .img1{
+    width: 75px;
+}
+
+
 .opcionesM {
     display: flex;
     justify-content: end;

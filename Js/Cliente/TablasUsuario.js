@@ -22,3 +22,28 @@ $(document).ready(function () {
     });
    
 });
+
+function progres() {
+    let timerInterval
+     Swal.fire({
+     title: 'Este archivo se descargara en pdf',
+     html: 'Descargando en 2 segundos',
+     timer: 2000,
+     timerProgressBar: true,
+     didOpen: () => {
+       Swal.showLoading()
+       const b = Swal.getHtmlContainer().querySelector('b')
+       timerInterval = setInterval(() => {
+         b.textContent = Swal.getTimerLeft()
+       }, 100)
+     },
+     willClose: () => {
+       clearInterval(timerInterval)
+     }
+   }).then((result) => {
+     
+     if (result.dismiss === Swal.DismissReason.timer) {
+       console.log('I was closed by the timer')
+     }
+   })
+   }

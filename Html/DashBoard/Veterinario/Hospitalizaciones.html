@@ -116,12 +116,16 @@
                                             datos</button>
                                     </div>
 
-                                    <select class="form-select mb-3" aria-label="Default select example">
-                                        <option selected>Seleccione una mascota</option>
-                                        <option value="1">Max</option>
-                                        <option value="2">Coco</option>
-                                        <option value="3">Arthur</option>
-                                    </select>
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select selecform opcionEx" id="floatingSelect"
+                                            aria-label="Floating label select example" onchange="mostrarAlerta()">
+                                            <option selected>Seleccione una mascota</option>
+                                            <option value="1">Max</option>
+                                            <option value="2">Coco</option>
+                                            <option value="3">Arthur</option>
+                                        </select>
+                                        <label for="floatingSelect">Tipo de examen</label>
+                                    </div>
 
 
                                     <div class="form-floating mb-3">

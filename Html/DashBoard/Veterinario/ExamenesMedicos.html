@@ -61,8 +61,7 @@
                     </button>
 
                     <div id="BarraSuperior">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <!-- codigo para la carga de la imagen de perfil -->
                             <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
@@ -97,52 +96,67 @@
             <div class="w-100">
                 <div id="content">
                     <!-- ejemplo de codigo para manejar secciones -->
-                    <section class="py-3">
+                    <!-- registro de examenes -->
+                    <section class="py-4 hospitalizacion">
+
                         <div class="container">
 
                             <div class="row  todo_form">
-                                <div class="col-md-6">
-                                    <h1>Registro de Mascota</h1>
-                                    <form action="">
-                                        <input type="text" placeholder="Nombre Mascota">
-                                        <input type="text" placeholder="Fecha Examen">
-                                        <br>
+                                <h1>Registrar nuevo examen</h1>
+                                <form action="">
 
-                                        <input type="text" placeholder="No Documento Dueño">
-                                        <br> <br>
-
-                                        <div class="form-floating col-md-6">
-                                            <select class="form-select selecform opcionEx" id="floatingSelect"
-                                                aria-label="Floating label select example" onchange="mostrarAlerta()">
-                                                <option selected>Seleccione</option>
-                                                <option value="1">Test CPV</option>
-                                                <option value="2">FIV AB/FeLV</option>
-                                                <option value="3">CDV Ag Test</option>
-                                            </select>
-                                            <label for="floatingSelect">Tipo de examen</label>
-                                        </div>
-
-                                        <button type="button" class="btn btn-outline-success"
-                                            id="btnRegistrar">Registrar</button>
-                                    </form>
-                                </div>
-
-                                <div class="col-md-6 img-perfil">
-                                    <img src="/Img/perfil1.png" alt="">
-                                    <div class="mb-3 ">
-                                        <input class="form-control subirFoto" type="file" id="formFile">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                        <label for="floatingNombre">Documento propietario</label>
                                     </div>
-                                    <p class="text-center">Subir Imagen</p>
-                                </div>
+                                    <div class="btn-1">
+                                        <button type="button" class="btn btn-outline-success mt-1 mb-3">Cargar datos</button>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select selecform opcionEx" id="floatingSelect" aria-label="Floating label select example" onchange="mostrarAlerta()">
+                                            <option selected>Seleccione una mascota</option>
+                                            <option value="1">Max</option>
+                                            <option value="2">Coco</option>
+                                            <option value="3">Arthur</option>
+                                        </select>
+                                        <label for="floatingSelect">Nombre de mascota</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                        <label for="floatingInput">Fecha de examen</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <select class="form-select selecform opcionEx" id="selectTest" aria-label="Floating label select example" onchange="mostrarAlerta()">
+                                            <option selected>Seleccione</option>
+                                            <option value="1">Test CPV</option>
+                                            <option value="2">FIV AB/FeLV</option>
+                                            <option value="3">CDV Ag Test</option>
+                                        </select>
+                                        <label for="floatingSelect">Tipo de examen</label>
+                                    </div>
+
+                                    <div class="btn-1">
+                                        <button type="button" class="btn btn-outline-success btnRegistrar" id="btnRegistrar">Registrar</button>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                        <!-- fin registro examenes -->
+                        
+                    </section>
+
+                    <section class="py-3">
+                        <div class="container">
 
                             <!-- tabla informacion-->
                             <div class="row  todo-tabla">
-                                <h1 class="text-center">Titulo Tabla</h1>
+                                <h1 class="text-center">Examenes Medicos</h1>
                                 <table class="table" id="tablaExamenesMedicos">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Nombre Mascota</th>
                                             <th scope="col">Tipo De Mascota</th>
                                             <th scope="col">Nombre Del Dueño</th>
                                             <th scope="col">Documento</th>
@@ -153,65 +167,51 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Name
                                             </th>
                                             <td>Perro</td>
                                             <td>Emanuel</td>
                                             <td>1023242323</td>
                                             <td>CDV Ag Test</td>
                                             <td>03/02/2023</td>
-                                            <td><button type="button" class="btn btn-outline-info"
-                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button> <button
-                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
-                                                        class="fa-solid fa-trash"></i></button></td>
+                                            <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
 
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Name
                                             </th>
                                             <td>Gato</td>
                                             <td>Carlos</td>
                                             <td>1234432224</td>
                                             <td>FIV AB/FeLV</td>
                                             <td>03/02/2023</td>
-                                            <td><button type="button" class="btn btn-outline-info"
-                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button> <button
-                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
-                                                        class="fa-solid fa-trash"></i></button></td>
+                                            <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                                            <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Name
                                             </th>
                                             <td>Perro</td>
                                             <td>Marcela</td>
                                             <td>1232422336</td>
                                             <td>Test CPV</td>
                                             <td>03/02/2023</td>
-                                            <td><button type="button" class="btn btn-outline-info"
-                                                    data-bs-toggle="modal" data-bs-target="#modalEditar"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button> <button
-                                                    type="button" class="btn btn-outline-danger" id="borrarDatos"><i
-                                                        class="fa-solid fa-trash"></i></button></td>
+                                            <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalEditar"><i class="fa-regular fa-pen-to-square"></i></button> <button type="button" class="btn btn-outline-danger" id="borrarDatos"><i class="fa-solid fa-trash"></i></button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- fin tabla -->
 
                         </div>
-
-
-
 
                     </section>
                 </div>
             </div>
         </div>
+
         <!-- Modal test CPV -->
-        <div class="modal fade pirmModal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade pirmModal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Test CPV</h1>
@@ -219,31 +219,53 @@
                     </div>
                     <div class="modal-body">
                         <div class="row todoModal">
-                            <div>
+                            <div class="">
                                 <form action="">
-                                    <input type="text" placeholder="Nombre Paciente">
-                                    <input type="text" placeholder="Especie">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control " id="floatingInput" placeholder="Especie" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Edad" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Raza" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Color" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Raza">
-                                    <input type="text" placeholder="Color">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="date" class="form-control fechaModal" id="floatingInput" placeholder="">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Sexo" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input class="fechaModal" type="date" name="" id="">
-                                    <input type="text" placeholder="Sexo">
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-3 mb-4" style="resize: none; height: 150px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Resultado de Prueva</label>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Edad">
-                                    <input type="text" placeholder="Resultado de Prueva">
-                                    <br>
                                 </form>
                             </div>
-                            <div class=" imgModal">
-                                <img src="/Img/perfil1.png" alt="">
-                                <div class="modalImag">
-                                    <label for="">Subir test</label>
-                                    <input class="form-control subirFotoModal" type="file" id="formFile">
-                                </div>
+                            <div class="form-file cargarImagen">
+                                <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                <label for="your_picture">
+                                    <figure>
+                                        <img src="/Img/cargarImagenExamenMedVet.png" alt="" class="your_picture_image">
+                                    </figure>
+                                    <span class="file-button">Subir imagen</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -255,9 +277,8 @@
         </div>
 
         <!-- Modal FIV AB/FeLV -->
-        <div class="modal fade pirmModal" id="FIVAB_FeLV" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade pirmModal" id="FIVAB_FeLV" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">FIV AB/FeLV</h1>
@@ -265,31 +286,53 @@
                     </div>
                     <div class="modal-body">
                         <div class="row todoModal">
-                            <div>
+                            <div class="">
                                 <form action="">
-                                    <input type="text" placeholder="Nombre Paciente">
-                                    <input type="text" placeholder="Especie">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control " id="floatingInput" placeholder="Especie" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Edad" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Raza" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Color" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Raza">
-                                    <input type="text" placeholder="Color">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="date" class="form-control fechaModal" id="floatingInput" placeholder="">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Sexo" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input class="fechaModal" type="date" name="" id="">
-                                    <input type="text" placeholder="Sexo">
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-3 mb-4" style="resize: none; height: 150px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Resultado de Prueva</label>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Edad">
-                                    <input type="text" placeholder="Resultado de Prueva">
-                                    <br>
                                 </form>
                             </div>
-                            <div class=" imgModal">
-                                <img src="/Img/perfil1.png" alt="">
-                                <div class="modalImag">
-                                    <label for="">Subir test</label>
-                                    <input class="form-control subirFotoModal" type="file" id="formFile">
-                                </div>
+                            <div class="form-file cargarImagen">
+                                <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                <label for="your_picture">
+                                    <figure>
+                                        <img src="/Img/cargarImagenExamenMedVet.png" alt="" class="your_picture_image">
+                                    </figure>
+                                    <span class="file-button">Subir imagen</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -301,9 +344,8 @@
         </div>
 
         <!-- Modal CDV Ag Test -->
-        <div class="modal fade pirmModal" id="CDVAgTest" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade pirmModal" id="CDVAgTest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
@@ -311,31 +353,53 @@
                     </div>
                     <div class="modal-body">
                         <div class="row todoModal">
-                            <div>
+                            <div class="">
                                 <form action="">
-                                    <input type="text" placeholder="Nombre Paciente">
-                                    <input type="text" placeholder="Especie">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control " id="floatingInput" placeholder="Especie" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Edad" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Raza" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Color" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Raza">
-                                    <input type="text" placeholder="Color">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="date" class="form-control fechaModal" id="floatingInput" placeholder="">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Sexo" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input class="fechaModal" type="date" name="" id="">
-                                    <input type="text" placeholder="Sexo">
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-3 mb-4" style="resize: none; height: 150px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Resultado de Prueva</label>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Edad">
-                                    <input type="text" placeholder="Resultado de Prueva">
-                                    <br>
                                 </form>
                             </div>
-                            <div class=" imgModal">
-                                <img src="/Img/perfil1.png" alt="">
-                                <div class="modalImag">
-                                    <label for="">Subir test</label>
-                                    <input class="form-control subirFotoModal" type="file" id="formFile">
-                                </div>
+                            <div class="form-file cargarImagen">
+                                <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                <label for="your_picture">
+                                    <figure>
+                                        <img src="/Img/cargarImagenExamenMedVet.png" alt="" class="your_picture_image">
+                                    </figure>
+                                    <span class="file-button">Subir imagen</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -348,41 +412,62 @@
 
 
         <!-- Modal editar informacion mascota -->
-        <div class="modal fade pirmModal" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade pirmModal" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">CDV Ag Test</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Informacion</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row todoModal">
-                            <div>
+                            <div class="">
                                 <form action="">
-                                    <input type="text" placeholder="Nombre Paciente">
-                                    <input type="text" placeholder="Especie">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control " id="floatingInput" placeholder="Especie" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Edad" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Raza" disabled>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Color" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Raza">
-                                    <input type="text" placeholder="Color">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="date" class="form-control fechaModal" id="floatingInput" placeholder="">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" id="floatingInput" placeholder="Sexo" disabled>
+                                        </div>
+                                    </div>
                                     <br>
 
-                                    <input class="fechaModal" type="date" name="" id="">
-                                    <input type="text" placeholder="Sexo">
+                                    <div class="form-floating">
+                                        <textarea class="form-control mt-3 mb-4" style="resize: none; height: 150px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                        <label for="floatingTextarea">Resultado de Prueva</label>
+                                    </div>
                                     <br>
 
-                                    <input type="text" placeholder="Edad">
-                                    <input type="text" placeholder="Resultado de Prueva">
-                                    <br>
                                 </form>
                             </div>
-                            <div class=" imgModal">
-                                <img src="/Img/perfil1.png" alt="">
-                                <div class="modalImag">
-                                    <label for="">Subir test</label>
-                                    <input class="form-control subirFotoModal" type="file" id="formFile">
-                                </div>
+                            <div class="form-file cargarImagen">
+                                <input type="file" class="inputfile" name="your_picture" id="your_picture"  onchange="readURL(this);" data-multiple-caption="{count} files selected" multiple />
+                                <label for="your_picture">
+                                    <figure>
+                                        <img src="/Img/cargarImagenExamenMedVet.png" alt="" class="your_picture_image">
+                                    </figure>
+                                    <span class="file-button">Subir imagen</span>
+                                </label>
                             </div>
                         </div>
                     </div>

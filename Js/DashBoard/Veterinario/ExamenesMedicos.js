@@ -2,7 +2,7 @@ const eliminarDatos = document.querySelectorAll("#borrarDatos");
 const registrar = document.getElementById('btnRegistrar')
 
 function mostrarAlerta(){
-    const selectModal = document.getElementById('floatingSelect');
+    const selectModal = document.getElementById('selectTest');
     const opcionSelec = selectModal.options[selectModal.selectedIndex].value;
     
     if (opcionSelec === '1'){
@@ -46,3 +46,15 @@ $(document).ready(function () {
       },
   });
 });
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $('.your_picture_image')
+              .attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+  }
+}

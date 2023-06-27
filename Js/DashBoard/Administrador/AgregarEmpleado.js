@@ -1,5 +1,7 @@
 const registrar = document.getElementById('btnRegistrar');
 const desactivar = document.querySelectorAll('#btnDesactivar');
+const activModal = document.getElementById('btnActuaModal');
+const calcelModal = document.getElementById('btnCancModal');
 
 registrar.addEventListener("click",()=>{
     Swal.fire(
@@ -34,3 +36,20 @@ $(document).ready(function () {
       },
   });
 });
+
+
+activModal.addEventListener("click",()=>{
+  Swal.fire(
+'Actualizacion Exitosa',
+'',
+'success'
+)
+})
+
+calcelModal.addEventListener("click",()=>{
+  Swal.fire(
+'No se actualizo',
+'',
+'error'
+)
+})

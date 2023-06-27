@@ -1,21 +1,71 @@
-.todo-tabla{
+.todo_form{
+    padding:20px;
+    border-radius: 10px;
+}
+
+.img-perfil{
     margin-top: 50px;
 }
-.todoModal{
-    display: flex;
+
+form{
+    margin-top: 30px;
+}
+
+.img-perfil img{
+    display: block;
+    margin:10px  auto;
+    width: 150px;
+    border-radius: 30%;
+}
+
+.todo-tabla{
+    margin-top: 50px;
 }
 
 .foto_tabla{
     width: 30px;
 }
 
-.btnmodal{
-    align-self: center;
+form button{
+    display: block;
+    margin: auto;
+    margin: 10px;
+}
+
+.tipoCorreo{
+    margin-top: 10px;
     border: none;
 }
 
-.btnRegistrar{
-    margin: 15px;
+.tipoCorreo select{
+    border: none;
+}
+
+
+.subirFoto{
+    width: 28%;
+    margin: auto;
+    display: block;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.subirFotoModal{
+    width: 32%;
+    /* margin: auto; */
+    display: flex;
+    border: none;
+    /* padding: 10px; */
+    color: #fff;
+    font-size: 14px;
+}
+
+.modalImag{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .imgModal img{
@@ -25,10 +75,10 @@
     border-radius: 30%;
 }
 
-.modalImag{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.tipoCorreoEditar select{
+    border: none;
+    margin-left: -30px;
+    margin-top: 5px;
 }
 
 section.hospitalizacion div.container {

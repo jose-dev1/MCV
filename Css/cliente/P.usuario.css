@@ -157,6 +157,11 @@ body {
     font-size: 1.3rem;
 }
 
+.img1 ul{
+    position: absolute;
+    margin: 70px;
+}
+
 .seccion-perfil-usuario .acciones-u .boton-general+.boton-general {
     margin-top: .5rem;
 }

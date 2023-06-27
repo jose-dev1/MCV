@@ -22,7 +22,7 @@ display-flex, .select-icon, .select-icon i, .form-radio input + label figure, .f
 /* Contenedor principal */
 .root {
   width: 990px;
-  height: 75vh;
+  height: auto;
   position: relative;
   margin: 0 auto;
   background: #fff;

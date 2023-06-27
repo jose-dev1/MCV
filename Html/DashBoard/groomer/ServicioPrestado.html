@@ -126,20 +126,27 @@
 
 
 
-                                            <div class="form mb-3">
-                                                <input type="date" class="form-control" placeholder="Nombre">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="floatingInput"
+                                                    placeholder="dd/mm/aaaa">
+                                                <label for="floatingInput">Fecha de servicio</label>
                                             </div>
 
 
 
 
-                                            <select class="form-select mb-3" aria-label="Default select example">
-                                                <option selected>Tipo de Servicio</option>
-                                                <option value="1">Corte de pelo</option>
-                                                <option value="2">Baño</option>
-                                                <option value="2">Corte de uñas</option>
-                                                <option value="2">Arreglo Esteticos</option>
-                                            </select>
+
+                                            <div class="form-floating mb-3">
+
+                                                <select class="form-select mb-3" aria-label="Default select example">
+                                                    <option selected>Tipo de Servicio</option>
+                                                    <option value="1">Corte de pelo</option>
+                                                    <option value="2">Baño</option>
+                                                    <option value="2">Corte de uñas</option>
+                                                    <option value="2">Arreglo Esteticos</option>
+                                                </select>
+                                                <label for="floatingSelect">Tipo De Servicio</label>
+                                            </div>
 
 
                                             <div class="form-floating mb-3">
@@ -149,7 +156,17 @@
                                             </div>
 
 
-                                            
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select selecform opcionEx" id="floatingSelect"
+                                                    aria-label="Floating label select example"
+                                                    onchange="mostrarAlerta()">
+                                                    <option selected>Seleccione una mascota</option>
+                                                    <option value="1">Max</option>
+                                                    <option value="2">Coco</option>
+                                                    <option value="3">Arthur</option>
+                                                </select>
+                                                <label for="floatingSelect">Mascota</label>
+                                            </div>
 
 
                                             <div class="btn-1  botones-form">
@@ -270,11 +287,12 @@
 
                                                 <div class="row ">
                                                     <form action="">
-                                                        <h1 class="text-center" >Editar</h1>
+                                                        <h1 class="text-center">Editar</h1>
 
                                                         <div class="form-floating mb-3">
-                                                            <p class="text_nomodal" >Nombre: Samuel  vasquez</p>
-                                                            <p class="text_nomodal" >No Documento: 01010101</p>
+                                                            <p class="text_nomodal">Nombre: Samuel vasquez</p>
+                                                            <p class="text_nomodal">No Documento: 01010101</p>
+                                                            <p class="text_nomodal">Mascota:Coco</p>
 
                                                         </div>
 
@@ -283,22 +301,28 @@
 
 
 
-                                                        <div class="form mb-3">
-                                                            <input type="date" class="form-control"
-                                                                placeholder="Nombre">
+                                                        <div class="form-floating mb-3">
+                                                            <input type="date" class="form-control" id="floatingInput"
+                                                                placeholder="dd/mm/aaaa">
+                                                            <label for="floatingInput">Fecha de Servicio</label>
                                                         </div>
 
 
 
 
-                                                        <select class="form-select mb-3"
-                                                            aria-label="Default select example">
-                                                            <option selected>Tipo de Servicio</option>
-                                                            <option value="1">Corte de pelo</option>
-                                                            <option value="2">Baño</option>
-                                                            <option value="2">Corte de uñas</option>
-                                                            <option value="2">Arreglo Esteticos</option>
-                                                        </select>
+                                                        <div class="form-floating mb-3">
+
+                                                            <select class="form-select mb-3"
+                                                                aria-label="Default select example">
+                                                                <option selected>Tipo de Servicio</option>
+                                                                <option value="1">Corte de pelo</option>
+                                                                <option value="2">Baño</option>
+                                                                <option value="2">Corte de uñas</option>
+                                                                <option value="2">Arreglo Esteticos</option>
+                                                            </select>
+                                                            <label for="floatingSelect">Tipo De Servicio</label>
+                                                        </div>
+
 
 
                                                         <div class="form-floating mb-3">
@@ -309,12 +333,6 @@
 
 
 
-                                                        <select class="form-select mb-3"
-                                                            aria-label="Default select example">
-                                                            <option selected>Selecione La Mascota</option>
-                                                            <option value="1">Mascota 1</option>
-                                                            <option value="2">Mascota 2</option>
-                                                        </select>
 
 
                                                     </form>

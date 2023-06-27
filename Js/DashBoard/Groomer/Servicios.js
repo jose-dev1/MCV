@@ -14,10 +14,10 @@ $(document).ready(function () {
 eliminarDatos.forEach(botones => {
   botones.addEventListener("click",()=>{
       Swal.fire({
-          title: 'Quiere eliminar el examen de esta mascota?',
+          title: 'Quiere eliminar este servicio',
           showDenyButton: true,
           confirmButtonText: 'Confirmar',
-          denyButtonText: `Canselar`,
+          denyButtonText: `Cancelar`,
         }).then((result) => {
           if (result.isConfirmed) {
             Swal.fire('Eliminado', '', 'success')

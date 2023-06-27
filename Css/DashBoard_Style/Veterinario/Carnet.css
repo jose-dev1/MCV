@@ -39,14 +39,17 @@ input{
 
 .todo-tabla{
     margin-top: 50px;
+
 }
 
 .toto_tabla{
     width: 100px;
+    
 }
 
 .foto_tabla{
-    width: 50px;
+    width: 30px;
+    
 }
 
 form button{
@@ -87,10 +90,6 @@ form button{
 }
 
 
-i{
-    text-align: center;
-    font-size: 15px;
-}
 
 .todo-tablamodal img{
     width: 30px;

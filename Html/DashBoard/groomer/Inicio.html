@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Inicio.css">
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
 
@@ -32,13 +32,17 @@
             <div class="Menu">
                 <div class="Logo">
                     <span class="navbar-brand">
-                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png"
+                                alt="Logo"> <span class="Degradado">MCV</span></a>
                     </span>
                 </div>
                 <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral Active"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
-                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral"> <i class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
+                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral Active"><i
+                        class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i
+                        class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
+                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral"> <i
+                        class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
             </div>
         </div>
         <!-- fin de la barra lateral -->
@@ -68,13 +72,15 @@
                             <li>
                                 <div class="form-check form-switch form-check-reverse Oscuro">
                                     <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
+                                            oscuro</small> </label>
                                 </div>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
                         </ul>
 
                     </div>
@@ -89,164 +95,183 @@
 
             <div class="w-100">
                 <div id="content">
+
+                    <div class="col-9 titulo-vienbenida">
+                        <h1>Bienvenido Freddy</h1>
+                        <p class="leaded TextMuted">Revisa la ultima informacion</p>
+                    </div>
                     <!-- ejemplo de codigo para manejar secciones -->
-                    <section class="py-3">
+                    <section class="bienvenida">
                         <div class="container">
                             <div class="row">
-                                <div class="col-9">
-                                    <h1 class="font-weight-bold mb-0">Bienvenido Freddy</h1>
-                                    <p class="leaded TextMuted">Revisa la ultima informacion</p>
-                                </div>
-
-                                <div>
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Revisa </h5>
-                                                        <p class="card-text">Tus clientes te estan esperando  </p>
-                                                        <a href="#" class="btn btn-primary">Agenda</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Tus Trabajos </h5>
-                                                        <p class="card-text">Registra tus servicios prestados </p>
-                                                        <a href="/Html/DashBoard/dashBoardgroomer/dahGrommerservicios.html" class="btn btn-primary">servicios</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <table class="table todo-table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Nom Cliente</th>
-                                                    <th scope="col">Mascota</th>
-                                                    <th scope="col">Servicios</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Mark</td>
-                                                    <td>Perro</td>
-                                                    <td>Corte de pelo</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jacob</td>
-                                                    <td>Perro</td>
-                                                    <td>Baño</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry </td>
-                                                    <td>Gato</td>
-                                                    <td>Arreglo estetico</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="col-md-6  todo-barraP">
-                                        <p>Baños : 5</p>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-                                        <p>Cortes de Pelo :8</p>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-
-
-                                        <p>Arreglo Estetico : 15</p>
-                                        <div class="progress">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%"
-                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="card col-md-12 cardNota">
-                                            <img src="https://cdn.shopify.com/s/files/1/1574/5941/articles/banar-a-tu-perro.jpg?v=1488999769" class="card-img-top" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">28 min</h5>
-                                                <p class="card-text">Ultimo Servicio prestado : Baño   | Cliente: 13221456 </p>
-                                                <p class="card-text"><small class="text-body-secondary">
-                                                        </small></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <table class="table todo-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Servicio</th>
-                                                        <th scope="col">Mascota</th>
-                                                        <th scope="col">No Esta semana</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Corte de pelo</td>
-                                                        <td>Perro</td>
-                                                        <td>30</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Baño</td>
-                                                        <td>Perro</td>
-                                                        <td>15</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Arreglo estetico</td>
-                                                        <td>Gato</td>
-                                                        <td>10</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <div class="col-md-6 todo-text">
-                                            <p class="muted">Placeholder text to demonstrate some <a href="#" data-bs-toggle="tooltip" data-bs-title="Default tooltip">inline links</a> with tooltips. This is now just filler, no killer. Content placed here just to mimic the presence of <a href="#" data-bs-toggle="tooltip" data-bs-title="Another tooltip">real text</a>. And all that just to give you an idea of how tooltips would look when used in real-world situations. So hopefully you've now seen how <a href="#" data-bs-toggle="tooltip" data-bs-title="Another one here too">these tooltips on links</a> can work in practice, once you use them on <a href="#" data-bs-toggle="tooltip" data-bs-title="The last tip!">your own</a> site or project.</p>
-                                           
-                                        </div>
-
-
-                                </div>
-
                     </section>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
+                    <section>
+                        <div class="d-flex">
+
+                            <div class="col-6">
+                                <section>
+                                    <div class="d-flex">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                                    <div class="card cartas">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <i class="fa-solid fa-people-group"></i>
+                                                                <p class="card-text numeros">40</p>
+                                                            </div>
+                                                            <p class="card-text">Clientes registrados en el sistema.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="card cartas">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <i class="fa-solid fa-calendar-check"></i>
+                                                                <p class="card-text numeros">38</p>
+                                                            </div>
+                                                            <p class="card-text">Servicios atendidos en el mes.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="card cartas">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <i class="fa-solid fa-hand-holding-medical"></i>
+                                                                <p class="card-text numeros">5</p>
+                                                            </div>
+                                                            <p class="card-text">Cortes de pelos programados</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <div class="d-flex">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+                                                    <div class="card cartas">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <i class="fa-solid fa-star-of-life"></i>
+                                                                <p class="card-text numeros">35</p>
+                                                            </div>
+                                                            <p class="card-text">Servicios prestados</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-sm-4">
+                                                    <div class="card cartas">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <i class="fa-solid fa-calendar-check"></i>
+                                                                <p class="card-text numeros">18</p>
+                                                            </div>
+                                                            <p class="card-text">Servicios atendidos esta semana.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <div class="d-flex">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-3 mb-sm-0">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div class="col-6">
+                                <section class="notificaciones">
+                                    <h2> Ultimos Servicios agendados</h2>
+                                    <div class="d-flex">
+                                        <div class="profile-photo">
+                                            <img src="/Img/perfil1.png" alt=""
+                                                class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                        </div>
+                                        <div class="message">
+                                            <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                        </div>
+                                        <div class="ms-auto">
+                                            <button type="button" class="btn botonInfo">Info</button>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex">
+                                        <div class="profile-photo">
+                                            <img src="/Img/perfil1.png" alt=""
+                                                class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                        </div>
+                                        <div class="message">
+                                            <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                        </div>
+                                        <div class=" ms-auto">
+                                            <button type="button" class="btn botonInfo">Info</button>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex">
+                                        <div class="profile-photo">
+                                            <img src="/Img/perfil1.png" alt=""
+                                                class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                        </div>
+                                        <div class="message">
+                                            <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                        </div>
+                                        <div class=" ms-auto">
+                                            <button type="button" class="btn botonInfo">Info</button>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex">
+                                        <div class="profile-photo">
+                                            <img src="/Img/perfil1.png" alt=""
+                                                class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                        </div>
+                                        <div class="message">
+                                            <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                        </div>
+                                        <div class=" ms-auto">
+                                            <button type="button" class="btn botonInfo">Info</button>
+                                        </div>
+                                    </div>
+                                    <a href="/Html/DashBoard/groomer/Agenda.html">
+                                        <h3>Ver agenda</h3>
+                                    </a>
+                                </section>
+                            </div>
+                    
 
 
 
 
     <!-- refecencia para boostrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
     <!-- referencia para las animaciones -->
     <script src="/Js/DashBoard/AnimacionesDash.js"></script>

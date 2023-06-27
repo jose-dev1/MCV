@@ -112,7 +112,7 @@
                                 los animales a su cargo. Este módulo está diseñado para ser intuitivo y fácil de
                                 usar.</p>
 
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">Agregar</button>
 
                         </div>
@@ -136,71 +136,93 @@
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Tipo De Mascota</th>
                                         <th scope="col">Nombre Del Dueño</th>
-                                        <th scope="col">Documento</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                        <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Mark
                                         </th>
                                         <td>Perro</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
+                                        <td>Samuel</td>
+                                        <td style="color: green;"  >Activo</td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            <button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button type="button" class="btn btn-outline-danger m-2"><i
+                                            <button type="button" class="btn btn-outline-danger ms-1" id="borrarDatos"><i
                                                     class="fa-solid fa-trash"></i>
                                             </button>
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop"> <i
-                                                    class="fa-solid fa-eye"></i></button>
 
 
                                         </td>
 
                                     </tr>
                                     <tr>
-                                        <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                        <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Mark
                                         </th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                        <td>Gato</td>
+                                        <td>Miguel</td>
+                                        <td style="color: green;"  >Activo</td>
+                                        <td><button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
                                             data-bs-target="#staticBackdrop"><i
                                                 class="fa-regular fa-pen-to-square"></i></button>
                                             <button type="button" onclick="eliminar()"
-                                                class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
+                                                class="btn btn-outline-danger ms-1"><i class="fa-solid fa-trash " id="borrarDatos"></i>
                                             </button>
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop"> <i
-                                                    class="fa-solid fa-eye"></i></button>
 
 
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                        <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Mark
                                         </th>
-                                        <td>Larry the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                        <td>Gato</td>
+                                        <td>Dylan</td>
+                                        <td style="color: green;"  >Activo</td>
+                                        <td><button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
                                             data-bs-target="#staticBackdrop"><i
                                                 class="fa-regular fa-pen-to-square"></i></button>
-                                            <button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i
+                                            <button type="button" onclick="eliminar()" class="btn btn-outline-danger ms-1" id="borrarDatos"><i
                                                     class="fa-solid fa-trash"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop"> <i
-                                                    class="fa-solid fa-eye"></i></button>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Mark
+                                        </th>
+                                        <td>Perro</td>
+                                        <td>Jose</td>
+                                        <td style="color: green;"  >Activo</td>
+                                        <td><button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"><i
+                                                class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" onclick="eliminar()" class="btn btn-outline-danger ms-1" id="borrarDatos"><i
+                                                    class="fa-solid fa-trash"></i>
+                                            </button>
+
+
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th scope="row"><img class="foto_tabla rounded-circle" src="/Img/perfil1.png" alt=""> Mark
+                                        </th>
+                                        <td>Perro</td>
+                                        <td>Diana</td>
+                                        <td style="color: red"  >Inactiva</td>
+                                        <td><button type="button" class="btn btn-outline-primary ms-1" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop"><i
+                                                class="fa-regular fa-pen-to-square"></i></button>
+                                            <button type="button" onclick="eliminar()" class="btn btn-outline-danger ms-1" id="borrarDatos"><i
+                                                    class="fa-solid fa-trash"></i>
+                                            </button>
+
 
                                         </td>
                                     </tr>
@@ -215,7 +237,7 @@
                             <div class="modal-dialog ">
                                 <div class="modal-content todo-modal">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Registra </h1>
+                                        <h1>Registra Vacuna</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -239,6 +261,14 @@
                                                     aria-label="Recipient's username with two button addons">
 
                                             </div>
+
+
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected>Mascota</option>
+                                                <option value="1">Mascota 1</option>
+                                                <option value="2">Mascota 2</option>
+                                                <option value="3">Mascota 3</option>
+                                            </select>
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Vacunas </option>
                                                 <option value="1">Vacuna 1</option>
@@ -250,9 +280,9 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                        <button type="button" class="btn btn-outline-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-outline-primary">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -343,9 +373,9 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button type="button" class="btn btn btn-outline-secondary"
                                         data-bs-dismiss="modal">cancelar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn btn-outline-primary">Guardar</button>
                                 </div>
                             </div>
                         </div>
@@ -357,26 +387,7 @@
                     <!-- Button trigger modal -->
 
                     <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Understood</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>
@@ -387,8 +398,9 @@
         <!-- referencia para las animaciones -->
         <script src="/Js/DashBoard/AnimacionesDash.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!-- datatables -->
         <script src="/Js/jquery.min.js"></script>

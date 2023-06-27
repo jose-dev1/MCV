@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
-    <link rel="stylesheet" href="/Css/DashBoard_Style/Groomer/DashGroomer.css">
-    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Carnet.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Groomer/Servis.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Hospitalizaciones.css">
 
     <!--Link de goole fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,13 +35,17 @@
             <div class="Menu">
                 <div class="Logo">
                     <span class="navbar-brand">
-                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png"
+                                alt="Logo"> <span class="Degradado">MCV</span></a>
                     </span>
                 </div>
                 <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
-                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
+                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral"><i
+                        class="fa-solid fa-house"></i> <span> Inicio </span> </a>
+                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i
+                        class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
+                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral Active"> <i
+                        class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
             </div>
         </div>
         <!-- fin de la barra lateral -->
@@ -71,13 +75,15 @@
                             <li>
                                 <div class="form-check form-switch form-check-reverse Oscuro">
                                     <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
+                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
+                                            oscuro</small> </label>
                                 </div>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
+                            <li><a class="dropdown-item" href="/Html/Login.html"><i
+                                        class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
                         </ul>
 
                     </div>
@@ -96,48 +102,73 @@
                     <section class="py-3">
                         <div class="container">
 
-                            <div class="row  todo_form">
-                                <div class="col-md-6">
-                                    <h1>Resgitra El Servicio</h1>
-                                    <form action="">
-                                        <input type="text" placeholder="Nombre">
-                                        <input type="text" placeholder="Edad">
-                                        <br>
-                                        <input type="text" placeholder="Color">
-                                        <input type="text" placeholder="Tipo De Mascota">
-                                        <br>
 
+                            <section class="py-4 hospitalizacion">
 
-                                        <input type="text" placeholder="No Documento Dueño">
-                                        <br>
+                                <div class="container">
 
-                                        <select class="form-select  selec" aria-label="Default select example">
-                                            <option selected>Servicio Prestado</option>
-                                            <option value="1">Baño</option>
-                                            <option value="2">Corte De Pelo</option>
-                                            <option value="3">Arreglo Estetico</option>
-                                        </select>
+                                    <div class="row  todo_form">
+                                        <h1>Registra Un Nuevo Servicio</h1>
+                                        <form action="">
 
-                                        <button type="file" id="inputGroupFile01"
-                                            class="btn btn-success">Registrar</button>
-
-
-                                    </form>
-                                </div>
-
-                                <div class="col-md-6 img-perfil">
-                                    <img src="/Img/perfil1.png" alt="">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingNombre"
+                                                    placeholder="Nombre">
+                                                <label for="floatingNombre">No Documento</label>
+                                            </div>
 
 
 
-                                    <div class="input-group mb-3">
-                                        <input type="file"></input>
+                                            <div class="btn-1">
+                                                <button type="button" class="btn btn-outline-success mt-1 mb-3"
+                                                    id="registrar">Buscar</button>
+                                            </div>
 
+
+
+                                            <div class="form mb-3">
+                                                <input type="date" class="form-control" placeholder="Nombre">
+                                            </div>
+
+
+
+
+                                            <select class="form-select mb-3" aria-label="Default select example">
+                                                <option selected>Tipo de Servicio</option>
+                                                <option value="1">Corte de pelo</option>
+                                                <option value="2">Baño</option>
+                                                <option value="2">Corte de uñas</option>
+                                                <option value="2">Arreglo Esteticos</option>
+                                            </select>
+
+
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingNombre"
+                                                    placeholder="Nombre">
+                                                <label for="floatingNombre">Descripcion del Servicio</label>
+                                            </div>
+
+
+                                            
+
+
+                                            <div class="btn-1  botones-form">
+                                                <button type="button" class="btn btn-outline-success mt-1 mb-3"
+                                                    id="registrar">Registrar</button>
+
+                                                <!--
+                                                    <a type="button" href="#tableServiciosA"  class="btn btn-outline-warning mt-1 mb-3"
+                                                    id="registrar">Ver Historial </a>
+                                                -->
+                                            </div>
+
+
+                                        </form>
                                     </div>
-
-                                    <p class="text-center">Subir Imagen</p>
                                 </div>
-                            </div>
+
+                            </section>
+
 
 
 
@@ -151,14 +182,15 @@
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Tipo De Mascota</th>
                                             <th scope="col">Nombre Del Dueño</th>
-                                            <th scope="col">Documento</th>
-                                            <th scope="col">Estado</th>
+                                            <th scope="col">Tipo De Servicio</th>
+                                            <th scope="col">Fecha </th>
                                             <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            <th scope="row"><img class="foto_tabla  rounded-circle"
+                                                    src="/Img/perfil1.png" alt=""> Mark
                                             </th>
                                             <td>Perro</td>
                                             <td>Otto</td>
@@ -167,16 +199,18 @@
                                             <td>
 
                                                 <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button><button
-                                                    type="button" onclick="eliminar()"
-                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
-                                                    </button>
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button>
+                                                <button id="borrarDatos" type="button"
+                                                    class="btn btn-outline-danger ms-1 "><i
+                                                        class="fa-solid fa-trash"></i>
+                                                </button>
                                             </td>
 
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            <th scope="row"><img class="foto_tabla  rounded-circle"
+                                                    src="/Img/perfil1.png" alt=""> Mark
                                             </th>
                                             <td>Jacob</td>
                                             <td>Thornton</td>
@@ -184,28 +218,35 @@
                                             <td>@fat</td>
 
                                             <td>
+
                                                 <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button><button
-                                                    type="button" onclick="eliminar()"
-                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
-                                                    </button>
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button>
+
+                                                <button id="borrarDatos" type="button"
+                                                    class="btn btn-outline-danger ms-1 "><i
+                                                        class="fa-solid fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Mark
+                                            <th scope="row"><img class="foto_tabla rounded-circle"
+                                                    src="/Img/perfil1.png" alt=""> Mark
                                             </th>
                                             <td>Larry the Bird</td>
                                             <td>@twitter</td>
                                             <td>@fat</td>
                                             <td>@fat</td>
                                             <td>
+
                                                 <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#facturaDash"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button><button
-                                                    type="button" onclick="eliminar()"
-                                                    class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i>
-                                                    </button>
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                                        class="fa-regular fa-pen-to-square"></i></button>
+
+                                                <button type="button" id="borrarDatos"
+                                                    class="btn btn-outline-danger ms-1"><i
+                                                        class="fa-solid fa-trash"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -213,57 +254,89 @@
                             </div>
 
                         </div>
-
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <h1>Resgitra El Servicio</h1>
-                                        <form action="">
-                                            <input type="text" placeholder="Nombre">
-                                            <input type="text" placeholder="Edad">
-                                            <br>
-                                            <input type="text" placeholder="Color">
-                                            <input type="text" placeholder="Tipo De Mascota">
-                                            <br>
+                                        <section class="py-4 ">
+
+                                            <div class="container">
+
+                                                <div class="row ">
+                                                    <form action="">
+                                                        <h1 class="text-center" >Editar</h1>
+
+                                                        <div class="form-floating mb-3">
+                                                            <p class="text_nomodal" >Nombre: Samuel  vasquez</p>
+                                                            <p class="text_nomodal" >No Documento: 01010101</p>
+
+                                                        </div>
 
 
-                                            <input type="text" placeholder="No Documento Dueño">
-                                            <br>
 
-                                            <select class="form-select  selec" aria-label="Default select example">
-                                                <option selected>Servicio Prestado</option>
-                                                <option value="1">Baño</option>
-                                                <option value="2">Corte De Pelo</option>
-                                                <option value="3">Arreglo Estetico</option>
-                                            </select>
 
-                                        </form>
 
-                                        <div class="img-perfil">
-                                            <img src="/Img/perfil1.png" alt="">
 
-                                            <button type="button" class="btn btn-success">Subir imagen</button>
-                                        </div>
+                                                        <div class="form mb-3">
+                                                            <input type="date" class="form-control"
+                                                                placeholder="Nombre">
+                                                        </div>
+
+
+
+
+                                                        <select class="form-select mb-3"
+                                                            aria-label="Default select example">
+                                                            <option selected>Tipo de Servicio</option>
+                                                            <option value="1">Corte de pelo</option>
+                                                            <option value="2">Baño</option>
+                                                            <option value="2">Corte de uñas</option>
+                                                            <option value="2">Arreglo Esteticos</option>
+                                                        </select>
+
+
+                                                        <div class="form-floating mb-3">
+                                                            <input type="text" class="form-control" id="floatingNombre"
+                                                                placeholder="Nombre">
+                                                            <label for="floatingNombre">Descripcion del Servicio</label>
+                                                        </div>
+
+
+
+                                                        <select class="form-select mb-3"
+                                                            aria-label="Default select example">
+                                                            <option selected>Selecione La Mascota</option>
+                                                            <option value="1">Mascota 1</option>
+                                                            <option value="2">Mascota 2</option>
+                                                        </select>
+
+
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </section>
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger"
+                                        <button type="button" class="btn btn-outline-secondary"
                                             data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Guarda
-                                            cambios</button>
+                                        <button type="button" class="btn btn-outline-primary">Guardar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!--Modal-->
+                        <!-- Modal -->
+
+
+
 
                     </section>
                 </div>
@@ -277,20 +350,22 @@
 
 
     <!-- refecencia para boostrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- referencia para las animaciones -->
-    <script src="/Js/DashBoard/AnimacionesDash.js"></script>       
-    
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
+
     <!-- links datatable -->
     <script src="/Js/jquery.min.js"></script>
     <script src="/Vendor/datatables.min.js"></script>
     <script src="/Js/modalgrup.js"></script>
     <script src="/Js/DashBoard/Groomer/Servicios.js"></script>
-    
+
 </body>
 
 </html>

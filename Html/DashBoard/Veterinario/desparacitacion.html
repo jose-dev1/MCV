@@ -13,7 +13,7 @@
     
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
-    <link rel="stylesheet" href="/Css/DashBoard_Style/Auxiliar/factura.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Desparacitacion.css">
 
     <!--Link de goole fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,6 +102,39 @@
                                     <h2>Desparacitacion</h2>
                                     <br>
                                     <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingInput" placeholder="Cedula">
+                                                <label for="floatingInput">Numero de cedula</label>
+                                              </div>
+                                        </div> 
+                                       
+                                    </div>
+                                    <div class="btn-1">
+                                        <button type="button" class="btn btn-outline-success">Buscar</button>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                                  <option value="1">Tommy</option>
+                                                  <option value="2">Zeus</option>
+                                                  <option value="3">Bruno</option>
+                                                </select>
+                                                <label for="floatingSelect">Selecione mascota</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                                  <option value="1">Externa</option>
+                                                  <option value="2">Interna</option>
+                                                </select>
+                                                <label for="floatingSelect">Tipo de desparacitacion</label>
+                                              </div>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
                                         <div class="col">
                                             <div class="form-floating mb-3">
                                                 <input type="date" class="form-control" id="floatingfecha" placeholder="dd/mm/aaaa">
@@ -117,10 +150,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingPrecio" placeholder="Precio">
-                                                <label for="floatingPrecio">Vacuna</label>
-                                            </div>
+                                            <div class="form-floating">
+                                                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                                  <option value="1">Rabia</option>
+                                                  <option value="2">Triple felina</option>
+                                                  <option value="3">Parvovirus</option>
+                                                </select>
+                                                <label for="floatingSelect">Tipo de vacuna</label>
+                                              </div>
                                         </div>
                                         <div class="col-md">
                                             <div class="form-floating mb-3">
@@ -147,7 +184,7 @@
                               <tr>
                                 <th scope="col">Nombre Mascota</th>
                                 <th scope="col">Fecha</th>
-                                <th scope="col">Cedula</th>
+                                <th scope="col">Nombre cliente</th>
                                 <th scope="col">Acciones</th>
                               </tr>
                             </thead>
@@ -155,19 +192,19 @@
                               <tr>
                                 <th scope="row">Tommy</th>
                                 <td>13/05/2023</td>
-                                <td>102438733</td>
+                                <td>Jorge</td>
                                 <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
                               </tr>
                               <tr>
                                 <th scope="row">Zeus</th>
                                 <td>14/06/2023</td>
-                                <td>156841665</td>
+                                <td>Carlos</td>
                                 <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
                               </tr>
                               <tr>
                                 <th scope="row">Venus</th>
                                 <td>19/07/2023</td>
-                                <td>10365984</td>
+                                <td>Maria</td>
                                 <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#desparacitar"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button></td>
                               </tr>
                             </tbody>
@@ -182,39 +219,53 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="floatingfecha" placeholder="dd/mm/aaaa">
-                                            <label for="floatingfecha">Fecha</label>
-                                          </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
-                                            <label for="floatingCedula">Peso</label>
-                                          </div>
-                                    </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                          <option value="1">Externa</option>
+                                          <option value="2">Interna</option>
+                                        </select>
+                                        <label for="floatingSelect">Tipo de desparacitacion</label>
+                                      </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingPrecio" placeholder="Precio">
-                                            <label for="floatingPrecio">Vacuna</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-floating mb-3">
-                                            <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
-                                            <label for="floatingInput">Proximo Control</label>
-                                        </div>
-                                    </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingfecha" placeholder="dd/mm/aaaa">
+                                        <label for="floatingfecha">Fecha</label>
+                                      </div>
                                 </div>
-                                <div class="form-floating">
-                                    <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                    <label for="floatingTextarea">Descripcion</label>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
+                                        <label for="floatingCedula">Peso</label>
+                                      </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                          <option value="1">Rabia</option>
+                                          <option value="2">Triple felina</option>
+                                          <option value="3">Parvovirus</option>
+                                        </select>
+                                        <label for="floatingSelect">Tipo de vacuna</label>
+                                      </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                        <label for="floatingInput">Proximo Control</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control mt-6 mb-5" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                <label for="floatingTextarea">Descripcion</label>
+                            </div>
+                            </div>  
                             <div class="modal-footer">
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
                             <button type="button" onclick="actualizar()" class="btn btn-outline-primary">Actualizar</button>

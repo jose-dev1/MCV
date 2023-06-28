@@ -49,3 +49,19 @@ function alerta1 () {
       'success'
   );
 }
+
+function buscarU(){
+  Swal.fire(
+    '',
+    'Cliente encontrado',
+    'success'
+  )
+}
+
+function servicioA(){
+  Swal.fire(
+    '',
+    'Servicio Agregado',
+    'success'
+  )
+}

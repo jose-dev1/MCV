@@ -100,32 +100,15 @@
                                     <h2>Factura</h2>
                                     <br>
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-6">
                                             <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
-                                                <label for="floatingNombre">Nombre</label>
-                                              </div>
+                                                <label for="floatingNombre">Cedula</label>
+                                            </div>
+                                            <button type="button" onclick="buscarU()" class="btn btn-outline-success">Buscar</button>
                                         </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
-                                                <label for="floatingCedula">Cedula</label>
-                                              </div>
-                                        </div>
-                                    </div>
+                                    </div><br>
                                     <div class="row">
-                                        <div class="col-md">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingPrecio" placeholder="Precio">
-                                                <label for="floatingPrecio">Precio</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-floating mb-3">
-                                                <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
-                                                <label for="floatingInput">Fecha de compra</label>
-                                            </div>
-                                        </div>
                                         <div class="col-md">
                                             <div class="form-floating">
                                                 <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
@@ -137,7 +120,29 @@
                                                   <option value="5">Cita Clinica</option>
                                                 </select>
                                                 <label for="floatingSelect">Sleccione el servicio</label>
-                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingPrecio" value="20.000" placeholder="Precio" disabled>
+                                                <label for="floatingPrecio">Precio</label>
+                                            </div>
+                                        </div>
+                                        <div class="btn-1">
+                                            <button type="button" onclick="servicioA()" class="btn btn-outline-success">Agregar Servicio</button>
+                                        </div>
+                                    </div><br>
+                                    <div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                                                <label for="floatingInput">Fecha de compra</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <h1>TOTAL: $45.000</h1>
                                         </div>
                                     </div>
                                     <div class="form-floating">
@@ -197,20 +202,6 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
-                                            <label for="floatingNombre">Nombre</label>
-                                          </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingCedula" placeholder="Cedula">
-                                            <label for="floatingCedula">Cedula</label>
-                                          </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md">
                                         <div class="form-floating mb-3">

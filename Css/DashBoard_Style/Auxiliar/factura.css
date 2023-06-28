@@ -1,13 +1,20 @@
 section .facturaG div.container {
     padding: 20px;
-    height: 60vh; 
+    height: auto; 
 	  max-width: 800px;
 	  background-color: #FFFFFF;
-	  box-shadow: 0px 0px 10px #D8D8D8;
+	  box-shadow: 0px 0px 10px #D8D8D8; 
+   
 
   }
   .content h2{
     text-align: center;
+  }
+
+  .logo-1 img{
+    height: 50px;
+    width: 50px;
+   
   }
 
   .btn-1 {

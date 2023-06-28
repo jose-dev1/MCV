@@ -2,7 +2,9 @@ var usuarios = [
     { id: 1, correo: 'veterinario@mcv.com', contraseña: '1234' },
     { id: 2, correo: 'groomer@mcv.com', contraseña: '12345' },
     { id: 3, correo: 'cliente@mcv.com', contraseña: '123456' },
-    { id: 4, correo: 'aux@mcv.com', contraseña: '1234567' }
+    { id: 4, correo: 'aux@mcv.com', contraseña: '1234567' },
+    { id: 5, correo: 'admin@mcv.com', contraseña: 'root' }
+    
   ];
   
 function autenticar(event) {
@@ -32,6 +34,10 @@ function autenticar(event) {
           case 4:
             window.location.href = '/Html/DashBoard/auxiliar/Inicio.html';
             break;
+          case 5:
+            window.location.href = '/Html/DashBoard/Administrador/AgregarEmpleado.html';
+            break;
+              
         }
       } else {
         Swal.fire({

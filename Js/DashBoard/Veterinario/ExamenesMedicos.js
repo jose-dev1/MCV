@@ -20,7 +20,7 @@ eliminarDatos.forEach(botones => {
             title: 'Quiere eliminar el examen de esta mascota?',
             showDenyButton: true,
             confirmButtonText: 'Confirmar',
-            denyButtonText: `Canselar`,
+            denyButtonText: `Cancelar`,
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire('Eliminado', '', 'success')

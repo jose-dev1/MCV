@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -9,7 +10,7 @@
 
     <!--Link boostrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
@@ -41,6 +42,8 @@
         </header>
 
         <div class="menu-bar">
+            <!-- apartado para modificacion de iconos -->
+            <!-- para cambiar el icono se cambian las clases bx y b-home-alt mantener clase icon -->
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link">
@@ -124,10 +127,11 @@
                 <div></div>
 
                 <div id="BarraSuperior">
-                    <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- codigo para la carga de la imagen de perfil -->
-                        <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil" class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                        <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                            class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
                     <ul class="dropdown-menu dropdown-menu-end me-2" id="nadVar">
                         <li class="text-center">Edwin Vaca</li>
                         <li class="text-muted text-center "><small>Veterinario</small></li>
@@ -139,12 +143,15 @@
                 </div>
         </nav>
         <div class="contenidoPagina" id="content">
+            <!-- en este apertado se manejara todo el contenido de la pagina -->
             <!-- ejemplo de codigo para manejar secciones -->
             <section class="bienvenida text">
                 <h1 class="font-weight-bold mb-0">Bienvenido Edwin</h1>
                 <p class="leaded TextMuted">Revisa la ultima informacion</p>
             </section>
+        </div>
     </section>
+
     <!-- refecencia para boostrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

@@ -307,3 +307,25 @@ a.Active {
         margin-top: 30px;
     }
 }
+
+@media (max-width: 1400px) {
+    .nav-link {
+        margin-bottom: 30px;
+    }
+    .sidebar .text,
+    .sidebar .icon {
+        font-size: 17px;
+    }
+    .menuDesplegable {
+        margin-top: 30px;
+    }
+    .sidebar .menu {
+        margin-top: 20px;
+    }
+    .sidebar li {
+        height: 35px;
+        width: 60px;
+        margin-top: -6px;
+    }
+}
+

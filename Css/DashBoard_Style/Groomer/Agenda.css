@@ -1,13 +1,22 @@
-.todo-tabla{
+.todo-tabla {
     margin-top: 50px;
 }
 
-.foto_tabla{
+.foto_tabla {
     width: 30px;
 }
 
-form button{
+form button {
     display: block;
     margin: auto;
     margin: 10px;
+}
+
+.home {
+    overflow: auto;
+}
+
+.todo-tabla {
+    width: 80%;
+    margin-left: 5%;
 }

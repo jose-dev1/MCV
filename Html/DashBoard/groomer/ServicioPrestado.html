@@ -5,366 +5,255 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicio Prestado</title>
+    <title>Inicio</title>
     <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
 
     <!--Link boostrap-->
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
-
-    <!--Link de goole fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Sigmar&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Groomer/Servis.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Groomer/Agenda.css">
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/Vendor/datatables.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
 
 </head>
 
 <body>
-    <div class="container-fluid">
+    <nav class="sidebar close">
+        <header>
 
-        <!-- inicio del codigo de la barra lateral  -->
-        <div class="SidebarContainer">
-            <div class="Menu">
-                <div class="Logo">
-                    <span class="navbar-brand">
-                        <a href="/Html/DashBoard/groomer/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png"
-                                alt="Logo"> <span class="Degradado">MCV</span></a>
-                    </span>
+            <div class="image-text">
+                <span class="image">
+                    <img src="/Img/Logo blanco.png" alt="">
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name"></span>
+                    <span class="profession">MCV</span>
                 </div>
-                <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/groomer/Inicio.html" class="d-block BarraLateral"><i
-                        class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/groomer/Agenda.html" class="d-block BarraLateral"> <i
-                        class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
-                <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="d-block BarraLateral Active"> <i
-                        class="fa-solid fa-scissors"></i> <span> Servicio prestado</span></a>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <!-- apartado cambio de iconos -->
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/Inicio.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="Inicio">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/Agenda.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="Agenda">
+                            <i class='bx bx-calendar-check icon'></i>
+                            <span class="text nav-text">Agenda</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/ServicioPrestado.html" class="Active" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Servicio Prestado">
+                            <i class='bx bx-cut icon'></i>
+                            <span class="text nav-text">Servicio Prestado</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+
+                <li class="">
+                    <a href="/Html/Login.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="Cerrar Sesión">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Cerrar Sesión</span>
+                    </a>
+                </li>
+
             </div>
         </div>
-        <!-- fin de la barra lateral -->
+    </nav>
+    <!-- apartado navbar-->
+    <section class="home">
+        <nav class="navbar navbar-expand-lg propiedadesNavbar">
 
-        <!-- inicio del codigo del nadvar -->
-        <div class="w-100">
+            <div class="container-fluid">
+                <div></div>
 
-            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+                <div id="BarraSuperior">
+                    <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- codigo para la carga de la imagen de perfil -->
+                        <img src="/Img/Img-dashboard/Fotos-perfil/Foto Perfil groomer.jpg" alt="perfil"
+                            class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                    <ul class="dropdown-menu dropdown-menu-end me-2" id="nadVar">
+                        <li class="text-center">Freddy Lozano</li>
+                        <li class="text-muted text-center "><small>Groomer</small></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
 
-                <div class="container-fluid">
-                    <button class="BtnList" type="button" id="menuBtn">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
+                </div>
+        </nav>
+    </section>
 
-                    <div id="BarraSuperior">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <!-- codigo para la carga de la imagen de perfil -->
-                            <img src="/Img/Img-dashboard/Fotos-perfil/Foto Perfil groomer.jpg" alt="perfil"
-                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
-                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
-                            <li class="text-center">Freddy Lozano</li>
-                            <li class="text-muted text-center "><small>Groomer</small></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <div class="form-check form-switch form-check-reverse Oscuro">
-                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo
-                                            oscuro</small> </label>
-                                </div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/Html/Login.html"><i
-                                        class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
-                        </ul>
 
+    <section class="home">
+        <div class="todo_contenido">
+            <div class="row  todo_form">
+                <h1>Registra Un Nuevo Servicio</h1>
+                <form action="">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                        <label for="floatingNombre">No Documento</label>
                     </div>
-            </nav>
-        </div>
 
-        <!-- final del codigo del nadvar -->
 
-        <!-- espacio para el contenido de la pagina -->
 
-        <div class="d-flex">
-
-            <div class="w-100">
-                <div id="content">
-                    <!-- ejemplo de codigo para manejar secciones -->
-                    <section class="py-3">
-                        <div class="container">
-
-
-                            <section class="py-4 hospitalizacion">
-
-                                <div class="container">
-
-                                    <div class="row  todo_form">
-                                        <h1>Registra Un Nuevo Servicio</h1>
-                                        <form action="">
-
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingNombre"
-                                                    placeholder="Nombre">
-                                                <label for="floatingNombre">No Documento</label>
-                                            </div>
-
-
-
-                                            <div class="btn-1">
-                                                <button type="button" class="btn btn-outline-success mt-1 mb-3"
-                                                    id="registrar">Buscar</button>
-                                            </div>
-
-
-
-                                            <div class="form-floating mb-3">
-                                                <input type="date" class="form-control" id="floatingInput"
-                                                    placeholder="dd/mm/aaaa">
-                                                <label for="floatingInput">Fecha de servicio</label>
-                                            </div>
-
-
-
-
-
-                                            <div class="form-floating mb-3">
-
-                                                <select class="form-select mb-3" aria-label="Default select example">
-                                                    <option selected>Tipo de Servicio</option>
-                                                    <option value="1">Corte de pelo</option>
-                                                    <option value="2">Baño</option>
-                                                    <option value="2">Corte de uñas</option>
-                                                    <option value="2">Arreglo Esteticos</option>
-                                                </select>
-                                                <label for="floatingSelect">Tipo De Servicio</label>
-                                            </div>
-
-
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingNombre"
-                                                    placeholder="Nombre">
-                                                <label for="floatingNombre">Descripcion del Servicio</label>
-                                            </div>
-
-
-                                            <div class="form-floating mb-3">
-                                                <select class="form-select selecform opcionEx" id="floatingSelect"
-                                                    aria-label="Floating label select example"
-                                                    onchange="mostrarAlerta()">
-                                                    <option selected>Seleccione una mascota</option>
-                                                    <option value="1">Max</option>
-                                                    <option value="2">Coco</option>
-                                                    <option value="3">Arthur</option>
-                                                </select>
-                                                <label for="floatingSelect">Mascota</label>
-                                            </div>
-
-
-                                            <div class="btn-1  botones-form">
-                                                <button type="button" class="btn btn-outline-success mt-1 mb-3"
-                                                    id="registrar">Registrar</button>
-
-                                                <!--
-                                                    <a type="button" href="#tableServiciosA"  class="btn btn-outline-warning mt-1 mb-3"
-                                                    id="registrar">Ver Historial </a>
-                                                -->
-                                            </div>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </section>
-
-
-
-
-
-
-                            <div class="row  todo-tabla">
-                                <h1 class="text-center">Historial De Servicios</h1>
-                                <table class="table" id="tableServiciosA">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Tipo De Mascota</th>
-                                            <th scope="col">Nombre Del Dueño</th>
-                                            <th scope="col">Tipo De Servicio</th>
-                                            <th scope="col">Fecha </th>
-                                            <th scope="col">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row"><img class="foto_tabla  rounded-circle"
-                                                    src="/Img/perfil1.png" alt=""> Mark
-                                            </th>
-                                            <td>Perro</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>
-
-                                                <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button>
-                                                <button id="borrarDatos" type="button"
-                                                    class="btn btn-outline-danger ms-1 "><i
-                                                        class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img class="foto_tabla  rounded-circle"
-                                                    src="/Img/perfil1.png" alt=""> Mark
-                                            </th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                            <td>@fat</td>
-
-                                            <td>
-
-                                                <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button>
-
-                                                <button id="borrarDatos" type="button"
-                                                    class="btn btn-outline-danger ms-1 "><i
-                                                        class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img class="foto_tabla rounded-circle"
-                                                    src="/Img/perfil1.png" alt=""> Mark
-                                            </th>
-                                            <td>Larry the Bird</td>
-                                            <td>@twitter</td>
-                                            <td>@fat</td>
-                                            <td>@fat</td>
-                                            <td>
-
-                                                <button type="button" class="btn btn-outline-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                        class="fa-regular fa-pen-to-square"></i></button>
-
-                                                <button type="button" id="borrarDatos"
-                                                    class="btn btn-outline-danger ms-1"><i
-                                                        class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <section class="py-4 ">
-
-                                            <div class="container">
-
-                                                <div class="row ">
-                                                    <form action="">
-                                                        <h1 class="text-center">Editar</h1>
-
-                                                        <div class="form-floating mb-3">
-                                                            <p class="text_nomodal">Nombre: Samuel vasquez</p>
-                                                            <p class="text_nomodal">No Documento: 01010101</p>
-                                                            <p class="text_nomodal">Mascota:Coco</p>
-
-                                                        </div>
-
-
-
-
-
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="date" class="form-control" id="floatingInput"
-                                                                placeholder="dd/mm/aaaa">
-                                                            <label for="floatingInput">Fecha de Servicio</label>
-                                                        </div>
-
-
-
-
-                                                        <div class="form-floating mb-3">
-
-                                                            <select class="form-select mb-3"
-                                                                aria-label="Default select example">
-                                                                <option selected>Tipo de Servicio</option>
-                                                                <option value="1">Corte de pelo</option>
-                                                                <option value="2">Baño</option>
-                                                                <option value="2">Corte de uñas</option>
-                                                                <option value="2">Arreglo Esteticos</option>
-                                                            </select>
-                                                            <label for="floatingSelect">Tipo De Servicio</label>
-                                                        </div>
-
-
-
-                                                        <div class="form-floating mb-3">
-                                                            <input type="text" class="form-control" id="floatingNombre"
-                                                                placeholder="Nombre">
-                                                            <label for="floatingNombre">Descripcion del Servicio</label>
-                                                        </div>
-
-
-
-
-
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                        </section>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary"
-                                            data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-outline-primary">Guardar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal -->
-
-
-
-
-                    </section>
-                </div>
+                    <div class="btn-1">
+                        <button type="button" class="btn btn-outline-success mt-1 mb-3" id="registrar">Buscar</button>
+                    </div>
+
+
+
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="floatingInput" placeholder="dd/mm/aaaa">
+                        <label for="floatingInput">Fecha de servicio</label>
+                    </div>
+
+
+
+
+
+                    <div class="form-floating mb-3">
+
+                        <select class="form-select mb-3" aria-label="Default select example">
+                            <option selected>Tipo de Servicio</option>
+                            <option value="1">Corte de pelo</option>
+                            <option value="2">Baño</option>
+                            <option value="2">Corte de uñas</option>
+                            <option value="2">Arreglo Esteticos</option>
+                        </select>
+                        <label for="floatingSelect">Tipo De Servicio</label>
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                        <label for="floatingNombre">Descripcion del Servicio</label>
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select selecform opcionEx" id="floatingSelect"
+                            aria-label="Floating label select example" onchange="mostrarAlerta()">
+                            <option selected>Seleccione una mascota</option>
+                            <option value="1">Max</option>
+                            <option value="2">Coco</option>
+                            <option value="3">Arthur</option>
+                        </select>
+                        <label for="floatingSelect">Mascota</label>
+                    </div>
+
+
+                    <div class="btn-1  botones-form">
+                        <button type="button" class="btn btn-outline-success mt-1 mb-3"
+                            id="registrar">Registrar</button>
+
+                        <!--
+                            <a type="button" href="#tableServiciosA"  class="btn btn-outline-warning mt-1 mb-3"
+                            id="registrar">Ver Historial </a>
+                        -->
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="row  todo-tabla">
+                <h1 class="text-center">Lista de citas</h1>
+                <table class="table" id="tblCitasAgenGroo">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre del cliente</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Tipo de mascota</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                            </th>
+                            <td>Corte de pelo</td>
+                            <td>Perro</td>
+                            <td>17/03/2023</td>
+                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#declinarCita"
+                                    class="btn btn-outline-danger" id="btnDeclinar"><i
+                                        class="fa-solid fa-calendar-xmark"></i></button>
+
+                        </tr>
+                        <tr>
+                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                            </th>
+                            <td>Corte de uñas</td>
+                            <td>Gato</td>
+                            <td>17/03/2023</td>
+                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#declinarCita"
+                                    class="btn btn-outline-danger" id="btnDeclinar"><i
+                                        class="fa-solid fa-calendar-xmark"></i></button>
+                        </tr>
+                        <tr>
+                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                            </th>
+                            <td>Baño</td>
+                            <td>Perro</td>
+                            <td>17/03/2023</td>
+                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#declinarCita"
+                                    class="btn btn-outline-danger" id="btnDeclinar"><i
+                                        class="fa-solid fa-calendar-xmark"></i></button>
+                        </tr>
+                        <tr>
+                            <th scope="row"><img class="foto_tabla" src="/Img/perfil1.png" alt=""> Name
+                            </th>
+                            <td>Corte de uñas</td>
+                            <td>Gato</td>
+                            <td>17/03/2023</td>
+                            <td><button type="button" data-bs-toggle="modal" data-bs-target="#declinarCita"
+                                    class="btn btn-outline-danger" id="btnDeclinar"><i
+                                        class="fa-solid fa-calendar-xmark"></i></button>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
+        </div>
+    </section>
 
 
 
 
 
-
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!-- referencia para las animaciones -->
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
     <!-- refecencia para boostrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -381,7 +270,6 @@
     <script src="/Vendor/datatables.min.js"></script>
     <script src="/Js/modalgrup.js"></script>
     <script src="/Js/DashBoard/Groomer/Servicios.js"></script>
-
 </body>
 
 </html>

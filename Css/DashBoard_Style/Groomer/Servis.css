@@ -1,7 +1,13 @@
-.text_nomodal{
-    margin-left: 5px;
+.todo_form {
+    width: 50%;
+    margin-left: 20%;
 }
 
-.botones-form button {
-    margin-right: 10px;
+.home {
+    overflow: auto;
+}
+
+.todo-tabla {
+    width: 90%;
+    margin-left: 5%;
 }

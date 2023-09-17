@@ -1,25 +1,33 @@
-section .containe{
-    padding: 30px;
-    margin: 30px;
-    height: 20vh; 
-	max-width: 400px;
+section .containe {
+  padding: 30px;
+  margin: 30px;
+  height: 20vh;
+  max-width: 400px;
 }
 
-
-.info{
-    text-align: center;
+section .py-5 div.container {
+  padding: 10px;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px hsl(0, 0%, 85%);
 }
 
-.btn-2{
-    display: flex;
-    justify-content: center;
+.info {
+  text-align: center;
 }
 
-.certificado .container{
-    padding: 20px;
-    height: auto; 
-	max-width: 800px;
-	background-color: #FFFFFF;
-	box-shadow: 0px 0px 10px #D8D8D8;
+.btn-2 {
+  display: flex;
+  justify-content: center;
+}
 
+.certificado .container {
+  padding: 20px;
+  height: auto;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #d8d8d8;
+}
+.contenidoPagina {
+  overflow-y: auto;
 }

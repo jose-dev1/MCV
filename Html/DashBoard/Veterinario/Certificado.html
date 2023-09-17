@@ -9,7 +9,8 @@
     <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
 
     <!--Link boostrap-->
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
@@ -22,653 +23,717 @@
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!---SweeyAlert-->
     <link rel="stylesheet" href="/Vendor/datatables.min.css">
 
 </head>
 
 <body>
-    <div class="container-fluid">
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <img src="/Img/Logo blanco.png" alt="">
+                </span>
 
-        <!-- inicio del codigo de la barra lateral  -->
-        <div class="SidebarContainer">
-            <div class="Menu">
-                <div class="Logo">
-                    <span class="navbar-brand">
-                        <a href="/Html/DashBoard/Veterinario/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
-                    </span>
+                <div class="text logo-text">
+                    <span class="name"></span>
+                    <span class="profession">MCV</span>
                 </div>
-                <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/Veterinario/Inicio.html" class="d-block BarraLateral"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/Veterinario/CitasAgendadas.html" class="d-block BarraLateral"> <i class="fa-regular fa-calendar-check Icono"></i> <span> Agenda </span></a>
-                <a href="/Html/DashBoard/Veterinario/HistoriaClinica.html" class="d-block BarraLateral"> <i class="fa-solid fa-book-medical Icono"></i> <span> Historias Clinicas</span></a>
-                <a href="/Html/DashBoard/Veterinario/Hospitalizaciones.html" class="d-block BarraLateral"> <i class="fa-solid fa-file-medical Icono"></i> <span> Hospitalizaciones</span></a>
-                <a href="/Html/DashBoard/Veterinario/Certificado.html" class="d-block BarraLateral Active"> <i class="fa-solid fa-check Icono"></i> <span> Certificados</span></a>
-                <a href="/Html/DashBoard/Veterinario/Vacunacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-syringe Icono"></i> <span> Vacunacion</span></a>
-                <a href="/Html/DashBoard/Veterinario/Desparacitacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-tablets Icono"></i> <span> Desparacitaciones</span></a>
-                <a href="/Html/DashBoard/Veterinario/ExamenesMedicos.html" class="d-block BarraLateral"> <i class="fa-solid fa-x-ray Icono"></i> <span> Examenes</span></a>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/Inicio.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Inicio">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/CitasAgendadas.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Agenda">
+                            <i class='bx bx-calendar-check icon'></i>
+                            <span class="text nav-text">Agenda</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/HistoriaClinica.html" data-bs-toggle="tooltip" 
+                            data-bs-placement="right" data-bs-title="Historias Clinicas">
+                            <i class='bx bx-book-heart icon'></i>
+                            <span class="text nav-text">Historias Clinicas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/Hospitalizaciones.html"
+                            data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Hospitalizaciones">
+                            <i class='bx bx-pulse icon'></i>
+                            <span class="text nav-text">Hospitalizaciones</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/Certificado.html" data-bs-toggle="tooltip" class="Active 
+                            data-bs-placement="right" data-bs-title="Certificados">
+                            <i class='bx bx-check-square icon'></i>
+                            <span class="text nav-text">Certificados</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/Vacunacion.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Vacunacion">
+                            <i class='bx bx-injection icon'></i>
+                            <span class="text nav-text">Vacunacion</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/Desparacitacion.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Desparacitacion">
+                            <i class='bx bx-capsule icon'></i>
+                            <span class="text nav-text">Desparacitacion</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/Veterinario/ExamenesMedicos.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Examenes">
+                            <i class='bx bx-task-x icon'></i>
+                            <span class="text nav-text">Examenes</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+
+                <li class="">
+                    <a href="/Html/Login.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="Cerrar Sesión">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Cerrar Sesión</span>
+                    </a>
+                </li>
+
             </div>
         </div>
-        <!-- fin de la barra lateral -->
+    </nav>
+    <section class="home">
+        <nav class="navbar navbar-expand-lg propiedadesNavbar">
 
-        <!-- inicio del codigo del nadvar -->
-        <div class="w-100">
+            <div class="container-fluid">
+                <div></div>
 
-            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+                <div id="BarraSuperior">
+                    <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- codigo para la carga de la imagen de perfil -->
+                        <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                            class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                    <ul class="dropdown-menu dropdown-menu-end me-2" id="nadVar">
+                        <li class="text-center">Edwin Vaca</li>
+                        <li class="text-muted text-center "><small>Veterinario</small></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
 
-                <div class="container-fluid">
-                    <button class="BtnList" type="button" id="menuBtn">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-
-                    <div id="BarraSuperior">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                    <!-- codigo para la carga de la imagen de perfil -->
-                            <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
-                                class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
-                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
-                            <li class="text-center">Edwin Vaca</li>
-                            <li class="text-muted text-center "><small>Veterinario</small></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <div class="form-check form-switch form-check-reverse Oscuro">
-                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
-                                </div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
-                        </ul>
-
-                    </div>
-            </nav>
-        </div>
+                </div>
+        </nav>
         <!-- final del codigo del nadvar -->
         <!-- espacio para el contenido de la pagina -->
-        <div class="d-flex">
-            <div class="w-100">
-                <div id="content">
-                    <div class="info py-3">  
-                        <h2>Cerficado de salud de caninos y felinos</h2><br>
-                        <h4>Puede Auto Cargar los datos del usuario y de la mascota buscando su numero de cedula</h4>
-                    </div>
-                    <section class="py-1">
-                        <div class="containe">
-                            <div class="form-floating ">
-                                <input type="text" class="form-control" id="floatingBuscar" placeholder="Buscar">
-                                <label for="floatingBuscar">Buscar Cedula</label>
+        <div class="contenidoPagina">
+            <div class="d-flex">
+                <div class="w-100">
+                    <div id="content">
+                        <div class="info py-3">  
+                            <h2>Cerficado de salud de caninos y felinos</h2><br>
+                            <h4>Puede Auto Cargar los datos del usuario y de la mascota buscando su numero de cedula</h4>
+                        </div>
+                        <section class="py-1">
+                            <div class="containe">
+                                <div class="form-floating ">
+                                    <input type="text" class="form-control" id="floatingBuscar" placeholder="Buscar">
+                                    <label for="floatingBuscar">Buscar Cedula</label>
+                                </div> 
+                                <button type="button" class="btn btn-outline-success mt-3 mb-3">Buscar</button>
+                            </div>
+                        </section>
+                        <section class="certificado">
+                            <div class="container">
+                                <h3>1.Identificacion del propietario</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                            <label for="floatingNombre">Nombre Completo</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" id="floatingId" placeholder="id">
+                                                    <label for="floatingId">ID/TIPO</label>
+                                                  </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingNumero" placeholder="Numero">
+                                                    <label for="floatingNumero">Numero</label>
+                                                  </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingOrigen" placeholder="Origen">
+                                                    <label for="floatingOrigen">Origen</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingTelefono" placeholder="Telefono">
+                                                    <label for="floatingTelefono">Telefono</label>
+                                                  </div>
+                                            </div>   
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="form-floating ">
+                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Direccion">
+                                                <label for="floatingDireccion">Direccion</label>
+                                              </div>
+                                        </div>  
+                                        <div class="col">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Ciudad">
+                                                <label for="floatingTelefono">Ciudad</label>
+                                              </div>
+                                        </div> 
+                                    </div>
+                                </div>  
+                            </div><br>
+                            <h3>2 .Identificacion del animal</h3>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Nombre</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Fecha de Nacimiento</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Peso</label>
+                                    </div>
+                                </div>
                             </div> 
-                            <button type="button" class="btn btn-outline-success mt-3 mb-3">Buscar</button>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Especie</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Sexo</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Tamaño</label>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Raza</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Color de pelaje</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Micro chip</label>
+                                    </div>
+                                </div>
+                            </div><br>
+                                <h3>3 .Informacion vacunas</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingNombrec" placeholder="Nombre Comercial">
+                                            <label for="floatingNombrec">Nombre Comercial</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F.Aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Fecha de Vencimiento</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>PARA VIAJES A LA UNION EUROPEA  ES NECESARIO ANEXAR ESTUDIO SEROLÒGICO DE  TITULACIÒN ANTIRRABICA COMFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
+                                <h3>4. Informacion anti parasitaria interno</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Nombre Comercial</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">P. activo</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F. de aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">F. de vto</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">R. ica</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>5. Informacion anti parasitaria externo</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Nombre Comercial</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">P. activo</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F. de aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">F. de vto</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">R. ica</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>APLICADOS  DENTRO  DE LOS 15 (QUINCE) DIAS ANTERIORES A LA FECHA  DE VIAJE DE LA MASCOTA Y CONFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
+                                <h3>6. Informacion sanitaria.</h3>
+                                <div class="form-floating">
+                                    <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Comentarios</label>
+                                </div><br>
+                                <h3>7. Informacion Adicional.</h3>
+                                <div class="form-floating">
+                                    <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Observaciones</label>
+                                </div><br>
+                                <div class="btn-2">
+                                    <button type="button" onclick="alerta1()" class="btn btn-outline-success mt-3 mb-3">Generar Certificado</button>
+                                </div>
                         </div>
                     </section>
-                    <section class="certificado">
+                    <section class="py-5">
                         <div class="container">
-                            <h3>1.Identificacion del propietario</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
-                                        <label for="floatingNombre">Nombre Completo</label>
+                            <table class="table" id="tablaCertificado">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Numero de documento</th>
+                                    <th scope="col">Acciones</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry the Bird</td>
+                                    <td>Larry the Bird</td>
+                                    <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                        </div>
+                    </section>
+    
+                    <!--Aquie inicia el modal-->
+                    <div class="modal fade" id="modalCertificado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h2 class="modal-title" id="staticBackdropLabel">Editar Certificado</h2>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
+                                            <label for="floatingNombre">Nombre Completo</label>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" class="form-control" id="floatingId" placeholder="id">
+                                                    <label for="floatingId">ID/TIPO</label>
+                                                  </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingNumero" placeholder="Numero">
+                                                    <label for="floatingNumero">Numero</label>
+                                                  </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingOrigen" placeholder="Origen">
+                                                    <label for="floatingOrigen">Origen</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="floatingTelefono" placeholder="Telefono">
+                                                    <label for="floatingTelefono">Telefono</label>
+                                                  </div>
+                                            </div>   
                                     </div>
                                     <div class="row">
-                                        <div class="col">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingId" placeholder="id">
-                                                <label for="floatingId">ID/TIPO</label>
+                                        <div class="col-8">
+                                            <div class="form-floating ">
+                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Direccion">
+                                                <label for="floatingDireccion">Direccion</label>
                                               </div>
-                                        </div>
+                                        </div>  
                                         <div class="col">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingNumero" placeholder="Numero">
-                                                <label for="floatingNumero">Numero</label>
+                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Ciudad">
+                                                <label for="floatingTelefono">Ciudad</label>
                                               </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingOrigen" placeholder="Origen">
-                                                <label for="floatingOrigen">Origen</label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Telefono">
-                                                <label for="floatingTelefono">Telefono</label>
-                                              </div>
-                                        </div>   
-                                </div>
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-floating ">
-                                            <input type="text" class="form-control" id="floatingTelefono" placeholder="Direccion">
-                                            <label for="floatingDireccion">Direccion</label>
-                                          </div>
-                                    </div>  
-                                    <div class="col">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingTelefono" placeholder="Ciudad">
-                                            <label for="floatingTelefono">Ciudad</label>
-                                          </div>
-                                    </div> 
-                                </div>
-                            </div>  
-                        </div><br>
-                        <h3>2 .Identificacion del animal</h3>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Nombre</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Fecha de Nacimiento</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Peso</label>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-5">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Especie</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Sexo</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Tamaño</label>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Raza</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Color de pelaje</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Micro chip</label>
-                                </div>
-                            </div>
-                        </div><br>
-                            <h3>3 .Informacion vacunas</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingNombrec" placeholder="Nombre Comercial">
-                                        <label for="floatingNombrec">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F.Aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Fecha de Vencimiento</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>PARA VIAJES A LA UNION EUROPEA  ES NECESARIO ANEXAR ESTUDIO SEROLÒGICO DE  TITULACIÒN ANTIRRABICA COMFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
-                            <h3>4. Informacion anti parasitaria interno</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">P. activo</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F. de aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">F. de vto</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">R. ica</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>5. Informacion anti parasitaria externo</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">P. activo</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F. de aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">F. de vto</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">R. ica</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>APLICADOS  DENTRO  DE LOS 15 (QUINCE) DIAS ANTERIORES A LA FECHA  DE VIAJE DE LA MASCOTA Y CONFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
-                            <h3>6. Informacion sanitaria.</h3>
-                            <div class="form-floating">
-                                <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Comentarios</label>
-                            </div><br>
-                            <h3>7. Informacion Adicional.</h3>
-                            <div class="form-floating">
-                                <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Observaciones</label>
-                            </div><br>
-                            <div class="btn-2">
-                                <button type="button" onclick="alerta1()" class="btn btn-outline-success mt-3 mb-3">Generar Certificado</button>
-                            </div>
-                    </div>
-                </section>
-                <section class="py-5">
-                    <div class="container">
-                        <table class="table" id="tablaCertificado">
-                            <thead>
-                              <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Numero de documento</th>
-                                <th scope="col">Acciones</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i></button><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry the Bird</td>
-                                <td>Larry the Bird</td>
-                                <td><button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" data-bs-target="#modalCertificado"><i class="fa-regular fa-pen-to-square"></i></button><button type="button" onclick="eliminar()" class="btn btn-outline-danger m-2"><i class="fa-solid fa-trash"></i></i><button type="button" onclick="progres()" class="btn btn-outline-success"><i class="fa-solid fa-cloud-arrow-down"></i></button></button></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                    </div>
-                </section>
-
-                <!--Aquie inicia el modal-->
-                <div class="modal fade" id="modalCertificado" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h2 class="modal-title" id="staticBackdropLabel">Editar Certificado</h2>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingNombre" placeholder="Nombre">
-                                        <label for="floatingNombre">Nombre Completo</label>
+                                        </div> 
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="floatingId" placeholder="id">
-                                                <label for="floatingId">ID/TIPO</label>
-                                              </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingNumero" placeholder="Numero">
-                                                <label for="floatingNumero">Numero</label>
-                                              </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingOrigen" placeholder="Origen">
-                                                <label for="floatingOrigen">Origen</label>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="floatingTelefono" placeholder="Telefono">
-                                                <label for="floatingTelefono">Telefono</label>
-                                              </div>
-                                        </div>   
+                                </div>  
+                            </div><br>
+                            <h3>2 .Identificacion del animal</h3>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Nombre</label>
+                                      </div>
                                 </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Fecha de nacimiento</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Peso</label>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Especie</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Sexo</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Tamaño</label>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
+                                        <label for="floatingId">Raza</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
+                                        <label for="floatingDate">Color de pelaje</label>
+                                      </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
+                                        <label for="floatingPeso">Micro chip</label>
+                                    </div>
+                                </div>
+                            </div><br>
+                                <h3>3 .Informacion vacunas</h3>
                                 <div class="row">
-                                    <div class="col-8">
-                                        <div class="form-floating ">
-                                            <input type="text" class="form-control" id="floatingTelefono" placeholder="Direccion">
-                                            <label for="floatingDireccion">Direccion</label>
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
                                           </div>
-                                    </div>  
+                                    </div>
                                     <div class="col">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="floatingTelefono" placeholder="Ciudad">
-                                            <label for="floatingTelefono">Ciudad</label>
+                                            <input type="text" class="form-control" id="floatingNombrec" placeholder="Nombre Comercial">
+                                            <label for="floatingNombrec">Nombre Comercial</label>
                                           </div>
-                                    </div> 
-                                </div>
-                            </div>  
-                        </div><br>
-                        <h3>2 .Identificacion del animal</h3>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Nombre</label>
-                                  </div>
-                            </div>
-                            <div class="col">
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F.Aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Fecha de Vencimiento</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>PARA VIAJES A LA UNION EUROPEA  ES NECESARIO ANEXAR ESTUDIO SEROLÒGICO DE  TITULACIÒN ANTIRRABICA COMFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
+                                <h3>4. Informacion anti parasitaria interno</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Nombre Comercial</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">P. activo</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F. de aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">F. de vto</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">R. ica</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>5. Informacion anti parasitaria externo</h3>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">Laboratorio</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">Nombre Comercial</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">P. activo</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
+                                            <label for="floatingLab">F. de aplicacion</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
+                                            <label for="floatingVencimiento">F. de vto</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">Lote</label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
+                                            <label for="floatingLote">R. ica</label>
+                                          </div>
+                                    </div>
+                                </div> 
+                                <h3>APLICADOS  DENTRO  DE LOS 15 (QUINCE) DIAS ANTERIORES A LA FECHA  DE VIAJE DE LA MASCOTA Y CONFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
+                                <h3>6. Informacion sanitaria.</h3>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Fecha de nacimiento</label>
-                                  </div>
-                            </div>
-                            <div class="col">
+                                    <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Comentarios</label>
+                                </div><br>
+                                <h3>7. Informacion Adicional.</h3>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Peso</label>
-                                </div>
+                                    <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Observaciones</label>
                             </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-5">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Especie</label>
-                                  </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                              <button type="button" onclick="actualizarC()" class="btn btn-outline-primary">Actualizar</button>
                             </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Sexo</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Tamaño</label>
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingId" placeholder="Nombre">
-                                    <label for="floatingId">Raza</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingDate" placeholder="Numero">
-                                    <label for="floatingDate">Color de pelaje</label>
-                                  </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingPeso" placeholder="Origen">
-                                    <label for="floatingPeso">Micro chip</label>
-                                </div>
-                            </div>
-                        </div><br>
-                            <h3>3 .Informacion vacunas</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingNombrec" placeholder="Nombre Comercial">
-                                        <label for="floatingNombrec">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F.Aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Fecha de Vencimiento</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>PARA VIAJES A LA UNION EUROPEA  ES NECESARIO ANEXAR ESTUDIO SEROLÒGICO DE  TITULACIÒN ANTIRRABICA COMFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
-                            <h3>4. Informacion anti parasitaria interno</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">P. activo</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F. de aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">F. de vto</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">R. ica</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>5. Informacion anti parasitaria externo</h3>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">Laboratorio</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">Nombre Comercial</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">P. activo</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floatingLab" placeholder="Laboratorio">
-                                        <label for="floatingLab">F. de aplicacion</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingVencimiento" placeholder="Fecha de Vencimiento">
-                                        <label for="floatingVencimiento">F. de vto</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">Lote</label>
-                                      </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingLote" placeholder="Lote">
-                                        <label for="floatingLote">R. ica</label>
-                                      </div>
-                                </div>
-                            </div> 
-                            <h3>APLICADOS  DENTRO  DE LOS 15 (QUINCE) DIAS ANTERIORES A LA FECHA  DE VIAJE DE LA MASCOTA Y CONFORME A LA LEGISLACIÒN VIGENTE.</h3><br>
-                            <h3>6. Informacion sanitaria.</h3>
-                            <div class="form-floating">
-                                <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Comentarios</label>
-                            </div><br>
-                            <h3>7. Informacion Adicional.</h3>
-                            <div class="form-floating">
-                                <textarea class="form-control" style="resize: none; height: 100px;" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                                <label for="floatingTextarea">Observaciones</label>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
-                          <button type="button" onclick="actualizarC()" class="btn btn-outline-primary">Actualizar</button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.14.4/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- refecencia para boostrap-->

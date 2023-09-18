@@ -8,8 +8,10 @@
     <title>Inicio</title>
     <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    
+    <!--Link boostrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
     <!--link inicio css-->
     <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
     <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Inicio.css">
@@ -21,239 +23,267 @@
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
 
 </head>
 
 <body>
     <div class="container-fluid">
-
-        <!-- inicio del codigo de la barra lateral  -->
-        <div class="SidebarContainer">
-            <div class="Menu">
-                <div class="Logo">
-                    <span class="navbar-brand">
-                        <a href="/Html/DashBoard/auxiliar/Inicio.html"> <img src="/Img/Logo veterinaria sin fondo.png" alt="Logo"> <span class="Degradado">MCV</span></a>
+        <nav class="sidebar close">
+            <header>
+                <div class="image-text">
+                    <span class="image">
+                        <img src="/Img/Logo blanco.png" alt="">
                     </span>
+    
+                    <div class="text logo-text">
+                        <span class="name"></span>
+                        <span class="profession">MCV</span>
+                    </div>
                 </div>
-                <!-- Opciones del menu -->
-                <a href="/Html/DashBoard/auxiliar/Inicio.html" class="d-block BarraLateral Active"><i class="fa-solid fa-house"></i> <span> Inicio </span> </a>
-                <a href="/Html/DashBoard/auxiliar/ConfirmarCita.HTML" class="d-block BarraLateral "> <i class="fa-solid fa-user-check"></i> <span> Asistencia citas </span></a>
-                <a href="/Html/DashBoard/auxiliar/Facturacion.html" class="d-block BarraLateral"> <i class="fa-solid fa-cash-register"></i> <span> Facturacion</span></a>
+    
+                <i class='bx bx-chevron-right toggle'></i>
+            </header>
+    
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <a href="/Html/DashBoard/auxiliar/Inicio.html" data-bs-toggle="tooltip" class="Active"
+                                data-bs-placement="right" data-bs-title="Inicio">
+                                <i class='bx bx-home-alt icon'></i>
+                                <span class="text nav-text">Inicio</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link">
+                            <a href="/Html/DashBoard/auxiliar/confirmarCita.HTML" data-bs-toggle="tooltip"
+                                data-bs-placement="right" data-bs-title="Asistencia de Citas">
+                                <i class='bx bx-calendar-check icon'></i>
+                                <span class="text nav-text">Asistencia de Citas</span>
+                            </a>
+                        </li>
+    
+                        <li class="nav-link">
+                            <a href="/Html/DashBoard/auxiliar/Facturacion.html" data-bs-toggle="tooltip" 
+                                data-bs-placement="right" data-bs-title="Facturacion">
+                                <i class='bx bxs-cart-download icon'></i>
+                                <span class="text nav-text">Facturacion</span>
+                            </a>
+                        </li>
+                </div>
+    
+                <div class="bottom-content">
+    
+                    <li class="">
+                        <a href="/Html/Login.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="Cerrar Sesión">
+                            <i class='bx bx-log-out icon'></i>
+                            <span class="text nav-text">Cerrar Sesión</span>
+                        </a>
+                    </li>
+    
+                </div>
             </div>
-        </div>
-        <!-- fin de la barra lateral -->
-
-        <!-- inicio del codigo del nadvar -->
-        <div class="w-100">
-
-            <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-
+        </nav>
+        <section class="home">
+            <nav class="navbar navbar-expand-lg propiedadesNavbar">
+    
                 <div class="container-fluid">
-                    <button class="BtnList" type="button" id="menuBtn">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-
+                    <div></div>
+    
                     <div id="BarraSuperior">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                    <!-- codigo para la carga de la imagen de perfil -->
+                        <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- codigo para la carga de la imagen de perfil -->
                             <img src="/Img/Img-dashboard/Fotos-perfil/Auxiliar Veterinario.jpg" alt="perfil"
                                 class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
-                        <ul class="dropdown-menu dropdown-menu-end" id="nadVar">
-                            <li class="text-center">Karen Rodríguez</li>
+                        <ul class="dropdown-menu dropdown-menu-end me-2" id="nadVar">
+                            <li class="text-center">Karen Rodriguez</li>
                             <li class="text-muted text-center "><small>Auxiliar veterinaria</small></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li>
-                                <div class="form-check form-switch form-check-reverse Oscuro">
-                                    <input class="form-check-input" type="checkbox" id="modoOscuro" disabled>
-                                    <label class="form-check-label form-check-inline" for="modo-oscuro"><small>Modo oscuro</small> </label>
-                                </div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="/Html/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion</a></li>
                         </ul>
-
+    
                     </div>
             </nav>
-        </div>
-        <div class="d-flex">
-            <div class="w-100">
-                <div id="content">
-                    <section class="bienvenida">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-9">
-                                    <h1 class="font-weight-bold mb-0">Bienvenido Auxiliar</h1>
-                                    <p class="leaded TextMuted">Revisa la ultima informacion</p>
-                                </div>
-                    </section>
+        <div class="contenidoPagina" id="content">
+            <!-- ejemplo de codigo para manejar secciones -->
+            <section class="bienvenida text">
+                <h1 class="font-weight-bold mb-0">Bienvenido Auxiliar</h1>
+                <p class="leaded TextMuted">Revisa la ultima informacion</p>
+            </section>
 
-                                <div class="d-flex">
-            
-                                    <div class="col-6">
-                                        <section>
-                                            <div class="d-flex">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-sm-4 mb-3 mb-sm-0">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-cat"></i>
-                                                                        <p class="card-text numeros">3</p>
-                                                                    </div>
-                                                                    <p class="card-text">Supervicion de mascotas hospitalizadas</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-clipboard"></i>
-                                                                        <p class="card-text numeros">5</p>
-                                                                    </div>
-                                                                    <p class="card-text">Facturas por realizar</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-hand-holding-medical"></i>
-                                                                        <p class="card-text numeros">5</p>
-                                                                    </div>
-                                                                    <p class="card-text"> Asistencia de cirugias programadas</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+            <div class="d-flex">
+
+                <div class="col-6">
+                    <section>
+                        <div class="d-flex">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-cat"></i>
+                                                    <p class="card-text numeros">3</p>
                                                 </div>
+                                                <p class="card-text">Supervicion de mascotas hospitalizadas</p>
                                             </div>
-                                        </section>
-            
-                                        <section>
-                                            <div class="d-flex">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div class="col-sm-4 mb-3 mb-sm-0">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-star-of-life"></i>
-                                                                        <p class="card-text numeros">10</p>
-                                                                    </div>
-                                                                    <p class="card-text">Vacunas por aplicar.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-house-medical-circle-exclamation"></i>
-                                                                        <p class="card-text numeros">3</p>
-                                                                    </div>
-                                                                    <p class="card-text">Asistencia hospitalaria</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <div class="card cartas">
-                                                                <div class="card-body">
-                                                                    <div class="d-flex">
-                                                                        <i class="fa-solid fa-user-doctor"></i>
-                                                                        <p class="card-text numeros">15</p>
-                                                                    </div>
-                                                                    <p class="card-text">Asistencia de citas.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
+                                        </div>
                                     </div>
-            
-                                    <div class="col-6">
-                                        <section class="notificaciones">
-                                            <h2> Ultimas citas agendadas</h2>
-                                            <div class="d-flex">
-                                                <div class="profile-photo">
-                                                    <img src="/Img/perfil1.png" alt=""
-                                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-clipboard"></i>
+                                                    <p class="card-text numeros">5</p>
                                                 </div>
-                                                <div class="message">
-                                                    <p class="ms-2">Cliente 1 <br> Cita para Desparacitacion a las 9:30 am.</p>
-                                                </div>
-                                                <div class="ms-auto">
-                                                    <button type="button" class="btn botonInfo">Info</button>
-                                                </div>
-            
+                                                <p class="card-text">Facturas por realizar </p>
                                             </div>
-                                            <hr>
-                                            <div class="d-flex">
-                                                <div class="profile-photo">
-                                                    <img src="/Img/perfil1.png" alt=""
-                                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
-                                                </div>
-                                                <div class="message">
-                                                    <p class="ms-2">Cliente 1 <br> Cita para vacunacion a las 8:00 am.</p>
-                                                </div>
-                                                <div class=" ms-auto">
-                                                    <button type="button" class="btn botonInfo">Info</button>
-                                                </div>
-            
-                                            </div>
-                                            <hr>
-                                            <div class="d-flex">
-                                                <div class="profile-photo">
-                                                    <img src="/Img/perfil1.png" alt=""
-                                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
-                                                </div>
-                                                <div class="message">
-                                                    <p class="ms-2">Cliente 1 <br> Cita para Peluqueria a las 11:00 am.</p>
-                                                </div>
-                                                <div class=" ms-auto">
-                                                    <button type="button" class="btn botonInfo">Info</button>
-                                                </div>
-            
-                                            </div>
-                                            <hr>
-                                            <div class="d-flex">
-                                                <div class="profile-photo">
-                                                    <img src="/Img/perfil1.png" alt=""
-                                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
-                                                </div>
-                                                <div class="message">
-                                                    <p class="ms-2">Cliente 1 <br> Cita de control rutinario a las 12:00 pm.</p>
-                                                </div>
-                                                <div class=" ms-auto">
-                                                    <button type="button" class="btn botonInfo">Info</button>
-                                                </div>
-                                            </div>
-                                            <a href="/Html/DashBoard/auxiliar/confirmarCita.HTML"><h3>Ver agenda</h3></a>
-                                        </section>
+                                        </div>
                                     </div>
-            
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-hand-holding-medical"></i>
+                                                    <p class="card-text numeros">5</p>
+                                                </div>
+                                                <p class="card-text">Asistencia de cirugias programadas</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
+
+                    <section>
+                        <div class="d-flex">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-star-of-life"></i>
+                                                    <p class="card-text numeros">10</p>
+                                                </div>
+                                                <p class="card-text">Vacunas por aplicar.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-house-medical-circle-exclamation"></i>
+                                                    <p class="card-text numeros">3</p>
+                                                </div>
+                                                <p class="card-text">Asistencia hospitalaria</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-user-doctor"></i>
+                                                    <p class="card-text numeros">15</p>
+                                                </div>
+                                                <p class="card-text">Asistencia de citas.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
+
+                <div class="col-6">
+                    <section class="notificaciones">
+                        <div class="desplazamiento">
+                            <h2> Ultimas citas agendadas</h2>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> Cita para Desparacitacion a las 9:30 am.</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> Cita para vacunacion a las 8:00 am.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> Cita para Peluqueria a las 11:00 am.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> Cita de control rutinario a las 12:00 pm.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <a href="/Html/DashBoard/auxiliar/confirmarCita.HTML">
+                            <h3>Ver agenda</h3>
+                        </a>
+                    </section>
+                </div>
+
             </div>
         </div>
-    </div>
+
+    </section>
+
+
     <!-- refecencia para boostrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
     <!-- referencia para las animaciones -->
     <script src="/Js/DashBoard/AnimacionesDash.js"></script>
 </body>
 
 </html>
+

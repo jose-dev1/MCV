@@ -34,8 +34,7 @@ function autenticar(event) {
           window.location.href = "/Html/DashBoard/auxiliar/Inicio.html";
           break;
         case 5:
-          window.location.href =
-            "/Html/DashBoard/Administrador/AgregarEmpleado.html";
+          window.location.href = "/agregarEmpleado";
           break;
       }
     } else {

@@ -5,6 +5,8 @@ const registroRoutes = require("./Routes/registroRoutes");
 const contactoRoutes = require("./Routes/contactoRouter");
 const perfilRoutes = require("./Routes/perfilRouter");
 const agendarRoutes = require("./Routes/agendarRouter");
+const agregarempleadoRoutes = require("./Routes/agregarempleadoRouter");
+
 const app = express();
 
 /** Aqui inicia las rutas del home y el directorio publico */
@@ -18,6 +20,9 @@ app.use("/contacto", contactoRoutes);
 /** Aqui inicia  las rutas del cliente */
 app.use("/perfil", perfilRoutes);
 app.use("/agendarCita", agendarRoutes);
+
+/** Aqui inicia  las rutas de Administrador */
+app.use("/agregarEmpleado", agregarempleadoRoutes);
 
 const PORT = process.env.PORT || 3000;
 

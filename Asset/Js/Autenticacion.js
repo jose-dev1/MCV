@@ -28,7 +28,7 @@ function autenticar(event) {
           window.location.href = "/Html/DashBoard/groomer/Inicio.html";
           break;
         case 3:
-          window.location.href = "/Html/Cliente/P.usuario.html";
+          window.location.href = "/perfil";
           break;
         case 4:
           window.location.href = "/Html/DashBoard/auxiliar/Inicio.html";

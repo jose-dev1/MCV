@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="shortcut icon" href="/Img/Img-inicio/icon.ico" type="image/x-icon">
+
+    <!--Link boostrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!--link inicio css-->
+    <link rel="stylesheet" href="/Css/DashBoard_Style/dash.css">
+    <link rel="stylesheet" href="/Css/DashBoard_Style/Veterinario/Inicio.css">
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/e6eef9bc73.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
+
+</head>
+
+<body>
+    <nav class="sidebar close">
+        <header>
+
+            <div class="image-text">
+                <span class="image">
+                    <img src="/Img/Logo blanco.png" alt="">
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name"></span>
+                    <span class="profession">MCV</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <!-- apartado cambio de iconos -->
+        <div class="menu-bar">
+            <div class="menu">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/Inicio.html" class="Active" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Inicio">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Inicio</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/Agenda.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                            data-bs-title="Agenda">
+                            <i class='bx bx-calendar-check icon'></i>
+                            <span class="text nav-text">Agenda</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="/Html/DashBoard/groomer/ServicioPrestado.html" data-bs-toggle="tooltip"
+                            data-bs-placement="right" data-bs-title="Servicio Prestado">
+                            <i class='bx bx-cut icon'></i>
+                            <span class="text nav-text">Servicio Prestado</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+
+                <li class="">
+                    <a href="/Html/Login.html" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-title="Cerrar Sesión">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Cerrar Sesión</span>
+                    </a>
+                </li>
+
+            </div>
+        </div>
+    </nav>
+    <!-- apartado navbar-->
+
+    <section class="home">
+        <nav class="navbar navbar-expand-lg propiedadesNavbar">
+
+            <div class="container-fluid">
+                <div></div>
+
+                <div id="BarraSuperior">
+                    <a class="nav-link dropdown-toggle me-3 menuDesplegable" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- codigo para la carga de la imagen de perfil -->
+                        <img src="/Img/Img-dashboard/Fotos-perfil/foto-perfil.jpg" alt="perfil"
+                            class="img-fluid rounded-circle mr-2 ProfilePhoto"></a>
+                    <ul class="dropdown-menu dropdown-menu-end me-2" id="nadVar">
+                        <li class="text-center">Freddy Lozano</li>
+                        <li class="text-muted text-center "><small>Groomer</small></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
+
+                </div>
+        </nav>
+        <div class="contenidoPagina" id="content">
+            <!-- ejemplo de codigo para manejar secciones -->
+            <section class="bienvenida text">
+                <h1 class="font-weight-bold mb-0">Bienvenido Freddy</h1>
+                <p class="leaded TextMuted">Revisa la ultima informacion</p>
+            </section>
+
+            <div class="d-flex">
+
+                <div class="col-6">
+                    <section>
+                        <div class="d-flex">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-people-group"></i>
+                                                    <p class="card-text numeros">40</p>
+                                                </div>
+                                                <p class="card-text">Servicios prestados</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-paw"></i>
+                                                    <p class="card-text numeros">3</p>
+                                                </div>
+                                                <p class="card-text">Servicios atendidos esta semana.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-book"></i>
+                                                    <p class="card-text numeros">15</p>
+                                                </div>
+                                                <p class="card-text"> Últimos Servicios agendados</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="d-flex">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card cartas degradado1">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <i class="fa-solid fa-calendar-check"></i>
+                                                    <p class="card-text numeros">38</p>
+                                                </div>
+                                                <p class="card-text">Solicitudes de citas.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="col-6">
+                    <section class="notificaciones">
+                        <div class="desplazamiento">
+                            <h2> Ultimas citas agendadas</h2>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                </div>
+                                <div class="ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex">
+                                <div class="profile-photo">
+                                    <img src="/Img/perfil1.png" alt=""
+                                        class="img-fluid rounded-circle mr-2 ProfilePhoto">
+                                </div>
+                                <div class="message">
+                                    <p class="ms-2">Cliente 1 <br> ha agendado una cita a las 8:30.</p>
+                                </div>
+                                <div class=" ms-auto">
+                                    <button type="button" class="btn botonInfo">Info</button>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <a href="/Html/DashBoard/groomer/Agenda.html">
+                            <h3>Ver agenda</h3>
+                        </a>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <!-- refecencia para boostrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!-- referencia para las animaciones -->
+    <script src="/Js/DashBoard/AnimacionesDash.js"></script>
+</body>
+
+</html>

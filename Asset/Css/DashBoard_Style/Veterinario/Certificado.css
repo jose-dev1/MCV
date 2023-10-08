@@ -1,0 +1,33 @@
+section .containe {
+  padding: 30px;
+  margin: 30px;
+  height: 20vh;
+  max-width: 400px;
+}
+
+section .py-5 div.container {
+  padding: 10px;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px hsl(0, 0%, 85%);
+}
+
+.info {
+  text-align: center;
+}
+
+.btn-2 {
+  display: flex;
+  justify-content: center;
+}
+
+.certificado .container {
+  padding: 20px;
+  height: auto;
+  max-width: 800px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px #d8d8d8;
+}
+.contenidoPagina {
+  overflow-y: auto;
+}

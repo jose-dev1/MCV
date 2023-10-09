@@ -1,13 +1,13 @@
 const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "mcv",
+const db = mysql.createConnection({
+  host: "bhhxgzdkubqi9cwfcd2d-mysql.services.clever-cloud.com",
+  user: "u7peyuodpbxor70h",
+  password: "JOhXnw0XESxUoqMcWf3t",
+  database: "bhhxgzdkubqi9cwfcd2d",
 });
 
-connection.connect((err) => {
+db.connect((err) => {
   if (err) {
     console.error("Error al conectar a la base de datos:", err);
     return;
@@ -16,8 +16,8 @@ connection.connect((err) => {
 });
 
 process.on("SIGINT", () => {
-  connection.end();
+  db.end();
   process.exit();
 });
 
-module.exports = connection;
+module.exports = db;

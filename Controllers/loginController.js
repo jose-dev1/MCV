@@ -1,3 +1,4 @@
+const session = require("express-session");
 const db = require("../Models/conexion");
 const bcrypt = require("bcrypt");
 
@@ -43,17 +44,7 @@ const login = async (req, res) => {
   );
 };
 
-const logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error(err);
-    }
-    res.redirect("/login");
-  });
-};
-
 module.exports = {
   getLogin,
   login,
-  logout,
 };

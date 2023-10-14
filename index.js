@@ -1,4 +1,6 @@
 const express = require("express");
+const session = require("express-session");
+const cokkieParser = require("cookie-parser");
 const homeRoutes = require("./Routes/homeRoutes");
 const loginRoutes = require("./Routes/loginRoutes");
 const registroRoutes = require("./Routes/registroRoutes");
@@ -9,20 +11,14 @@ const agregarempleadoRoutes = require("./Routes/agregarempleadoRouter");
 const homevetRoutes = require("./Routes/hveterinarioRouter");
 const auxhomeRoutes = require("./Routes/auxhomeRoutes");
 const gromerRoutes = require("./Routes/gromerhomeRoutes");
-const crypto = require("crypto");
+const cors = require("cors");
 const app = express();
-const session = require("express-session");
-const cokkieParser = require("cookie-parser");
-
-app.use(cokkieParser());
-
-// Genera una cadena secreta aleatoria para el secret
-const secret = crypto.randomBytes(32).toString("hex");
 
 // Configuracion el middleware de express-session con el secret generado
+app.use(cokkieParser());
 app.use(
   session({
-    secret: secret,
+    secret: "secretoMicanV",
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -31,9 +27,11 @@ app.use(
     },
   })
 );
-
-/** Aqui inicia las rutas del home,directorio publico y la configuracion urlcoded para analizar formularios post  */
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Aqui inicia las rutas del home,directorio publico
 app.set("view engine", "ejs");
 app.use(express.static("Asset"));
 app.use("/", homeRoutes);
@@ -41,20 +39,20 @@ app.use("/login", loginRoutes);
 app.use("/registro", registroRoutes);
 app.use("/contacto", contactoRoutes);
 
-/** Aqui inicia  las rutas del cliente */
+// Aqui inicia  las rutas del cliente
 app.use("/perfil", perfilRoutes);
 app.use("/agendarCita", agendarRoutes);
 
-/** Aqui inicia  las rutas de Administrador */
+// Aqui inicia  las rutas de Administrador
 app.use("/agregarEmpleado", agregarempleadoRoutes);
 
-/** Aqui inicia  las rutas del veterinario */
+// Aqui inicia  las rutas del veterinario
 app.use("/homeVeterinario", homevetRoutes);
 
-/** Aqui inicia  las rutas del Auxiliar */
+// Aqui inicia  las rutas del Auxiliar
 app.use("/homeAuxiliar", auxhomeRoutes);
 
-/** Aqui inicia  las rutas del Groomer */
+// Aqui inicia  las rutas del Groomer
 app.use("/homeGroomer", gromerRoutes);
 
 const PORT = process.env.PORT || 3000;

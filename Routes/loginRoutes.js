@@ -4,6 +4,14 @@ const rutaLogin = express.Router();
 
 rutaLogin.get("/", loginController.getLogin);
 rutaLogin.post("/", loginController.login);
-rutaLogin.post("/logout", loginController.logout);
+
+rutaLogin.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+    }
+    res.redirect("/");
+  });
+});
 
 module.exports = rutaLogin;

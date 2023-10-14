@@ -2,7 +2,6 @@ $(document).ready(function () {
   $(".btnLogin").click(function (event) {
     event.preventDefault();
 
-    console.log("asdasdasd");
     var email = $("#email").val();
     var password = $("#password").val();
 
@@ -10,6 +9,9 @@ $(document).ready(function () {
       type: "POST",
       url: "/login",
       data: { u_correo: email, u_password: password },
+      xhrFields: {
+        withCredentials: true,
+      },
       success: function (response) {
         if (response.success) {
           if (response.role === 1) {

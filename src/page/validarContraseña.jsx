@@ -9,7 +9,7 @@ import 'remixicon/fonts/remixicon.css'
 import '../assets/css/login.css';
 
 
-class recuperarPw extends Component {
+class validarPw extends Component {
     constructor() {
       super();
       this.state = {
@@ -38,16 +38,27 @@ class recuperarPw extends Component {
               <form id="loginForm" onSubmit={this.authsesion}>
                 <img src={Logo} height="150" alt="" />
                 <h4 className="" style={{ marginBottom: '5px' }}>Bienvenido !</h4>
-                <p className="text-muted"style={{ marginBottom: '60px' }}>Recupera tu contraseña con el correo.</p>
+                <p className="text-muted"style={{ marginBottom: '60px' }}>Actualiza tu contraseña.</p>
                 <div className="login">
                   <FormControl fullWidth={true} sx={{marginBottom:3}}>
                     <TextField
-                      label="Email"
+                      label="Nueva password"
                       variant="outlined"
                       fullWidth
-                      type="email"
-                      value={this.state.email}
-                      onChange={(e) => this.setState({ email: e.target.value })}
+                      type="password"
+                      value={this.state.newPw}
+                      onChange={(e) => this.setState({ newPw: e.target.value })}
+                     
+                    />
+                  </FormControl>
+                  <FormControl fullWidth={true} sx={{marginBottom:3}}>
+                    <TextField
+                      label="Confirmar password"
+                      variant="outlined"
+                      fullWidth
+                      type="password"
+                      value={this.state.confirmarPw}
+                      onChange={(e) => this.setState({ confirmarPw: e.target.value })}
                      
                     />
                   </FormControl>
@@ -69,4 +80,4 @@ class recuperarPw extends Component {
   }
 }
 
-export default recuperarPw;
+export default validarPw;

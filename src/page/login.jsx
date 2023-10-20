@@ -88,7 +88,7 @@ class Login extends Component {
                 <h4 className="" style={{ marginBottom: '5px' }}>Bienvenido !</h4>
                 <p className="text-muted"style={{ marginBottom: '60px' }}>Inicia sesion para continuar en Mcv.</p>
                 <div className="login">
-                  <FormControl fullWidth={true} sx={{marginBottom:4}}>
+                  <FormControl fullWidth={true} sx={{marginBottom:3}}>
                     <TextField
                       label="Email"
                       variant="outlined"
@@ -101,7 +101,7 @@ class Login extends Component {
                   </FormControl>
                   <FormControl fullWidth={true} sx={{marginBottom:2}}>
                     <TextField
-                      label="Contraseña"
+                      label="Password"
                       variant="outlined"
                       fullWidth
                       type="password"
@@ -121,7 +121,7 @@ class Login extends Component {
                   /><br/>
                   <div className='hover-link'>
                     <Link href="/Recuperar" sx={{ marginBottom: 2, textDecoration: "none", color: '#888'}} className='link-2' ><i class="ri-lock-2-fill"></i> Olvidó su contraseña?</Link>
-                    <Link href="/register" sx={{ textDecoration: "none", color: '#888'}} className='link-1'><i class="ri-bear-smile-fill"></i> No tiene cuenta? , Registrese aqui</Link>
+                    <Link href="/Registro" sx={{ textDecoration: "none", color: '#888'}} className='link-1'><i class="ri-bear-smile-fill"></i> No tiene cuenta? , Registrese aqui</Link>
                   </div>  
                 </div>
               </form>

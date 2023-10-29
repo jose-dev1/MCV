@@ -4,6 +4,7 @@ import Login from "./page/login";
 import Registro from "./page/registro";
 import Recuperar from "./page/recuperarpsw";
 import Nuevapw from "./page/validarContraseña";
+import Perfil from "./page/cliente/perfil";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/Registro" element={<Registro />} />
         <Route path="/Recuperar" element={<Recuperar />} />
         <Route path="/actualizarPw" element={<Nuevapw />} />
+        <Route path="/perfilUsuario" element={<Perfil />} />
       </Routes>
     </BrowserRouter>
   );

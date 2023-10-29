@@ -2,6 +2,6 @@ const express = require("express");
 const registroController = require("../Controllers/registroController");
 
 const rutaRegistro = express.Router();
-rutaRegistro.get("/", registroController.getRegistro);
+rutaRegistro.post("/", registroController.getRegistro);
 
 module.exports = rutaRegistro;

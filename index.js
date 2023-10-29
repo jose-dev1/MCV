@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const homeRoutes = require("./Routes/homeRoutes");
 const loginRoutes = require("./Routes/loginRoutes");
 const registroRoutes = require("./Routes/registroRoutes");
@@ -13,6 +14,7 @@ const crypto = require("crypto");
 const app = express();
 const session = require("express-session");
 const cokkieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 app.use(cokkieParser());
 
@@ -32,12 +34,20 @@ app.use(
   })
 );
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,POST",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 /** Aqui inicia las rutas del home,directorio publico y la configuracion urlcoded para analizar formularios post  */
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(express.static("Asset"));
 app.use("/", homeRoutes);
-app.use("/login", loginRoutes);
+app.use("/postLogin", loginRoutes);
 app.use("/registro", registroRoutes);
 app.use("/contacto", contactoRoutes);
 
@@ -57,7 +67,7 @@ app.use("/homeAuxiliar", auxhomeRoutes);
 /** Aqui inicia  las rutas del Groomer */
 app.use("/homeGroomer", gromerRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`Servidor en funcionamiento en el puerto ${PORT}`);

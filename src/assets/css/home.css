@@ -1,0 +1,249 @@
+.main-container {
+  margin: 20vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  color: #8e8e8e;
+  padding: 10px 10px;
+}
+
+.navbar-fijo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.logo-container img {
+  height: 85px;
+  margin: 3px;
+  flex: 1;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+header .logo-container img:hover {
+  transform: scale(1.2);
+}
+
+.nav-container {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-container li {
+  margin-right: 30px;
+}
+
+.nav-container a {
+  color: #8e8e8f;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-container a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+
+.nav-container a:hover::before {
+  background-color: #a570e8;
+}
+
+.login-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #a570e8;
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #8450d0;
+}
+
+/* estilos del contenido */
+h2 {
+  margin: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+.infor-cont {
+  margin: 45px;
+  text-align: center;
+}
+/* Estilos de las cartas */
+.card {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para separar el nombre del usuario del avatar */
+.card .avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card .avatar h4 {
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Añadir espacio entre las cartas */
+.card-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Estilos de la sección "Quiénes Somos" */
+.about-us {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+}
+
+.about-us .description {
+  flex: 1;
+  padding: 80px;
+}
+
+.about-us .description h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.about-us .image {
+  flex: 1;
+  text-align: right;
+}
+
+.about-us .image img {
+  max-width: 65%;
+  height: auto;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #e372f2, #3f6ca6, #3fbfb2);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.btn:hover {
+  background-position: right;
+}
+
+/* estilos baner final*/
+
+.banerfinal img {
+  width: 120px;
+  display: block;
+  margin-left: auto;
+}
+.banerfinal button {
+  margin: auto;
+}
+/*footer*/
+.wrap-price img {
+  width: 50%;
+}
+.pie-pagina {
+  width: 100%;
+  background-color: #0a141d;
+}
+.pie-pagina .grupo-1 {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  padding: 45px 0px;
+}
+.pie-pagina .grupo-1 .box figure {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pie-pagina .grupo-1 .box figure img {
+  width: 150px;
+}
+.pie-pagina .grupo-1 .box h2 {
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+.pie-pagina .grupo-1 .box p {
+  color: #efefef;
+  margin-bottom: 10px;
+}
+.pie-pagina .grupo-1 .red-social a {
+  display: inline-block;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  margin-right: 10px;
+  background-color: #0d2033;
+  text-align: center;
+  transition: all 300ms ease;
+}
+.pie-pagina .grupo-1 .red-social a:hover {
+  color: #9d4edd;
+}
+.pie-pagina .grupo-2 {
+  background-color: #0a1a2a;
+  padding: 15px 10px;
+  text-align: center;
+  color: #fff;
+}
+.pie-pagina .grupo-2 small {
+  font-size: 15px;
+}
+@media screen and (max-width: 800px) {
+  .pie-pagina .grupo-1 {
+    width: 90%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 30px;
+    padding: 35px 0px;
+  }
+}

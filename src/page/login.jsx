@@ -9,8 +9,7 @@ import Checkbox from '@mui/material/Checkbox';
 import 'remixicon/fonts/remixicon.css';
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; 
-
+import axios from 'axios';
 import '../assets/css/login.css';
 
 function Login() {
@@ -21,7 +20,7 @@ function Login() {
   const [mensajeError, setMensajeError] = useState('');
   const [errorCorreo, setErrorCorreo] = useState(false);
   const [errorContraseña, setErrorContraseña] = useState(false);
-  const [recuerdame, setRecuerdame] = useState(false); 
+  const [recuerdame, setRecuerdame] = useState(false);
   const navigate = useNavigate();
 
   const authSesion = (e) => {
@@ -53,7 +52,7 @@ function Login() {
           localStorage.setItem('user', JSON.stringify(response.data.user));
           setRol(response.data.role);
           if (recuerdame) {
-            
+
           }
         } else {
           setMensajeError(response.data.message);
@@ -71,6 +70,12 @@ function Login() {
       navigate('/admin');
     } else if (rol === 2) {
       navigate('/perfilUsuario');
+    } else if (rol === 3) {
+      navigate('/');
+    } else if (rol === 4) {
+      navigate('/');
+    } else if (rol === 5) {
+      navigate('/');
     }
   }, [rol, navigate]);
 

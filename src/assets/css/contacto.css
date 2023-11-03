@@ -1,0 +1,17 @@
+h2 {
+  text-align: center;
+  color: #000;
+}
+
+.infor-cont {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.col-md-12 {
+  width: 100%;
+}

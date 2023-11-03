@@ -8,7 +8,7 @@
 
 body {
   font-family: "Nunito", sans-serif !important;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .form-check {

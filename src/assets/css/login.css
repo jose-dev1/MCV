@@ -46,10 +46,9 @@ body {
   padding: 0 2rem;
 }
 
-.img {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+.img-center {
+  display: block;
+  margin: 0 auto;
 }
 
 .login-content {

@@ -104,7 +104,7 @@ function Login() {
         <div>
           <div className="login-content">
             <form id="loginForm" onSubmit={authSesion}>
-              <img src={Logo} height="150" alt="" />
+              <img src={Logo} height="150" alt="" className='img-center' />
               <h4 className="" style={{ marginBottom: '5px' }}>
                 ¡Bienvenido!
               </h4>

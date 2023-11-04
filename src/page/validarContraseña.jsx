@@ -10,13 +10,13 @@ import '../assets/css/login.css';
 
 
 class validarPw extends Component {
-    constructor() {
-      super();
-      this.state = {
-        email: '',
-      };
-    }
-  
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+    };
+  }
+
   render() {
     return (
       <Grid
@@ -30,17 +30,17 @@ class validarPw extends Component {
             boxShadow: '0px 0px 30px 0px rgba(0,0,0,0.3)',
             padding: '19px',
             textAlign: 'center',
-            borderRadius: '10px', 
+            borderRadius: '10px',
           }}
         >
           <div>
             <div className="login-content">
               <form id="loginForm" onSubmit={this.authsesion}>
-                <img src={Logo} height="150" alt="" />
+                <img src={Logo} height="150" alt="" className='img-center' />
                 <h4 className="" style={{ marginBottom: '5px' }}>Bienvenido !</h4>
-                <p className="text-muted"style={{ marginBottom: '60px' }}>Actualiza tu contraseña.</p>
+                <p className="text-muted" style={{ marginBottom: '60px' }}>Actualiza tu contraseña.</p>
                 <div className="login">
-                  <FormControl fullWidth={true} sx={{marginBottom:3}}>
+                  <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                     <TextField
                       label="Nueva password"
                       variant="outlined"
@@ -48,10 +48,10 @@ class validarPw extends Component {
                       type="password"
                       value={this.state.newPw}
                       onChange={(e) => this.setState({ newPw: e.target.value })}
-                     
+
                     />
                   </FormControl>
-                  <FormControl fullWidth={true} sx={{marginBottom:3}}>
+                  <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                     <TextField
                       label="Confirmar password"
                       variant="outlined"
@@ -59,17 +59,17 @@ class validarPw extends Component {
                       type="password"
                       value={this.state.confirmarPw}
                       onChange={(e) => this.setState({ confirmarPw: e.target.value })}
-                     
+
                     />
                   </FormControl>
                   <input
                     className='btn'
                     type="submit"
                     value="Enviar"
-                  /><br/>
+                  /><br />
                   <div className='hover-link'>
-                    <Link href="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888'}} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
-                  </div>  
+                    <Link href="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
+                  </div>
                 </div>
               </form>
             </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Logo from "../assets/img/MVC.png"
 import { FormControl } from '@mui/material';
 import 'remixicon/fonts/remixicon.css'
@@ -68,7 +68,7 @@ class validarPw extends Component {
                     value="Enviar"
                   /><br />
                   <div className='hover-link'>
-                    <Link href="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
+                    <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
                   </div>
                 </div>
               </form>

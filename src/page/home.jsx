@@ -6,16 +6,17 @@ import Banner from '../components/banerComponent'
 import Contacto from '../components/contactoComponent';
 import Equipo from '../components/teamComponent';
 import Header from '../components/headerComponent';
+import '../assets/css/home.css'
 
 export default function Home() {
     return (
-        <div>
+        <div className='fade-in'>
             <Header />
             <NavBar />
-            <Banner />
-            <Equipo />
-            <About />
-            <Contacto />
+            <Banner id="servicio" />
+            <Equipo id="Team" />
+            <About id="Abaut" />
+            <Contacto id="contacto" />
             <Footer />
         </div>
     );

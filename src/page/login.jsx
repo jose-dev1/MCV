@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 import Logo from '../assets/img/MVC.png';
 import { FormControl } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
@@ -42,23 +42,22 @@ function Login() {
       return;
     }
 
-    axios
-      .post('http://localhost:4000/postLogin', {
-        u_correo: correo,
-        u_password: contraseña,
-        recuerdame: recuerdame,
-      }).then((response) => {
-        if (response.data.success) {
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          setRol(response.data.role);
-          if (recuerdame) {
+    axios.post('http://localhost:4000/postLogin', {
+      u_correo: correo,
+      u_password: contraseña,
+      recuerdame: recuerdame,
+    }).then((response) => {
+      if (response.data.success) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        setRol(response.data.role);
+        if (recuerdame) {
 
-          }
-        } else {
-          setMensajeError(response.data.message);
-          setMostrarAlerta(true);
         }
-      })
+      } else {
+        setMensajeError(response.data.message);
+        setMostrarAlerta(true);
+      }
+    })
       .catch((error) => {
         setMensajeError('Error en la autenticación');
         setMostrarAlerta(true);
@@ -155,13 +154,13 @@ function Login() {
                 <br />
                 <div className="hover-link">
                   <Link
-                    href="/Recuperar"
+                    to="/Recuperar"
                     sx={{ marginBottom: 2, textDecoration: 'none', color: '#888' }}
                     className="link-2"
                   >
                     <i className="ri-lock-2-fill"></i> ¿Olvidaste tu contraseña?
                   </Link>
-                  <Link href="/Registro" sx={{ textDecoration: 'none', color: '#888' }} className="link-1">
+                  <Link to="/Registro" sx={{ textDecoration: 'none', color: '#888' }} className="link-1">
                     <i className="ri-bear-smile-fill"></i> ¿No tienes una cuenta? Regístrate aquí
                   </Link>
                 </div>

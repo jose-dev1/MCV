@@ -1,6 +1,5 @@
 import 'tailwindcss/tailwind.css';
 
-
 const people = [
     {
         name: 'Edwin Vaca',
@@ -22,9 +21,10 @@ const people = [
     },
 ]
 
-export default function Equipo() {
+export default function Equipo({ id }) {
+
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div id={id} className="bg-white py-24 sm:py-32">
             <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
                 <div className="max-w-2xl">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Conozca nuestro liderazgo</h2>

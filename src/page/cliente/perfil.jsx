@@ -1,16 +1,19 @@
-import React from 'react'
+import React from 'react';
 import SideNav from '../../components/sidebarComponent'
 import Header from '../../components/headerComponent'
 import InfoPerfil from '../../components/client/infoComponent'
 
-export default function perfil() {
+function Perfil() {
 
   return (
+
     <div>
       <Header />
       <InfoPerfil />
-      <SideNav />
+      <SideNav user={JSON.parse(localStorage.getItem('user'))} />
 
     </div>
   )
 }
+
+export default Perfil;

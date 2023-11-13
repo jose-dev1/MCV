@@ -15,12 +15,12 @@ import '../assets/css/login.css';
 function Login() {
   const [correo, setCorreo] = useState('');
   const [contraseña, setContraseña] = useState('');
-  const [rol, setRol] = useState('');
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mensajeError, setMensajeError] = useState('');
   const [errorCorreo, setErrorCorreo] = useState(false);
   const [errorContraseña, setErrorContraseña] = useState(false);
   const [recuerdame, setRecuerdame] = useState(false);
+  const [userAuth, setuserAuth] = useState(false);
   const navigate = useNavigate();
 
   const authSesion = (e) => {
@@ -49,7 +49,7 @@ function Login() {
     }).then((response) => {
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        setRol(response.data.role);
+        setuserAuth(true)
         if (recuerdame) {
 
         }
@@ -65,18 +65,28 @@ function Login() {
   };
 
   useEffect(() => {
-    if (rol === 1) {
-      navigate('/admin');
-    } else if (rol === 2) {
-      navigate('/perfilUsuario');
-    } else if (rol === 3) {
-      navigate('/');
-    } else if (rol === 4) {
-      navigate('/');
-    } else if (rol === 5) {
-      navigate('/');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (user) {
+      const userRoutes = {
+        1: '/admin',
+        2: '/perfil-usuario',
+        3: '/',
+        4: '/',
+        5: '/',
+      };
+
+      const userRoute = userRoutes[user.fk_tipo_usuario];
+
+      if (userRoute) {
+        navigate(userRoute);
+      } else {
+        console.warn('Tipo de usuario no reconocido:', user.fk_tipo_usuario);
+      }
+    } else {
+      console.log('No hay usuario en localStorage');
     }
-  }, [rol, navigate]);
+  }, [userAuth, navigate]);
 
   const validarCorreo = (correo) => {
     const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
@@ -154,13 +164,13 @@ function Login() {
                 <br />
                 <div className="hover-link">
                   <Link
-                    to="/Recuperar"
+                    to="/recuperar-contraseña"
                     sx={{ marginBottom: 2, textDecoration: 'none', color: '#888' }}
                     className="link-2"
                   >
                     <i className="ri-lock-2-fill"></i> ¿Olvidaste tu contraseña?
                   </Link>
-                  <Link to="/Registro" sx={{ textDecoration: 'none', color: '#888' }} className="link-1">
+                  <Link to="/registro" sx={{ textDecoration: 'none', color: '#888' }} className="link-1">
                     <i className="ri-bear-smile-fill"></i> ¿No tienes una cuenta? Regístrate aquí
                   </Link>
                 </div>

@@ -12,10 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/Registro" element={<Registro />} />
-        <Route path="/Recuperar" element={<Recuperar />} />
-        <Route path="/actualizarPw" element={<Nuevapw />} />
-        <Route path="/perfilUsuario" element={<Perfil />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/recuperar-contraseña" element={<Recuperar />} />
+        <Route path="/actualizar-contraseña" element={<Nuevapw />} />
+        <Route path="/perfil-usuario" element={<Perfil />} />
       </Routes>
     </BrowserRouter>
   );

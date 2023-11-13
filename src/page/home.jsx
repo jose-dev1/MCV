@@ -11,7 +11,7 @@ import '../assets/css/home.css'
 export default function Home() {
     return (
         <div className='fade-in'>
-            <Header />
+            <Header user={JSON.parse(localStorage.getItem('user'))} />
             <NavBar />
             <Banner id="servicio" />
             <Equipo id="Team" />

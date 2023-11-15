@@ -1,5 +1,4 @@
 import React from 'react'
-import SideNav from '../../components/sidebarComponent'
 import { FormAgregar } from '../../components/admin/agregarComponent'
 import Header from '../../components/headerComponent'
 
@@ -8,7 +7,6 @@ export default function AddEmploye () {
     <div>
       <Header />
       <FormAgregar />
-      <SideNav />
 
     </div>
   )

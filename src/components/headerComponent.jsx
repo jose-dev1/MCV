@@ -28,7 +28,7 @@ const Header = () => {
     ];
 
     const perfilUsuario = () => {
-        navigate('/perfilUsuario')
+        navigate('/perfil-usuario')
     }
 
     const cerrarSession = () => {

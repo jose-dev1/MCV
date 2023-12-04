@@ -1,13 +1,14 @@
 import React from 'react'
 import { FormAgregar } from '../../components/admin/agregarComponent'
-import Header from '../../components/headerComponent'
+import Sidebar from '../../components/sidebarComponent'
 
 export default function AddEmploye () {
   return (
-    <div>
-      <Header />
-      <FormAgregar />
-
+    <div className='flex gap-9'>
+      <Sidebar />
+      <div>
+        <FormAgregar />
+      </div>
     </div>
   )
 }

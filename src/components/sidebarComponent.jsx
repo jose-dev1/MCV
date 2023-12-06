@@ -90,7 +90,7 @@ const Sidebar = () => {
                         {user.fk_tipo_usuario === 2 && (
                             <Link
                                 to="/perfil-usuario"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/perfil-usuario') ? 'bg-gray-100 text-blue-800' : ''
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/perfil-usuario') ? 'bg-gray-100 text-blue-700' : ''
                                     }`}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">

@@ -1,39 +1,61 @@
-export default function infoPerfil() {
+import React from 'react';
+import Cardpet from '../../assets/img/petcard.png'
+import Cardcerti from '../../assets/img/certificate.png'
+import Examen from '../../assets/img/medical-certificate.png'
+import Agenda from '../../assets/img/calendar.png'
+
+const Infocard = () => {
     return (
-        <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1 mt-24 ">
-            <div
-                className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-                aria-hidden="true"
-            >
-                <div
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <div
-                className="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
-                aria-hidden="true"
-            >
-                <div
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
-                />
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <p className="text-sm leading-6 text-gray-900">
-                    <strong className="font-semibold">MCV (Mi can veterinaria) 2023</strong>
-                    <svg viewBox="0 0 2 2" className="mx-2 inline h-0.5 w-0.5 fill-current" aria-hidden="true">
-                        <circle cx={1} cy={1} r={1} />
-                    </svg>
-                    Disfruta de nuestra nueva sesión de blog que estamos preparando para ti muy pronto
-                </p>
-                <a
-                    href="/"
-                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-                >
-                    Mas información aquí <span aria-hidden="true">&rarr;</span>
-                </a>
-            </div>
-            <div className="flex flex-1 justify-end">
+        <div className="flex flex-col">
+            <h2 className="mb-1 mt-1 text-4xl font-bold bg-gradient-to-r from-purple-300 to-purple-700 text-white p-2 rounded-lg">
+                Perfil principal
+            </h2>
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <div className="flex items-start rounded-xl bg-white p-4 shadow-lg">
+                    <div className="flex h-12 w-12 items-center justify-center">
+                        <img src={Cardpet} className="h-50 w-50" alt="" />
+                    </div>
+
+                    <div className="ml-4">
+                        <h2 className="font-semibold">2 Mascotas registradas</h2>
+                        <p className="mt-2 text-sm text-gray-500">Actualizado hace 2 dias.</p>
+                    </div>
+                </div>
+
+                <div className="flex items-start rounded-xl bg-white p-4 shadow-lg">
+                    <div className="flex h-12 w-12 items-center justify-center">
+                        <img src={Cardcerti} className="h-50 w-50" alt="" />
+                    </div>
+
+                    <div className="ml-4">
+                        <h2 className="font-semibold">3 Cerficados generados</h2>
+                        <p className="mt-2 text-sm text-gray-500">Actualizado hace 2 dias.</p>
+                    </div>
+                </div>
+                <div className="flex items-start rounded-xl bg-white p-4 shadow-lg">
+                    <div className="flex h-12 w-12 items-center justify-center">
+                        <img src={Examen} className="h-50 w-50" alt="" />
+                    </div>
+
+                    <div className="ml-4">
+                        <h2 className="font-semibold">4 Examenes generados</h2>
+                        <p className="mt-2 text-sm text-gray-500">Actualizado hace 2 dias.</p>
+                    </div>
+                </div>
+                <div className="flex items-start rounded-xl bg-white p-4 shadow-lg">
+                    <div className="flex h-12 w-12 items-center justify-center">
+                        <img src={Agenda} className="h-50 w-50" alt="" />
+                    </div>
+
+                    <div className="ml-4">
+                        <h2 className="font-semibold">3 Citas agendadas</h2>
+                        <p className="mt-2 text-sm text-gray-500">Actualizado hace 2 dias.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default Infocard;
+

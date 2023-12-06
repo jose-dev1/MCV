@@ -1,4 +1,4 @@
-import TommyImage from '../../assets/img/Tommy.jpg';
+
 import '../../assets/css/cliente/mascota.css'
 import React from 'react';
 
@@ -21,7 +21,7 @@ export default function MascotaPerfil() {
                     <div className="flex flex-col md:flex-row w-3/4 md:w-5/6 space-x-0 md:space-x-8">
                         <div className="w-full md:w-2/5 flex flex-col items-center justify-center relative">
                             <figure className="w-1/2 md:w-full  rounded-full overflow-hidden">
-                                <img src={TommyImage} alt={mascota.nombre} />
+                                <img src="" alt={mascota.nombre} />
                             </figure>
                         </div>
                         <div className="w-full md:w-3/5 space-y-4 flex flex-col justify-center items-center">

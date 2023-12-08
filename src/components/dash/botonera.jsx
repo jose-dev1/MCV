@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 
 export default function Botonera (props) {
-    const { descarga } = props
+    const { descarga, componente } = props
     return (
       <Box
         sx={{
@@ -17,13 +17,7 @@ export default function Botonera (props) {
         }}
       >
         <ButtonGroup variant='outlined' aria-label='outlined button group'>
-        <Tooltip title='Agregar'>
-        <Button color='secondary'>
-          <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-6 h-6'>
-            <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
-          </svg>
-        </Button>
-      </Tooltip>
+          {componente}
           <Tooltip title='Editar'>
             <Button>
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-6 h-6'>
@@ -31,13 +25,15 @@ export default function Botonera (props) {
               </svg>
             </Button>
           </Tooltip>
-          <Tooltip title='Descargar' className={descarga ? '' : 'hidden'}>
-            <Button color='success'>
+          <div className={descarga ? '' : 'hidden'}>
+          <Tooltip title='Descargar'>
+            <Button color='success' >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-6 h-6'>
                 <path strokeLinecap='round' strokeLinejoin='round' d='M9 13.5l3 3m0 0l3-3m-3 3v-6m1.06-4.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z' />
               </svg>
             </Button>
           </Tooltip>
+          </div>
           <Tooltip title='Eliminar'>
             <Button color='error'>
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-6 h-6'>

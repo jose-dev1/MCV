@@ -1,14 +1,10 @@
-import {useState} from 'react'
 import { DataGrid, esES } from '@mui/x-data-grid'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import Botonera from './botonera'
 
 
 export default function DataTable (props) {
     
-    const { columns,rows,tipoId } = props
-
-    const getRowId = (rows) => tipoId
+    const { columns, rows, tipoId, selectId } = props
 
     const theme = createTheme({
       palette: {
@@ -16,16 +12,13 @@ export default function DataTable (props) {
       }
     }, esES)
   
-    const [selectionModel, setSelectionModel] = useState([])
-  
     const handleSelectionModelChange = (newSelectionModel) => {
-      setSelectionModel(newSelectionModel)
+      selectId(newSelectionModel)
     }
   
     return (
       <ThemeProvider theme={theme}>
-        <main>
-          <Botonera />
+         <main>
           <div className='mt-3 pl-10 pr-10' style={{ height: 'auto', width: '100%' }}>
             <DataGrid
               rows={rows}
@@ -38,7 +31,7 @@ export default function DataTable (props) {
               pageSizeOptions={[5, 10]}
               checkboxSelection
               loading={!rows.length}
-              getRowId={getRowId}
+              getRowId={tipoId}
               onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
             />
           </div>

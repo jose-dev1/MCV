@@ -2,19 +2,19 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import Box from '@mui/material/Box'
 
 export default function Botonera (props) {
-    const { descarga, agregar, editar, eliminar } = props
+    const { descarga, agregar, editar, eliminar, title } = props
     return (
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'end',
           '& > *': {
             m: 1
           }
         }}
       >
-        <ButtonGroup variant='outlined' aria-label='outlined button group'>
+        <h1 className='text-center content-center text-5xl'>{title}</h1>
+        <ButtonGroup className='justify-end' variant='outlined' aria-label='outlined button group'>
           {agregar}
           {editar}
           {descarga}

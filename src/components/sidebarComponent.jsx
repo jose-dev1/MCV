@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 
 const Sidebar = () => {
@@ -149,7 +150,16 @@ const Sidebar = () => {
                                 <span> Desactivar Cuenta</span>
                             </Link>
                         )}
-                        {/* Opción para el rol 1 */}
+                        {user.fk_tipo_usuario === 1 && (
+                            <Link
+                                to="/admin"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/admin' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <UserPlusIcon className='w-6 h-6' />
+                                <span>Gestionar Empleado</span>
+                            </Link>
+                        )}
 
                         {/* Opción para el rol 3 */}
 

@@ -128,7 +128,8 @@ export default function AddEmploye () {
       <Sidebar />
       <div className='mt-10'>
         
-        <Botonera 
+        <Botonera
+          title='Agregar Empleado'
           agregar={<FormAgregar
             datosEditables={defaultValues}
             icon={<PlusIcon className='w-6 h-6' /> }

@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 
 export default function DataTable (props) {
-    const { columns, rows, selectId, selectRow } = props
+    const { columns, rows, selectId, selectRow, title } = props
 
     const theme = createTheme({
       palette: {
@@ -22,7 +22,6 @@ export default function DataTable (props) {
   
   return (
       <ThemeProvider theme={theme}>
-         <main>
           <div className='mt-3 pl-10 pr-10' style={{ height: 'auto', width: '100%' }}>
             <DataGrid
               rows={rows}
@@ -37,7 +36,6 @@ export default function DataTable (props) {
               onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
             />
           </div>
-        </main>
       </ThemeProvider>
     )
   }

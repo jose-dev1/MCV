@@ -3,8 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 
 export default function DataTable (props) {
-    
-    const { columns, rows, tipoId, selectId } = props
+    const { columns, rows, selectId, selectRow } = props
 
     const theme = createTheme({
       palette: {
@@ -12,11 +11,16 @@ export default function DataTable (props) {
       }
     }, esES)
   
-    const handleSelectionModelChange = (newSelectionModel) => {
-      selectId(newSelectionModel)
+    const handleSelectionModelChange = (customId) => {
+      const busqueda = rows.filter((obj) => {
+        return obj.id === customId[0]
+      })
+  
+      selectId(customId[0])
+      selectRow(busqueda[0])
     }
   
-    return (
+  return (
       <ThemeProvider theme={theme}>
          <main>
           <div className='mt-3 pl-10 pr-10' style={{ height: 'auto', width: '100%' }}>
@@ -29,9 +33,7 @@ export default function DataTable (props) {
                 }
               }}
               pageSizeOptions={[5, 10]}
-              checkboxSelection
               loading={!rows.length}
-              getRowId={tipoId}
               onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
             />
           </div>

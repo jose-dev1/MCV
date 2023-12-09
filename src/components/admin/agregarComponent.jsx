@@ -1,8 +1,8 @@
 import { Alert, Grid, Modal  } from '@mui/material'
-import useForm from './useForm'
+import useForm from '../../Hooks/useForm'
 import Input from './Input'
 import Selects from './Selects'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
 
 const documentItems = [
@@ -15,29 +15,23 @@ const positinItems = [
   { id: 2, value: 'Asistente veterinario' }
 ]
 
-const defaultValues = {
-  firstName: '',
-  secondName: '',
-  firstLastName: '',
-  secondLastName: '',
-  document: '',
-  documentType: 'C.C',
-  userName: '',
-  password: '',
-  email: '',
-  emailType: 1,
-  position: 1
-}
 
 export const FormAgregar = (props) => {
-  const { values, handleInputChange } = useForm(defaultValues)
+  const { label, datosEditables, bgColor, icon, tooltip, }=props
+
+  const { values, setValues, handleInputChange } = useForm(datosEditables)
+  const [desabilitado, setDesabilitado] = useState(Object.keys(datosEditables).length === 0)
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
 
-  const { label }=props
 
   const handleModal = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  useEffect(() => {
+    setValues(datosEditables)
+    setDesabilitado(Object.keys(datosEditables).length === 0)
+  }, [datosEditables, setValues])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -65,11 +59,10 @@ export const FormAgregar = (props) => {
     <div>
       <Boton
         onClick={handleModal} 
-        bgColor='secondary' 
-        icon={<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth={1.5} stroke='currentColor' className='w-6 h-6'>
-              <path strokeLinecap='round' strokeLinejoin='round' d='M12 6v12m6-6H6' />
-            </svg>}
-        tooltip={label}
+        bgColor={bgColor} 
+        icon={icon}
+        tooltip={tooltip}
+        desable={desabilitado}
       />
       <Modal
         open={open}

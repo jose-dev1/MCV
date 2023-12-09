@@ -5,9 +5,11 @@ export default function Boton(props){
   const {bgColor, icon, tooltip, onClick, desable} = props
   return(
     <Tooltip title={tooltip}>
-      <Button onClick={onClick} color={bgColor} disabled={desable}>
-        {icon}
-      </Button>
+      <span>
+        <Button onClick={onClick} color={bgColor} disabled={desable}>
+          {icon}
+        </Button>
+      </span>
     </Tooltip>
   )
 }

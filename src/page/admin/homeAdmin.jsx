@@ -5,6 +5,7 @@ import Botonera from '../../components/dash/botonera'
 import useSelectRow from '../../Hooks/useSelectRow';
 import { FormAgregar } from '../../components/admin/agregarComponent'
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import AlertaEliminar from '../../components/dash/alertaEliminar';
 
 const columns = [
   { field: 'firstName', headerName: 'Primer Nombre', width: 130 },
@@ -142,7 +143,8 @@ export default function AddEmploye () {
               label='Editar Empleado'
               datosEditables={selectRow}
             />
-          }  
+          }
+          eliminar={<AlertaEliminar idSeleccionado={selectId} />}
           />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
       </div>

@@ -6,6 +6,7 @@ import Recuperar from './page/recuperarpsw'
 import Nuevapw from './page/validarContraseña'
 import Perfil from './page/cliente/perfil'
 import AddEmploye from './page/admin/homeAdmin'
+import Inicio from './page/veterinario/home.jsx'
 
 function App () {
   return (
@@ -18,6 +19,7 @@ function App () {
         <Route path='/actualizar-contraseña' element={<Nuevapw />} />
         <Route path='/perfil-usuario' element={<Perfil />} />
         <Route path='/admin' element={<AddEmploye />} />
+        <Route path='/veterinario' element={<Inicio />} />
       </Routes>
     </BrowserRouter>
   )

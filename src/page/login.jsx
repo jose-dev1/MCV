@@ -72,7 +72,7 @@ function Login() {
         1: '/admin',
         2: '/perfil-usuario',
         3: '/',
-        4: '/',
+        4: '/veterinario',
         5: '/',
       };
 

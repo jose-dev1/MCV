@@ -71,9 +71,9 @@ function Login() {
       const userRoutes = {
         1: '/admin',
         2: '/perfil-usuario',
-        3: '/',
+        3: '/inicio-auxiliar',
         4: '/veterinario',
-        5: '/',
+        5: '/inicio-groomer',
       };
 
       const userRoute = userRoutes[user.fk_tipo_usuario];

@@ -7,6 +7,8 @@ import Nuevapw from './page/validarContraseña'
 import Perfil from './page/cliente/perfil'
 import AddEmploye from './page/admin/homeAdmin'
 import Inicio from './page/veterinario/home.jsx'
+import HomeAuxiliar from './page/auxiliar/home.jsx'
+import HomeGroomer from './page/groomer/home.jsx'
 
 function App () {
   return (
@@ -20,6 +22,8 @@ function App () {
         <Route path='/perfil-usuario' element={<Perfil />} />
         <Route path='/admin' element={<AddEmploye />} />
         <Route path='/veterinario' element={<Inicio />} />
+        <Route path='/inicio-auxiliar' element={<HomeAuxiliar />} />
+        <Route path='/inicio-groomer' element={<HomeGroomer />} />
       </Routes>
     </BrowserRouter>
   )

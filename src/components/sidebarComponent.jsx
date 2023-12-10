@@ -3,11 +3,30 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
+import Swal from 'sweetalert2';
+
 
 const Sidebar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     const navigate = useNavigate();
     const location = useLocation();
+
+    const handleDesactivar = () => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¡Tu cuenta será desactivada este cambio no sera reversible en 30 dias!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, desactivarla',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');
+            }
+        });
+    };
 
     const isActive = (path) => {
         return location.pathname === path;
@@ -91,7 +110,7 @@ const Sidebar = () => {
                         {user.fk_tipo_usuario === 2 && (
                             <Link
                                 to="/perfil-usuario"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/perfil-usuario') ? 'bg-gray-100 text-blue-700' : ''
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/perfil-usuario') ? 'bg-gray-100 text-blue-800' : ''
                                     }`}
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
@@ -140,7 +159,22 @@ const Sidebar = () => {
                         )}
                         {user.fk_tipo_usuario === 2 && (
                             <Link
-                                to="/"
+                                to="/mascota-registrada"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-purple-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/mascota-registrada' ? 'bg-gray-100 text-purple-400' : ''
+                                    }`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75" />
+                                </svg>
+
+                                <span>Mascotas y Carnet</span>
+                            </Link>
+                        )}
+
+                        {user.fk_tipo_usuario === 2 && (
+                            <Link
+                                to=""
+                                onClick={handleDesactivar}
                                 className="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-yellow-600 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className='text-yellow-500 w-6 h-6' fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -150,6 +184,7 @@ const Sidebar = () => {
                                 <span> Desactivar Cuenta</span>
                             </Link>
                         )}
+                        {/* Opción para el rol 1 */}
                         {user.fk_tipo_usuario === 1 && (
                             <Link
                                 to="/admin"

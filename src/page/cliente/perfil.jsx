@@ -15,7 +15,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import isBetween from 'dayjs/plugin/isBetween';
-import MacotaPerfil from '../../components/client/mascotaComponent';
 import '../../assets/css/sidebar.css';
 import Infocard from '../../components/client/infoComponent';
 

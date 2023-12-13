@@ -40,6 +40,10 @@ function App() {
           element={<ProtectedRoute element={<Hospitalizaciones />} />}
         />
         <Route
+          path="/Carnet-vacunas"
+          element={<ProtectedRoute element={<Carnet />} />}
+        />
+        <Route
           path="/inicio-auxiliar"
           element={<ProtectedRoute element={<HomeAuxiliar />} />}
         />
@@ -50,11 +54,6 @@ function App() {
         <Route
           path="/mascota-registrada"
           element={<ProtectedRoute element={<Mascota />} />}
-        />
-
-        <Route
-          path="/Carnet-vacunas"
-          element={<ProtectedRoute element={<Carnet />} />}
         />
       </Routes>
     </BrowserRouter>

@@ -5,6 +5,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import Selects from '../../components/admin/Selects'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import VacunasRegistardas from '..//..//components/veterinario/vacunasRegistrados'
 
 const vacunas = [
     { id: 1, value: 'Parvovirosi' },
@@ -61,8 +62,8 @@ const VacunasComponent = ({ mascota, onSubmit }) => {
     };
 
     return (
-        <div className={("bg-gray-50 rounded p-4  w-10/12")}>
-            <h2>Registrar vacuna</h2>
+        <div className={("bg-gray-50 rounded p-4  w-3/5 mx-20")}>
+            <h2 className="text-xl" >Registrar vacuna</h2>
             <div className=" flex">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
@@ -99,7 +100,7 @@ const VacunasComponent = ({ mascota, onSubmit }) => {
                     id='vacuna'
                     label='Vacuna'
                     name='vacuna'
-                    value='items.position'
+                    value={vacunas.id}
                     items={vacunas}
                     required
                 />
@@ -112,6 +113,20 @@ const VacunasComponent = ({ mascota, onSubmit }) => {
             >
                 Registrar
             </button>
+
+            <div className="w-full">
+                <h1 className="text-center  text-xl mt-10 " >Vacunas registradas</h1>
+                <div className="mt-5 w-28 ">
+                    <Input
+                        id='inputBuscar'
+                        fullWidth
+                        label='Buscar'
+                        name='buscar'
+                        required
+                    />
+                </div>
+                <VacunasRegistardas />
+            </div>
         </div>
     );
 };

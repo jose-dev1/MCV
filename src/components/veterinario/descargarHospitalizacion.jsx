@@ -14,15 +14,15 @@ export default function AlertaDescargar(props) {
 
   const handleClick = () =>{
     Swal.fire({
-      title: '¿Deseas eliminar el registro seleccionado?',
+      title: '¿Deseas descargar el registro seleccionado?',
       showDenyButton: true,
       confirmButtonText: "Confirmar",
       denyButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Eliminado", "", "success");
+        Swal.fire("Tu descarga se ha completado.", "", "success");
       } else if (result.isDenied) {
-        Swal.fire("Los cambios no se aplicaron", "", "error");
+        Swal.fire("El registro no ha sido descargado.", "", "error");
       }
     });
   }

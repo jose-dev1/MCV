@@ -62,6 +62,15 @@ function App() {
           path="/mascota-registrada"
           element={<ProtectedRoute element={<Mascota />} />}
         />
+
+        <Route
+          path="/descargar-certificado"
+          element={<ProtectedRoute element={<DescargarCerficado />} />}
+        />
+        <Route
+          path="/descargar-examen"
+          element={<ProtectedRoute element={<DescargarExamen />} />}
+        />
       </Routes>
     </BrowserRouter>
   );

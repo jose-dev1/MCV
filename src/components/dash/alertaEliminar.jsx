@@ -4,7 +4,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 
 export default function AlertaEliminar(props) {
-  const {idSeleccionado} = props
+  const {idSeleccionado, tooltip } = props
 
   const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
 
@@ -32,7 +32,7 @@ export default function AlertaEliminar(props) {
       <Boton 
         bgColor='error'
         icon={<TrashIcon className='w-6 h-6' />}
-        tooltip='Eliminar'
+        tooltip={tooltip}
         onClick={handleClick}
         desable={desabilitado}
       />

@@ -7,6 +7,7 @@ import Nuevapw from "./page/validarContraseña";
 import Perfil from "./page/cliente/perfil";
 import AddEmploye from "./page/admin/homeAdmin";
 import Inicio from "./page/veterinario/home.jsx";
+import Hospitalizaciones from './page/veterinario/hospitalizaciones.jsx'
 import HomeAuxiliar from "./page/auxiliar/home.jsx";
 import HomeGroomer from "./page/groomer/home.jsx";
 import Mascota from "./page/cliente/mascota.jsx";
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/veterinario"
           element={<ProtectedRoute element={<Inicio />} />}
+        />
+        <Route
+          path="/hospitalizaciones"
+          element={<ProtectedRoute element={<Hospitalizaciones />} />}
         />
         <Route
           path="/inicio-auxiliar"

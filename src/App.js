@@ -17,6 +17,7 @@ import DescargarExamen from "./page/cliente/descargarExamen";
 import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
 import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
+import AgendaVeterinario from "./page/veterinario/agenda.jsx";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/Carnet-vacunas"
           element={<ProtectedRoute element={<Carnet />} />}
+        />
+        <Route
+          path="/agenda-veterinario"
+          element={<ProtectedRoute element={<AgendaVeterinario />} />}
         />
         <Route
           path="/inicio-auxiliar"

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 import Swal from 'sweetalert2';
 
@@ -257,6 +257,17 @@ const Sidebar = () => {
                             >
                                 <ClipboardDocumentCheckIcon className='w-6 h-6' />
                                 <span>Examenes Medicos</span>
+                            </Link>
+                        )}
+
+                        {user.fk_tipo_usuario === 4 && (
+                            <Link
+                                to="/agenda-veterinario"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/agenda-veterinario' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <CalendarIcon className='w-6 h-6' />
+                                <span>Agenda</span>
                             </Link>
                         )}
 

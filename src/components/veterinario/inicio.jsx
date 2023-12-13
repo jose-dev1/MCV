@@ -16,20 +16,26 @@ import '../../index.css';
 const products = [
     {
         id: 1,
-        titulo: 'Ejemplo titulo',
+        titulo: 'Inicio',
         href: '#',
-        icon: <box-icon type='solid' name='balloon'></box-icon>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+        ,
         subtitiulo: 'Ejemplo subtitulo',
     },
     {
-        id: 1,
-        titulo: 'Ejemplo titulo',
+        id: 2,
+        titulo: 'Carnet',
         href: '#',
-        icon: <box-icon type='solid' name='balloon'></box-icon>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+        </svg>
+        ,
         subtitiulo: 'Ejemplo subtitulo',
     },
     {
-        id: 1,
+        id: 3,
         titulo: 'Ejemplo titulo',
         href: '#',
         icon: <box-icon type='solid' name='balloon'></box-icon>,
@@ -89,46 +95,24 @@ const Mensajes = [
     // More products...
 ]
 
-export default function Example() {
+export default function Inicio() {
     return (
 
         <div className="bg-white w-full flex lg:grid-cols-1">
-            <div className="ml-20  px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7x2 lg:px-8">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Titulo Ejemplo</h2>
+            <div className="ml-20  px-4 py-16 sm:px-6 sm:py-4 lg:max-w-7x2 lg:px-8">
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Opciones</h2>
 
-                <div className=" w-96  mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-1 xl:gap-x-8">
+                <div className=" w-96  grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-1 xl:gap-x-8">
                     {products.map((product) => (
                         <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <svg
-                                className="w-7 h-7 text-gray-500 dark:text-gray-400 mb-3"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z" />
-                            </svg>
-                            <a href="#">
-                                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Need help with a Claim?</h5>
+                            {product.icon}
+                            <a href={product.href} >
+                                <h5 className=" text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"> {product.titulo} </h5>
                             </a>
-                            <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">Follow this step-by-step guideline on how to certify for your weekly benefits:</p>
+                            <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{product.subtitiulo}</p>
+
                             <a href="#" className="inline-flex items-center text-blue-600 hover:underline">
-                                See our guideline
-                                <svg
-                                    className="w-3 h-3 ms-2.5 rtl:rotate-[270deg]"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 18 18"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"
-                                    />
-                                </svg>
+                                Ver mas
                             </a>
                         </div>
                     ))}
@@ -139,10 +123,10 @@ export default function Example() {
             </div>
 
 
-            <div className="ml-20 w-96 px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7x2 lg:px-8">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Mesajes</h2>
+            <div className=" ml-20 w-96 px-4 py-6 sm:px-6 sm:py-4 lg:max-w-7x2 lg:px-8">
+                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Citas agendadas</h2>
 
-                <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols- lg:grid-cols-1 xl:gap-x-8">
+                <div className=" grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols- lg:grid-cols-1 xl:gap-x-8">
                     <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
                             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Citas agendadas</h5>

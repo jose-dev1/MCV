@@ -10,6 +10,7 @@ import Inicio from "./page/veterinario/home.jsx";
 import HomeAuxiliar from "./page/auxiliar/home.jsx";
 import HomeGroomer from "./page/groomer/home.jsx";
 import Mascota from "./page/cliente/mascota.jsx";
+import Carnet from "./page/veterinario/carnetVacunas.jsx";
 import { ProtectedRoute } from "./routes/routes.js";
 
 function App() {
@@ -44,6 +45,11 @@ function App() {
         <Route
           path="/mascota-registrada"
           element={<ProtectedRoute element={<Mascota />} />}
+        />
+
+        <Route
+          path="/Carnet-vacunas"
+          element={<ProtectedRoute element={<Carnet />} />}
         />
       </Routes>
     </BrowserRouter>

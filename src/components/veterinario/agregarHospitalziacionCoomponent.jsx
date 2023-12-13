@@ -7,6 +7,12 @@ import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 
 const documentItems = [
   { id: 'C.C', value: 'Cedula de Ciudadania' },
@@ -14,8 +20,8 @@ const documentItems = [
 ]
 
 const positinItems = [
-  { id: 1, value: 'Groomer' },
-  { id: 2, value: 'Asistente veterinario' }
+  { id: 1, value: 'Max' },
+  { id: 2, value: 'Chelsea' }
 ]
 
 export const FormAgregarHozpitalizaciones = (props) => {
@@ -26,10 +32,16 @@ export const FormAgregarHozpitalizaciones = (props) => {
   const [validarId,setValidarId]=useState(false)
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
+  const [info, setInfo] = useState('');
+  const [success, setSuccess] = useState('');
 
 
   const handleModal = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setError('')
+    setSuccess('')
+    setOpen(false)
+  }
 
   useEffect(() => {
     setValues(datosEditables)
@@ -39,6 +51,30 @@ export const FormAgregarHozpitalizaciones = (props) => {
   useEffect(() => {
     setValidarId(datosEditables.id !== '')
   }, [datosEditables, setValidarId])
+
+  useEffect(() => {
+    const infoTimeout = setTimeout(() => {
+      setInfo(null);
+    }, 5000);
+    return () => {
+      clearTimeout(infoTimeout);
+    };
+  }, [info]);
+
+
+  const handleSubmitId = (event) => {
+    event.preventDefault()
+
+    if(values.tipo_documento === '' || values.N_documento === '')
+    {
+      setError('Por favor, complete los campos nesesarios.');
+    }
+    else
+    {
+      setError('');
+      setInfo('Datos cargados exitosamente.')
+    }
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -58,6 +94,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
       return;
     }else{
       setError('')
+      setSuccess('Datos guardados exitosamente.')
       return
     }
   }
@@ -77,9 +114,19 @@ export const FormAgregarHozpitalizaciones = (props) => {
       >
           <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
             <h1 className='text-3xl text-center mb-2'>{label}</h1>
+            {info && (
+        <Alert className='mb-2' severity="info">
+          {info}
+        </Alert>
+      )}
           {error && (
           <Alert className='mb-2' severity="error">
             {error}
+          </Alert>
+        )}
+                  {success && (
+          <Alert className='mb-2' severity="success">
+            {success}
           </Alert>
         )}
             <Grid container spacing={2} columns={12}>
@@ -109,6 +156,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
               </Grid>
               <Grid item xs={12} sm={2}>
                 <Boton
+                    onClick={handleSubmitId}
                     bgColor='success' 
                     icon={<MagnifyingGlassIcon/>}
                     tooltip='Buscar'
@@ -157,7 +205,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
                     name='nombre'
                     value={values.nombre}
                     onChange={handleInputChange}
-                    items={documentItems}
+                    items={positinItems}
                     required
                   />
                 )}
@@ -174,18 +222,47 @@ export const FormAgregarHozpitalizaciones = (props) => {
                   required
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                    id="observaciones"
-                    label="Observaciones"
-                    name='observaciones'
+              {validarId && (
+                  <Grid item xs={12}>
+                  <TextField
+                    id="observacionesAgregadas"
+                    label="Observaciones Agegadas Anteriormente"
+                    name="observacionesAgregadas"
                     multiline
-                    maxRows={15}
+                    maxRows={7}
                     value={values.observaciones}
-                    onChange={handleInputChange}
                     fullWidth
-                    required
+                    disabled
+                  />
+                </Grid>
+              )}
+              <Grid item xs={12}>
+              <TextField
+                  id="observaciones"
+                  label="Nuevas Observaciones"
+                  name='observaciones'
+                  multiline
+                  maxRows={7}
+                  fullWidth
+                  required
                 />
+              </Grid>
+              <Grid item xs={12}>
+              {validarId && (
+              <FormControl>
+              <FormLabel id="demo-row-radio-buttons-group-label">Finalizar servicio</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                name="idestado"
+                onChange={handleInputChangeDate}
+                value={values.idestado}
+              >
+                <FormControlLabel value="0" control={<Radio />} label="Si" />
+                <FormControlLabel value="1" control={<Radio />} label="No" />
+              </RadioGroup>
+            </FormControl>
+              )}
               </Grid>
               <Grid item xs={12}>
                 <button

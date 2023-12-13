@@ -4,9 +4,11 @@ import Sidebar from '../../components/sidebarComponent'
 
 export default function Home() {
     return (
-        <div className='flex w-full'>
+        <div className='flex gap-9'>
             <Sidebar />
+            <div className='mt-10'>
             <Inicio />
+            </div>
         </div>
     );
 }

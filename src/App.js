@@ -16,6 +16,7 @@ import DescargarCerficado from "./page/cliente/descargarCertificado";
 import DescargarExamen from "./page/cliente/descargarExamen";
 import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
+import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
 
 function App() {
   return (
@@ -70,6 +71,10 @@ function App() {
         <Route
           path="/descargar-examen"
           element={<ProtectedRoute element={<DescargarExamen />} />}
+        />
+        <Route
+          path="/gestionar-citas"
+          element={<ProtectedRoute element={<GestionarCitas />} />}
         />
       </Routes>
     </BrowserRouter>

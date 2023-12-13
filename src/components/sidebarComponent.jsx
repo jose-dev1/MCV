@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 import Swal from 'sweetalert2';
 
@@ -197,7 +197,16 @@ const Sidebar = () => {
                         )}
 
                         {/* Opción para el rol 3 */}
-
+                        {user.fk_tipo_usuario === 3 && (
+                            <Link
+                                to="/gestionar-citas"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/gestionar-citas' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <CheckBadgeIcon className='w-6 h-6' />
+                                <span>Gestionar Citas</span>
+                            </Link>
+                        )}
                         {/* Opción para el rol 4 */}
                         {user.fk_tipo_usuario === 4 && (
                             <Link
@@ -252,6 +261,16 @@ const Sidebar = () => {
                         )}
 
                         {/* Opción para el rol 5 */}
+                        {user.fk_tipo_usuario === 5 && (
+                            <Link
+                                to="/veterinario"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/inicio-groomer' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <HomeIcon className='w-6 h-6' />
+                                <span>Inicio</span>
+                            </Link>
+                        )}
                     </nav>
                 </div>
                 <div aria-label="footer" className="pt-2">

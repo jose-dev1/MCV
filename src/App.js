@@ -14,6 +14,7 @@ import Mascota from "./page/cliente/mascota.jsx";
 import DescargarCerficado from "./page/cliente/descargarCertificado"
 import DescargarExamen from "./page/cliente/descargarExamen"
 import { ProtectedRoute } from "./routes/routes.js";
+import Examenes from "./page/veterinario/examenes.jsx";
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
         <Route
           path="/hospitalizaciones"
           element={<ProtectedRoute element={<Hospitalizaciones />} />}
+        />
+        <Route
+          path="/examenes-medicos"
+          element={<ProtectedRoute element={<Examenes />} />}
         />
         <Route
           path="/inicio-auxiliar"

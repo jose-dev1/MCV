@@ -1,9 +1,9 @@
-import Boton from "./boton";
+import Boton from "../dash/boton";
 import Swal from "sweetalert2";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 
-export default function AlertaEliminar(props) {
+export default function AlertaDescargar(props) {
   const {idSeleccionado, tooltip } = props
 
   const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
@@ -30,8 +30,8 @@ export default function AlertaEliminar(props) {
   return (
     <>
       <Boton 
-        bgColor='error'
-        icon={<TrashIcon className='w-6 h-6' />}
+        bgColor='success'
+        icon={<DocumentArrowDownIcon className='w-6 h-6' />}
         tooltip={tooltip}
         onClick={handleClick}
         desable={desabilitado}

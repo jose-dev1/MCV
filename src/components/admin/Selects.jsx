@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 function Selects (props) {
-  const { id, label, name, onChange, value, items, required } = props
+  const { id, label, name, onChange, value, items, required, disabled } = props
   return (
 
     <FormControl fullWidth>
@@ -13,6 +13,7 @@ function Selects (props) {
         value={value}
         onChange={onChange}
         items={items}
+        disabled={disabled}
       >
         {
         items.map((item) => (

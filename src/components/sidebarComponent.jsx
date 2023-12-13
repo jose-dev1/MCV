@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon, BookmarkSquareIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 import Swal from 'sweetalert2';
 
@@ -215,9 +215,21 @@ const Sidebar = () => {
 
                         {user.fk_tipo_usuario === 4 && (
                             <Link
-                                to="/Carnet-vacunas"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/Carnet-vacunas' ? 'bg-gray-100 text-blue-500' : ''
+                                to="/hospitalizaciones"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/hospitalizaciones' ? 'bg-gray-100 text-blue-500' : ''
                                     }`}
+                            >
+                                <BookmarkSquareIcon className='w-6 h-6' />
+                                <span>Hospitalizaciones</span>
+                            </Link>
+                        )}
+
+                        {user.fk_tipo_usuario === 4 && (
+                            <Link
+                                to="/Carnet-vacunas"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/hospitalizaciones' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />

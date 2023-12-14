@@ -13,7 +13,7 @@ const data = [
 
 const SimpleBarCharts = () => {
     return (
-        <ResponsiveContainer width="100%" aspect={2}>
+        <ResponsiveContainer width="100%" aspect={3}>
             <BarChart
                 data={data}
                 width={500}

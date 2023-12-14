@@ -23,6 +23,7 @@ import Factura from "./page/auxiliar/factura.jsx";
 import AgendarCita from "./page/cliente/agendarCita.jsx";
 import HistoriaClinica from "./page/veterinario/historiaClinica.jsx";
 import AgendaGroomer from "./page/groomer/agendaGro";
+import Desparacitacion from "./page/veterinario/desparacitacion.jsx";
 
 function App() {
   return (
@@ -35,78 +36,135 @@ function App() {
         <Route path="/actualizar-contraseña" element={<Nuevapw />} />
         <Route
           path="/perfil-usuario"
-          element={<ProtectedRoute element={<Perfil />} />}
+          element={<ProtectedRoute element={<Perfil />} requiredUserRole={2} />}
         />
         <Route
           path="/admin"
-          element={<ProtectedRoute element={<AddEmploye />} />}
+          element={
+            <ProtectedRoute element={<AddEmploye />} requiredUserRole={1} />
+          }
         />
         <Route
           path="/veterinario"
-          element={<ProtectedRoute element={<Inicio />} />}
+          element={<ProtectedRoute element={<Inicio />} requiredUserRole={4} />}
         />
         <Route
           path="/hospitalizaciones"
-          element={<ProtectedRoute element={<Hospitalizaciones />} />}
+          element={
+            <ProtectedRoute
+              element={<Hospitalizaciones />}
+              requiredUserRole={4}
+            />
+          }
         />
         <Route
           path="/examenes-medicos"
-          element={<ProtectedRoute element={<Examenes />} />}
+          element={
+            <ProtectedRoute element={<Examenes />} requiredUserRole={4} />
+          }
         />
         <Route
           path="/Carnet-vacunas"
-          element={<ProtectedRoute element={<Carnet />} />}
+          element={<ProtectedRoute element={<Carnet />} requiredUserRole={4} />}
         />
         <Route
           path="/agenda-veterinario"
-          element={<ProtectedRoute element={<AgendaVeterinario />} />}
+          element={
+            <ProtectedRoute
+              element={<AgendaVeterinario />}
+              requiredUserRole={4}
+            />
+          }
         />
         <Route
           path="/inicio-auxiliar"
-          element={<ProtectedRoute element={<HomeAuxiliar />} />}
+          element={
+            <ProtectedRoute element={<HomeAuxiliar />} requiredUserRole={3} />
+          }
         />
         <Route
           path="/inicio-groomer"
-          element={<ProtectedRoute element={<HomeGroomer />} />}
+          element={
+            <ProtectedRoute element={<HomeGroomer />} requiredUserRole={5} />
+          }
         />
 
         <Route
           path="/servicio-prestado"
-          element={<ProtectedRoute element={<Servicioprestado />} />}
+          element={
+            <ProtectedRoute
+              element={<Servicioprestado />}
+              requiredUserRole={5}
+            />
+          }
         />
 
         <Route
           path="/mascota-registrada"
-          element={<ProtectedRoute element={<Mascota />} />}
+          element={
+            <ProtectedRoute element={<Mascota />} requiredUserRole={2} />
+          }
         />
 
         <Route
           path="/descargar-certificado"
-          element={<ProtectedRoute element={<DescargarCerficado />} />}
+          element={
+            <ProtectedRoute
+              element={<DescargarCerficado />}
+              requiredUserRole={2}
+            />
+          }
         />
         <Route
           path="/descargar-examen"
-          element={<ProtectedRoute element={<DescargarExamen />} />}
+          element={
+            <ProtectedRoute
+              element={<DescargarExamen />}
+              requiredUserRole={2}
+            />
+          }
         />
         <Route
           path="/gestionar-citas"
-          element={<ProtectedRoute element={<GestionarCitas />} />}
+          element={
+            <ProtectedRoute element={<GestionarCitas />} requiredUserRole={3} />
+          }
         />
         <Route
           path="/agendar-cita"
-          element={<ProtectedRoute element={<AgendarCita />} />}
+          element={
+            <ProtectedRoute element={<AgendarCita />} requiredUserRole={2} />
+          }
         />
         <Route
           path="/factura"
-          element={<ProtectedRoute element={<Factura />} />}
+          element={
+            <ProtectedRoute element={<Factura />} requiredUserRole={3} />
+          }
         />
         <Route
           path="/historia-clinica"
-          element={<ProtectedRoute element={<HistoriaClinica />} />}
+          element={
+            <ProtectedRoute
+              element={<HistoriaClinica />}
+              requiredUserRole={4}
+            />
+          }
         />
-         <Route
+        <Route
           path="/agenda-groomer"
-          element={<ProtectedRoute element={<AgendaGroomer />} />}
+          element={
+            <ProtectedRoute element={<AgendaGroomer />} requiredUserRole={5} />
+          }
+        />
+        <Route
+          path="/desparacitacion"
+          element={
+            <ProtectedRoute
+              element={<Desparacitacion />}
+              requiredUserRole={4}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

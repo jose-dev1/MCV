@@ -11,14 +11,15 @@ import Hospitalizaciones from "./page/veterinario/hospitalizaciones.jsx";
 import HomeAuxiliar from "./page/auxiliar/home.jsx";
 import HomeGroomer from "./page/groomer/home.jsx";
 import Mascota from "./page/cliente/mascota.jsx";
-import Carnet from './page/veterinario/carnetVacunas';
+import Carnet from "./page/veterinario/carnetVacunas";
 import DescargarCerficado from "./page/cliente/descargarCertificado";
 import DescargarExamen from "./page/cliente/descargarExamen";
 import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
 import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
 import AgendaVeterinario from "./page/veterinario/agenda.jsx";
-import Servicioprestado from './page/groomer/servicio-prestado'
+import Servicioprestado from "./page/groomer/servicio-prestado";
+import Factura from "./page/auxiliar/factura.jsx";
 
 function App() {
   return (
@@ -70,7 +71,7 @@ function App() {
           path="/servicio-prestado"
           element={<ProtectedRoute element={<Servicioprestado />} />}
         />
-        
+
         <Route
           path="/mascota-registrada"
           element={<ProtectedRoute element={<Mascota />} />}
@@ -87,6 +88,10 @@ function App() {
         <Route
           path="/gestionar-citas"
           element={<ProtectedRoute element={<GestionarCitas />} />}
+        />
+        <Route
+          path="/factura"
+          element={<ProtectedRoute element={<Factura />} />}
         />
       </Routes>
     </BrowserRouter>

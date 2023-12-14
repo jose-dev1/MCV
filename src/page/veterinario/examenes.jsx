@@ -9,11 +9,12 @@ import useSelectId from '../../Hooks/useSelectId'
 import useSelectRow from '../../Hooks/useSelectRow'
 import AlertaEliminar from '../../components/dash/alertaEliminar'
 import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
+import { Stack } from '@mui/material'
 
 const columns = [
-    { field: 'nombreMascota', headerName: 'Nombre Mascota', width: 130 },
+    { field: 'nombreMascota', headerName: 'Nombre Mascota', width: 140 },
     { field: 'nombreDueño', headerName: 'Nombre Dueño', width: 150 },
-    { field: 'N_documento', headerName: 'Documento Del Dueño', width: 160 },
+    { field: 'N_documento', headerName: 'Documento Del Dueño', width: 180 },
     { field: 'tipoExamen', headerName: 'Tipo de Examen', width: 150 },
     { field: 'fecha_creacion', headerName: 'Fecha de Ingreso', width: 160 },
 ];
@@ -121,7 +122,20 @@ function Examenes() {
   return (
     <div className='flex gap-3'>
       <Sidebar />
-      <div className='mt-10'>
+      <Stack
+        spacing={2}
+        sx={{
+          position: 'fixed',
+          top: 10,
+          right: 6,
+          bottom: 5,
+          left: 'calc(22% + 3px)',
+          p: [2, 3, 4],
+          width: '77%',
+          display: 'flex',
+          overflow: 'auto'
+        }}
+      >
         <Botonera
           title='Examenes Medicos'
           agregar={<AgrearExamen
@@ -144,7 +158,7 @@ function Examenes() {
           eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Desactivar Examen' />}
         />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
+      </Stack>
     </div>
   )
 }

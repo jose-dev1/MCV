@@ -8,6 +8,11 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 
 const documentItems = [
+  { id: 'C.C', value: 'Cedula de Ciudadania' },
+  { id: 'C.E', value: 'Cedula de Extrangeria' }
+]
+
+const mascotas = [
   { id: 1, value: 'Max' },
   { id: 2, value: 'Luna' }
 ]
@@ -129,7 +134,7 @@ export const AgrearExamen = (props) => {
                   name='nombreMascota'
                   value={values.nombreMascota}
                   onChange={handleInputChange}
-                  items={documentItems}
+                  items={mascotas}
                   required
                 />
               )}

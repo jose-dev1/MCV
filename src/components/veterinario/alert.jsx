@@ -30,7 +30,7 @@ const AlertComponent = ({ id, color, title, content }) => {
             <div className="flex">
                 <button
                     type="button"
-                    className={`text-red-600  focus:ring-4 focus:outline-none focus:ring-${color}-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-${color}-600 dark:hover:bg-${color}-700 dark:focus:ring-${color}-800`}
+                    className={`text-slate-50  focus:ring-4 focus:outline-none focus:ring-${color}-200 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-${color}-600 dark:hover:bg-${color}-700 dark:focus:ring-${color}-800`}
                     onClick={handleClose}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

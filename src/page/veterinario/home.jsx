@@ -3,6 +3,7 @@ import Inicio from '../../components/veterinario/inicio'
 import Sidebar from '../../components/sidebarComponent'
 import AlertComponent from '../../components/veterinario/alert';
 
+
 const opciones = [
     {
         id: 1,

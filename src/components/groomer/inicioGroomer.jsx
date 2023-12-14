@@ -1,8 +1,6 @@
 import * as React from 'react';
 import '../../index.css';
 import Grafica from '..//..//components/veterinario/veterinarioGrafica'
-import Banner from '..//..//components/veterinario/banerVeterinario'
-import GraficaMascota from '../../components/veterinario/graficaMascotas'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 

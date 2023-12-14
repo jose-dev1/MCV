@@ -137,10 +137,10 @@ export const FormServisGroomer = (props) => {
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='tipo_documento'
+                                id='idDocumento'
                                 label='Tipo de Documento'
-                                name='tipo_documento'
-                                value={values.tipo_documento}
+                                name='idDocumento'
+                                value={values.idDocumento}
                                 onChange={handleInputChange}
                                 items={documentItems}
                                 disabled={validarId ? true : false}
@@ -149,11 +149,11 @@ export const FormServisGroomer = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Input
-                                id='N_documento'
+                                id='numeroDocumento'
                                 fullWidth
                                 label='N°documento'
-                                name='N_documento'
-                                value={values.N_documento}
+                                name='numeroDocumento'
+                                value={values.numeroDocumento}
                                 onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
@@ -170,10 +170,10 @@ export const FormServisGroomer = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <Selects
-                                id='tipo_servis'
+                                id='idServicio'
                                 label='Servicio'
-                                name='tipo_servicio'
-                                value={values.servicio}
+                                name='idServicio'
+                                value={values.idServicio}
                                 onChange={handleInputChange}
                                 items={serviciosRealizados}
                                 disabled={validarId ? true : false}
@@ -183,21 +183,21 @@ export const FormServisGroomer = (props) => {
                         <Grid item xs={12} sm={6}>
                             {validarId ? (
                                 <Input
-                                    id='nombre'
+                                    id='nombreMascota'
                                     fullWidth
                                     label='Nombre Mascota'
-                                    name='nombre'
-                                    value={values.nombre}
+                                    name='nombreMascota'
+                                    value={values.nombreMascota}
                                     onChange={handleInputChange}
                                     disabled={true}
                                     required
                                 />
                             ) : (
                                 <Selects
-                                    id='nombre'
+                                    id='nombreMascota'
                                     label='Nombre Mascota'
-                                    name='nombre'
-                                    value={values.nombre}
+                                    name='nombreMascota'
+                                    value={values.nombreMascota}
                                     onChange={handleInputChange}
                                     items={positinItems}
                                     required
@@ -206,17 +206,27 @@ export const FormServisGroomer = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <InputDate
-                                id='fecha_servis'
+                                id='fechaAplicacion'
                                 fullWidth
                                 label='Fecha'
-                                name='fecha_servis'
-                                fecha={values.fecha_creacion}
+                                name='fechaAplicacion'
+                                fecha={values.fechaAplicacion}
                                 onChange={handleInputChangeDate}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
-
+                        <Grid item xs={12} sm={12}>
+                            <Input
+                                id='notaServicio'
+                                fullWidth
+                                label='Nota'
+                                name='notaServicio'
+                                value={values.notaServicio}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </Grid>
                         <Grid item xs={12}>
                             {validarId && (
                                 <FormControl>
@@ -224,27 +234,15 @@ export const FormServisGroomer = (props) => {
                                     <RadioGroup
                                         row
                                         aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="idestado"
+                                        name="idEstado"
                                         onChange={handleInputChangeDate}
-                                        value={values.idestado}
+                                        value={values.idEstado}
                                     >
                                         <FormControlLabel value="0" control={<Radio />} label="Si" />
                                         <FormControlLabel value="1" control={<Radio />} label="No" />
                                     </RadioGroup>
                                 </FormControl>
                             )}
-                        </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <Input
-                                id='nota'
-                                fullWidth
-                                label='Nota'
-                                name='nota'
-                                value={values.nota}
-                                onChange={handleInputChange}
-                                disabled={validarId ? true : false}
-                                required
-                            />
                         </Grid>
                         <Grid item xs={12}>
                             <button

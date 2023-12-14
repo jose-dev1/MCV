@@ -10,23 +10,27 @@ import AlertaDescargar from '../../components/veterinario/descargarHospitalizaci
 
 
 const columns = [
-    { field: 'nombreDueno', headerName: 'Nombre del dueño', width: 130 },
-    { field: 'nombreMascota', headerName: 'Nombre de la mascota', width: 130 },
-    { field: 'fechaAplicacion', headerName: 'Fecha', width: 130 },
+    { field: 'nombreDueno', headerName: 'Nombre del dueño', width: 200 },
+    { field: 'nombreMascota', headerName: 'Nombre de la mascota', width: 200 },
+    { field: 'fechaAplicacion', headerName: 'Fecha', width: 170 },
     { field: 'servicio', headerName: 'Servicio', width: 170 },
-    { field: 'tipomascota', headerName: 'Tipo de mascota', width: 120 }
+    { field: 'tipomascota', headerName: 'Tipo de mascota', width: 120 },
+    { field: 'descripcionEstado', headerName: 'Estado', width: 120 }
 ];
 
 const defaultValues = {
     id: '',
     nombreDueno: '',
-    codigoMascota: '',
     nombreMascota: '',
-    numeroDueno: '',
-    correoDueno: '',
     fechaAplicacion: '',
-    vacunaAplicada: '',
-    laboratorio: ''
+    servicio: '',
+    tipomascota: '',
+    idEstado: 1,
+    descripcionEstado: '',
+    idDocumento: 'C.C',
+    numeroDocumento: '',
+    notaServicio: '',
+    idServicio:1,
 }
 
 const rows = [
@@ -35,16 +39,28 @@ const rows = [
         nombreDueno: 'Juan Carlos González Pérez',
         nombreMascota: 'Firulais',
         fechaAplicacion: '2023-07-20',
-        servicio: 'Baño ',
-        tipomascota: 'Perro'
+        servicio: 'Baño',
+        tipomascota: 'Perro',
+        idEstado: 0,
+        descripcionEstado: 'finalizado',
+        idDocumento: 'C.C',
+        numeroDocumento: '1234567890',
+        notaServicio: 'Servicio excelente, el perro quedó muy limpio y feliz.',
+        idServicio: '1'
     },
     {
         id: '2',
         nombreDueno: 'Samuel Alejandro Vasquez Hernandez',
         nombreMascota: 'SACHA',
         fechaAplicacion: '2023-07-20',
-        servicio: 'Baño ',
-        tipomascota: 'Perro'
+        servicio: 'Baño',
+        tipomascota: 'Perro',
+        idEstado: 1,
+        descripcionEstado: 'activo',
+        idDocumento: 'C.E',
+        numeroDocumento: '0987654321',
+        notaServicio: 'Baño relajante, el perro disfrutó cada momento.',
+        idServicio: '1'
     },
     {
         id: '3',
@@ -52,7 +68,13 @@ const rows = [
         nombreMascota: 'Pelusa',
         fechaAplicacion: '2023-07-21',
         servicio: 'Corte de pelo',
-        tipomascota: 'Gato'
+        tipomascota: 'Gato',
+        idEstado: 0,
+        descripcionEstado: 'finalizado',
+        idDocumento: 'C.C',
+        numeroDocumento: '5678901234',
+        notaServicio: 'Corte de pelo impecable, la gata se ve muy elegante.',
+        idServicio: '2'
     },
     {
         id: '4',
@@ -60,7 +82,13 @@ const rows = [
         nombreMascota: 'Rocky',
         fechaAplicacion: '2023-07-21',
         servicio: 'Baño y cepillado',
-        tipomascota: 'Perro'
+        tipomascota: 'Perro',
+        idEstado: 1,
+        descripcionEstado: 'activo',
+        idDocumento: 'C.E',
+        numeroDocumento: '3456789012',
+        notaServicio: 'Baño y cepillado completo, el perro está radiante.',
+        idServicio: '3'
     },
     {
         id: '5',
@@ -68,7 +96,13 @@ const rows = [
         nombreMascota: 'Nube',
         fechaAplicacion: '2023-07-22',
         servicio: 'Baño',
-        tipomascota: 'Conejo'
+        tipomascota: 'Conejo',
+        idEstado: 0,
+        descripcionEstado: 'finalizado',
+        idDocumento: 'C.C',
+        numeroDocumento: '6789012345',
+        notaServicio: 'Baño suave y cuidadoso, la conejita está encantada.',
+        idServicio: '1'
     },
     {
         id: '6',
@@ -76,7 +110,13 @@ const rows = [
         nombreMascota: 'Luna',
         fechaAplicacion: '2023-07-23',
         servicio: 'Corte de uñas',
-        tipomascota: 'Gato'
+        tipomascota: 'Gato',
+        idEstado: 1,
+        descripcionEstado: 'activo',
+        idDocumento: 'C.E',
+        numeroDocumento: '2345678901',
+        notaServicio: 'Corte de uñas sin problemas, la gata está más cómoda ahora.',
+        idServicio: '4'
     },
     {
         id: '7',
@@ -84,7 +124,13 @@ const rows = [
         nombreMascota: 'Max',
         fechaAplicacion: '2023-07-23',
         servicio: 'Baño y peluquería',
-        tipomascota: 'Perro'
+        tipomascota: 'Perro',
+        idEstado: 0,
+        descripcionEstado: 'finalizado',
+        idDocumento: 'C.C',
+        numeroDocumento: '4567890123',
+        notaServicio: 'Baño y peluquería de calidad, el perro luce increíble.',
+        idServicio: '5'
     },
     {
         id: '8',
@@ -92,7 +138,13 @@ const rows = [
         nombreMascota: 'Coco',
         fechaAplicacion: '2023-07-24',
         servicio: 'Baño',
-        tipomascota: 'Perro'
+        tipomascota: 'Perro',
+        idEstado: 1,
+        descripcionEstado: 'activo',
+        idDocumento: 'C.E',
+        numeroDocumento: '9012345678',
+        notaServicio: 'Baño refrescante, el perro está contento y limpio.',
+        idServicio: '1'
     },
     {
         id: '9',
@@ -100,7 +152,13 @@ const rows = [
         nombreMascota: 'Kiara',
         fechaAplicacion: '2023-07-24',
         servicio: 'Corte de pelo',
-        tipomascota: 'Gato'
+        tipomascota: 'Gato',
+        idEstado: 0,
+        descripcionEstado: 'finalizado',
+        idDocumento: 'C.C',
+        numeroDocumento: '2345678901',
+        notaServicio: 'Corte de pelo preciso, la gata se ve más elegante.',
+        idServicio: '2'
     },
     {
         id: '10',
@@ -108,97 +166,21 @@ const rows = [
         nombreMascota: 'Buddy',
         fechaAplicacion: '2023-07-25',
         servicio: 'Baño y cepillado',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '11',
-        nombreDueno: 'Pedro Gutiérrez',
-        nombreMascota: 'Lucky',
-        fechaAplicacion: '2023-07-25',
-        servicio: 'Corte de uñas',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '12',
-        nombreDueno: 'Luisa Martínez',
-        nombreMascota: 'Simba',
-        fechaAplicacion: '2023-07-26',
-        servicio: 'Baño y peluquería',
-        tipomascota: 'Gato'
-    },
-    {
-        id: '13',
-        nombreDueno: 'Ricardo Soto',
-        nombreMascota: 'Daisy',
-        fechaAplicacion: '2023-07-26',
-        servicio: 'Baño',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '14',
-        nombreDueno: 'Carmen López',
-        nombreMascota: 'Toby',
-        fechaAplicacion: '2023-07-27',
-        servicio: 'Corte de pelo',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '15',
-        nombreDueno: 'Francisco Morales',
-        nombreMascota: 'Nina',
-        fechaAplicacion: '2023-07-27',
-        servicio: 'Baño y cepillado',
-        tipomascota: 'Gato'
-    },
-    {
-        id: '16',
-        nombreDueno: 'Beatriz Silva',
-        nombreMascota: 'Lola',
-        fechaAplicacion: '2023-07-28',
-        servicio: 'Corte de uñas',
-        tipomascota: 'Gato'
-    },
-    {
-        id: '17',
-        nombreDueno: 'Jorge Torres',
-        nombreMascota: 'Charlie',
-        fechaAplicacion: '2023-07-28',
-        servicio: 'Baño y peluquería',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '18',
-        nombreDueno: 'Gloria Rodríguez',
-        nombreMascota: 'Oreo',
-        fechaAplicacion: '2023-07-29',
-        servicio: 'Baño',
-        tipomascota: 'Perro'
-    },
-    {
-        id: '19',
-        nombreDueno: 'Raúl Martínez',
-        nombreMascota: 'Misty',
-        fechaAplicacion: '2023-07-29',
-        servicio: 'Corte de pelo',
-        tipomascota: 'Gato'
-    },
-    {
-        id: '20',
-        nombreDueno: 'Patricia Pérez',
-        nombreMascota: 'Bella',
-        fechaAplicacion: '2023-07-30',
-        servicio: 'Baño y cepillado',
-        tipomascota: 'Perro'
+        tipomascota: 'Perro',
+        idEstado: 1,
+        descripcionEstado: 'activo',
+        idDocumento: 'C.E',
+        numeroDocumento: '5678901234',
+        notaServicio: 'Baño y cepillado completo, el perro está feliz y radiante.',
+        idServicio: '3'
     }
-
-]
+];
 
 export default function VacunasRegistradas() {
     const { selectId, saveSelectId } = useSelectId()
     const { selectRow, saveSelectRow } = useSelectRow()
     return (
         <>
-            <div className="mt-10 w-full">
                 <Botonera
                     title='Servicios registrados'
                     agregar={<FormServisGroomer
@@ -220,7 +202,6 @@ export default function VacunasRegistradas() {
                     descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Registro' />}
                 />
                 <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-            </div>
         </>
     )
 }

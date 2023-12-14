@@ -6,14 +6,15 @@ import useSelectRow from '../../Hooks/useSelectRow';
 import { FormAgregar } from '../../components/admin/agregarComponent'
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import AlertaEliminar from '../../components/dash/alertaEliminar';
+import Stack from '@mui/material/Stack';
 
 const columns = [
-  { field: 'firstName', headerName: 'Primer Nombre', width: 130 },
-  { field: 'firstLastName', headerName: 'Primer Apellido', width: 130 },
-  { field: 'document', headerName: 'Numero de documento', width: 130 },
-  { field: 'email', headerName: 'Correo', width: 250 },
-  { field: 'rol', headerName: 'Cargo', width: 170 },
-  { field: 'estado', headerName: 'Estado', width: 120 }
+  { field: 'firstName', headerName: 'Primer Nombre', width: 140 },
+  { field: 'firstLastName', headerName: 'Primer Apellido', width: 140 },
+  { field: 'document', headerName: 'Numero de documento', width: 170 },
+  { field: 'email', headerName: 'Correo', width: 260 },
+  { field: 'rol', headerName: 'Cargo', width: 180 },
+  { field: 'estado', headerName: 'Estado', width: 130 }
 ];
 
 const rows = [
@@ -126,7 +127,20 @@ export default function AddEmploye () {
   return (
     <div className='flex gap-9'>
       <Sidebar />
-      <div className='mt-10'>
+      <Stack
+    spacing={2}
+    sx={{
+      position: 'fixed',
+      top: 10,
+      right: 6,
+      bottom: 5,
+      left: 'calc(22% + 3px)',
+      p: [2, 3, 4],
+      width: '77%',
+      display: 'flex',
+      overflow: 'auto'
+    }}
+  >
         
         <Botonera
           title='Agregar Empleado'
@@ -148,7 +162,7 @@ export default function AddEmploye () {
           eliminar={<AlertaEliminar idSeleccionado={selectId} />}
           />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
+        </Stack>
     </div>
   )
 }

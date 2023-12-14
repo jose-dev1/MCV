@@ -20,6 +20,7 @@ import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
 import AgendaVeterinario from "./page/veterinario/agenda.jsx";
 import Servicioprestado from "./page/groomer/servicio-prestado";
 import Factura from "./page/auxiliar/factura.jsx";
+import HistoriaClinica from "./page/veterinario/historiaClinica.jsx";
 
 function App() {
   return (
@@ -92,6 +93,10 @@ function App() {
         <Route
           path="/factura"
           element={<ProtectedRoute element={<Factura />} />}
+        />
+        <Route
+          path="/historia-clinica"
+          element={<ProtectedRoute element={<HistoriaClinica />} />}
         />
       </Routes>
     </BrowserRouter>

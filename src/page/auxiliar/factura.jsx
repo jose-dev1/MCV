@@ -145,7 +145,7 @@ export default function Factura() {
                             datosEditables={selectRow}
                         />
                     }
-                    eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Eliminar Hospitalización' />}
+                    eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Eliminar Factura' />}
                 />
                 <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
             </div>

@@ -3,7 +3,7 @@ import React from 'react';
 const NotificationCard = ({ notification }) => {
     const { titulo, avatarSrc, reactionUser, comentario, tiempo, } = notification;
 
-    const containerClasses = `w-68p h-35 relative  'bg-slate-900 text-slate-100' : 'bg-white'} px-5 py-3.5 rounded-lg shadow hover:shadow-xl max-w-sm mx-auto transform hover:-translate-y-[0.125rem] transition duration-100 ease-linear`;
+    const containerClasses = `w-68p h-35 relative bg-slate-900 text-slate-100 px-5 py-3.5 rounded-lg shadow hover:shadow-xl max-w-sm transform hover:-translate-y-[0.125rem] transition duration-100 ease-linear ml-auto`;
 
     return (
         <div className={containerClasses}>

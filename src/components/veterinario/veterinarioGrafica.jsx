@@ -24,7 +24,7 @@ const ChartComponent = () => {
     }, []);
 
     return (
-        <div className="mx-5 mt-10 max-w-sm w-11/12 h-64 bg-white rounded-lg shadow  p-4 md:p-6">
+        <div className="mx-5 mt-10 max-w-[50%] w-1/2 bg-white rounded-lg shadow p-4 md:p-6">
             <div className="flex justify-between">
                 <div>
                     <h5 className="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">32 +</h5>
@@ -37,19 +37,20 @@ const ChartComponent = () => {
                     </svg>
                 </div>
             </div>
-            <div id="area-chart" className="h-24 bg-gray-200  relative overflow-hidden">
-                <svg className="w-11/12 h-max">
+            <div id="area-chart" className="h-24 bg-gray-200 relative overflow-hidden w-full">
+                <svg className="w-full h-max">
                     <path
                         d={`
-                M0 100
-                ${chartData.values.map((value, index) => `L${(index / (chartData.values.length - 1)) * 100} ${100 - (value / Math.max(...chartData.values)) * 100}`).join(' ')}
-                L100 100 Z
-            `}
+            M0 100
+            ${chartData.values.map((value, index) => `L${(index / (chartData.values.length - 1)) * 100} ${100 - (value / Math.max(...chartData.values)) * 100}`).join(' ')}
+            L100 100 Z
+        `}
                         fill="transparent"
                         stroke="blue"
                     />
                 </svg>
             </div>
+
 
             <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
                 <div className="flex justify-between items-center pt-5">

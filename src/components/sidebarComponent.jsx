@@ -126,7 +126,27 @@ const Sidebar = () => {
                                 <span>Inicio Auxiliar</span>
                             </Link>
                         )}
+                                                {user.fk_tipo_usuario === 4 && (
+                            <Link
+                                to="/veterinario"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/veterinario' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <HomeIcon className='w-6 h-6'/>
 
+                                <span>Inicio</span>
+                            </Link>
+                        )}
+                        {user.fk_tipo_usuario === 5 && (
+                            <Link
+                                to="/inicio-groomer"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/inicio-groomer' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <HomeIcon className='w-6 h-6' />
+                                <span>Inicio</span>
+                            </Link>
+                        )}
                     </nav>
                 </div>
                 <div aria-label="navigation" className="py-4 h-rem">
@@ -236,20 +256,6 @@ const Sidebar = () => {
                         {/* Opción para el rol 4 */}
                         {user.fk_tipo_usuario === 4 && (
                             <Link
-                                to="/veterinario"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/veterinario' ? 'bg-gray-100 text-blue-500' : ''
-                                    }`}
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" className='text-yellow-500 w-6 h-6' fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                                </svg>
-
-                                <span>Inicio</span>
-                            </Link>
-                        )}
-
-                        {user.fk_tipo_usuario === 4 && (
-                            <Link
                                 to="/hospitalizaciones"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/hospitalizaciones' ? 'bg-gray-100 text-blue-500' : ''
                                     }`}
@@ -298,17 +304,6 @@ const Sidebar = () => {
                         )}
 
                         {/* Opción para el rol 5 */}
-                        {user.fk_tipo_usuario === 5 && (
-                            <Link
-                                to="/inicio-groomer"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/inicio-groomer' ? 'bg-gray-100 text-blue-500' : ''
-                                    }`}
-                            >
-                                <HomeIcon className='w-6 h-6' />
-                                <span>Inicio</span>
-                            </Link>
-                        )}
-
                         {user.fk_tipo_usuario === 5 && (
                             <Link
                                 to="/servicio-prestado"

@@ -12,11 +12,13 @@ import AlertaDescargar from '../../components/veterinario/descargarHospitalizaci
 import { Stack } from '@mui/material'
 
 const columns = [
-    { field: 'nombreMascota', headerName: 'Nombre Mascota', width: 140 },
-    { field: 'nombreDueño', headerName: 'Nombre Dueño', width: 150 },
-    { field: 'N_documento', headerName: 'Documento Del Dueño', width: 180 },
-    { field: 'tipoExamen', headerName: 'Tipo de Examen', width: 150 },
-    { field: 'fecha_creacion', headerName: 'Fecha de Ingreso', width: 160 },
+    { field: 'nombreMascota', headerName: 'Nombre Mascota', width: 180 },
+    { field: 'nombreDueño', headerName: 'Nombre Dueño', width: 200, 
+    valueGetter: (params) =>
+    `${params.row.nombreDueño || ''} ${params.row.apellidoDueño || ''}`},
+    { field: 'N_documento', headerName: 'Documento Del Dueño', width: 200 },
+    { field: 'tipoExamen', headerName: 'Tipo de Examen', width: 180 },
+    { field: 'fecha_creacion', headerName: 'Fecha de Toma', width: 190 },
 ];
 
 const rows = [

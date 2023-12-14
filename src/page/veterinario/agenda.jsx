@@ -4,18 +4,19 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
 import useSelectRow from '../../Hooks/useSelectRow';
 import AlertaCanceclarCita from '../../components/veterinario/alertCancelarCita';
+import Stack from '@mui/material/Stack';
 
 const columns = [
     { 
       field: 'duenno', 
       headerName: 'Propietario',
-      width: 160,
+      width: 170,
       valueGetter: (params) => `${params.row.primer_nombre || ''} ${params.row.primer_apellido || ''}`
     },
     { 
       field: 'descripcion', 
       headerName: 'Descripcion', 
-      width: 190 
+      width: 210 
     },
     { 
       field: 'nombre', 
@@ -25,17 +26,17 @@ const columns = [
     { 
       field: 'tipoEspecie', 
       headerName: 'Especie', 
-      width: 130 
+      width: 140 
     },
     { 
       field: 'horaCita', 
       headerName: 'Hora Cita', 
-      width: 130 
+      width: 140 
     },
     { 
       field: 'idEstadoValor', 
       headerName: 'Asistencia', 
-      width: 130 
+      width: 140 
     },
 ]
   
@@ -169,14 +170,27 @@ export default function AgendaVeterinario() {
   return (
     <div className='flex gap-9'>
       <Sidebar />
-      <div className='mt-10'>
+      <Stack
+    spacing={2}
+    sx={{
+      position: 'fixed',
+      top: 10,
+      right: 6,
+      bottom: 5,
+      left: 'calc(22% + 3px)',
+      p: [2, 3, 4],
+      width: '77%',
+      display: 'flex',
+      overflow: 'auto'
+    }}
+  >
         <Botonera 
           title='Gestiona tu Agenda'
           editar={
             <AlertaCanceclarCita idSeleccionado={selectId} tooltip={'Cancelar cita'}/>
           }/>
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
+        </Stack>
     </div>
   )
 }

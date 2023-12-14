@@ -8,20 +8,21 @@ import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import AlertaEliminar from '../../components/dash/alertaEliminar';
 import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion';
 import dayjs from 'dayjs';
+import Stack from '@mui/material/Stack';
 
 const columns = [
-  { field: 'nombre', headerName: 'Nombre del Paciente', width: 170 },
-  { field: 'tipo', headerName: 'Especie', width: 130 },
+  { field: 'nombre', headerName: 'Nombre del Paciente', width: 190 },
+  { field: 'tipo', headerName: 'Especie', width: 150 },
   {
     field: 'duenno',
     headerName: 'Propietario',
-    width: 160,
+    width: 180,
     valueGetter: (params) =>
       `${params.row.primer_nombre || ''} ${params.row.primer_apellido || ''}`
   },
-  { field: 'telefono', headerName: 'Telefono Propietario', width: 160 },
-  { field: 'fecha_creacion', headerName: 'Fecha de Ingreso', width: 150 },
-  { field: 'servicioFinalizado', headerName: 'Estado', width: 130 }
+  { field: 'telefono', headerName: 'Telefono Propietario', width: 180 },
+  { field: 'fecha_creacion', headerName: 'Fecha de Ingreso', width: 170 },
+  { field: 'servicioFinalizado', headerName: 'Estado', width: 150 }
 ]
 
 const rows = [
@@ -200,8 +201,20 @@ export default function Hospitalizaciones () {
   return (
     <div className='flex gap-9'>
       <Sidebar />
-      <div className='mt-10'>
-        
+      <Stack
+    spacing={2}
+    sx={{
+      position: 'fixed',
+      top: 10,
+      right: 6,
+      bottom: 5,
+      left: 'calc(22% + 3px)',
+      p: [2, 3, 4],
+      width: '77%',
+      display: 'flex',
+      overflow: 'auto'
+    }}
+  >
         <Botonera
           title='Hospitalizaciones registradas'
           agregar={<FormAgregarHozpitalizaciones
@@ -223,7 +236,7 @@ export default function Hospitalizaciones () {
           descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Registro' />}
           />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
+        </Stack>
     </div>
   )
 }

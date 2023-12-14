@@ -5,13 +5,7 @@ import Selects from '../admin/Selects'
 import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
 const vacunas = [
     { id: 1, value: 'Parvovirosi' },
@@ -137,10 +131,10 @@ export const Maurisio = (props) => {
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='tipo_documento'
+                                id='idDocumento'
                                 label='Tipo de Documento'
-                                name='tipo_documento'
-                                value={values.tipo_documento}
+                                name='idDocumento'
+                                value={values.idDocumento}
                                 onChange={handleInputChange}
                                 items={documentItems}
                                 disabled={validarId ? true : false}
@@ -149,11 +143,11 @@ export const Maurisio = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Input
-                                id='N_documento'
+                                id='numeroDocumento'
                                 fullWidth
                                 label='N°documento'
                                 name='N_documento'
-                                value={values.N_documento}
+                                value={values.numeroDocumento}
                                 onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
@@ -170,13 +164,12 @@ export const Maurisio = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='tipo_vacunas'
+                                id='idVacuna'
                                 label='Vacuna'
-                                name='tipo_vacuna'
-                                value={values.vacuna}
+                                name='idVacuna'
+                                value={values.idVacuna}
                                 onChange={handleInputChange}
                                 items={vacunas}
-                                disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
@@ -194,11 +187,11 @@ export const Maurisio = (props) => {
                         <Grid item xs={12} sm={6}>
                             {validarId ? (
                                 <Input
-                                    id='nombre'
+                                    id='nombreMascota'
                                     fullWidth
                                     label='Nombre Mascota'
-                                    name='nombre'
-                                    value={values.nombre}
+                                    name='nombreMascota'
+                                    value={values.nombreMascota}
                                     onChange={handleInputChange}
                                     disabled={true}
                                     required
@@ -217,33 +210,15 @@ export const Maurisio = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <InputDate
-                                id='fecha_creacion'
+                                id='fechaAplicacion'
                                 fullWidth
                                 label='Fecha de aplicación'
-                                name='fecha_creacion'
-                                fecha={values.fecha_creacion}
+                                name='fechaAplicacion'
+                                fecha={values.fechaAplicacion}
                                 onChange={handleInputChangeDate}
                                 disabled={validarId ? true : false}
                                 required
                             />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            {validarId && (
-                                <FormControl>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">Finalizar servicio</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="idestado"
-                                        onChange={handleInputChangeDate}
-                                        value={values.idestado}
-                                    >
-                                        <FormControlLabel value="0" control={<Radio />} label="Si" />
-                                        <FormControlLabel value="1" control={<Radio />} label="No" />
-                                    </RadioGroup>
-                                </FormControl>
-                            )}
                         </Grid>
                         <Grid item xs={12}>
                             <button

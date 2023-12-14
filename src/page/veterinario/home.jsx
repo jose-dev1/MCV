@@ -1,6 +1,7 @@
 import '../../index.css'
 import Inicio from '../../components/veterinario/inicio'
 import Sidebar from '../../components/sidebarComponent'
+import AlertComponent from '../../components/veterinario/alert';
 
 const opciones = [
     {
@@ -21,12 +22,33 @@ const opciones = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
         </svg>
         ,
-        subtitiulo: 'Registrar Vacuna, consultar vacunas registradas',
+        subtitiulo: 'consultar vacunas registradas',
     },
     {
         id: 3,
         titulo: 'Hospitalizaciones',
         href: '/hospitalizaciones',
+        icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+        ,
+        subtitiulo: 'Hospitalizaciones registradas',
+    },
+    {
+        id: 4,
+        titulo: 'Exámenes medicos',
+        href: '/examenes-medicos',
+        icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+        ,
+        subtitiulo: 'Hospitalizaciones registradas',
+    },
+
+    {
+        id: 5,
+        titulo: 'Agenda',
+        href: '/agenda-veterinario',
         icon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
         </svg>
@@ -75,13 +97,33 @@ const citas = [
 ]
 
 
+
+
 export default function Home() {
+
     return (
-        <div className='flex gap-9'>
-            <Sidebar />
-            <div className='mt-10'>
-            <Inicio opciones={opciones} citas={citas} />
+
+        <div className="w-full">
+
+            <div className='flex gap-9'>
+                <Sidebar />
+                <div className='mt-10'>
+                    <div className='fixed bg-white mt-10	w-80 mx-96' >
+                        <AlertComponent
+                            id="alert-additional-content-1"
+                            color="blue"
+                            title="Alert"
+                            content=" Proxima cita 2:20 paciente Fruíais causa : control   "
+                        />
+                        {/* Add other AlertComponent instances as needed */}
+                    </div>
+                    <h2 className="mb-1 mt-1 text-4xl font-bold bg-gradient-to-r from-purple-300 to-purple-700 text-white p-2 rounded-lg">
+                        Informacion Principal
+                    </h2>
+                    <Inicio opciones={opciones} citas={citas} />
+                </div>
             </div>
         </div>
+
     );
 }

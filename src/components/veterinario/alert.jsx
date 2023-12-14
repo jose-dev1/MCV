@@ -10,7 +10,7 @@ const AlertComponent = ({ id, color, title, content }) => {
     return isVisible ? (
         <div
             id={id}
-            className={`bg-white fixed right-0 top-0 p-4 text-${color}-800 border border-${color}-300 rounded-lg bg-${color}-50 dark:bg-gray-800 dark:text-${color}-400 dark:border-${color}-800`}
+            className={`bg-white fixed right-0 top-0 p-4 text-${color}-800 border border-${color}-300 rounded-lg bg-${color}-50  dark:text-${color}-400 dark:border-${color}-800`}
             role="alert"
         >
             <div className="flex items-center">

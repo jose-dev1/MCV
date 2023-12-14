@@ -18,7 +18,7 @@ export default function Inicio(props) {
 
                             <div className="flex justify-center">
                                 <a href={item.href}>
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.titulo}</h5>
+                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{item.titulo}</h5>
                                 </a>
                             </div>
 

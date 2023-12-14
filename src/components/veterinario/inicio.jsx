@@ -91,17 +91,20 @@ const citas = [
 export default function Inicio() {
     return (
 
-        <div className="bg-white w-full flex lg:grid-cols-1">
-            <div className="ml-20  px-4 py-16 sm:px-6 sm:py-4 lg:max-w-7x2 lg:px-8">
+        <div className=" bg-white w-full flex lg:grid-cols-2">
+            <div className=" lg:max-w-7x2 ">
                 <h2 className="text-2xl font-bold tracking-tight text-gray-900">Opciones</h2>
 
-                <div className=" w-96  grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-1 xl:gap-x-8">
+                <div className=" w-96  grid grid-cols-3 gap-x-6 gap-y-10 sm:grid-cols-1 lg:grid-cols-2 xl:gap-x-2">
                     {opciones.map((item) => (
-                        <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div className="max-w-sm p-6  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             {item.icon}
-                            <a href={item.href} >
-                                <h5 className=" text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"> {item.titulo} </h5>
-                            </a>
+
+                            <div className="flex justify-center">
+                                <a href={item.href} >
+                                    <h5 className=" text-base  tracking-tight text-gray-900 dark:text-white"> {item.titulo} </h5>
+                                </a>
+                            </div>
                             <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{item.subtitiulo}</p>
 
                             <a href={item.href} className="inline-flex items-center text-blue-600 hover:underline">
@@ -116,45 +119,47 @@ export default function Inicio() {
             </div>
 
 
-            <div className=" ml-20 w-11/12 px-4 py-6 sm:px-6 sm:py-4 lg:max-w-7x2 lg:px-8">
-                <h2 className="text-2xl font-bold tracking-tight text-gray-900">Citas agendadas</h2>
+            <div className=" ml-5 w-11/12  lg:max-w-7x2  px-32">
+                <div className="w-full">
+                    <h2 className="text-2xl font-bold tracking-tight text-gray-900">Citas agendadas</h2>
 
-                <div className=" grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols- lg:grid-cols-1 xl:gap-x-8">
-                    <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="flex items-center justify-between mb-4">
-                            <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Citas agendadas</h5>
-                        </div>
-                        <div className="flow-root">
-                            <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                                {citas.map((item) => (
-                                    <li className="py-3 sm:py-4">
-                                        <div className="flex">
-                                            <div className="flex items-center">
-                                                <div className="flex-shrink-0">
-                                                    <img className="w-16 h-14 rounded-full" src={item.image} />
+                    <div className=" grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols- lg:grid-cols-1 xl:gap-x-8">
+                        <div className="w-96 max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                            <div className="flex items-center justify-between mb-4">
+                                <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Citas agendadas</h5>
+                            </div>
+                            <div className="flow-root">
+                                <ul role="list" className="divide-y divide-gray-200 ">
+                                    {citas.map((item) => (
+                                        <li className="py-3 sm:py-4">
+                                            <div className="flex">
+                                                <div className="flex items-center">
+                                                    <div className="flex-shrink-0">
+                                                        <img className="w-10  rounded-full" src={item.image} />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0 ms-4">
+                                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                            {item.name}
+                                                        </p>
+                                                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {item.Fecha}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div className="flex-1 min-w-0 ms-4">
-                                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                        {item.name}
-                                                    </p>
-                                                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                        {item.Fecha}
-                                                    </p>
+                                                <div className="flex justify-end w-3/5">
+                                                    <Button variant="contained">Ver</Button>
                                                 </div>
                                             </div>
-                                            <div className="flex justify-center w-3/5">
-                                                <Button variant="contained">Ver</Button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                ))}
+                                        </li>
+                                    ))}
 
-                                {/* Agrega más elementos de la lista según sea necesario */}
-                            </ul>
+                                    {/* Agrega más elementos de la lista según sea necesario */}
+                                </ul>
+                            </div>
                         </div>
+
+
                     </div>
-
-
                 </div>
 
             </div>

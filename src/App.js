@@ -18,6 +18,7 @@ import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
 import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
 import AgendaVeterinario from "./page/veterinario/agenda.jsx";
+import Servicioprestado from './page/groomer/servicio-prestado'
 
 function App() {
   return (
@@ -64,6 +65,12 @@ function App() {
           path="/inicio-groomer"
           element={<ProtectedRoute element={<HomeGroomer />} />}
         />
+
+        <Route
+          path="/servicio-prestado"
+          element={<ProtectedRoute element={<Servicioprestado />} />}
+        />
+        
         <Route
           path="/mascota-registrada"
           element={<ProtectedRoute element={<Mascota />} />}

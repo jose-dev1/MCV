@@ -274,12 +274,23 @@ const Sidebar = () => {
                         {/* Opción para el rol 5 */}
                         {user.fk_tipo_usuario === 5 && (
                             <Link
-                                to="/veterinario"
+                                to="/inicio-groomer"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/inicio-groomer' ? 'bg-gray-100 text-blue-500' : ''
                                     }`}
                             >
                                 <HomeIcon className='w-6 h-6' />
                                 <span>Inicio</span>
+                            </Link>
+                        )}
+
+                        {user.fk_tipo_usuario === 5 && (
+                            <Link
+                                to="/servicio-prestado"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/servicio-prestado' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <HomeIcon className='w-6 h-6' />
+                                <span>Servicio prestado</span>
                             </Link>
                         )}
                     </nav>

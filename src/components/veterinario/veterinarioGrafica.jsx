@@ -37,7 +37,7 @@ const ChartComponent = () => {
                     </svg>
                 </div>
             </div>
-            <div id="area-chart" className="h-24 bg-gray-200 dark:bg-gray-700 relative overflow-hidden">
+            <div id="area-chart" className="h-24 bg-gray-200  relative overflow-hidden">
                 <svg className="w-11/12 h-max">
                     <path
                         d={`

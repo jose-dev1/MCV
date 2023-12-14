@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 const columns = [
     { field: 'nombre', headerName: 'Nombre del la mascota', width: 270 },
     { field: 'Fecha', headerName: 'Fecha de expedidicon del certificado', width: 230 },
-    { field: 'documento', headerName: 'Numero de documento', width: 160 },
     { field: 'tipo', headerName: 'Tipo de examen', width: 180 },
   ]
 
@@ -21,72 +20,39 @@ const columns = [
       id: 1,
       nombre: 'Tommy',
       Fecha: '20-10-2023',
-      documento: '1012438733',
-      tipo:"Viaje"
+      tipo:"CDV Fiv test"
     },
     {
       id: 2,
       nombre: 'Tommy',
       Fecha: '20-10-2023',
-      documento: '1012438733',
-      tipo:"Certificado de desparacitacion"
+      tipo:"CDV Ag test"
     },
     {
       id: 3,
       nombre: 'Tommy',
       Fecha: '20-10-2023',
-      documento: '1012438733',
-      tipo:"Vacunacion"
+      tipo:"CDV Ab test"
     },
     {
       id: 4,
       nombre: 'Tommy',
       Fecha: '20-10-2023',
-      documento: '1012438733',
-      tipo:"Vacunacion"
+      tipo:"CDV Ab test"
     },
     {
       id: 5,
       nombre: 'Tommy',
       Fecha: '20-10-2023',
-      documento: '1012438733',
-      tipo:"Certificado de desparacitacion"
+      tipo:"CDV Ab test"
     },
     {
       id: 6,
       nombre: 'Tommy',
       Fecha: '20/10/2023',
-      documento: '1012438733',
-      tipo:"Viaje"
+      tipo:"CDV Ag test"
     },
-    {
-      id: 7,
-      nombre: 'Tommy',
-      Fecha: '20/10/2023',
-      documento: '1012438733',
-      tipo:"Viaje"
-    },
-    {
-      id: 8,
-      nombre: 'Tommy',
-      Fecha: '20/10/2023',
-      documento: '1012438733',
-      tipo:"Viaje"
-    },
-    {
-      id: 9,
-      nombre: 'Tommy',
-      Fecha: '20/10/2023',
-      documento: '1012438733',
-      tipo:"Viaje"
-    },
-    {
-      id: 10,
-      nombre: 'Tommy',
-      Fecha: '20/10/2023',
-      documento: '1012438733',
-      tipo:"Viaje"
-    }
+
   ];
 
 function AlertaDescargar(props) {

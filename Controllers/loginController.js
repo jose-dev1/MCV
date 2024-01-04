@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 
 const login = async (req, res) => {
   const { u_correo, u_password } = req.body;
+  console.log(req);
   db.query(
     "SELECT * FROM Usuarios WHERE u_correo = ?",
     [u_correo],
@@ -34,7 +35,7 @@ const login = async (req, res) => {
           res.json({
             success: false,
             message:
-              "El correo electrónico ingresado no se encuentra registrado",
+              "El correo electrónico ingresado no se en cuentra registrado",
           });
         }
       }
@@ -42,16 +43,6 @@ const login = async (req, res) => {
   );
 };
 
-const logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error(err);
-    }
-    res.redirect("/login");
-  });
-};
-
 module.exports = {
   login,
-  logout,
 };

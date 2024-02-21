@@ -42,9 +42,9 @@ function Login() {
       return;
     }
 
-    axios.post('http://localhost:4000/postLogin', {
-      u_correo: correo,
-      u_password: contraseña,
+    axios.post('http://localhost:4321/login', {
+      userCorreo: correo,
+      userPassword: contraseña,
       recuerdame: recuerdame,
     }).then((response) => {
       if (response.data.success) {

@@ -1,0 +1,36 @@
+{
+  "name": "mvc_back_end",
+  "version": "2.0.0",
+  "description": "Replantemiento modelo-vista-controlador del API REST de MVC",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jose-dev1/MCV.git"
+  },
+  "author": "MCV_DEVELOPMENT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jose-dev1/MCV/issues"
+  },
+  "homepage": "https://github.com/jose-dev1/MCV#readme",
+  "dependencies": {
+    "bcrypt": "5.1.1",
+    "cookie-parser": "1.4.6",
+    "cors": "2.8.5",
+    "dotenv": "16.4.5",
+    "express": "4.18.2",
+    "express-session": "1.18.0",
+    "mysql2": "3.9.1",
+    "zod": "3.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "3.0.3",
+    "standard": "17.1.0"
+  },
+  "eslintConfig": {"extends":"./node_modules/standard/eslintrc.json"}
+}

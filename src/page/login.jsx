@@ -76,12 +76,12 @@ function Login() {
         5: '/inicio-groomer',
       };
 
-      const userRoute = userRoutes[user.fk_tipo_usuario];
+      const userRoute = userRoutes[user.id_tipo_usuario];
 
       if (userRoute) {
         navigate(userRoute);
       } else {
-        console.warn('Tipo de usuario no reconocido:', user.fk_tipo_usuario);
+        console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
       }
     } else {
       console.log('No hay usuario en localStorage');

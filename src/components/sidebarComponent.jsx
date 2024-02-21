@@ -52,7 +52,7 @@ const Sidebar = () => {
                             <div className="font-medium relative text-xl leading-tight text-gray-900">
                                 <span className="flex">
                                     <span className="truncate relative pr-8">
-                                        {user.usuario}
+                                        {user.correo_usuario}
                                         <span
                                             aria-label="verified"
                                             className="absolute top-1/2 -translate-y-1/2 right-0 inline-block rounded-full"
@@ -82,7 +82,7 @@ const Sidebar = () => {
                                 </span>
                             </div>
                             <p className="font-normal text-base leading-tight text-gray-500 truncate">
-                                {user.u_correo}
+                                {user.correo_usuario}
                             </p>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ const Sidebar = () => {
                 </div>
                 <div aria-label="navigation" className="py-2">
                     <nav className="grid gap-1">
-                        {user.fk_tipo_usuario === 1 && (
+                        {user.id_tipo_usuario === 1 && (
                             <Link
                                 to="/admin"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/admin' ? 'bg-gray-100 text-blue-500' : ''
@@ -102,7 +102,7 @@ const Sidebar = () => {
                                 <span>Gestionar Empleado</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/"
                                 className="flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 rounded-md transition duration-300 ease-in-out transform hover:scale-105"
@@ -113,7 +113,7 @@ const Sidebar = () => {
                                 <span>Pagina principal</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 3 && (
+                        {user.id_tipo_usuario === 3 && (
                             <Link
                                 to="/inicio-auxiliar"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/inicio-auxiliar') ? 'bg-gray-100 text-blue-700' : ''
@@ -126,7 +126,7 @@ const Sidebar = () => {
                                 <span>Inicio Auxiliar</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/veterinario"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/veterinario' ? 'bg-gray-100 text-blue-500' : ''
@@ -137,7 +137,7 @@ const Sidebar = () => {
                                 <span>Inicio</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 5 && (
+                        {user.id_tipo_usuario === 5 && (
                             <Link
                                 to="/inicio-groomer"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/inicio-groomer' ? 'bg-gray-100 text-blue-500' : ''
@@ -151,7 +151,7 @@ const Sidebar = () => {
                 </div>
                 <div aria-label="navigation" className="py-4 h-rem">
                     <nav className='grip gap-1'>
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/perfil-usuario"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-800 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${isActive('/perfil-usuario') ? 'bg-gray-100 text-blue-800' : ''
@@ -163,7 +163,7 @@ const Sidebar = () => {
                                 <span>Informacion del perfil</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/descargar-certificado"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-green-700 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/descargar-certificado' ? 'bg-gray-100 text-green-700' : ''
@@ -176,7 +176,7 @@ const Sidebar = () => {
                             </Link>
                         )}
 
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/descargar-examen"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-green-700 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/descargar-examen' ? 'bg-gray-100 text-green-700' : ''
@@ -189,7 +189,7 @@ const Sidebar = () => {
                             </Link>
                         )}
 
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/agendar-cita"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/agendar-cita' ? 'bg-gray-100 text-blue-500' : ''
@@ -201,7 +201,7 @@ const Sidebar = () => {
                                 <span>Agendar Cita</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to="/mascota-registrada"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-purple-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/mascota-registrada' ? 'bg-gray-100 text-purple-400' : ''
@@ -215,7 +215,7 @@ const Sidebar = () => {
                             </Link>
                         )}
 
-                        {user.fk_tipo_usuario === 2 && (
+                        {user.id_tipo_usuario === 2 && (
                             <Link
                                 to=""
                                 onClick={handleDesactivar}
@@ -230,7 +230,7 @@ const Sidebar = () => {
                         )}
 
                         {/* Opción para el rol 3 */}
-                        {user.fk_tipo_usuario === 3 && (
+                        {user.id_tipo_usuario === 3 && (
                             <Link
                                 to="/gestionar-citas"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/gestionar-citas' ? 'bg-gray-100 text-blue-700' : ''
@@ -240,7 +240,7 @@ const Sidebar = () => {
                                 <span>Gestionar Citas</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 3 && (
+                        {user.id_tipo_usuario === 3 && (
                             <Link
                                 to="/factura"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-red-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/factura' ? 'bg-gray-100 text-red-800' : ''
@@ -253,7 +253,7 @@ const Sidebar = () => {
                             </Link>
                         )}
                         {/* Opción para el rol 4 */}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/hospitalizaciones"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/hospitalizaciones' ? 'bg-gray-100 text-blue-500' : ''
@@ -264,7 +264,7 @@ const Sidebar = () => {
                             </Link>
                         )}
 
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/Carnet-vacunas"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/Carnet-vacunas' ? 'bg-gray-100 text-blue-500' : ''
@@ -279,7 +279,7 @@ const Sidebar = () => {
                                 <span>Carnet </span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/historia-clinica"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/historia-clinica' ? 'bg-gray-100 text-blue-500' : ''
@@ -292,7 +292,7 @@ const Sidebar = () => {
                                 <span>Historia Clinica</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/examenes-medicos"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/examenes-medicos' ? 'bg-gray-100 text-blue-500' : ''
@@ -302,7 +302,7 @@ const Sidebar = () => {
                                 <span>Examenes Medicos</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/agenda-veterinario"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/agenda-veterinario' ? 'bg-gray-100 text-blue-500' : ''
@@ -312,7 +312,7 @@ const Sidebar = () => {
                                 <span>Agenda</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/desparacitacion"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/desparacitacion' ? 'bg-gray-100 text-blue-500' : ''
@@ -327,7 +327,7 @@ const Sidebar = () => {
                         )}
 
                         {/* Opción para el rol 5 */}
-                        {user.fk_tipo_usuario === 5 && (
+                        {user.id_tipo_usuario === 5 && (
                             <Link
                                 to="/servicio-prestado"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/servicio-prestado' ? 'bg-gray-100 text-blue-500' : ''
@@ -340,7 +340,7 @@ const Sidebar = () => {
                                 <span>Servicio prestado</span>
                             </Link>
                         )}
-                        {user.fk_tipo_usuario === 5 && (
+                        {user.id_tipo_usuario === 5 && (
                             <Link
                                 to="/agenda-groomer"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/agenda-groomer' ? 'bg-gray-100 text-blue-500' : ''

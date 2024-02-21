@@ -1,15 +1,15 @@
-import crypto from "crypto";
-import session from "express-session";
+import crypto from 'crypto'
+import session from 'express-session'
 
-const secret = crypto.randomBytes(32).toString("hex");
+const secret = crypto.randomBytes(32).toString('hex')
 
 export const cokiesSecret = () =>
   session({
-    secret: secret,
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
       secure: true, // Debe configurarse en true cuando se utiliza SameSite "None" en un sitio con HTTPS
-      sameSite: "none", // Configura SameSite en "None" para permitir cookies en contextos de terceros
-    },
-  });
+      sameSite: 'none' // Configura SameSite en "None" para permitir cookies en contextos de terceros
+    }
+  })

@@ -11,14 +11,13 @@ const DEFAULT_CONFIG = {
 
 const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 
-const connection = await mysql.createConnection(connectionString)
+let connection
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error al conectar a la base de datos:', err)
-    return
-  }
+try {
+  connection = await mysql.createConnection(connectionString)
   console.log('Conexión a la base de datos exitosa')
-})
+} catch (error) {
+  console.error('Error al conectar a la base de datos:', error)
+}
 
 export default connection

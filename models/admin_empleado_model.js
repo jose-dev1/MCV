@@ -75,4 +75,22 @@ export class AdminEmpleadoModel {
       return err
     }
   }
+
+  static async updateEmployee ({ id, input }) {
+    try {
+      const datosAntiguos = await this.getEmployeeById({ id })
+
+      const datosActualizar = {
+        ...datosAntiguos[0],
+        ...input
+      }
+      const { primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado } = datosActualizar
+
+      const [res] = await connection.query('UPDATE empleados SET primer_nombre_empleado = ?, segundo_nombre_empleado = ?, primer_apellido_empleado = ?, segundo_apellido_empleado = ?', [primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado])
+
+      return res
+    } catch (err) {
+      return err
+    }
+  }
 }

@@ -35,3 +35,4 @@ se recomienda la instalacion de la extencion **Eslint** para el correcto formate
 * para nombrar archivos se recomienda el uso de **snake_case**
 * para nombrar clases se recomienda el uso de **UperCamelCase**
 * para nombrar objetos, funciones, instancias, variables se reomienda el uso de **lowerCamelCase**
+* **NO** utilizar puntos y comas ni tampoco usar comillas dobles siempre tratar de usar comillas simples 

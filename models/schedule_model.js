@@ -93,7 +93,7 @@ export class ScheduleModel {
 
   static async getDocumentos () {
     try {
-      const [tiposDocumento] = await connection.query('SELECT id_tipo_documento as id, descripcion_documento as descripcionDocumento FROM tipo_documento')
+      const [tiposDocumento] = await connection.query('SELECT id_tipo_documento as id, descripcion_documento as value FROM tipo_documento')
       if (!tiposDocumento) throw new NoDataFound()
       if (tiposDocumento.length === 0) throw new NoDataFound()
       return (tiposDocumento)

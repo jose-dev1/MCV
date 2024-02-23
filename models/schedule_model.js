@@ -55,7 +55,7 @@ export class ScheduleModel {
       if (!existingData) throw new NotFoundUser()
       const { id_cliente: idCliente } = existingData
 
-      const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id_mascota as id, nombre_mascota as value FROM mascotas
+      const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota as value FROM mascotas
       INNER JOIN clientes ON clientes.id_cliente = mascotas.Id_cliente_mascota
       WHERE id_cliente = ?`, [idCliente])
       if (!mascotas) throw new NoDataFound()

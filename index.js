@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser'
 import { cokiesSecret } from './middlewares/cokies_secret.js'
 import 'dotenv/config'
 import { loginRoutes } from './routes/login_routes.js'
-import { scheduleRouters, rutamascota, rutaservicios, rutastipousuario } from './routes/schedule_routes.js'
+import { scheduleRouters, rutamascota, rutaservicios, rutastipousuario, rutasdocumentos } from './routes/schedule_routes.js'
 import { adminRoutes } from './routes/admin_routes.js'
 const PORT = process.env.PORT ?? 1234
 
@@ -23,6 +23,7 @@ app.use('/agendar', scheduleRouters)
 app.use('/mascotas', rutamascota)
 app.use('/servicios', rutaservicios)
 app.use('/especialistas', rutastipousuario)
+app.use('/documentos', rutasdocumentos)
 app.listen(PORT, () => {
   console.log(`Aplicacion corriendo en el puerto http://localhost:${PORT}`)
 }

@@ -90,6 +90,18 @@ export class ScheduleModel {
       return (error)
     }
   }
+
+  static async getDocumentos () {
+    try {
+      const [tiposDocumento] = await connection.query('SELECT id_tipo_documento as id, descripcion_documento as descripcionDocumento FROM tipo_documento')
+      if (!tiposDocumento) throw new NoDataFound()
+      if (tiposDocumento.length === 0) throw new NoDataFound()
+      return (tiposDocumento)
+    } catch (error) {
+      return (error)
+    }
+  }
+
   // fin metodos de otros modulos
 
   static async create ({ input }) {

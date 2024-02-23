@@ -5,7 +5,9 @@ import connection from './connection_database.js'
 export class AdminEmpleadoModel {
   static async getEmployee () {
     try {
-      const [res] = await connection.query('SELECT BIN_TO_UUID(id_empleado) id, numero_documento_empleado, id_tipo_documento, primer_nombre_empleado, segundo_nombre_empleado, primer_apellido_empleado, segundo_apellido_empleado FROM empleados;')
+      const [res] = await connection.query(`SELECT BIN_TO_UUID(empleados.id_empleado) id, empleados.numero_documento_empleado, empleados.id_tipo_documento, empleados.primer_nombre_empleado, empleados.segundo_nombre_empleado, empleados.primer_apellido_empleado, empleados.segundo_apellido_empleado, usuarios.correo_usuario, usuarios.password_usuario, usuarios.estado_usuario
+      FROM empleados
+      INNER JOIN usuarios ON empleados.id_usuario = usuarios.id_usuario;`)
 
       if (!res) throw new NoDataFound()
       if (res.length === 0) throw new NoDataFound()
@@ -18,7 +20,10 @@ export class AdminEmpleadoModel {
 
   static async getEmployeeById ({ id }) {
     try {
-      const [res] = await connection.query('SELECT BIN_TO_UUID(id_empleado) id, numero_documento_empleado, id_tipo_documento, primer_nombre_empleado, segundo_nombre_empleado, primer_apellido_empleado, segundo_apellido_empleado FROM empleados WHERE id_empleado = UUID_TO_BIN(?) ;', [id])
+      const [res] = await connection.query(`SELECT BIN_TO_UUID(empleados.id_empleado) id, empleados.numero_documento_empleado, empleados.id_tipo_documento, empleados.primer_nombre_empleado, empleados.segundo_nombre_empleado, empleados.primer_apellido_empleado, empleados.segundo_apellido_empleado, usuarios.correo_usuario, usuarios.password_usuario, usuarios.estado_usuario
+      FROM empleados
+      INNER JOIN usuarios ON empleados.id_usuario = usuarios.id_usuario  
+      WHERE id_empleado = UUID_TO_BIN(?);`, [id])
 
       if (!res) throw new NotFoundUser()
       if (res.length === 0) throw new NotFoundUser()

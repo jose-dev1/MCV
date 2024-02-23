@@ -93,7 +93,9 @@ export class AdminEmpleadoModel {
       }
       const { primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado } = datosActualizar
 
-      const [res] = await connection.query('UPDATE empleados SET primer_nombre_empleado = ?, segundo_nombre_empleado = ?, primer_apellido_empleado = ?, segundo_apellido_empleado = ?', [primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado])
+      const [res] = await connection.query(`UPDATE empleados SET primer_nombre_empleado = ?, segundo_nombre_empleado = ?, primer_apellido_empleado = ?, segundo_apellido_empleado = ?
+      WHERE id_empleado = UUID_TO_BIN(?)`,
+      [primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado, id])
 
       return res
     } catch (err) {

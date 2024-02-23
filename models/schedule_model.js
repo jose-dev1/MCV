@@ -4,7 +4,7 @@ import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountA
 export class ScheduleModel {
   static async getEspecialista ({ especialista }) {
     try {
-      const [getCita] = await connection.query(`SELECT BIN_TO_UUID(id_cita) id,fecha_cita, Hora_Cita,primer_nombre_empleado,primer_apellido_empleado,primer_nombre_cliente,primer_apellido_cliente,nombre_mascota,descripcion_servicio from cita
+      const [getCita] = await connection.query(`SELECT BIN_TO_UUID(id_cita) id,fecha_cita, Hora_cita,primer_nombre_empleado,primer_apellido_empleado,primer_nombre_cliente,primer_apellido_cliente,nombre_mascota,descripcion_servicio from cita
       INNER JOIN empleados ON empleados.id_empleado=cita.id_empleado
       INNER JOIN mascotas ON mascotas.id_mascota=cita.id_mascota
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio

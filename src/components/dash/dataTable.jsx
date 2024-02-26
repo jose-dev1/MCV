@@ -27,7 +27,7 @@ export default function DataTable(props) {
           }}
           pageSizeOptions={[5, 10]}
           loading={!rows.length}
-          onRowSelectionModelChange={(ids) => { ids[0] ? selectId(ids[0]) : selectId([]) }}
+          onRowSelectionModelChange={(ids) => { ids[0] ? selectId(ids[0]) : selectId() }}
         />
       </div>
     </ThemeProvider>

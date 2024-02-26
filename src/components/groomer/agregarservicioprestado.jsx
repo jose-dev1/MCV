@@ -6,7 +6,7 @@ import Botonera from '../../components/dash/botonera'
 import { FormServisGroomer } from '../../components/groomer/agregarDataServis';
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import AlertaEliminar from '../../components/dash/alertaEliminar';
-import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion';
+import AlertaVer from './modalVerGroo';
 
 
 const columns = [
@@ -36,7 +36,7 @@ const defaultValues = {
 const rows = [
     {
         id: '1',
-        nombreDueno: 'Juan Carlos González Pérez',
+        nombreDueno: 'Juan Carlos González Pérezz',
         nombreMascota: 'Firulais',
         fechaAplicacion: '2023-07-20',
         servicio: 'Baño',
@@ -45,7 +45,7 @@ const rows = [
         descripcionEstado: 'finalizado',
         idDocumento: 'C.C',
         numeroDocumento: '1234567890',
-        notaServicio: 'Servicio excelente, el perro quedó muy limpio y feliz.',
+        notaServicio: ' Fecha: 2024 02 01 Servicio excelente, el perro quedó muy limpio y feliz.  Fecha: 2024 02 01 Servicio excelente, el perro quedó muy limpio y feliz.  Fecha: 2024 02 01 Servicio excelente, el perro quedó muy limpio y feliz.',
         idServicio: '1'
     },
     {
@@ -199,7 +199,7 @@ export default function VacunasRegistradas() {
                         />
                     }
                     eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Eliminar Servicio' />}
-                    descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Registro' />}
+                    ver={<AlertaVer idSeleccionado={selectId} rows={rows} tooltip='Ver' />}
                 />
                 <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
         </>

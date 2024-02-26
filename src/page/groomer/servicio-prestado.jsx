@@ -19,7 +19,7 @@ export default function HomeGroomer() {
       overflow: 'auto'
     }}
   >
-            <Table />
+      <Table />
             </Stack>
         </div>
     );

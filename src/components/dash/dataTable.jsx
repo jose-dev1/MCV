@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 
 export default function DataTable(props) {
-  const { columns, rows, selectId, selectRow, title } = props
+  const { columns, rows, selectId } = props
 
   const theme = createTheme({
     palette: {
@@ -11,14 +11,7 @@ export default function DataTable(props) {
     }
   }, esES)
 
-  const handleSelectionModelChange = (customId) => {
-    const busqueda = rows.filter((obj) => {
-      return obj.id === customId[0]
-    })
 
-    selectId(customId[0])
-    selectRow(busqueda[0])
-  }
 
 
   return (
@@ -34,7 +27,7 @@ export default function DataTable(props) {
           }}
           pageSizeOptions={[5, 10]}
           loading={!rows.length}
-          onRowSelectionModelChange={(ids) => handleSelectionModelChange(ids)}
+          onRowSelectionModelChange={(ids) => { ids[0] ? selectId(ids[0]) : selectId([]) }}
         />
       </div>
     </ThemeProvider>

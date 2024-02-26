@@ -1,3 +1,9 @@
+import {
+    LocalizationProvider,
+    TimePicker,
+} from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Alert, Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
@@ -5,33 +11,25 @@ import Selects from '../admin/Selects'
 import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-
-const serviciosRealizados = [
-    { id: '1', value: 'Baño' },
-    { id: '2', value: 'Corte de pelo' },
-    { id: '3', value: 'Baño y cepillado' },
-    { id: '4', value: 'Corte de uñas' },
-    { id: '5', value: 'Baño y peluquería' }
-];
-
-const documentItems = [
-    { id: 'C.C', value: 'Cedula de Ciudadania' },
-    { id: 'C.E', value: 'Cedula de Extrangeria' }
-]
+import axios from 'axios';
 
 const positinItems = [
     { id: 1, value: 'Max' },
     { id: 2, value: 'Chelsea' }
 ]
 
-export const FormServisGroomer = (props) => {
+const especialista = [
+    { id: 4, value: 'Veterinario' },
+    { id: 5, value: 'Groomer' }
+]
+
+const servicio = [
+    { id: 1, value: 'Baño' },
+    { id: 2, value: 'Cita general' }
+]
+
+export const Maurisio = (props) => {
     const { label, datosEditables, bgColor, icon, tooltip, } = props
 
     const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(datosEditables)
@@ -41,6 +39,25 @@ export const FormServisGroomer = (props) => {
     const [error, setError] = useState('')
     const [info, setInfo] = useState('');
     const [success, setSuccess] = useState('');
+    const [tipoDocuemento, setTipodocumento] = useState([])
+    const [dataMoscota, setDataMascota] = useState([])
+    const [dataEspecialista, setDataEspecialista] = useState([])
+    const [dataServicio, setDataServicio] = useState([])
+
+    useEffect(() => {
+        const fectchData = async () => {
+            try {
+                const result = await axios.get('http://localhost:4321/documentos')
+                setTipodocumento(result.data)
+            } catch (error) {
+                setError('Error' + error.message)
+            }
+        }
+        fectchData()
+    }, [])
+
+
+
 
     const handleModal = () => setOpen(true)
     const handleClose = () => {
@@ -68,7 +85,7 @@ export const FormServisGroomer = (props) => {
     }, [info]);
 
 
-    const handleSubmitId = (event) => {
+    const handleSubmitId = async (event) => {
         event.preventDefault()
 
         if (values.tipo_documento === '' || values.N_documento === '') {
@@ -76,7 +93,21 @@ export const FormServisGroomer = (props) => {
         }
         else {
             setError('');
-            setInfo('Datos cargados exitosamente.')
+            try {
+                const result = await axios.get(`http://localhost:4321/mascotas/${values.tipoDocumento}/${values.numeroDocumento}`)
+                setDataMascota(result.data)
+                setInfo('Datos cargados exitosamente.')
+
+                const resultEs = await axios.get(`http://localhost:4321/especialistas/${values.especialista}`)
+                setDataEspecialista(resultEs.data)
+
+
+                const resultSer = await axios.get(`http://localhost:4321/servicios/${values.especialista === 4 ? 'VET' : 'GRO'}`)
+                setDataServicio(resultSer.data)
+            } catch (error) {
+                setError('Error' + error.message)
+            }
+
         }
     }
 
@@ -103,18 +134,6 @@ export const FormServisGroomer = (props) => {
         }
     }
 
-    const guardarFechaActual = (event) => {
-        event.preventDefault(); 
-        const fechaActual = new Date();
-        const dia = fechaActual.getDate();
-        const mes = fechaActual.getMonth() + 1; // Agregamos 1 porque los meses comienzan desde 0
-        const año = fechaActual.getFullYear();
-        const fechaCompleta = { dia, mes, año };
-
-        const notaServicio = values.notaServicio; 
-        console.log(`Valor de notaServicio: ${notaServicio},Fecha: ${fechaCompleta.dia}/${fechaCompleta.mes}/${fechaCompleta.año}`);
-    };
-    
     return (
         <div>
             <Boton
@@ -150,10 +169,10 @@ export const FormServisGroomer = (props) => {
                             <Selects
                                 id='idDocumento'
                                 label='Tipo de Documento'
-                                name='idDocumento'
-                                value={values.idDocumento}
+                                name='tipoDocumento'
+                                value={values.tipoDocumento}
                                 onChange={handleInputChange}
-                                items={documentItems}
+                                items={tipoDocuemento}
                                 disabled={validarId ? true : false}
                                 required
                             />
@@ -170,6 +189,31 @@ export const FormServisGroomer = (props) => {
                                 required
                             />
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            {validarId ? (
+                                <Input
+                                    id='especialista'
+                                    fullWidth
+                                    label='especialista'
+                                    name='especialista'
+                                    value={values.especialista}
+                                    onChange={handleInputChange}
+                                    disabled={true}
+                                    required
+                                />
+                            ) : (
+                                <Selects
+                                    id='especialista'
+                                    label='Especialista'
+                                    name='especialista'
+                                    value={values.especialista}
+                                    onChange={handleInputChange}
+                                    items={especialista}
+                                    required
+                                />
+                            )}
+                        </Grid>
+
                         <Grid item xs={12} sm={2}>
                             <Boton
                                 onClick={handleSubmitId}
@@ -177,18 +221,6 @@ export const FormServisGroomer = (props) => {
                                 icon={<MagnifyingGlassIcon />}
                                 tooltip='Buscar'
                                 desable={validarId ? true : false}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12}>
-                            <Selects
-                                id='idServicio'
-                                label='Servicio'
-                                name='idServicio'
-                                value={values.idServicio}
-                                onChange={handleInputChange}
-                                items={serviciosRealizados}
-                                disabled={validarId ? true : false}
-                                required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -205,73 +237,90 @@ export const FormServisGroomer = (props) => {
                                 />
                             ) : (
                                 <Selects
-                                    id='nombreMascota'
+                                    id='nombre'
                                     label='Nombre Mascota'
                                     name='nombreMascota'
                                     value={values.nombreMascota}
+                                    onChange={handleInputChange}
+                                    items={dataMoscota}
+                                    required
+                                />
+                            )}
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            {validarId ? (
+                                <Input
+                                    id='empleado'
+                                    fullWidth
+                                    label='Seleccione Empleado'
+                                    name='empleado'
+                                    value={values.empleado}
+                                    onChange={handleInputChange}
+                                    disabled={true}
+                                    required
+                                />
+                            ) : (
+                                <Selects
+                                    id='empleado    '
+                                    label='Empleado'
+                                    name='empleado  '
+                                    value={values.empleadp}
                                     onChange={handleInputChange}
                                     items={positinItems}
                                     required
                                 />
                             )}
                         </Grid>
+
+                        <Grid item xs={12} sm={6}>
+                            {validarId ? (
+                                <Input
+                                    id='tipoServicio'
+                                    fullWidth
+                                    label='Servicio'
+                                    name='servicio'
+                                    value={values.tipoServicio}
+                                    onChange={handleInputChange}
+                                    disabled={true}
+                                    required
+                                />
+                            ) : (
+                                <Selects
+                                    id='servicio'
+                                    label='Servicio'
+                                    name='servicio'
+                                    value={values.servicio}
+                                    onChange={handleInputChange}
+                                    items={servicio}
+                                    required
+                                />
+                            )}
+                        </Grid>
+
                         <Grid item xs={12} sm={6}>
                             <InputDate
                                 id='fechaAplicacion'
                                 fullWidth
-                                label='Fecha'
+                                label='Fecha de aplicación'
                                 name='fechaAplicacion'
                                 fecha={values.fechaAplicacion}
                                 onChange={handleInputChangeDate}
-                                disabled={validarId ? true : false}
+                                disabled={false}
                                 required
                             />
                         </Grid>
-                        {validarId && (
-                            <Grid item xs={12} sm={12}>
-                            <Input
-                                id='notaServicio'
-                                fullWidth
-                                label='Observaciones'
-                                name='notaServicio'
-                                value={values.notaServicio}
-                                onChange={handleInputChange}
-                                required
-                                disabled
-                            />
+
+                        <Grid item xs={12} sm={6}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <TimePicker
+                                    className='w-full'
+                                    defaultValue={dayjs()}
+                                />
+                            </LocalizationProvider>
                         </Grid>
-                        )}
-                        <Grid item xs={12}>
-                            <TextField
-                            id="observaciones"
-                            label="Nuevas Observaciones"
-                            name='observaciones'
-                            multiline
-                            maxRows={7}
-                            fullWidth
-                            required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            {validarId && (
-                                <FormControl>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">Finalizar servicio</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="idEstado"
-                                        onChange={handleInputChangeDate}
-                                        value={values.idEstado}
-                                    >
-                                        <FormControlLabel value="0" control={<Radio />} label="Si" />
-                                        <FormControlLabel value="1" control={<Radio />} label="No" />
-                                    </RadioGroup>
-                                </FormControl>
-                            )}
-                        </Grid>
+
                         <Grid item xs={12}>
                             <button
-                                onClick={guardarFechaActual}
                                 type='submit'
                                 className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
                             >

@@ -9,6 +9,7 @@ import AddEmploye from "./page/admin/homeAdmin";
 import Inicio from "./page/veterinario/home.jsx";
 import Hospitalizaciones from "./page/veterinario/hospitalizaciones.jsx";
 import HomeAuxiliar from "./page/auxiliar/home.jsx";
+import GesionarAgenda from "./page/auxiliar/GestionarAgenda.jsx";
 import HomeGroomer from "./page/groomer/home.jsx";
 import Mascota from "./page/cliente/mascota.jsx";
 import Carnet from "./page/veterinario/carnetVacunas";
@@ -80,6 +81,13 @@ function App() {
           path="/inicio-auxiliar"
           element={
             <ProtectedRoute element={<HomeAuxiliar />} requiredUserRole={3} />
+          }
+        />
+
+        <Route
+          path="/gestionar-agenda"
+          element={
+            <ProtectedRoute element={<GesionarAgenda />} requiredUserRole={3} />
           }
         />
         <Route

@@ -6,41 +6,31 @@ import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 import dayjs from 'dayjs'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId'
-import useSelectRow from '../../Hooks/useSelectRow'
-import AlertaEliminar from '../../components/dash/alertaEliminar'
-import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
+import AlertEliminar from '../../components/dash/alertEliminar'
 import { Stack } from '@mui/material'
 import BotonCam from '../../components/dash/botonCam'
 import axios from 'axios'
-
 const columns = [
-  { field: 'nombre_mascota', headerName: 'Nombre Cliente', width: 180 },
   {
-    field: 'nombreDueño', headerName: 'Nombre Mascota', width: 200,
+    field: 'nombreDueño', headerName: 'Nombre Cliente', width: 200,
     valueGetter: (params) =>
       `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`
   },
-  { field: 'descripcion_servicio', headerName: 'Servicio', width: 180 },
-  { field: 'fecha_cita', headerName: 'Fecha', width: 180 },
-  { field: 'Hora_cita', headerName: 'Hora', width: 190 },
+  { field: 'nombre_mascota', headerName: 'Nombre Mascota', width: 170 },
+  {
+    field: 'nombreEspecialista', headerName: 'Nombre Especialista', width: 200,
+    valueGetter: (params) =>
+      `${params.row.primer_nombre_empleado || ''} ${params.row.primer_apellido_empleado || ''}`
+  },
+  { field: 'descripcion_servicio', headerName: 'Servicio', width: 200 },
+  { field: 'fecha_cita', headerName: 'Fecha', width: 130,
+  valueGetter: (params) =>
+  `${dayjs(params.row.fecha_cita).format('MM-DD-YYYY') || ''}`},
+  { field: 'Hora_cita', headerName: 'Hora', width: 130 },
 ];
-
-const defaultValues = {
-  id: '',
-  fechaCita: dayjs(),
-  horaCita: '',
-  idEmpleado: '',
-  idServicio: '',
-  idMacota: '',
-  especialista: '',
-  tipoDocumento: 'C.C',
-  numeroDocumento: '',
-  nombreMascota: ''
-}
 
 function GestionarAgenda() {
   const { selectId, saveSelectId } = useSelectId()
-  const { selectRow, saveSelectRow } = useSelectRow()
   const [dataMostrar, setDataMostrar] = useState([]);
   const [error, setError] = useState(null)
   const [actualizar, setActualizar] = useState(false)
@@ -65,7 +55,6 @@ function GestionarAgenda() {
     } catch (error) {
       setError('Error' + error.message)
     }
-    console.log(nom)
   }
 
 
@@ -89,11 +78,13 @@ function GestionarAgenda() {
         <Botonera
           title='Gestionar Agenda'
           agregar={<Maurisio
-            datosEditables={defaultValues}
             icon={<PlusIcon className='w-6 h-6' />}
             tooltip='Agregar Cita'
             bgColor='secondary'
-            label='Agregar Cita' />
+            label='Agregar Cita'
+            actualizar= {setActualizar}
+            dato={actualizar}
+            id={null}/>
           }
           editar={
             <Maurisio
@@ -101,10 +92,17 @@ function GestionarAgenda() {
               tooltip='Editar Cita'
               bgColor='primary'
               label='Editar Cita'
-              datosEditables={selectRow}
+              id={selectId}
+              actualizar= {setActualizar}
+              dato={actualizar}
             />
           }
-          eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Desactivar Examen' />}
+          eliminar={<AlertEliminar 
+            idSeleccionado={selectId} 
+            tooltip='Desactivar Cita' 
+            titulo='¿Desea desactivar la cita seleccionada?'
+            endPoint='agendar/desabilitar'
+            menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.'/>}
         />
         <div className="flex">
           <BotonCam onData={() => handleCam('VET')} name='Veterinario' />

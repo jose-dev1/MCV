@@ -76,6 +76,17 @@ export class ScheduleController {
     }
   }
 
+  static async getDocumentos (req, res) {
+    const response = await ScheduleModel.getDocumentos()
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ menssage: 'No se encuentran documentos' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ menssage: 'Error interno del servidor' })
+    } else {
+      res.json(response)
+    }
+  }
+
   // fin metodos de otros controladores
 
   static async create (req, res) {

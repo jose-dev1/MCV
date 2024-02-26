@@ -55,7 +55,7 @@ export class ScheduleModel {
       if (!existingData) throw new NotFoundUser()
       const { id_cliente: idCliente } = existingData
 
-      const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id_mascota, nombre_mascota FROM mascotas
+      const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota as value FROM mascotas
       INNER JOIN clientes ON clientes.id_cliente = mascotas.Id_cliente_mascota
       WHERE id_cliente = ?`, [idCliente])
       if (!mascotas) throw new NoDataFound()
@@ -90,6 +90,18 @@ export class ScheduleModel {
       return (error)
     }
   }
+
+  static async getDocumentos () {
+    try {
+      const [tiposDocumento] = await connection.query('SELECT id_tipo_documento as id, descripcion_documento as value FROM tipo_documento')
+      if (!tiposDocumento) throw new NoDataFound()
+      if (tiposDocumento.length === 0) throw new NoDataFound()
+      return (tiposDocumento)
+    } catch (error) {
+      return (error)
+    }
+  }
+
   // fin metodos de otros modulos
 
   static async create ({ input }) {

@@ -4,7 +4,6 @@ import connection from "../models/connection_database.js";
 export class RegistroController {
   static async registro(req, res) {
     const { userCorreo, userPassword, userGenero, userRol } = req.body;
-    console.log(req.body);
     try {
       const response = await registroModel.registrar({
         userCorreo,

@@ -1,9 +1,11 @@
 import connection from "./connection_database.js";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 export class registroModel {
   static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
     try {
+      const secret = crypto.randomBytes(32).toString("hex");
       const [existingUser] = await connection.query(
         "SELECT * FROM usuarios WHERE correo_usuario = ?",
         [userCorreo]
@@ -22,7 +24,11 @@ export class registroModel {
         "INSERT INTO usuarios (correo_usuario, password_usuario, id_tipo_usuario, id_genero) VALUES (?, ?, ?, ?)",
         [userCorreo, encryPassword, userRol, userGenero]
       );
-      return registro;
+      const insertId = registro.insertId;
+      const [validar] = await connection.query(
+        "INSERT INTO verificacion_correo (fk_id_usuario , codigo_verificacion) VALUES (?, ?) ",
+        [insertId, secret]
+      );
     } catch (err) {
       console.error("Error al registrar:", err);
       return { error: "Error interno del servidor" };

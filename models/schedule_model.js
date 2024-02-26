@@ -9,18 +9,24 @@ export class ScheduleModel {
       INNER JOIN mascotas ON mascotas.id_mascota=cita.id_mascota
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
       INNER JOIN clientes ON clientes.id_cliente=mascotas.id_cliente_mascota
-      WHERE  servicios.especialista = ?;`, [especialista])
+      WHERE  servicios.especialista = ? AND (fecha_cita >= CURDATE() OR (fecha_cita = CURDATE() AND Hora_cita > CURTIME())) AND estado_cita=1 AND asistencia_cita = 0;`, [especialista])
       if (!getCita) throw new NoDataFound()
       if (getCita.length === 0) throw new NoDataFound()
       return (getCita)
     } catch (error) {
+      console.log(error)
       return (error)
     }
   }
 
   static async getId ({ id }) {
     try {
-      const [getCita] = await connection.query(`SELECT fecha_cita, Hora_cita, BIN_TO_UUID(id_empleado) id_empleado, id_servicio, BIN_TO_UUID(id_mascota) id_mascota FROM cita
+      const [[getCita]] = await connection.query(`SELECT BIN_TO_UUID(id_cita) id,fecha_cita, Hora_cita, CONCAT(primer_nombre_empleado," ",primer_apellido_empleado) as nombre_empleado,nombre_mascota,descripcion_documento, numero_documento_cliente, descripcion_servicio, especialista AS es, BIN_TO_UUID(cita.id_mascota) id_mascota, BIN_TO_UUID(cita.id_empleado) id_empleado from cita
+      INNER JOIN empleados ON empleados.id_empleado=cita.id_empleado
+      INNER JOIN mascotas ON mascotas.id_mascota=cita.id_mascota
+      INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
+      INNER JOIN clientes ON clientes.id_cliente=mascotas.id_cliente_mascota
+      INNER JOIN tipo_documento ON tipo_documento.id_tipo_documento = clientes.id_tipo_documento
       WHERE id_cita = UUID_TO_BIN(?)`, [id])
       if (!getCita) throw new NoDataFound()
       if (getCita.length === 0) throw new NoDataFound()
@@ -68,7 +74,7 @@ export class ScheduleModel {
 
   static async getServicios ({ especialista }) {
     try {
-      const [servicios] = await connection.query(`SELECT id_Servicio, descripcion_servicio FROM servicios
+      const [servicios] = await connection.query(`SELECT id_Servicio as id, descripcion_servicio as value FROM servicios
     WHERE especialista = ?`, [especialista])
       if (!servicios) throw new NoDataFound()
       if (servicios.length === 0) throw new NoDataFound()
@@ -80,7 +86,7 @@ export class ScheduleModel {
 
   static async getEspecialistas ({ idTipoUsuario }) {
     try {
-      const [especialistas] = await connection.query(`SELECT BIN_TO_UUID(id_empleado) id, primer_nombre_empleado, segundo_nombre_empleado FROM empleados
+      const [especialistas] = await connection.query(`SELECT BIN_TO_UUID(id_empleado) id, CONCAT(primer_nombre_empleado, ' ', segundo_nombre_empleado) AS value FROM empleados
       INNER JOIN usuarios ON usuarios.id_usuario = empleados.id_usuario
       WHERE id_tipo_usuario = ?`, [idTipoUsuario])
       if (!especialistas) throw new NoDataFound()
@@ -141,11 +147,12 @@ export class ScheduleModel {
       WHERE id_mascota = UUID_TO_BIN(?) AND fecha_cita= ? AND hora_cita= ? AND estado_cita = 1`, [idMascota, fechaValidar, horaValidar])
       if (pacienteCitaHora) throw new InfoAlreadyExisting()
 
-      const [datosAntiguos] = await this.getId({ id })
+      const datosAntiguos = await this.getId({ id })
       const datosActualizar = {
         ...datosAntiguos,
         ...input
       }
+      console.log(datosActualizar)
       const { fechaCita, horaCita } = datosActualizar
       const [updateCita] = await connection.query(`UPDATE cita
       SET fecha_cita = ?,

@@ -14,6 +14,8 @@ import {
 } from './routes/schedule_routes.js'
 import { adminRoutes } from './routes/admin_routes.js'
 import { groomerRoutes } from './routes/groomer_routes.js'
+import { appointmentAssistanceRouter } from './routes/appointment_assistance_routes.js'
+
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -34,6 +36,8 @@ app.use('/especialistas', rutastipousuario)
 app.use('/documentos', rutasdocumentos)
 app.use('/registro', registroRoutes)
 app.use('/groomer', groomerRoutes)
+app.use('/asistencia', appointmentAssistanceRouter)
+
 app.listen(PORT, () => {
   console.log(`Aplicacion corriendo en el puerto http://localhost:${PORT}`)
 })

@@ -1,14 +1,22 @@
 import dayjs from 'dayjs';
-import { Alert, Grid, Modal } from '@mui/material'
+import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 import InputTime from '../dash/inputTime';
 import axios from 'axios';
+import { useBringDocument } from '../../Hooks/useDocument';
+import Message from '../dash/succesfulMessage';
+import { getDataById } from '../../utils/getDataById';
+import { useHabilitar } from '../../Hooks/useHabilitar';
+import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner';
+import { getSpecialist } from '../../utils/getSpecialist';
+import { getServisWithSpecialist } from '../../utils/getServisWithSpecialist';
+import { dateFormater } from '../../utils/dateFormater';
 
 const especialista = [
     { id: 4, value: 'Veterinario' },
@@ -16,7 +24,6 @@ const especialista = [
 ]
 
 const defaultValues = {
-    id:'',
     fechaCita: dayjs(),
     horaCita: dayjs(),
     estadoCita:1,
@@ -30,32 +37,16 @@ const defaultValues = {
 
 export const Maurisio = (props) => {
     const { label, id, bgColor, icon, tooltip, actualizar,dato } = props
-
-    const [datosEditables, setDatosEditables] = useState(defaultValues)
-    const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(datosEditables)
-    const [desabilitado, setDesabilitado] = useState(id===null ? false : true)
-    const [validarId, setValidarId] = useState(false)
+    const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
+    
     const [open, setOpen] = useState(false)
     const [error, setError] = useState('')
-    const [info, setInfo] = useState('');
     const [success, setSuccess] = useState('');
-    const [tipoDocuemento, setTipodocumento] = useState([])
     const [dataMoscota, setDataMascota] = useState([])
     const [dataEspecialista, setDataEspecialista] = useState([])
     const [dataServicio, setDataServicio] = useState([])
-
-    useEffect(() => {
-        const fectchData = async () => {
-            try {
-                const result = await axios.get('http://localhost:4321/documentos')
-                setTipodocumento(result.data)
-            } catch (error) {
-                setError(`Error: ${error.response.data.menssage}`)
-            }
-        }
-        fectchData()
-    }, [])
-
+    const [tipoDocuemento] = useBringDocument()
+    const {desabilitado, validarId} = useHabilitar({id})
 
     const reinicio = () =>{
         setDataMascota([])
@@ -63,18 +54,13 @@ export const Maurisio = (props) => {
         setDataServicio([])
     }
 
-    const handleModal = async() => {
-        if(id !== null && id){
-            try {
-                const result = await axios.get(`http://localhost:4321/agendar/citas/${id}`)
-                const todosDatos = {
-                    ...defaultValues,
-                    ...result.data
-                }
-                setDatosEditables(todosDatos)
+    const handleModal = async () => {
+        const {todosDatos, validacion} =  await getDataById({id, endpoind: 'agendar/citas', defaultValues})
+        if (validacion) {
+            if(todosDatos instanceof Error){
+                setError(todosDatos)
+            }else{
                 setValues(todosDatos)
-            } catch (error) {
-                setError(`Error: ${error.response.data.menssage}`)
             }
         }
         setOpen(true)
@@ -83,68 +69,46 @@ export const Maurisio = (props) => {
     const handleClose = () => {
         reinicio()
         setValues(defaultValues)
-        setDatosEditables(defaultValues)
         setError('')
         setSuccess('')
         setOpen(false)
     }
 
-    useEffect(() => {
-        if(id === null){
-            setDesabilitado(false)
-        }
-        else if(id !== null && id){
-            setDesabilitado(false)
-        }
-        else{
-            setDesabilitado(true)
-        }
-    },[id])
-
-    useEffect(() => {
-        setValidarId(datosEditables.id !== '')
-    }, [datosEditables, setValidarId])
-
-    useEffect(() => {
-        const infoTimeout = setTimeout(() => {
-            setInfo(null);
-        }, 5000);
-        return () => {
-            clearTimeout(infoTimeout);
-        };
-    }, [info]);
-
-
     const handleSubmitId = async (event) => {
         event.preventDefault()
-        if (values.tipoDocuemento === '' || values.numeroDocumento === '' || values.especialista === '') {
-            setError('Por favor, complete los campos nesesarios.');
-            reinicio()
-        }
-        else {
-            setError('');
-            try {
-                const result = await axios.get(`http://localhost:4321/mascotas/${values.tipoDocumento}/${values.numeroDocumento}`)
-                setDataMascota(result.data)
-                setInfo('Datos cargados exitosamente.')
-
-                const resultEs = await axios.get(`http://localhost:4321/especialistas/${values.especialista}`)
-                setDataEspecialista(resultEs.data)
-
-
-                const resultSer = await axios.get(`http://localhost:4321/servicios/${values.especialista === 4 ? 'VET' : 'GRO'}`)
-                setDataServicio(resultSer.data)
-            } catch (error) {
+        try{
+            const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+            setSuccess('')
+            if (validation || values.especialista === '') {
+                setError('Por favor, complete los campos nesesarios.');
                 reinicio()
-                setError(`Error: ${error.response.data.menssage}`)
             }
-
+            else {
+                setError('')
+                const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+                if (getPets instanceof Error) throw new Error(getPets.response.data.menssage) 
+                setDataMascota(getPets)
+                
+                const resultEs = await getSpecialist({specialist:values.especialista})
+                if (resultEs instanceof Error) throw new Error(resultEs.response.data.menssage) 
+                setDataEspecialista(resultEs)
+                
+                const resultSer = await getServisWithSpecialist({specialist: values.especialista})
+                if (resultSer instanceof Error) throw new Error(resultSer.response.data.menssage) 
+                setDataServicio(resultSer)
+                
+                setSuccess('Datos cargados exitosamente.')
+            }
+        }catch (error) {
+            reinicio()
+            setError(`${error}`)
         }
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('')
+        setSuccess('')
         try {
             let endpoint = 'http://localhost:4321/agendar'
             let httpMethod = 'post'
@@ -152,8 +116,8 @@ export const Maurisio = (props) => {
             if (id !== null && id) {
                 const { fechaCita, horaCita, id_empleado, id_mascota } = values;
                 envio = {
-                    fechaCita: fechaCita instanceof dayjs ? fechaCita.format('YYYY-MM-DD') : fechaCita,
-                    horaCita: horaCita instanceof dayjs ? horaCita.format('HH:mm') : horaCita,
+                    fechaCita: dateFormater({time: fechaCita, format: 'YYYY-MM-DD'}),
+                    horaCita: dateFormater({time: horaCita, format: 'HH:mm'}),
                     idEmpleado: id_empleado,
                     idMascota: id_mascota
                 };
@@ -162,8 +126,8 @@ export const Maurisio = (props) => {
             } else {
                 const { fechaCita, horaCita, estadoCita, idEmpleado, idServicio, idMascota, especialista } = values
                 envio = {
-                    fechaCita: fechaCita instanceof dayjs ? fechaCita.format('YYYY-MM-DD') : fechaCita,
-                    horaCita: horaCita instanceof dayjs ? horaCita.format('HH:mm') : horaCita,
+                    fechaCita: dateFormater({time: fechaCita, format: 'YYYY-MM-DD'}),
+                    horaCita: dateFormater({time: horaCita, format: 'HH:mm'}),
                     estadoCita,
                     idEmpleado,
                     idServicio,
@@ -172,7 +136,7 @@ export const Maurisio = (props) => {
                 }
             }
             const response = await axios[httpMethod](endpoint, envio)
-            setInfo(response.data.message)
+            setSuccess(response.data.message)
             actualizar(!dato)
         } catch (error) {
             setError(`Error: ${error.response.data.menssage}`)
@@ -194,20 +158,11 @@ export const Maurisio = (props) => {
             >
                 <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
                     <h1 className='text-3xl text-center mb-2'>{label}</h1>
-                    {info && (
-                        <Alert className='mb-2' severity="info">
-                            {info}
-                        </Alert>
-                    )}
                     {error && (
-                        <Alert className='mb-2' severity="error">
-                            {error}
-                        </Alert>
+                        <Message severity = {'error'} message={error}/>
                     )}
                     {success && (
-                        <Alert className='mb-2' severity="success">
-                            {success}
-                        </Alert>
+                        <Message severity = {'success'} message={success}/>
                     )}
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>

@@ -12,51 +12,74 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import axios from 'axios'
+import dayjs from 'dayjs'
 
-const serviciosRealizados = [
-    { id: '1', value: 'Baño' },
-    { id: '2', value: 'Corte de pelo' },
-    { id: '3', value: 'Baño y cepillado' },
-    { id: '4', value: 'Corte de uñas' },
-    { id: '5', value: 'Baño y peluquería' }
-];
+const servicioFinalizado = [
+    {
+        id: 0, value: 'No'
 
-const documentItems = [
-    { id: 'C.C', value: 'Cedula de Ciudadania' },
-    { id: 'C.E', value: 'Cedula de Extrangeria' }
+    },
+    {
+        id: 1, value: 'Si'
+
+    }
 ]
 
-const positinItems = [
-    { id: 1, value: 'Max' },
-    { id: 2, value: 'Chelsea' }
-]
+const defaultValues = {
+    id: '',
+    nombreMascota: '',
+    fechaAplicacion: '',
+    servicioFinalizado: 0,
+    tipoDocumento: 'C.C',
+    numeroDocumento: '',
+    notaServicio: '',
+    idServicio: 8,
+    idMascota: ''
+}
+
 
 export const FormServisGroomer = (props) => {
-    const { label, datosEditables, bgColor, icon, tooltip, } = props
-
+    const { id, label, bgColor, icon, tooltip, actualizar, dato } = props
+    const [datosEditables, setDatosEditables] = useState(defaultValues)
     const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(datosEditables)
-    const [desabilitado, setDesabilitado] = useState(Object.keys(datosEditables).length === 0)
+    const [desabilitado, setDesabilitado] = useState(id === null ? false : true)
     const [validarId, setValidarId] = useState(false)
     const [open, setOpen] = useState(false)
     const [error, setError] = useState('')
     const [info, setInfo] = useState('');
     const [success, setSuccess] = useState('');
+    const [servi, setServi] = useState([])
+    const [tipoDocuemento, setTipodocumento] = useState([])
+    const [mascota, setMascota] = useState([])
 
-    const handleModal = () => setOpen(true)
+    const handleModal = async () => {
+        if (id !== null && id) {
+            try {
+                const result = await axios.get(`http://localhost:4321/groomer/${id}`)
+                const todosDatos = {
+                    ...defaultValues,
+                    ...result.data
+                }
+                setDatosEditables(todosDatos)
+                setValues(todosDatos)
+                console.log(result.data)
+            } catch (error) {
+                setError(`Error: ${error.response.data.message}`)
+            }
+        }
+        setOpen(true)
+    }
+
+
     const handleClose = () => {
+        reinicio()
+        setValues(defaultValues)
+        setDatosEditables(defaultValues)
         setError('')
         setSuccess('')
         setOpen(false)
     }
-
-    useEffect(() => {
-        setValues(datosEditables)
-        setDesabilitado(Object.keys(datosEditables).length === 0)
-    }, [datosEditables, setValues])
-
-    useEffect(() => {
-        setValidarId(datosEditables.id !== '')
-    }, [datosEditables, setValidarId])
 
     useEffect(() => {
         const infoTimeout = setTimeout(() => {
@@ -68,53 +91,98 @@ export const FormServisGroomer = (props) => {
     }, [info]);
 
 
-    const handleSubmitId = (event) => {
+
+    useEffect(() => {
+        const fectchData = async () => {
+            try {
+                const resulDoc = await axios.get('http://localhost:4321/documentos')
+                const result = await axios.get('http://localhost:4321/servicios/GRO')
+                setServi(result.data)
+                setTipodocumento(resulDoc.data)
+            } catch (error) {
+                setError(`Error: ${error.response.data.message}`)
+            }
+        }
+        fectchData()
+    }, [])
+
+
+    const reinicio = () => {
+        setMascota([])
+    }
+
+
+    useEffect(() => {
+        if (id === null) {
+            setDesabilitado(false)
+        }
+        else if (id !== null && id) {
+            setDesabilitado(false)
+        }
+        else {
+            setDesabilitado(true)
+        }
+        setValidarId(id !== null && id)
+    }, [id])
+
+
+    const handleSubmitId = async (event) => {
         event.preventDefault()
 
-        if (values.tipo_documento === '' || values.N_documento === '') {
+        if (values.tipoDocumento === '' || values.numeroDocumento === '') {
             setError('Por favor, complete los campos nesesarios.');
         }
         else {
             setError('');
-            setInfo('Datos cargados exitosamente.')
-        }
-    }
+            try {
+                const result = await axios.get(`http://localhost:4321/mascotas/${values.tipoDocumento}/${values.numeroDocumento}`)
+                setMascota(result.data)
+                setInfo('Datos cargados exitosamente.')
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
 
-        const formErrores = {};
-        Object.entries(values).forEach(([key, value]) => {
-            if (key !== 'secondName' && key !== 'secondLastName') {
-                if (!value || (typeof value.trim === 'function' && value.trim() === '')) {
-                    formErrores[key] = 'Error los campo no puede estar vacíos';
-
-                }
+            } catch (error) {
+                reinicio()
+                setError(`Error: ${error.response.data.message}`)
             }
-        });
-
-        if (Object.keys(formErrores).length > 0) {
-            setError('Por favor, complete los campos nesesarios.');
-            return;
-        } else {
-            setError('')
-            setSuccess('Datos guardados exitosamente.')
-            return
         }
     }
 
-    const guardarFechaActual = (event) => {
-        event.preventDefault(); 
-        const fechaActual = new Date();
-        const dia = fechaActual.getDate();
-        const mes = fechaActual.getMonth() + 1; // Agregamos 1 porque los meses comienzan desde 0
-        const año = fechaActual.getFullYear();
-        const fechaCompleta = { dia, mes, año };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setError('')
+        try {
+            const fechaHoy = dayjs().format('MM-DD-YYYY')
+            let endpoint = 'http://localhost:4321/groomer'
+            let httpMethod = 'post'
+            let envio = {};
+            if (id !== null && id) {
+                const { servicioFinalizado, contenido_servicio_groomer, notaServicio: notasSinFecha } = values;
+                envio = {
+                    servicioFinalizado,
+                    notaServicio: `${contenido_servicio_groomer} ${fechaHoy}:${notasSinFecha}`
+                };
+                endpoint += `/servis/update/${values.id}`
+                httpMethod = 'patch'
+            } else {
+                const { idMascota, servicioFinalizado, notaServicio: notasSinFecha, idServicio } = values
+                envio = {
+                    idServicio,
+                    idMascota,
+                    servicioFinalizado,
+                    notaServicio: `${fechaHoy}: ${notasSinFecha}  `
+                }
+                endpoint += `/create`
+            }
+            const response = await axios[httpMethod](endpoint, envio)
+            setInfo(response.data.message)
+            actualizar(!dato)
 
-        const notaServicio = values.notaServicio; 
-        console.log(`Valor de notaServicio: ${notaServicio},Fecha: ${fechaCompleta.dia}/${fechaCompleta.mes}/${fechaCompleta.año}`);
-    };
-    
+        } catch (error) {
+            setError(`Error: ${error.response.data.message}`)
+        }
+    }
+
+
     return (
         <div>
             <Boton
@@ -147,16 +215,29 @@ export const FormServisGroomer = (props) => {
                     )}
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>
-                            <Selects
-                                id='idDocumento'
-                                label='Tipo de Documento'
-                                name='idDocumento'
-                                value={values.idDocumento}
-                                onChange={handleInputChange}
-                                items={documentItems}
-                                disabled={validarId ? true : false}
-                                required
-                            />
+                            {validarId ? (
+                                <Input
+                                    id='tipoDocumento'
+                                    fullWidth
+                                    label='Tipo Documento'
+                                    name='tipoDocumento'
+                                    value={values.id_tipo_documento}
+                                    onChange={handleInputChange}
+                                    disabled={true}
+                                    required
+                                />
+                            ) : (
+                                <Selects
+                                    id='tipoDocumento'
+                                    label='Tipo de Documento'
+                                    name='tipoDocumento'
+                                    value={values.tipoDocumento}
+                                    onChange={handleInputChange}
+                                    items={tipoDocuemento}
+                                    disabled={validarId ? true : false}
+                                    required
+                                />
+                            )}
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Input
@@ -164,7 +245,7 @@ export const FormServisGroomer = (props) => {
                                 fullWidth
                                 label='N°documento'
                                 name='numeroDocumento'
-                                value={values.numeroDocumento}
+                                value={values.numero_documento_cliente ? values.numero_documento_cliente : values.numeroDocumento}
                                 onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
@@ -180,98 +261,95 @@ export const FormServisGroomer = (props) => {
                             />
                         </Grid>
                         <Grid item xs={12} sm={12}>
-                            <Selects
-                                id='idServicio'
-                                label='Servicio'
-                                name='idServicio'
-                                value={values.idServicio}
-                                onChange={handleInputChange}
-                                items={serviciosRealizados}
-                                disabled={validarId ? true : false}
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
                             {validarId ? (
                                 <Input
-                                    id='nombreMascota'
+                                    id='idServicio'
                                     fullWidth
-                                    label='Nombre Mascota'
-                                    name='nombreMascota'
-                                    value={values.nombreMascota}
+                                    label='Servicio'
+                                    name='idServicio'
+                                    value={values.descripcion_servicio}
                                     onChange={handleInputChange}
                                     disabled={true}
                                     required
                                 />
                             ) : (
                                 <Selects
+                                    id='idServicio'
+                                    label='servicio'
+                                    name='idServicio'
+                                    value={values.idServicio}
+                                    onChange={handleInputChange}
+                                    items={servi}
+                                    disabled={validarId ? true : false}
+                                    required
+                                />
+                            )}
+                        </Grid>                        <Grid item xs={12} sm={6}>
+                            {validarId ? (
+                                <Input
                                     id='nombreMascota'
+                                    fullWidth
                                     label='Nombre Mascota'
                                     name='nombreMascota'
-                                    value={values.nombreMascota}
+                                    value={values.nombre_mascota}
                                     onChange={handleInputChange}
-                                    items={positinItems}
+                                    disabled={true}
                                     required
+                                />
+                            ) : (
+                                <Selects
+                                    id='idMascota'
+                                    label='Nombre Mascota'
+                                    name='idMascota'
+                                    value={values.idMascota}
+                                    onChange={handleInputChange}
+                                    items={mascota}
+                                    required
+                                    disabled={(validarId || mascota.length === 0) ? true : false}
                                 />
                             )}
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <InputDate
-                                id='fechaAplicacion'
-                                fullWidth
-                                label='Fecha'
-                                name='fechaAplicacion'
-                                fecha={values.fechaAplicacion}
-                                onChange={handleInputChangeDate}
-                                disabled={validarId ? true : false}
+                            <Selects
+                                id='servicioFinalizado'
+                                label='Servicio Finalizado'
+                                name='servicioFinalizado'
+                                value={values.servicio_finalizado_groomer ? values.servicio_finalizado_groomer : values.servicioFinalizado}
+                                onChange={handleInputChange}
+                                items={servicioFinalizado}
+                                disabled={false}
                                 required
                             />
                         </Grid>
                         {validarId && (
                             <Grid item xs={12} sm={12}>
+                                <Input
+                                    id='descripSer'
+                                    fullWidth
+                                    label='notas agregadas anteriormente'
+                                    name='descripSer'
+                                    value={values.contenido_servicio_groomer}
+                                    onChange={handleInputChange}
+                                    required
+                                    disabled
+                                />
+                            </Grid>
+                        )}
+                        <Grid item xs={12}>
                             <Input
-                                id='notaServicio'
-                                fullWidth
-                                label='Observaciones'
+                                id="notaServicio"
+                                label="Nuevas Observaciones"
                                 name='notaServicio'
+                                fullWidth
                                 value={values.notaServicio}
                                 onChange={handleInputChange}
                                 required
-                                disabled
+                                disabled={false}
                             />
-                        </Grid>
-                        )}
-                        <Grid item xs={12}>
-                            <TextField
-                            id="observaciones"
-                            label="Nuevas Observaciones"
-                            name='observaciones'
-                            multiline
-                            maxRows={7}
-                            fullWidth
-                            required
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            {validarId && (
-                                <FormControl>
-                                    <FormLabel id="demo-row-radio-buttons-group-label">Finalizar servicio</FormLabel>
-                                    <RadioGroup
-                                        row
-                                        aria-labelledby="demo-row-radio-buttons-group-label"
-                                        name="idEstado"
-                                        onChange={handleInputChangeDate}
-                                        value={values.idEstado}
-                                    >
-                                        <FormControlLabel value="0" control={<Radio />} label="Si" />
-                                        <FormControlLabel value="1" control={<Radio />} label="No" />
-                                    </RadioGroup>
-                                </FormControl>
-                            )}
                         </Grid>
                         <Grid item xs={12}>
                             <button
-                                onClick={guardarFechaActual}
+                                onClick={handleSubmit}
                                 type='submit'
                                 className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
                             >

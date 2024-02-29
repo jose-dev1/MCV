@@ -86,15 +86,15 @@ export const Maurisio = (props) => {
             else {
                 setError('')
                 const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-                if (getPets instanceof Error) throw new Error(getPets.response.data.menssage) 
+                if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
                 setDataMascota(getPets)
                 
                 const resultEs = await getSpecialist({specialist:values.especialista})
-                if (resultEs instanceof Error) throw new Error(resultEs.response.data.menssage) 
+                if (resultEs instanceof Error) throw new Error(resultEs.response.data.message) 
                 setDataEspecialista(resultEs)
                 
                 const resultSer = await getServisWithSpecialist({specialist: values.especialista})
-                if (resultSer instanceof Error) throw new Error(resultSer.response.data.menssage) 
+                if (resultSer instanceof Error) throw new Error(resultSer.response.data.message) 
                 setDataServicio(resultSer)
                 
                 setSuccess('Datos cargados exitosamente.')
@@ -132,14 +132,14 @@ export const Maurisio = (props) => {
                     idEmpleado,
                     idServicio,
                     idMascota,
-                    especialista
+                    especialista: especialista === 4 ? 'VET' : 'GRO'
                 }
             }
             const response = await axios[httpMethod](endpoint, envio)
             setSuccess(response.data.message)
             actualizar(!dato)
         } catch (error) {
-            setError(`Error: ${error.response.data.menssage}`)
+            setError(`Error: ${error.response.data.message}`)
         }
     }
 

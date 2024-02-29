@@ -10,7 +10,7 @@ export const getDataById = async ({id, endpoind, defaultValues}) => {
         }
         return {todosDatos, validacion: (id !== null && id)}
     } catch (error) {
-        return {todosDatos: `Error: ${error.response.data.menssage}`,validacion: (id !== null && id)}
+        return {todosDatos: `Error: ${error.response.data.message}`,validacion: (id !== null && id)}
     }
 }else{
     return {todosDatos: null, validacion: (id!== null && id)}

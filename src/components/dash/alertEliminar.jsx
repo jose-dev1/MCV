@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 
 export default function AlertEliminar(props) {
-  const {idSeleccionado, titulo ,tooltip, menssage, endPoint } = props
+  const {idSeleccionado, titulo ,tooltip, menssage, endPoint,actualizar,dato} = props
   const [desabilitado, setDesabilitado] = useState(idSeleccionado===null ? false : true)
 
   useEffect(() => {
@@ -46,6 +46,7 @@ const handleClick = async () => {
         }
           const response = await axios.patch(`http://localhost:4321/${endPoint}/${idSeleccionado}`,datos)
           Swal.fire(response.data.message, '', 'success');
+          actualizar(!dato)
       } catch (error) {
         console.log(error)
           Swal.fire('Error al enviar mensaje', error.response.data.message, 'error');

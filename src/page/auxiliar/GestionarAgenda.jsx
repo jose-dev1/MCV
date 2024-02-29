@@ -34,27 +34,30 @@ function GestionarAgenda() {
   const [dataMostrar, setDataMostrar] = useState([]);
   const [error, setError] = useState(null)
   const [actualizar, setActualizar] = useState(false)
+  const [dataVeterinario,setDataVeterinario] = useState([])
+  const [dataGroomer,SetDataGroomer] = useState([])
+  const [estadoBoton,setEstadoBoton] = useState(true)
 
   useEffect(() => {
-    const fectchData = async () => {
+    const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:4321/agendar/especialista/VET')
-        setDataMostrar(result.data)
+        const result = await axios.get('http://localhost:4321/agendar/especialista/VET');
+        const result2 = await axios.get('http://localhost:4321/agendar/especialista/GRO');
+        setDataVeterinario(result.data);
+        SetDataGroomer(result2.data);
+        estadoBoton ? setDataMostrar(result.data) : setDataMostrar(result2.data)
       } catch (error) {
-        setError('Error' + error.message)
+        setError('Error: ' + error.message);
       }
-    }
-    fectchData()
-  }, [actualizar])
+    };
+  
+    fetchData();
+  }, [actualizar]);
 
 
   const handleCam = async (nom) => {
-    try {
-      const result = await axios.get(`http://localhost:4321/agendar/especialista/${nom}`)
-      setDataMostrar(result.data)
-    } catch (error) {
-      setError('Error' + error.message)
-    }
+    nom === 'VET' ? setDataMostrar(dataVeterinario) : setDataMostrar(dataGroomer)
+    nom === 'VET' ? setEstadoBoton(true) : setEstadoBoton(false)
   }
 
 
@@ -102,11 +105,13 @@ function GestionarAgenda() {
             tooltip='Desactivar Cita' 
             titulo='¿Desea desactivar la cita seleccionada?'
             endPoint='agendar/desabilitar'
-            menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.'/>}
+            menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.'
+            actualizar= {setActualizar}
+            dato={actualizar}/>}
         />
         <div className="flex">
-          <BotonCam onData={() => handleCam('VET')} name='Veterinario' />
-          <BotonCam onData={() => handleCam('GRO')} name='Groomer' />
+          <BotonCam onData={() => handleCam('VET')} name='Veterinario' Boton={estadoBoton} />
+          <BotonCam onData={() => handleCam('GRO')} name='Groomer' Boton={!estadoBoton} />
         </div>
         <div style={{ overflowX: 'auto', width: '100%' }}>
           <DataTable rows={dataMostrar} columns={columns} selectId={saveSelectId} />

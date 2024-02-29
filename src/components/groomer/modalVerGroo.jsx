@@ -9,7 +9,7 @@ export default function AlertaVer(props) {
   const { idSeleccionado, tooltip } = props;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [datosMostrados, setDatosMostrados] = useState(null);
-  const [deshabilitado, setDeshabilitado] = useState(true);
+  const [deshabilitado, setDeshabilitado] = useState(false);
 
   const customStyles = {
     content: {
@@ -32,7 +32,7 @@ export default function AlertaVer(props) {
 
 
   useEffect(() => {
-    setDeshabilitado(idSeleccionado.length === 0 || idSeleccionado === -1);
+    setDeshabilitado(!(idSeleccionado !== null && idSeleccionado));
   }, [idSeleccionado]);
 
   const handleMensajeClick = async () => {
@@ -55,7 +55,7 @@ export default function AlertaVer(props) {
           icon={<EyeIcon className="w-6 h-6" />}
           tooltip={tooltip}
           onClick={handleMensajeClick}
-          disabled={deshabilitado} // Corrección en el atributo deshabilitado
+          desable={deshabilitado}
         />
         <Modal
           isOpen={modalIsOpen}

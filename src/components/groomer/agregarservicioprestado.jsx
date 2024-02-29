@@ -88,10 +88,12 @@ export default function VacunasRegistradas() {
                 ver={<AlertaVer idSeleccionado={selectId} tooltip='Ver' />}
                 eliminar={<AlertEliminar
                     idSeleccionado={selectId}
-                    tooltip='Desactivar Cita'
+                    tooltip='Desactivar Servicio'
                     titulo='¿Desea desactivar la cita seleccionada?'
                     endPoint='groomer/delete'
-                    menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.' />}
+                    menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.' 
+                    actualizar={setActualizar}
+                    dato={actualizar}/>}
             />
 
             <DataTable rows={data} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />

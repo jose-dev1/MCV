@@ -1,13 +1,13 @@
-import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable } from '../squemas/errors_squemas.js'
+import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
 import { ScheduleModel } from '../models/schedule_model.js'
 export class ScheduleController {
   static async getEspecialista (req, res) {
     const { especialista } = req.params
     const response = await ScheduleModel.getEspecialista({ especialista })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentran citas para el especialista seleccionado' })
+      res.status(404).json({ message: 'No se encuentran citas para el especialista seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -17,9 +17,9 @@ export class ScheduleController {
     const { id } = req.params
     const response = await ScheduleModel.getId({ id })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentran citas con el id seleccionado' })
+      res.status(404).json({ message: 'No se encuentran citas con el id seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -29,9 +29,9 @@ export class ScheduleController {
     const { fechaCita, idEmpleado } = req.params
     const response = await ScheduleModel.getFecha({ fechaCita, idEmpleado })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentran citas con la fecha seleccionada para el empleado cargado' })
+      res.status(404).json({ message: 'No se encuentran citas con la fecha seleccionada para el empleado cargado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -42,11 +42,11 @@ export class ScheduleController {
     const { tipoDocumento, numeroDocumento } = req.params
     const response = await ScheduleModel.getMascotas({ tipoDocumento, numeroDocumento })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentran mascotas para el cliente seleccionado' })
+      res.status(404).json({ message: 'No se encuentran mascotas para el cliente seleccionado' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'No se encuentra al cliente seleccionado' })
+      res.status(404).json({ message: 'No se encuentra al cliente seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -56,9 +56,9 @@ export class ScheduleController {
     const { especialista } = req.params
     const response = await ScheduleModel.getServicios({ especialista })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentra al cliente seleccionado' })
+      res.status(404).json({ message: 'No se encuentra al cliente seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -68,9 +68,9 @@ export class ScheduleController {
     const { idTipoUsuario } = req.params
     const response = await ScheduleModel.getEspecialistas({ idTipoUsuario })
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentra especialistas para la solicitud' })
+      res.status(404).json({ message: 'No se encuentra especialistas para la solicitud' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -79,9 +79,9 @@ export class ScheduleController {
   static async getDocumentos (req, res) {
     const response = await ScheduleModel.getDocumentos()
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'No se encuentran documentos' })
+      res.status(404).json({ message: 'No se encuentran documentos' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json(response)
     }
@@ -93,11 +93,13 @@ export class ScheduleController {
     const result = req.body
     const response = await ScheduleModel.create({ input: result })
     if (response instanceof DuplicateInfo) {
-      res.status(400).json({ menssage: 'Ya existe una cita registrada en el espacio seleccionado' })
+      res.status(400).json({ message: 'Ya existe una cita registrada en el espacio seleccionado' })
     } else if (response instanceof InfoAlreadyExisting) {
-      res.status(400).json({ message: 'Ya existe una cita agendada para le paciente' })
+      res.status(400).json({ message: 'Ya existe una cita registrada para la mascota con este tipo de especialista' })
+    } else if (response instanceof OccupiedSpace) {
+      res.status(400).json({ message: 'La mascota ya tiene una cita registrada en el espacio seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.status(201).json({ message: 'Cita registrada correctamente' })
     }
@@ -108,9 +110,11 @@ export class ScheduleController {
     const { id } = req.params
     const response = await ScheduleModel.updateCita({ id, input: result })
     if (response instanceof DuplicateInfo) {
-      res.status(400).json({ menssage: 'Ya existe una cita registrada en el espacio seleccionado' })
+      res.status(400).json({ message: 'Ya existe una cita registrada en el espacio seleccionado' })
+    } else if (response instanceof InfoAlreadyExisting) {
+      res.status(400).json({ message: 'Ya existe una cita registrada para la mascota en el espacio seleccionado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.status(201).json({ message: 'Cita actualizada correctamente' })
     }
@@ -125,7 +129,7 @@ export class ScheduleController {
     if (response instanceof AccountAlreadyDisable) {
       res.status(409).json({ message: 'La cita ya ha sido eliminado con aterioridad' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Cita no registrada' })
+      res.status(404).json({ message: 'Cita no registrada' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {

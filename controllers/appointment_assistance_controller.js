@@ -4,9 +4,9 @@ export class AppointmentAssistanceController {
   static async getAll (req, res) {
     const response = await AppointmentAssistanceModel.getAll()
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'Usuario no encontrado' })
+      res.status(404).json({ message: 'Usuario no encontrado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ menssage: 'Error en el servidor' })
+      res.status(500).json({ message: 'Error en el servidor' })
     } else {
       res.json(response)
     }
@@ -18,7 +18,7 @@ export class AppointmentAssistanceController {
     if (response instanceof DataAlreadyChange) {
       res.status(409).json({ message: 'Ya ha sido confirmada la inasistencia con anterioridad' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Cita no registrada' })
+      res.status(404).json({ message: 'Cita no registrada' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {
@@ -32,7 +32,7 @@ export class AppointmentAssistanceController {
     if (response instanceof DataAlreadyChange) {
       res.status(409).json({ message: 'Ya ha sido confirmada la asistencia con anterioridad' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Cita no registrada' })
+      res.status(404).json({ message: 'Cita no registrada' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {

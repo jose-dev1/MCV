@@ -1,5 +1,5 @@
 import connection from './connection_database.js'
-import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable } from '../squemas/errors_squemas.js'
+import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
 
 export class ScheduleModel {
   static async getEspecialista ({ especialista }) {
@@ -119,14 +119,14 @@ export class ScheduleModel {
 
       const [[pacienteYaCita]] = await connection.query(`SELECT estado_cita FROM cita
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
-      WHERE id_mascota = UUID_TO_BIN(?) AND asistencia_cita = 0 AND estado_cita = 1 AND fecha_cita> CURDATE() AND especialista = ?`, [idMascota, especialista])
+      WHERE id_mascota = UUID_TO_BIN(?) AND asistencia_cita = 0 AND estado_cita = 1 AND (fecha_cita >= CURDATE() OR (fecha_cita = CURDATE() AND Hora_cita > CURTIME())) AND especialista = ?`, [idMascota, especialista])
 
       if (pacienteYaCita) throw new InfoAlreadyExisting()
 
       const [[pacienteCitaHora]] = await connection.query(`SELECT estado_cita FROM cita
       WHERE id_mascota = UUID_TO_BIN(?) AND fecha_cita= ? AND hora_cita= ? AND estado_cita = 1`, [idMascota, fechaCita, horaCita])
 
-      if (pacienteCitaHora) throw new InfoAlreadyExisting()
+      if (pacienteCitaHora) throw new OccupiedSpace()
 
       const insertCita = await connection.query(`INSERT INTO cita (fecha_cita,Hora_cita,estado_cita,
         id_empleado,id_servicio,id_mascota) VALUES (?,?,?,UUID_TO_BIN(?),?,UUID_TO_BIN(?));`, [fechaCita, horaCita, estadoCita, idEmpleado, idServicio, idMascota])

@@ -12,7 +12,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
+import TextArea from '../dash/textArea'
 
 const documentItems = [
   { id: 'C.C', value: 'Cedula de Ciudadania' },
@@ -224,12 +224,10 @@ export const FormAgregarHozpitalizaciones = (props) => {
               </Grid>
               {validarId && (
                   <Grid item xs={12}>
-                  <TextField
+                  <TextArea
                     id="observacionesAgregadas"
                     label="Observaciones Agegadas Anteriormente"
                     name="observacionesAgregadas"
-                    multiline
-                    maxRows={7}
                     value={values.observaciones}
                     fullWidth
                     disabled

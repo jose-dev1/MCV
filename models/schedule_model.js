@@ -152,7 +152,6 @@ export class ScheduleModel {
         ...datosAntiguos,
         ...input
       }
-      console.log(datosActualizar)
       const { fechaCita, horaCita } = datosActualizar
       const [updateCita] = await connection.query(`UPDATE cita
       SET fecha_cita = ?,

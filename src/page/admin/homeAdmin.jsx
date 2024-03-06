@@ -5,11 +5,11 @@ import Botonera from '../../components/dash/botonera'
 import useSelectRow from '../../Hooks/useSelectRow';
 import { FormAgregar } from '../../components/admin/agregarComponent'
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import AlertaEliminar from '../../components/dash/alertaEliminar';
 import Stack from '@mui/material/Stack';
 import AlertaVer from '../../components/admin/modalVerAdmin'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import AlertEliminar from '../../components/dash/alertEliminar';
 
 const columns = [
   { field: 'primer_nombre_empleado', headerName: 'Primer Nombre', width: 140 },
@@ -17,24 +17,17 @@ const columns = [
   { field: 'numero_documento_empleado', headerName: 'Numero de documento', width: 170 },
   { field: 'correo_usuario', headerName: 'Correo', width: 260 },
   { field: 'descripcion_usuario', headerName: 'Cargo', width: 180 },
-  { field: 'estado_usuario', headerName: 'Estado', width: 130 }
+  { field: 'estado_usuario', headerName: 'Estado', width: 130, 
+    valueGetter: (params) =>
+        `${params.row.estado_usuario === 1 ? 'Activo' : 'Desactivado'}`
+  }
 ];
 
-const defaultValues = {
-  primer_nombre_empleado: '',
-  segundo_nombre_empleado: '',
-  primer_apellido_empleado: '',
-  segundo_apellido_empleado: '',
-  numero_documento_empleado: '',
-  id_tipo_documento: 'C.C',
-  password_usuario: '',
-  correo_usuario: '',
-  position: 1
-}
+
 
 export default function AddEmploye() {
   const { selectId, saveSelectId } = useSelectId()
-  const { selectRow, saveSelectRow } = useSelectRow()
+  const { selectRow } = useSelectRow()
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const [actualizar, setActualizar] = useState(false)
@@ -71,13 +64,15 @@ export default function AddEmploye() {
       >
 
         <Botonera
-          title='Agregar Empleado'
+          title='Gestionar Empleado'
           agregar={<FormAgregar
-            datosEditables={defaultValues}
             icon={<PlusIcon className='w-6 h-6' />}
             tooltip='Agregar Empleado'
             bgColor='secondary'
-            label='Agregar Empleado' />}
+            label='Agregar Empleado' 
+            actualizar= {setActualizar}
+            dato={actualizar}
+            id={null}/>}
           editar={
             <FormAgregar
               icon={<PencilSquareIcon className='w-6 h-6' />}
@@ -85,12 +80,22 @@ export default function AddEmploye() {
               bgColor='primary'
               label='Editar Empleado'
               datosEditables={selectRow}
+              actualizar= {setActualizar}
+              dato={actualizar}
+              id={selectId}
             />
           }
-          eliminar={<AlertaEliminar idSeleccionado={selectId} />}
+          eliminar={<AlertEliminar 
+            idSeleccionado={selectId} 
+            tooltip='Desactivar usuario' 
+            titulo='¿Desea desactivar elusuario seleccionado?'
+            endPoint='admin/desabilitar'
+            menssage='Por favor, especifique el motivo por el cual desea desactivar a este usuario. Tenga en cuenta que este cambio es irreversible.'
+            actualizar= {setActualizar}
+            dato={actualizar}/>}
           ver={<AlertaVer idSeleccionado={selectId} tooltip='Ver' />}
         />
-        <DataTable rows={data} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
+        <DataTable rows={data} columns={columns} selectId={saveSelectId}/>
       </Stack>
     </div>
   )

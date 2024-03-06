@@ -37,8 +37,8 @@ export default function AlertaVer(props) {
   const handleMensajeClick = async () => {
     try {
       const result = await axios.get(`http://localhost:4321/admin/${idSeleccionado}`);
-      if (result.data && result.data.length > 0) {
-        setDatosMostrados(result.data[0]);
+      if (result.data) {
+        setDatosMostrados(result.data);
         setModalIsOpen(true);
       } else {
         // No hay datos disponibles para mostrar
@@ -86,16 +86,16 @@ export default function AlertaVer(props) {
                 </thead>
                 <tbody>
                   <tr key={datosMostrados.id}>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.correo_usuario}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.password_usuario}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.estado_usuario === 1 ? 'Activo' : 'Desactivado'}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.descripcion_usuario}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.numero_documento_empleado}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.id_tipo_documento}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.primer_nombre_empleado}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.segundo_nombre_empleado}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.primer_apellido_empleado}</td>
-                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.segundo_apellido_empleado}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.correoUsuario}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.passwordUsuario}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.estadoUsuario === 1 ? 'Activo' : 'Desactivado'}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.descripcionUsuario}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.numeroDocumentoEmpleado}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.idTipoDocumento}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.primerNombreEmpleado}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.segundoNombreEmpleado}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.primerApellidoEmpleado}</td>
+                    <td style={{ maxWidth: "150px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "center", padding: "10px" }}>{datosMostrados.segundoApellidoEmpleado}</td>
                   </tr>
                 </tbody>
               </table>

@@ -1,62 +1,90 @@
-import { Alert, Grid, Modal } from '@mui/material'
+import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from './Input'
 import Selects from './Selects'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Boton from '../dash/boton'
+import { useBringDocument } from '../../Hooks/useDocument'
+import { useHabilitar } from '../../Hooks/useHabilitar'
+import Message from '../dash/succesfulMessage'
+import { useBringUserType } from '../../Hooks/getTipeEmployee'
+import axios from 'axios'
+import useGenreTypes from '../../Hooks/useGenreTypes'
+import { getDataById } from '../../utils/getDataById'
 
-const documentItems = [
-  { id: 'C.C', value: 'Cedula de Ciudadania' },
-  { id: 'C.E', value: 'Cedula de Extrangeria' }
-]
-
-const positinItems = [
-  { id: 1, value: 'Groomer' },
-  { id: 2, value: 'Asistente veterinario' }
-]
+const defaultValues = {
+  primerNombreEmpleado: '',
+  segundoNombreEmpleado: '',
+  primerApellidoEmpleado: '',
+  segundoApellidoEmpleado: '',
+  numeroDocumentoEmpleado: '',
+  idTipoDocumento: 'C.C',
+  passwordUsuario: '',
+  correoUsuario: '',
+  idTipoUsuario: 3,
+  idGenero: 'M',
+  estadoUsuario: 1, 
+  estadoVerificacionUsuario: 1
+}
 
 
 export const FormAgregar = (props) => {
-  const { label, datosEditables, bgColor, icon, tooltip, } = props
+  const { label, id, bgColor, icon, tooltip, actualizar, dato } = props
+  const { values, setValues, handleInputChange } = useForm(defaultValues)
+  const {desabilitado, validarId} = useHabilitar({id})
 
-  const { values, setValues, handleInputChange } = useForm(datosEditables)
-  const [desabilitado, setDesabilitado] = useState(Object.keys(datosEditables).length === 0)
   const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const [tipoDocuemento] = useBringDocument()
+  const [positinItems] = useBringUserType()
+  const [genreTypes] = useGenreTypes()
 
-
-
-
-  const handleModal = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-
-  useEffect(() => {
-    setValues(datosEditables)
-    setDesabilitado(Object.keys(datosEditables).length === 0)
-  }, [datosEditables, setValues])
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const formErrores = {};
-    Object.entries(values).forEach(([key, value]) => {
-      if (key !== 'secondName' && key !== 'secondLastName') {
-        if (!value || (typeof value.trim === 'function' && value.trim() === '')) {
-          formErrores[key] = 'Error los campo no puede estar vacíos';
-
+  const handleModal = async () => {
+    const {todosDatos, validacion} =  await getDataById({id, endpoind: 'admin', defaultValues})
+    if (validacion) {
+        if(todosDatos instanceof Error){
+            setError(todosDatos)
+        }else{
+            setValues(todosDatos)
         }
-      }
-    });
-
-    if (Object.keys(formErrores).length > 0) {
-      setError('Por favor, complete los campos nesesarios.');
-      return;
-    } else {
-      setError('')
-      return
     }
-
+    setOpen(true)
   }
+
+  const handleClose = () => {
+    setValues(defaultValues)
+    setError('')
+    setSuccess('')
+    setOpen(false)
+}
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('')
+    setSuccess('')
+    try {
+        let endpoint = 'http://localhost:4321/admin'
+        let httpMethod = 'post'
+        let envio = {};
+        if (id !== null && id) {
+            envio = {
+              ...values
+            };
+            endpoint += `/actualizar/${values.id}`
+            httpMethod = 'patch'
+        } else {
+            envio = {
+              ...values
+            }
+        }
+        const response = await axios[httpMethod](endpoint, envio)
+        setSuccess(response.data.message)
+        actualizar(!dato)
+    } catch (error) {
+        setError(`Error: ${error.response.data.message}`)
+    }
+}
 
   return (
     <div>
@@ -74,115 +102,118 @@ export const FormAgregar = (props) => {
         <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
           <h1 className='text-3xl text-center mb-2'>{label}</h1>
           {error && (
-            <Alert className='mb-2' severity="error">
-              {error}
-            </Alert>
+            <Message severity = {'error'} message={error}/>
+          )}
+          {success && (
+            <Message severity = {'success'} message={success}/>
           )}
           <Grid container spacing={2} columns={12}>
             <Grid item xs={12} sm={6}>
               <Input
-                id='firstName'
+                id='primerNombreEmpleado'
                 label='Primer Nombre'
-                name='firstName'
-                value={values.firstName}
+                name='primerNombreEmpleado'
+                value={values.primerNombreEmpleado}
                 onChange={handleInputChange}
                 required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='secondName'
+                id='segundoNombreEmpleado'
                 label='Segundo Nombre'
-                name='secondName'
-                value={values.secondName}
+                name='segundoNombreEmpleado'
+                value={values.segundoNombreEmpleado}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='firstLastName'
+                id='primerApellidoEmpleado'
                 fullWidth
                 label='Primer Apellido'
-                name='firstLastName'
-                value={values.firstLastName}
+                name='primerApellidoEmpleado'
+                value={values.primerApellidoEmpleado}
                 onChange={handleInputChange}
                 required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='secondLastName'
+                id='segundoApellidoEmpleado'
                 fullWidth
                 label='Segundo Apellido'
-                name='secondLastName'
-                value={values.secondLastName}
+                name='segundoApellidoEmpleado'
+                value={values.segundoApellidoEmpleado}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='document'
+                id='numeroDocumentoEmpleado'
                 fullWidth
                 label='Documento'
-                name='document'
-                value={values.document}
+                name='numeroDocumentoEmpleado'
+                value={values.numeroDocumentoEmpleado}
                 onChange={handleInputChange}
                 required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Selects
-                id='documentType'
-                label='Tipo de Documento'
-                name='documentType'
-                value={values.documentType}
-                onChange={handleInputChange}
-                items={documentItems}
-                required
+                  id='idTipoDocumento'
+                  label='Tipo de Documento'
+                  name='idTipoDocumento'
+                  value={values.idTipoDocumento}
+                  onChange={handleInputChange}
+                  items={tipoDocuemento}
+                  required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='userName'
-                fullWidth
-                label='Usuario'
-                name='userName'
-                value={values.userName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Input
-                id='password'
+                id='passwordUsuario'
                 fullWidth
                 type='password'
                 label='Contraseña'
-                name='password'
-                value={values.password}
+                name='passwordUsuario'
+                value={values.passwordUsuario}
                 onChange={handleInputChange}
                 required
+                disabled={validarId ? true : false}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Input
-                id='email'
+                id='correoUsuario'
                 fullWidth
                 label='Correo'
-                name='email'
-                value={values.email}
+                name='correoUsuario'
+                value={values.correoUsuario}
                 onChange={handleInputChange}
                 required
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Selects
-                id='position'
+                id='idTipoUsuario'
                 label='Cargo'
-                name='position'
-                value={values.position}
+                name='idTipoUsuario'
+                value={values.idTipoUsuario}
                 onChange={handleInputChange}
                 items={positinItems}
+                required
+                disabled={validarId ? true : false}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Selects
+                id='idGenero'
+                label='Genero'
+                name='idGenero'
+                value={values.idGenero}
+                onChange={handleInputChange}
+                items={genreTypes}
                 required
               />
             </Grid>

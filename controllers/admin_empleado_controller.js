@@ -5,7 +5,7 @@ export class AdminEmpleadoController {
   static async getEmployee (req, res) {
     const response = await AdminEmpleadoModel.getEmployee()
     if (response instanceof NoDataFound) {
-      res.status(404).json({ menssage: 'Usuario no registrado' })
+      res.status(404).json({ message: 'Usuario no registrado' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {
@@ -17,7 +17,7 @@ export class AdminEmpleadoController {
     const { id } = req.params
     const response = await AdminEmpleadoModel.getEmployeeById({ id })
     if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Usuario no registrado' })
+      res.status(404).json({ message: 'Usuario no registrado' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {
@@ -46,9 +46,9 @@ export class AdminEmpleadoController {
     if (response instanceof AccountAlreadyDisable) {
       res.status(409).json({ message: 'El usuario ya ha sido eliminado' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Usuario no registrado' })
+      res.status(404).json({ message: 'Usuario no registrado' })
     } else if (response instanceof Error) {
-      res.status(500).json({ message: 'Error interno del servidor ' })
+      res.status(500).json({ message: 'Error interno del servidor' })
     } else {
       res.json({ message: 'Eliminado satisfactiriamente' })
     }
@@ -59,7 +59,18 @@ export class AdminEmpleadoController {
     const data = req.body
     const response = await AdminEmpleadoModel.updateEmployee({ id, input: data })
     if (response instanceof NotFoundUser) {
-      res.status(404).json({ menssage: 'Usuario no registrado' })
+      res.status(404).json({ message: 'Usuario no registrado' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor ' })
+    } else {
+      res.json(response)
+    }
+  }
+
+  static async getUserType (req, res) {
+    const response = await AdminEmpleadoModel.getUserType()
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No hay Tipos de Usuarios existentes' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {

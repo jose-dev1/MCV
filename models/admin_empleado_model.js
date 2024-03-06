@@ -71,14 +71,21 @@ export class AdminEmpleadoModel {
     try {
       const { anotacion } = input
 
-      const [[estadoCuenta]] = await connection.query('SELECT estado_usuario FROM usuarios WHERE id_usuario = UUID_TO_BIN(?)', [id])
+      const [[estadoCuenta]] = await connection.query(`SELECT usuarios.estado_usuario FROM usuarios 
+      INNER JOIN empleados ON usuarios.id_usuario = empleados.id_usuario
+      WHERE empleados.id_empleado = UUID_TO_BIN(?);`, [id])
       if (!estadoCuenta) throw new NotFoundUser()
       if (estadoCuenta.estado_usuario !== 1) throw new AccountAlreadyDisable()
 
-      const [res] = await connection.query('UPDATE usuarios SET estado_usuario = 0, fecha_eliminacion = CURDATE(), anotacion_usuario = ? WHERE id_usuario = UUID_TO_BIN(?)', [anotacion, id])
+      const [res] = await connection.query(`UPDATE usuarios 
+      INNER JOIN empleados ON usuarios.id_usuario = empleados.id_usuario
+      SET usuarios.estado_usuario = 0, usuarios.fecha_eliminacion = CURDATE(), usuarios.anotacion_usuario = ?
+      WHERE empleados.id_empleado = UUID_TO_BIN(?);`,
+      [anotacion, id])
 
       return res
     } catch (err) {
+      console.log(err)
       return err
     }
   }
@@ -96,6 +103,20 @@ export class AdminEmpleadoModel {
       const [res] = await connection.query(`UPDATE empleados SET primer_nombre_empleado = ?, segundo_nombre_empleado = ?, primer_apellido_empleado = ?, segundo_apellido_empleado = ?
       WHERE id_empleado = UUID_TO_BIN(?)`,
       [primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado, id])
+
+      return res
+    } catch (err) {
+      return err
+    }
+  }
+
+  static async getUserType () {
+    try {
+      const [res] = await connection.query(`SELECT id_tipo_usuario as id, descripcion_usuario as value FROM tipo_usuario
+      WHERE id_tipo_usuario != 1 AND id_tipo_usuario != 2`)
+
+      if (!res) throw new NoDataFound()
+      if (res.length === 0) throw new NoDataFound()
 
       return res
     } catch (err) {

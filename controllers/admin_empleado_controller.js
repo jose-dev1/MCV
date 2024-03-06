@@ -1,5 +1,5 @@
 import { AdminEmpleadoModel } from '../models/admin_empleado_model.js'
-import { AccountAlreadyDisable, DuplicateInfo, NoDataFound, NotFoundUser } from '../squemas/errors_squemas.js'
+import { AccountAlreadyDisable, DuplicateInfo, InfoAlreadyExisting, NoDataFound, NotFoundUser } from '../squemas/errors_squemas.js'
 
 export class AdminEmpleadoController {
   static async getEmployee (req, res) {
@@ -58,12 +58,16 @@ export class AdminEmpleadoController {
     const { id } = req.params
     const data = req.body
     const response = await AdminEmpleadoModel.updateEmployee({ id, input: data })
-    if (response instanceof NotFoundUser) {
+    if (response instanceof DuplicateInfo) {
+      res.status(409).json({ message: 'El correo ya existe dentro del sistema' })
+    } else if (response instanceof InfoAlreadyExisting) {
+      res.status(404).json({ message: 'El numeor de documento con el tipo de documento ya existe dentro del sistema' })
+    } else if (response instanceof NotFoundUser) {
       res.status(404).json({ message: 'Usuario no registrado' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {
-      res.json(response)
+      res.json({ message: 'Actualizado con exito' })
     }
   }
 
@@ -71,6 +75,17 @@ export class AdminEmpleadoController {
     const response = await AdminEmpleadoModel.getUserType()
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No hay Tipos de Usuarios existentes' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor ' })
+    } else {
+      res.json(response)
+    }
+  }
+
+  static async getGenreTypes (req, res) {
+    const response = await AdminEmpleadoModel.getGenreTypes()
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No hay generos existentes' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {

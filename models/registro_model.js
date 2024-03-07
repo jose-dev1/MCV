@@ -69,5 +69,25 @@ export class registroModel {
         console.log(err.statusCode)
       })
   }
-  static async registroCliente({}) {}
+  static async registroCliente({
+    numero_documento_cliente,
+    id_tipo_documento,
+    lugar_expedicion_documento,
+    primer_nombre_cliente,
+    segundo_nombre_cliente,
+    primer_apellido_cliente,
+    segundo_apellido_cliente,
+    telefono_cliente,
+    direccion_cliente,
+    estado_cliente,
+    id_usuario,
+  }) {
+    try {
+      const [registrosCl] = await connection.query("INSERT INTO clientes ()")
+      return { success: true }
+    } catch (error) {
+      console.error("Error al registrar:", err)
+      return { error: "Error interno del servidor" }
+    }
+  }
 }

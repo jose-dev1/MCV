@@ -38,7 +38,7 @@ const Registro = () => {
         userGenero: formData.genero,
         userRol: 2
       };
-      console.log(userData);
+      console.log(userData)
       const response = await axios.post('http://localhost:4321/registro', userData);
       if (response.data.error) {
         setErrorMessage(response.data.error);
@@ -48,8 +48,7 @@ const Registro = () => {
         setErrorMessage('');
       }
     } catch (error) {
-      console.error('Error al registrar:', error);
-      setErrorMessage('Error al registrar: ' + error.message);
+      setErrorMessage('El correo electrónico ya está en uso');
       setSuccessMessage('');
     }
   };
@@ -93,7 +92,7 @@ const Registro = () => {
                 {errorMessage && <Alert severity="error">{errorMessage}</Alert>}<br></br>
                 <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                   <TextField
-                    label="Email"
+                    label="Correo Electronico"
                     variant="outlined"
                     fullWidth
                     type="email"
@@ -110,6 +109,7 @@ const Registro = () => {
                     value={formData.genero}
                     onChange={handleChange}
                     name="genero"
+                    sx={{ textAlign: 'left' }}
                   >
                     {generos.map((generoObjeto, index) => (
                       <MenuItem key={index} value={generoObjeto.id_genero}>
@@ -120,7 +120,7 @@ const Registro = () => {
                 </FormControl>
                 <FormControl fullWidth={true} sx={{ marginBottom: 2 }}>
                   <TextField
-                    label="Password"
+                    label="Contraseña"
                     variant="outlined"
                     fullWidth
                     type="password"

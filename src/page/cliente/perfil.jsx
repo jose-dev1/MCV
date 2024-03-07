@@ -227,7 +227,7 @@ function Perfil() {
               >
                 <TextField
                   label="Correo electronico"
-                  value={usuario.u_correo}
+                  value={usuario.correo_usuario}
                   fullWidth
                   variant="outlined"
                   disabled

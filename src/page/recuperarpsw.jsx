@@ -42,7 +42,7 @@ class recuperarPw extends Component {
                 <div className="login">
                   <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                     <TextField
-                      label="Email"
+                      label="Correo Electronico"
                       variant="outlined"
                       fullWidth
                       type="email"

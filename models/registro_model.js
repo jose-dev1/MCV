@@ -34,4 +34,5 @@ export class registroModel {
       return { error: "Error interno del servidor" };
     }
   }
+  static async registroCliente({}) {}
 }

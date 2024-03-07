@@ -4,3 +4,4 @@ export const registroRoutes = Router();
 
 registroRoutes.post("/", RegistroController.registro);
 registroRoutes.get("/genero", RegistroController.genero);
+registroRoutes.get("/documento", RegistroController.getDocumento);

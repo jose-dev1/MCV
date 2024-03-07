@@ -1,5 +1,6 @@
 import { registroModel } from "../models/registro_model.js";
 import connection from "../models/connection_database.js";
+import { query } from "express";
 
 export class RegistroController {
   static async registro(req, res) {
@@ -23,6 +24,8 @@ export class RegistroController {
     }
   }
 
+  static async registroCliente(req, res) {}
+
   static async genero(req, res) {
     try {
       const query = ` SELECT * FROM genero`;
@@ -33,4 +36,17 @@ export class RegistroController {
       res.status(500).json({ message: "Error interno del servidor" });
     }
   }
+
+  static async getDocumento(req, res) {
+    try {
+      const documento = `SELECT * FROM tipo_documento`;
+      const [doc] = await connection.query(documento);
+      res.json(doc);
+    } catch (error) {
+      console.error("Error al obtener los generos:", error);
+      res.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
+
+  
 }

@@ -13,9 +13,10 @@ export class RegistroController {
       });
 
       if (response.error) {
-        res.status(400).json({ message: response.error });
+        res.status(400).json({ error: response.error });
       } else {
         res.status(201).json({ message: "Registro exitoso" });
+        registroModel.enviarCorreo({ userCorreo });
       }
     } catch (error) {
       console.error("Error al registrar:", error);
@@ -29,7 +30,6 @@ export class RegistroController {
       const [generos] = await connection.query(query);
       res.json(generos);
     } catch (error) {
-      console.error("Error al obtener los generos:", error);
       res.status(500).json({ message: "Error interno del servidor" });
     }
   }

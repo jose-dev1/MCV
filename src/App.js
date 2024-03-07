@@ -17,7 +17,7 @@ import DescargarCerficado from "./page/cliente/descargarCertificado";
 import DescargarExamen from "./page/cliente/descargarExamen";
 import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
-import GestionarCitas from "./page/auxiliar/GestionCitas.jsx";
+import GestionarAsistencia from "./page/auxiliar/GestionAsistencia.jsx";
 import AgendaVeterinario from "./page/veterinario/agenda.jsx";
 import Servicioprestado from "./page/groomer/servicio-prestado";
 import Factura from "./page/auxiliar/factura.jsx";
@@ -133,9 +133,9 @@ function App() {
           }
         />
         <Route
-          path="/gestionar-citas"
+          path="/gestionar-asistencia"
           element={
-            <ProtectedRoute element={<GestionarCitas />} requiredUserRole={3} />
+            <ProtectedRoute element={<GestionarAsistencia />} requiredUserRole={3} />
           }
         />
         <Route

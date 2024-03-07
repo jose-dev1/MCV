@@ -232,8 +232,8 @@ const Sidebar = () => {
                         {/* Opción para el rol 3 */}
                         {user.id_tipo_usuario === 3 && (
                             <Link
-                                to="/gestionar-citas"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/gestionar-citas' ? 'bg-gray-100 text-blue-700' : ''
+                                to="/gestionar-asistencia"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/gestionar-asistencia' ? 'bg-gray-100 text-blue-700' : ''
                                     }`}
                             >
                                 <CheckBadgeIcon className='w-6 h-6' />

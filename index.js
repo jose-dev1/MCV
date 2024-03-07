@@ -12,8 +12,12 @@ import {
   rutastipousuario,
   rutasdocumentos
 } from './routes/schedule_routes.js'
-import { adminRoutes } from './routes/admin_routes.js'
+import { adminRoutes, genreTypes, userTypeRouter } from './routes/admin_routes.js'
 import { groomerRoutes } from './routes/groomer_routes.js'
+import { appointmentAssistanceRouter } from './routes/appointment_assistance_routes.js'
+import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
+import { swagger } from './middlewares/swagger.js'
+
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -21,6 +25,7 @@ app.use(cookieParser())
 app.use(json())
 app.use(corsMiddleware())
 app.use(cokiesSecret())
+// midewlere swagger
 
 app.disable('x-powered-by')
 app.use(express.urlencoded({ extended: false }))
@@ -34,6 +39,12 @@ app.use('/especialistas', rutastipousuario)
 app.use('/documentos', rutasdocumentos)
 app.use('/registro', registroRoutes)
 app.use('/groomer', groomerRoutes)
+app.use('/asistencia', appointmentAssistanceRouter)
+app.use('/hospitalizaciones', hospitalizacionRouter)
+app.use('/userTypes', userTypeRouter)
+app.use('/genreTypes', genreTypes)
+swagger(app, PORT)
+
 app.listen(PORT, () => {
   console.log(`Aplicacion corriendo en el puerto http://localhost:${PORT}`)
 })

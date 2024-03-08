@@ -4,10 +4,10 @@ import { NoDataFound, NotFoundUser, InfoAlreadyExisting, AccountAlreadyDisable }
 export class HospitalizationsModel {
   static async getAll () {
     try {
-      const [getAll] = await connection.query(`SELECT BIN_TO_UUID(id_hospitalizacion) id, fecha_hospitalizacion, servicio_finalizado_hospitalizacion,nombre_mascota,tipo_mascota,primer_nombre_cliente,primer_apellido_cliente,telefono_cliente, fecha_salida_hospitalizaciones FROM hospiptalizaciones
-      INNER JOIN mascotas ON mascotas.id_mascotas = hospitalizaciones.id_mascotas
+      const [getAll] = await connection.query(`SELECT BIN_TO_UUID(id_hospitalizacion) id, fecha_hospitalizacion, servicio_finalizado_hospitalizacion,nombre_mascota,tipo_mascota,primer_nombre_cliente,primer_apellido_cliente,telefono_cliente, fecha_salida_hospitalizacion FROM hospitalizaciones
+      INNER JOIN mascotas ON mascotas.id_mascota = hospitalizaciones.id_mascota
       INNER JOIN clientes ON clientes.id_cliente = mascotas.id_cliente_mascota
-      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota = masctoa.id_tipo_mascota
+      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota = mascotas.id_tipo_mascota
       WHERE estado_hospitalizacion = 1`)
       if (!getAll) throw new NoDataFound()
       if (getAll.length === 0) throw new NoDataFound()
@@ -20,13 +20,13 @@ export class HospitalizationsModel {
 
   static async getId ({ id }) {
     try {
-      const [getAll] = await connection.query(`SELECT BIN_TO_UUID(id_hospitalizacion) id, fecha_hospitalizacion, servicio_finalizado_hospitalizacion,nombre_mascota,tipo_mascota,primer_nombre_cliente,primer_apellido_cliente,telefono_cliente, fecha_salida_hospitalizaciones FROM hospiptalizaciones
-      INNER JOIN mascotas ON mascotas.id_mascotas = hospitalizaciones.id_mascotas
+      const [[getAll]] = await connection.query(`SELECT BIN_TO_UUID(id_hospitalizacion) id, fecha_hospitalizacion, servicio_finalizado_hospitalizacion,nombre_mascota,telefono_cliente, fecha_salida_hospitalizacion, contenido_hospitalizacion,descripcion_documento, numero_documento_cliente AS numeroDocumento FROM hospitalizaciones
+      INNER JOIN mascotas ON mascotas.id_mascota = hospitalizaciones.id_mascota
       INNER JOIN clientes ON clientes.id_cliente = mascotas.id_cliente_mascota
-      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota = masctoa.id_tipo_mascota
-      WHERE estado_hospitalizacion = 1 AND UUID_TO_BIN(?)`, [id])
+      INNER JOIN tipo_documento ON tipo_documento.id_tipo_documento = clientes.id_tipo_documento
+      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota = mascotas.id_tipo_mascota
+      WHERE estado_hospitalizacion = 1 AND id_hospitalizacion = UUID_TO_BIN(?)`, [id])
       if (!getAll) throw new NoDataFound()
-      if (getAll.length === 0) throw new NoDataFound()
       return (getAll)
     } catch (error) {
       console.log(error)
@@ -36,18 +36,19 @@ export class HospitalizationsModel {
 
   static async create ({ input }) {
     try {
-      const { fechaHospitalizacion, contenidoHospitalizacion, idMascota } = input
-      const [[comprobacion]] = await connection.query(`SELECT servicio_finalizado_hospitalizacion, estado_hospitalizacion FROM hoispitalizaciones
+      const { contenidoHospitalizacion, idMascota } = input
+      const [[comprobacion]] = await connection.query(`SELECT servicio_finalizado_hospitalizacion, estado_hospitalizacion FROM hospitalizaciones
       WHERE  id_mascota = UUID_TO_BIN(?)`, [idMascota])
 
-      const { servicio_finalizado_hospitalizacion: servicioFinializadoHospitalizacion, estado_hospitalizacion: estadoHospitaliazcion } = comprobacion
-
-      if (servicioFinializadoHospitalizacion === 0 && estadoHospitaliazcion === 1) throw new InfoAlreadyExisting()
-
-      const insert = await connection.query(`INSERT INTO hospitalizaciones (fecha_hospitalizacion,contenido_hospitalizacion,estado_hospitaliazcion,servicio_finalizado_hospitalizacion,id_mascota) VALUES
-      (?,?,1,0,UUID_TO_BIN(?))`, [fechaHospitalizacion, contenidoHospitalizacion, idMascota])
+      if (comprobacion) {
+        const { servicio_finalizado_hospitalizacion: servicioFinializadoHospitalizacion, estado_hospitalizacion: estadoHospitaliazcion } = comprobacion
+        if (servicioFinializadoHospitalizacion === 0 && estadoHospitaliazcion === 1) throw new InfoAlreadyExisting()
+      }
+      const insert = await connection.query(`INSERT INTO hospitalizaciones (contenido_hospitalizacion,estado_hospitalizacion,servicio_finalizado_hospitalizacion,id_mascota) VALUES
+      (?,1,0,UUID_TO_BIN(?))`, [contenidoHospitalizacion, idMascota])
       return (insert)
     } catch (error) {
+      console.log(error)
       return (error)
     }
   }

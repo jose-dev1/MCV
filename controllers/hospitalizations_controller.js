@@ -19,7 +19,7 @@ export class HospitalizationsController {
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran datos registrados para la historia clinica seleccionada' })
     } else if (response instanceof Error) {
-      res.status(500).response({ message: 'Error interno en el servidor' })
+      res.status(500).json({ message: 'Error interno en el servidor' })
     } else {
       res.json(response)
     }

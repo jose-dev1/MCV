@@ -18,7 +18,7 @@ const options = {
     }
     ]
   },
-  apis: [`${path.join(__dirname, '..', 'routes', '*.js')}`] // Corregir la ruta de los archivos de rutas
+  apis: [`${path.join(__dirname, '..', 'documentation', '*.js')}`] // Corregir la ruta de los archivos de rutas
 }
 
 const swaggerSpec = swaggerJSDoc(options)

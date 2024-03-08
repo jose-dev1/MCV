@@ -1,103 +1,125 @@
-import { Alert, Grid, Modal  } from '@mui/material'
+import { Grid, Modal  } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import TextArea from '../dash/textArea'
+import dayjs from 'dayjs'
+import axios from 'axios';
+import { useBringDocument } from '../../Hooks/useDocument';
+import Message from '../dash/succesfulMessage';
+import { getDataById } from '../../utils/getDataById';
+import { useHabilitar } from '../../Hooks/useHabilitar';
+import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner';
+import { dateFormater } from '../../utils/dateFormater';
 
-const documentItems = [
-  { id: 'C.C', value: 'Cedula de Ciudadania' },
-  { id: 'C.E', value: 'Cedula de Extrangeria' }
+const servicioFinalizado = [
+  {
+      id: 0, value: 'No'
+  },
+  {
+      id: 1, value: 'Si'
+  }
 ]
 
-const positinItems = [
-  { id: 1, value: 'Max' },
-  { id: 2, value: 'Chelsea' }
-]
+const defaultValues = {
+  id: '',
+  fecha_salida_hospitalizacion: dayjs(),
+  servicio_finalizado_hospitalizacion: 0,
+  idMascota: '',
+  numeroDocumento: '',
+  tipoDocumento: 'C.C',
+  contenido_hospitalizacion:'',
+  observaciones: '',
+  nombre_mascota:''
+}
 
 export const FormAgregarHozpitalizaciones = (props) => {
-  const { label, datosEditables, bgColor, icon, tooltip, }=props
+  const { label, id, bgColor, icon, tooltip, actualizar,dato } = props
 
-  const { values, setValues, handleInputChange, handleInputChangeDate} = useForm(datosEditables)
-  const [desabilitado, setDesabilitado] = useState(Object.keys(datosEditables).length === 0)
-  const [validarId,setValidarId]=useState(false)
-  const [open, setOpen] = useState(false)
-  const [error, setError] = useState('')
-  const [info, setInfo] = useState('');
-  const [success, setSuccess] = useState('');
+  const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
+
+    const [open, setOpen] = useState(false)
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('');
+    const [dataMoscota, setDataMascota] = useState([])
+    const [tipoDocuemento] = useBringDocument()
+    const {desabilitado, validarId} = useHabilitar({id})
 
 
-  const handleModal = () => setOpen(true)
+    const handleModal = async () => {
+      const {todosDatos, validacion} =  await getDataById({id, endpoind: 'hospitalizaciones', defaultValues})
+      if (validacion) {
+          if(todosDatos instanceof Error){
+              setError(todosDatos)
+          }else{
+              setValues(todosDatos)
+          }
+      }
+      setOpen(true)
+  }
   const handleClose = () => {
     setError('')
     setSuccess('')
     setOpen(false)
   }
 
-  useEffect(() => {
-    setValues(datosEditables)
-    setDesabilitado(Object.keys(datosEditables).length === 0)
-  }, [datosEditables, setValues])
-
-  useEffect(() => {
-    setValidarId(datosEditables.id !== '')
-  }, [datosEditables, setValidarId])
-
-  useEffect(() => {
-    const infoTimeout = setTimeout(() => {
-      setInfo(null);
-    }, 5000);
-    return () => {
-      clearTimeout(infoTimeout);
-    };
-  }, [info]);
-
-
-  const handleSubmitId = (event) => {
+  const handleSubmitId = async (event) => {
     event.preventDefault()
-
-    if(values.tipo_documento === '' || values.N_documento === '')
-    {
-      setError('Por favor, complete los campos nesesarios.');
-    }
-    else
-    {
-      setError('');
-      setInfo('Datos cargados exitosamente.')
-    }
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const formErrores = {};
-    Object.entries(values).forEach(([key, value]) => {
-      if (key !== 'secondName' && key !== 'secondLastName'){
-        if (!value || (typeof value.trim === 'function' && value.trim() === '')) {
-          formErrores[key] = 'Error los campo no puede estar vacíos';
-          
+    try{
+        const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+        setSuccess('')
+        if (validation) {
+            setError('Por favor, complete los campos nesesarios.');
         }
-      }
-    });
-
-    if (Object.keys(formErrores).length > 0) {
-      setError('Por favor, complete los campos nesesarios.');
-      return;
-    }else{
-      setError('')
-      setSuccess('Datos guardados exitosamente.')
-      return
+        else {
+            setError('')
+            const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+            if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
+            setDataMascota(getPets)
+            setSuccess('Datos cargados exitosamente.')
+        }
+    }catch (error) {
+        setError(`${error}`)
     }
+}
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  setError('')
+  setSuccess('')
+  try {
+      let endpoint = 'http://localhost:4321/hospitalizaciones'
+      let httpMethod = 'post'
+      let envio = {}
+      const fechaHoy = dayjs().format('MM-DD-YYYY')
+      if (id !== null && id) {
+          const { fechaCita, horaCita, id_empleado, id_mascota } = values;
+          envio = {
+              fechaCita: dateFormater({time: fechaCita, format: 'YYYY-MM-DD'}),
+              horaCita: dateFormater({time: horaCita, format: 'HH:mm'}),
+              idEmpleado: id_empleado,
+              idMascota: id_mascota
+          };
+          endpoint += `/${values.id}`
+          httpMethod = 'patch'
+      } else {
+          const { idMascota, observaciones } = values
+          envio = {
+              idMascota, 
+              contenidoHospitalizacion:`${fechaHoy}: ${observaciones}`
+          }
+      }
+      const response = await axios[httpMethod](endpoint, envio)
+      setSuccess(response.data.message)
+      actualizar(!dato)
+  } catch (error) {
+      setError(`Error: ${error.response.data.message}`)
   }
+}
 
   return (
     <div>
@@ -114,41 +136,45 @@ export const FormAgregarHozpitalizaciones = (props) => {
       >
           <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
             <h1 className='text-3xl text-center mb-2'>{label}</h1>
-            {info && (
-        <Alert className='mb-2' severity="info">
-          {info}
-        </Alert>
-      )}
-          {error && (
-          <Alert className='mb-2' severity="error">
-            {error}
-          </Alert>
-        )}
-                  {success && (
-          <Alert className='mb-2' severity="success">
-            {success}
-          </Alert>
-        )}
+            {error && (
+                        <Message severity = {'error'} message={error}/>
+                    )}
+            {success && (
+                        <Message severity = {'success'} message={success}/>
+                    )}
             <Grid container spacing={2} columns={12}>
-              <Grid item xs={12} sm={6}>
-              <Selects
-                  id='tipo_documento'
-                  label='Tipo de Documento'
-                  name='tipo_documento'
-                  value={values.tipo_documento}
+            <Grid item xs={12} sm={6}>
+              {validarId ? (
+                <Input
+                  id='descripcion_documento'
+                  fullWidth
+                  label='Tipo de documento'
+                  name='descripcion_documento'
+                  value={values.descripcion_documento}
                   onChange={handleInputChange}
-                  items={documentItems}
                   disabled={validarId ? true : false}
                   required
                 />
+              ) : (
+                <Selects
+                  id='tipoDocuemento'
+                  label='Tipo de Documento'
+                  name='tipoDocuemento'
+                  value={values.tipoDocumento}
+                  onChange={handleInputChange}
+                  items={tipoDocuemento}
+                  disabled={validarId ? true : false}
+                  required
+                />
+              )}
               </Grid>
               <Grid item xs={12} sm={4}>
               <Input
-                  id='N_documento'
+                  id='numeroDocumento'
                   fullWidth
                   label='N°documento'
-                  name='N_documento'
-                  value={values.N_documento}
+                  name='numeroDocumento'
+                  value={values.numeroDocumento}
                   onChange={handleInputChange}
                   disabled={validarId ? true : false}
                   required
@@ -163,104 +189,81 @@ export const FormAgregarHozpitalizaciones = (props) => {
                     desable={validarId ? true : false}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-              <Input
-                  id='primer_nombre'
-                  label='Primer Nombre Dueño'
-                  name='primer_nombre'
-                  value={values.primer_nombre}
-                  disabled={true} 
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-              <Input
-                  id='primer_apellido'
-                  fullWidth
-                  label='Primer Apellido Dueño'
-                  name='primer_apellido'
-                  value={values.primer_apellido}
-                  disabled={true}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 {validarId ? (
                   <Input
-                    id='nombre'
+                    id='nombre_macota'
                     fullWidth
                     label='Nombre Mascota'
-                    name='nombre'
-                    value={values.nombre}
+                    name='nombre_macota'
+                    value={values.nombre_mascota}
                     onChange={handleInputChange}
                     disabled={true}
                     required
                   />
                 ) : (
                   <Selects
-                    id='nombre'
+                    id='idMascota'
                     label='Nombre Mascota'
-                    name='nombre'
-                    value={values.nombre}
+                    name='idMascota'
+                    value={values.idMascota}
                     onChange={handleInputChange}
-                    items={positinItems}
+                    items={dataMoscota}
+                    disabled={(validarId || dataMoscota.length === 0) ? true : false}
                     required
                   />
                 )}
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <InputDate
-                  id='fecha_creacion'
-                  fullWidth
-                  label='Fecha ingreso'
-                  name='fecha_creacion'
-                  fecha={values.fecha_creacion}
-                  onChange={handleInputChangeDate}
-                  disabled={validarId ? true : false}
-                  required
-                />
-              </Grid>
+              
+              {validarId && (
+                <Grid item xs={12} sm={6}>
+                  <Selects
+                    id='servicio_finalizado_hospitalizacion'
+                    label='Servicio Finalizado'
+                    name='servicio_finalizado_hospitalizacion'
+                    value={values.servicio_finalizado_hospitalizacion}
+                    onChange={handleInputChange}
+                    items={servicioFinalizado}
+                    disabled={false}
+                    required
+                  />
+                </Grid>
+              )}
+            
+              {validarId && (
+                  <Grid item xs={12} sm={6}>
+                    <InputDate
+                      id='fecha_salida_hospitalizacion'
+                      fullWidth
+                      label='Fecha salida hospitalizacion'
+                      name='fecha_salida_hospitalizacion'
+                      fecha={values.fecha_salida_hospitalizacion ? values.fecha_salida_hospitalizacion : values.fecha_salida_hospitalizacion=dayjs()}
+                      onChange={handleInputChangeDate}
+                      disabled={values.servicio_finalizado_hospitalizacion === 0 ? true:false}
+                    />
+                </Grid>
+              )}
               {validarId && (
                   <Grid item xs={12}>
                   <TextArea
-                    id="observacionesAgregadas"
+                    id="contenido_hospitalizacion"
                     label="Observaciones Agegadas Anteriormente"
-                    name="observacionesAgregadas"
-                    value={values.observaciones}
-                    fullWidth
+                    name="contenido_hospitalizacion"
+                    value={values.contenido_hospitalizacion}
+                    onChange={handleInputChange}
                     disabled
                   />
                 </Grid>
               )}
               <Grid item xs={12}>
-              <TextField
-                  id="observaciones"
-                  label="Nuevas Observaciones"
-                  name='observaciones'
-                  multiline
-                  maxRows={7}
-                  fullWidth
-                  required
+                <TextArea
+                    id="observaciones"
+                    label="Observaciones"
+                    name="observaciones"
+                    value={values.observaciones}
+                    onChange={handleInputChange}
+                    disabled={false}
                 />
-              </Grid>
-              <Grid item xs={12}>
-              {validarId && (
-              <FormControl>
-              <FormLabel id="demo-row-radio-buttons-group-label">Finalizar servicio</FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="idestado"
-                onChange={handleInputChangeDate}
-                value={values.idestado}
-              >
-                <FormControlLabel value="0" control={<Radio />} label="Si" />
-                <FormControlLabel value="1" control={<Radio />} label="No" />
-              </RadioGroup>
-            </FormControl>
-              )}
               </Grid>
               <Grid item xs={12}>
                 <button

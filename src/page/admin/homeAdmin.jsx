@@ -13,7 +13,7 @@ import AlertEliminar from '../../components/dash/alertEliminar';
 
 const columns = [
   { field: 'primer_nombre_empleado', headerName: 'Primer Nombre', width: 140 },
-  { field: 'segundo_nombre_empleado', headerName: 'Primer Apellido', width: 140 },
+  { field: 'primer_apellido_empleado', headerName: 'Primer Apellido', width: 140 },
   { field: 'numero_documento_empleado', headerName: 'Numero de documento', width: 170 },
   { field: 'correo_usuario', headerName: 'Correo', width: 260 },
   { field: 'descripcion_usuario', headerName: 'Cargo', width: 180 },

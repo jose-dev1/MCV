@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { NotFoundUser, NoDataFound, DuplicateInfo, AccountAlreadyDisable, InfoAlreadyExisting } from '../squemas/errors_squemas.js'
 import connection from './connection_database.js'
 
@@ -67,7 +66,6 @@ export class AdminEmpleadoModel {
       return usuario
     } catch (err) {
       await connection.rollback()
-      console.log(err)
       return err
     }
   }
@@ -90,7 +88,6 @@ export class AdminEmpleadoModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }
@@ -123,7 +120,6 @@ export class AdminEmpleadoModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }

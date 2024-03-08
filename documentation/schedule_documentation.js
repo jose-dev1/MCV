@@ -1,19 +1,4 @@
-/**
- * @swagger
- * components:
- *   schemas:
- *     cita:
- *       type: object
- *       properties:
- *         especialista:
- *           type: string
- *           description: Especialidad a consultar
- *       required:
- *         - especialista
- *       example:
- *         especialista: VET
- */
-
+// Traer citas por especialista
 /**
  * @swagger
  * /agendar/especialista/{especialista}:
@@ -69,7 +54,7 @@
  *       '500':
  *          description: Error interno del servidor
  */
-
+// Traer cita por id
 /**
  * @swagger
  * /agendar/citas/{id}:
@@ -133,7 +118,7 @@
  *       '500':
  *          description: Error interno del servidor
  */
-
+// Traer citas por fecha y empleado
 /**
  * @swagger
  * /agendar/{fechaCita}/{idEmpleado}:
@@ -194,6 +179,7 @@
  *       '500':
  *          description: Error interno del servidor
  */
+// Agendar citas
 /**
  * @swagger
  * /agendar:
@@ -242,7 +228,7 @@
  *       '500':
  *          description: Error interno del servidor
  */
-
+// Actualizar fecha y hora cita
 /**
  * @swagger
  * /agendar/{id}:
@@ -290,7 +276,7 @@
  *       '500':
  *         description: Error interno del servidor
  */
-
+// Desactivar una cita
 /**
  * @swagger
  * /agendar/desabilitar/{id}:

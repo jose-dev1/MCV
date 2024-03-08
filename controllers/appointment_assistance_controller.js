@@ -4,7 +4,7 @@ export class AppointmentAssistanceController {
   static async getAll (req, res) {
     const response = await AppointmentAssistanceModel.getAll()
     if (response instanceof NoDataFound) {
-      res.status(404).json({ message: 'Usuario no encontrado' })
+      res.status(404).json({ message: 'Citas no encontradas' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error en el servidor' })
     } else {

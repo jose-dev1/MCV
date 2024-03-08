@@ -9,9 +9,6 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import isBetween from 'dayjs/plugin/isBetween';
@@ -25,17 +22,18 @@ function Perfil() {
   const [mostrarAlerta, setMostrarAlerta] = useState(true);
   const [error, setError] = useState('');
   const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
+  const [documentos, setDocumentos] = useState([]);
   const [datosFormulario, setDatosFormulario] = useState({
-    primerNombre: '',
-    segundoNombre: '',
-    primerApellido: '',
-    segundoApellido: '',
-    tipoDocumento: '',
-    numeroDocumento: '',
-    fechaExpedicion: dayjs(),
-    direccion: '',
-    telefono: '',
-    lugarNacimiento: '',
+    primer_nombre_cliente: '',
+    segundo_nombre_cliente: '',
+    primer_apellido_cliente: '',
+    segundo_apellido_cliente: '',
+    id_tipo_documento: '',
+    numero_documento_cliente: '',
+    lugar_expedicion_documento: '',
+    direccion_cliente: '',
+    telefono_cliente: '',
+    estado_cliente: '1',
   });
 
   const manejarCambio = (campo, valor) => {
@@ -45,7 +43,7 @@ function Perfil() {
     }));
   };
 
-  const manejarEnvioFormulario = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formErrores = {};
@@ -61,7 +59,7 @@ function Perfil() {
     }
 
     try {
-      const respuesta = await axios.post('http://localhost:4000/post-registro', datosFormulario);
+      const respuesta = await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
       console.log('Peticion enviada exitosamente:', respuesta.data);
     } catch (error) {
       console.error('Error al enviar la petición:', error);
@@ -71,8 +69,15 @@ function Perfil() {
 
   useEffect(() => {
     setTimeout(() => {
-      setMostrarAlerta(false);
-    }, 30000);
+      setMostrarAlerta(true);
+    },);
+
+    axios.get('http://localhost:4321/registro/documento').then((response) => {
+      setDocumentos(response.data);
+    })
+      .catch((error) => {
+        console.log('error al obtener los datos:', error);
+      })
   }, []);
 
   return (
@@ -104,8 +109,8 @@ function Perfil() {
             {error}
           </Alert>
         )}
-        <div className='p-4 shadow-md rounded-xl'>
-          <form onSubmit={manejarEnvioFormulario}>
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"'>
+          <form onSubmit={handleSubmit}>
             <Box
               sx={{
                 display: 'flex',
@@ -123,25 +128,25 @@ function Perfil() {
                   label="Primer nombre"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '250px' }}
-                  onChange={(e) => manejarCambio('primerNombre', e.target.value)}
+                  onChange={(e) => manejarCambio('primer_nombre_cliente', e.target.value)}
                 />
                 <TextField
                   label="Segundo nombre"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '250px' }}
-                  onChange={(e) => manejarCambio('segundoNombre', e.target.value)}
+                  onChange={(e) => manejarCambio('segundo_nombre_cliente', e.target.value)}
                 />
                 <TextField
                   label="Primer apellido"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '230px' }}
-                  onChange={(e) => manejarCambio('primerApellido', e.target.value)}
+                  onChange={(e) => manejarCambio('primer_apellido_cliente', e.target.value)}
                 />
                 <TextField
                   label="Segundo apellido"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
-                  onChange={(e) => manejarCambio('segundoApellido', e.target.value)}
+                  onChange={(e) => manejarCambio('segundo_apellido_cliente', e.target.value)}
                 />
               </Box>
 
@@ -157,12 +162,12 @@ function Perfil() {
                     labelId="tipo-documento-label"
                     id="tipo-documento"
                     label="Tipo de documento"
-                    onChange={(e) => manejarCambio('tipoDocumento', e.target.value)}
+                    onChange={(e) => manejarCambio('id_tipo_documento', e.target.value)}
 
                   >
-                    <MenuItem value="C.C">Cedula de Ciudadania (C.C)</MenuItem>
-                    <MenuItem value="Pasaporte">Pasaporte</MenuItem>
-                    <MenuItem value="C.E">Carnet de Extrangeria (C.E)</MenuItem>
+                    {documentos.map((documento, index) => (
+                      <MenuItem key={index} value={documento.id_tipo_documento}>{documento.descripcion_documento}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
 
@@ -170,17 +175,15 @@ function Perfil() {
                   label="Numero de documento"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '450px' }}
-                  onChange={(e) => manejarCambio('numeroDocumento', e.target.value)}
+                  onChange={(e) => manejarCambio('numero_documento_cliente', e.target.value)}
                 />
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    sx={{ flex: '1 1 30%', minWidth: '295px' }}
-                    label="Fecha de expedicion"
-                    value={datosFormulario.fechaExpedicion || dayjs()}
-                    onChange={(date) => manejarCambio('fechaExpedicion', date)}
-                  />
-                </LocalizationProvider>
+                <TextField
+                  sx={{ flex: '1 1 30%', minWidth: '295px' }}
+                  label="Lugar de expedicion"
+                  variant='outlined'
+                  onChange={(e) => manejarCambio('lugar_expedicion_documento', e.target.value)}
+                />
               </Box>
 
               <Box
@@ -193,38 +196,15 @@ function Perfil() {
                   label="Direccion"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '450px' }}
-                  onChange={(e) => manejarCambio('direccion', e.target.value)}
+                  onChange={(e) => manejarCambio('direccion_cliente', e.target.value)}
                 />
 
                 <TextField
                   label="Telefono"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
-                  onChange={(e) => manejarCambio('telefono', e.target.value)}
+                  onChange={(e) => manejarCambio('telefono_cliente', e.target.value)}
                 />
-
-                <FormControl fullWidth variant="outlined" sx={{ flex: '1 1 30%', minWidth: '295px' }}>
-                  <InputLabel id="lugar-nacimiento-label">Lugar de nacimiento</InputLabel>
-                  <Select
-                    labelId="lugar-nacimiento-label"
-                    id="lugar-nacimiento"
-                    label="Lugar de nacimiento"
-                    value={datosFormulario.lugarNacimiento}
-                    onChange={(e) => manejarCambio('lugarNacimiento', e.target.value)}
-                  >
-                    <MenuItem value="Bogota">Bogota (DC)</MenuItem>
-                    <MenuItem value="Cucuta">Cucuta</MenuItem>
-                    <MenuItem value="Cartagena">Cartagena</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-
-              <Box
-                sx={{
-                  display: 'flex',
-                  gap: '1rem',
-                }}
-              >
                 <TextField
                   label="Correo electronico"
                   value={usuario.correo_usuario}
@@ -234,16 +214,14 @@ function Perfil() {
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
                 />
 
-                <TextField
-                  label="Nombre usuario"
-                  value={usuario.usuario}
-                  type='text'
-                  fullWidth
-                  variant="outlined"
-                  disabled
-                  sx={{ flex: '1 1 30%', minWidth: '295px' }}
-                />
+              </Box>
 
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '1rem',
+                }}
+              >
                 <TextField
                   label="Contraseña"
                   fullWidth

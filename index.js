@@ -17,6 +17,7 @@ import { groomerRoutes } from './routes/groomer_routes.js'
 import { appointmentAssistanceRouter } from './routes/appointment_assistance_routes.js'
 import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
 import { swagger } from './middlewares/swagger.js'
+import { examenesVeteriarioRouter } from './routes/examenes_veterinarios_routes.js'
 
 const PORT = process.env.PORT ?? 1234
 
@@ -43,6 +44,7 @@ app.use('/asistencia', appointmentAssistanceRouter)
 app.use('/hospitalizaciones', hospitalizacionRouter)
 app.use('/userTypes', userTypeRouter)
 app.use('/genreTypes', genreTypes)
+app.use('/examenesVeterinario', examenesVeteriarioRouter)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

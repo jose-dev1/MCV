@@ -5,8 +5,7 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
 import { FormAgregarHozpitalizaciones } from '../../components/veterinario/agregarHospitalziacionCoomponent';
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import AlertaEliminar from '../../components/dash/alertaEliminar';
-import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion';
+import AlertEliminar from '../../components/dash/alertEliminar'
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -88,7 +87,14 @@ export default function Hospitalizaciones () {
               dato={actualizar}
             />
           } 
-          eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Eliminar Hospitalización'/>}
+          eliminar={<AlertEliminar 
+            idSeleccionado={selectId} 
+            tooltip='Desactivar Hospitalizacion' 
+            titulo='¿Desea desactivar la hospitalizacion?'
+            endPoint='hospitalizaciones/delete'
+            menssage='Por favor, especifique el motivo por el cual desea desactivar la hospitalizacion. Tenga en cuenta que este cambio es irreversible.'
+            actualizar= {setActualizar}
+            dato={actualizar}/>}
         />
         <DataTable rows={dataMostrar} columns={columns} selectId={saveSelectId} />
         </Stack>

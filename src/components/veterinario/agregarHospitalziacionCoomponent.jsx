@@ -97,16 +97,23 @@ const handleSubmit = async (event) => {
       let envio = {}
       const fechaHoy = dayjs().format('MM-DD-YYYY')
       if (id !== null && id) {
-          const { fechaCita, horaCita, id_empleado, id_mascota } = values;
-          envio = {
-              fechaCita: dateFormater({time: fechaCita, format: 'YYYY-MM-DD'}),
-              horaCita: dateFormater({time: horaCita, format: 'HH:mm'}),
-              idEmpleado: id_empleado,
-              idMascota: id_mascota
-          };
+          const { fecha_salida_hospitalizacion:fechaSalida,contenido_hospitalizacion, observaciones, servicio_finalizado_hospitalizacion:servicioFinializadoHospitalizacion } = values;
+          if(servicioFinializadoHospitalizacion === 0){
+            envio = {
+              fechaSalida:null,
+              contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}`,
+              servicioFinializadoHospitalizacion
+          }
+          } else {
+              envio = {
+                fechaSalida:dateFormater({time: fechaSalida, format: 'YYYY-MM-DD'}),
+                contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}`,
+                servicioFinializadoHospitalizacion
+            }
+          }
           endpoint += `/${values.id}`
           httpMethod = 'patch'
-      } else {
+      }else {
           const { idMascota, observaciones } = values
           envio = {
               idMascota, 

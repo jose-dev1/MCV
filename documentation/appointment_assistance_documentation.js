@@ -1,7 +1,7 @@
 // Llamar citas del dia
 /**
  * @swagger
- * /asistencia/:
+ * /asistencia:
  *   get:
  *     summary: Obtiene las citas del dia actual
  *     tags: [Gestion Asistencia]
@@ -56,7 +56,6 @@
  *       '500':
  *          description: Error interno del servidor
  */
-
 // Marcar inasistencia en una cita
 /**
  * @swagger

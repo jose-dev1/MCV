@@ -54,7 +54,7 @@ export class HospitalizationsController {
 
   static async delete (req, res) {
     const { id } = req.params
-    const data = req.data
+    const data = req.body
     const response = await HospitalizationsModel.delete({ id, input: data })
     if (response instanceof NotFoundUser) {
       res.status(404).json({ message: 'No se encuentra la historia clinica a eliminar' })

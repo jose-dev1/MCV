@@ -38,12 +38,10 @@ export class HospitalizationsModel {
     try {
       const { contenidoHospitalizacion, idMascota } = input
       const [[comprobacion]] = await connection.query(`SELECT servicio_finalizado_hospitalizacion, estado_hospitalizacion FROM hospitalizaciones
-      WHERE  id_mascota = UUID_TO_BIN(?)`, [idMascota])
+      WHERE  id_mascota = UUID_TO_BIN(?) AND servicio_finalizado_hospitalizacion = 0 AND estado_hospitalizacion= 1`, [idMascota])
 
-      if (comprobacion) {
-        const { servicio_finalizado_hospitalizacion: servicioFinializadoHospitalizacion, estado_hospitalizacion: estadoHospitaliazcion } = comprobacion
-        if (servicioFinializadoHospitalizacion === 0 && estadoHospitaliazcion === 1) throw new InfoAlreadyExisting()
-      }
+      if (comprobacion) throw new InfoAlreadyExisting()
+
       const insert = await connection.query(`INSERT INTO hospitalizaciones (contenido_hospitalizacion,estado_hospitalizacion,servicio_finalizado_hospitalizacion,id_mascota) VALUES
       (?,1,0,UUID_TO_BIN(?))`, [contenidoHospitalizacion, idMascota])
       return (insert)
@@ -56,29 +54,29 @@ export class HospitalizationsModel {
   static async update ({ id, input }) {
     try {
       const { fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion } = input
-      const [[existencia]] = await connection.query(`SELECT estado_hospitalizacion FROM hospitalizaciones
-      WHERE id_hospitalizacion = UUID_TO_BIN(?)`, [id])
-
-      const { estado_hospitalizacion: estadoHospitaliazcion } = existencia
-
-      if (estadoHospitaliazcion === 0) throw new AccountAlreadyDisable()
       const datosAntiguos = await this.getId({ id })
       if (datosAntiguos instanceof NoDataFound) throw new NoDataFound()
+
+      const [[existencia]] = await connection.query(`SELECT estado_hospitalizacion FROM hospitalizaciones
+      WHERE id_hospitalizacion = UUID_TO_BIN(?) AND estado_hospitalizacion = 0`, [id])
+      if (existencia) throw new AccountAlreadyDisable()
+
       const update = await connection.query(`UPDATE hospitalizaciones 
-      SET fecha_salida = ?,
+      SET fecha_salida_hospitalizacion = ?,
       contenido_hospitalizacion = ?,
       servicio_finalizado_hospitalizacion = ?
-      WHERE id_hospitalizaciones = UUID_TO_BIN(?)
-      `, [fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion])
+      WHERE id_hospitalizacion = UUID_TO_BIN(?)
+      `, [fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion, id])
       return (update)
     } catch (error) {
+      console.log(error)
       return (error)
     }
   }
 
   static async delete ({ id, input }) {
     try {
-      const { anotacionHospitalizacion, estadoHospitalizacion } = input
+      const { anotacion } = input
       const [[existencia]] = await connection.query(`SELECT estado_hospitalizacion FROM hospitalizaciones
       WHERE id_hospitalizacion = UUID_TO_BIN(?)`, [id])
       if (!existencia) throw new NotFoundUser()
@@ -87,10 +85,11 @@ export class HospitalizationsModel {
       if (estado === 0) throw new AccountAlreadyDisable()
       const response = await connection.query(`UPDATE hospitalizaciones
       SET anotacion_hospitalizacion = ?,
-      estado_hospitalizacion = ?
-      WHERE id_hospitalizacion = UUID_TO_BIN(?)`, [anotacionHospitalizacion, estadoHospitalizacion, id])
+      estado_hospitalizacion = 0
+      WHERE id_hospitalizacion = UUID_TO_BIN(?)`, [anotacion, id])
       return (response)
     } catch (error) {
+      console.log(error)
       return (error)
     }
   }

@@ -63,4 +63,15 @@ export default class ExamenesVeterinariosController {
       res.status(201).json({ message: 'Examen desactivado satisfactoriamente' })
     }
   }
+
+  static async getExamTypes (req, res) {
+    const response = await ExamenesVeteriarioModel.getExamTypes()
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No se encuentra el registro a editar' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno en el servidor' })
+    } else {
+      res.json(response)
+    }
+  }
 };

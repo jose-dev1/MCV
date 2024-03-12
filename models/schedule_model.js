@@ -38,11 +38,13 @@ export class ScheduleModel {
 
   static async getFecha ({ fechaCita, idEmpleado }) {
     try {
-      const [getCita] = await connection.query(`SELECT Hora_Cita,nombre_mascota,descripcion_servicio from cita
+      const [getCita] = await connection.query(`SELECT BIN_TO_UUID(id_cita) id, primer_nombre_cliente,primer_apellido_cliente, tipo_mascota, Hora_Cita, nombre_mascota,descripcion_servicio from cita
       INNER JOIN empleados ON empleados.id_empleado=cita.id_empleado
       INNER JOIN mascotas ON mascotas.id_mascota=cita.id_mascota
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
-      WHERE  fecha_cita = ? AND empleados.id_empleado = UUID_TO_BIN(?);`, [fechaCita, idEmpleado])
+      INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+      INNER JOIN tipo_mascota ON mascotas.id_tipo_mascota = tipo_mascota.id_tipo_mascota
+      WHERE fecha_cita = ? AND estado_cita = 1 AND empleados.id_empleado = UUID_TO_BIN(?);`, [fechaCita, idEmpleado])
       if (!getCita) throw new NoDataFound()
       if (getCita.length === 0) throw new NoDataFound()
       return (getCita)

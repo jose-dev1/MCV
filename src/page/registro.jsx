@@ -48,7 +48,7 @@ const Registro = () => {
         setErrorMessage('');
       }
     } catch (error) {
-      setErrorMessage('El correo electrónico ya está en uso');
+      setErrorMessage('Error al registrar su cuenta');
       setSuccessMessage('');
     }
   };

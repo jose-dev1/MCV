@@ -14,6 +14,7 @@ import localizedFormat from 'dayjs/plugin/localizedFormat';
 import isBetween from 'dayjs/plugin/isBetween';
 import '../../assets/css/sidebar.css';
 import Infocard from '../../components/client/infoComponent';
+import Swal from 'sweetalert2';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
@@ -34,6 +35,7 @@ function Perfil() {
     direccion_cliente: '',
     telefono_cliente: '',
     estado_cliente: '1',
+    id_usuario: usuario.correo_usuario,
   });
 
   const manejarCambio = (campo, valor) => {
@@ -59,8 +61,12 @@ function Perfil() {
     }
 
     try {
-      const respuesta = await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
-      console.log('Peticion enviada exitosamente:', respuesta.data);
+      await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
+      Swal.fire({
+        title: "Buen trabajo!",
+        text: "Se ha registrado como cliente!",
+        icon: "success"
+      });
     } catch (error) {
       console.error('Error al enviar la petición:', error);
       setError('Error al enviar la petición.');

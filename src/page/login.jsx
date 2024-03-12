@@ -50,9 +50,7 @@ function Login() {
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setuserAuth(true)
-        if (recuerdame) {
 
-        }
       } else {
         setMensajeError(response.data.message);
         setMostrarAlerta(true);
@@ -66,6 +64,13 @@ function Login() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+
+
+    if (user.estado_verificacion_usuario === 0) {
+      setMostrarAlerta(true);
+      setMensajeError('Tu cuenta está desactivada.');
+      return;
+    }
 
     if (user) {
       const userRoutes = {

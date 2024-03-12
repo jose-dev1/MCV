@@ -16,6 +16,7 @@ import { adminRoutes, genreTypes, userTypeRouter } from './routes/admin_routes.j
 import { groomerRoutes } from './routes/groomer_routes.js'
 import { appointmentAssistanceRouter } from './routes/appointment_assistance_routes.js'
 import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
+import { vacunasRouter } from './routes/vacunas_routes.js'
 import { swagger } from './middlewares/swagger.js'
 import { examenesVeteriarioRouter } from './routes/examenes_veterinarios_routes.js'
 
@@ -44,6 +45,7 @@ app.use('/asistencia', appointmentAssistanceRouter)
 app.use('/hospitalizaciones', hospitalizacionRouter)
 app.use('/userTypes', userTypeRouter)
 app.use('/genreTypes', genreTypes)
+app.use('/carnet', vacunasRouter)
 app.use('/examenesVeterinario', examenesVeteriarioRouter)
 swagger(app, PORT)
 

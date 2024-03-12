@@ -2,7 +2,7 @@ import connection from "./connection_database.js"
 import "dotenv/config"
 import bcrypt from "bcrypt"
 import crypto from "crypto"
-import Mailjet from "node-mailjet"
+import Mailjet from 'node-mailjet'
 
 export class registroModel {
   static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
@@ -34,22 +34,24 @@ export class registroModel {
   }
 
   static async enviarCorreo({ userCorreo }) {
-    const mailjet = Mailjet.apiConnect(
-      "fb70ac85f9fc0695f566f0d6fc96b94c",
-      "b9fec93859032dd287fa4c1c25717223"
-    )
+    const mailjetClient = Mailjet.apiConnect(
+      '34538d099c891c567832df06c3604b5d',
+      '90ae5d5f8d216c7842159b9af30b2280'
+    );
+    var str = userCorreo;
+    var res = str.split("@");
 
-    const request = mailjet.post("send", { version: "v3.1" }).request({
+    const request = mailjetClient.post("send", { version: "v3.1" }).request({
       Messages: [
         {
           From: {
-            Email: "jose.cm30@hotmail.com",
-            Name: "Mailjet Pilot",
+            Email: "william.castano@ingenews.co",
+            Name: "Verificacion de cuenta MCV",
           },
           To: [
             {
               Email: userCorreo,
-              Name: "Jose Castaño",
+              Name: "Hola" + res[0],
             },
           ],
           Subject: "Your email flight plan!",
@@ -60,14 +62,12 @@ export class registroModel {
         },
       ],
     })
-
-    request
-      .then((result) => {
-        console.log(result.body)
-      })
-      .catch((err) => {
-        console.log(err.statusCode)
-      })
+    try {
+      const result = await request;
+      console.log(result.body);
+    } catch (err) {
+      console.error(err.statusCode, err.message);
+    }
   }
   static async registroClientes({
     numero_documento_cliente,

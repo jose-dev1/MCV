@@ -69,7 +69,7 @@ export class registroModel {
         console.log(err.statusCode)
       })
   }
-  static async registroCliente({
+  static async registroClientes({
     numero_documento_cliente,
     id_tipo_documento,
     lugar_expedicion_documento,
@@ -83,11 +83,16 @@ export class registroModel {
     id_usuario,
   }) {
     try {
-      const [registrosCl] = await connection.query("INSERT INTO clientes ()")
-      return { success: true }
+      const [[idUsuario]] = await connection.query(`SELECT BIN_TO_UUID(id_usuario) id_usuario FROM usuarios WHERE correo_usuario = ?`, [id_usuario]);
+      const { id_usuario: idRegistro } = idUsuario
+      const [registrosCl] = await connection.query("INSERT INTO clientes (numero_documento_cliente, id_tipo_documento, lugar_expedicion_documento, primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente, telefono_cliente, direccion_cliente, estado_cliente, id_usuario) VALUES (?,?,?,?,?,?,?,?,?,?,UUID_TO_BIN(?))",
+        [numero_documento_cliente, id_tipo_documento, lugar_expedicion_documento, primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente, telefono_cliente, direccion_cliente, estado_cliente, idRegistro]
+      );
+      return { success: true };
     } catch (error) {
-      console.error("Error al registrar:", err)
-      return { error: "Error interno del servidor" }
+      console.error("Error al registrar:", error);
+      return { error: "Error interno del servidor" };
     }
   }
+
 }

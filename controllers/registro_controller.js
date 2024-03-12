@@ -39,7 +39,7 @@ export class RegistroController {
       estado_cliente,
       id_usuario,
     } = req.body
-
+    console.log(req.body)
     try {
       const respuesta = await registroModel.registroClientes({
         numero_documento_cliente,

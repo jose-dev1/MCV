@@ -6,7 +6,7 @@ export class LoginModel {
   static async login ({ userCorreo, userPassword }) {
     try {
       const [usuario] = await connection.query(
-        'SELECT * FROM usuarios WHERE correo_usuario = ?',
+        'SELECT id_usuario, correo_usuario, password_usuario, link_foto_ususario, fecha_creacion_usuario, fecha_eliminacion, estado_usuario, anotacion_usuario, estado_verificacion_usuario, id_genero, id_tipo_usuario FROM usuarios WHERE correo_usuario = ?',
         [userCorreo]
       )
 

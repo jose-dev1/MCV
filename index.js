@@ -19,7 +19,7 @@ import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
 import { vacunasRouter } from './routes/vacunas_routes.js'
 import { swagger } from './middlewares/swagger.js'
 import { examenesVeteriarioRouter } from './routes/examenes_veterinarios_routes.js'
-
+import fileUpload from 'express-fileupload'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -27,6 +27,7 @@ app.use(cookieParser())
 app.use(json())
 app.use(corsMiddleware())
 app.use(cokiesSecret())
+app.use(fileUpload())
 // midewlere swagger
 
 app.disable('x-powered-by')

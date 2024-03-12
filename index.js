@@ -19,6 +19,7 @@ import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
 import { vacunasRouter } from './routes/vacunas_routes.js'
 import { swagger } from './middlewares/swagger.js'
 import { examenesVeteriarioRouter } from './routes/examenes_veterinarios_routes.js'
+import { homeVetRoutes } from './routes/home_vet_routes.js'
 import fileUpload from 'express-fileupload'
 const PORT = process.env.PORT ?? 1234
 
@@ -48,6 +49,7 @@ app.use('/userTypes', userTypeRouter)
 app.use('/genreTypes', genreTypes)
 app.use('/carnet', vacunasRouter)
 app.use('/examenesVeterinario', examenesVeteriarioRouter)
+app.use('/inicio-vet', homeVetRoutes)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

@@ -19,7 +19,7 @@ export default function Ejemplo({ id }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:400', formulario)
+        axios.post('http://localhost:4321/envio-email/contactanos', formulario)
             .then((response) => {
                 console.log('Correo enviado con éxito', response.data);
             })

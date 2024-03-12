@@ -32,7 +32,7 @@ const columns = [
         field: 'estado_servicio_groomer',
         headerName: 'Estado del servicio',
         width: 200,
-        valueGetter: (params) => params.row.estado_servicio_groomer === 1 ? 'Finalizado' : 'En proceso'
+        valueGetter: (params) => params.row.servicio_finalizado_groomer === 1 ? 'Finalizado' : 'En proceso'
     },
 ];
 

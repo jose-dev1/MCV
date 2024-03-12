@@ -35,7 +35,9 @@ const defaultValues = {
     numeroDocumento: '',
     notaServicio: '',
     idServicio: 8,
-    idMascota: ''
+    idMascota: '',
+    servicio_finalizado_groomer: ''
+
 }
 
 
@@ -156,7 +158,7 @@ export const FormServisGroomer = (props) => {
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {
-                const { servicioFinalizado, contenido_servicio_groomer, notaServicio: notasSinFecha } = values;
+                const { servicio_finalizado_groomer:servicioFinalizado, contenido_servicio_groomer, notaServicio: notasSinFecha } = values;
                 envio = {
                     servicioFinalizado,
                     notaServicio: `${contenido_servicio_groomer} ${fechaHoy}:${notasSinFecha}`
@@ -311,10 +313,10 @@ export const FormServisGroomer = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='servicioFinalizado'
+                                id={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' :'servicio_finalizado_groomer'}
                                 label='Servicio Finalizado'
-                                name='servicioFinalizado'
-                                value={values.servicio_finalizado_groomer ? values.servicio_finalizado_groomer : values.servicioFinalizado}
+                                name={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' :'servicio_finalizado_groomer'}
+                                value={values.servicio_finalizado_groomer === '' ? values.servicioFinalizado : values.servicio_finalizado_groomer}
                                 onChange={handleInputChange}
                                 items={servicioFinalizado}
                                 disabled={false}

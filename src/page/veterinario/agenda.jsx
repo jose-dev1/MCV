@@ -2,170 +2,65 @@ import Sidebar from '../../components/sidebarComponent'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import useSelectRow from '../../Hooks/useSelectRow';
-import AlertaCanceclarCita from '../../components/veterinario/alertCancelarCita';
 import Stack from '@mui/material/Stack';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import AlertEliminar from '../../components/dash/alertEliminar';
+import useForm from '../../Hooks/useForm';
+import InputDate from '../../components/dash/inputDate'
+import dayjs from 'dayjs';
+import { dateFormater } from '../../utils/dateFormater';
 
 const columns = [
     { 
       field: 'duenno', 
       headerName: 'Propietario',
       width: 170,
-      valueGetter: (params) => `${params.row.primer_nombre || ''} ${params.row.primer_apellido || ''}`
+      valueGetter: (params) => `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`
     },
     { 
-      field: 'descripcion', 
+      field: 'descripcion_servicio', 
       headerName: 'Descripcion', 
       width: 210 
     },
     { 
-      field: 'nombre', 
-      headerName: 'Nombre Cliente', 
+      field: 'nombre_mascota', 
+      headerName: 'Nombre Mascota',
       width: 170 
     },
     { 
-      field: 'tipoEspecie', 
+      field: 'tipo_mascota', 
       headerName: 'Especie', 
       width: 140 
     },
     { 
-      field: 'horaCita', 
+      field: 'Hora_Cita', 
       headerName: 'Hora Cita', 
       width: 140 
-    },
-    { 
-      field: 'idEstadoValor', 
-      headerName: 'Asistencia', 
-      width: 140 
-    },
+    }
 ]
-  
-const rows = [
-    { 
-        id: 1, 
-        nombre: 'Max', 
-        idestado: 1, 
-        primer_nombre: 'Juan', 
-        primer_apellido: 'Pérez', 
-        idTipoEspecie: 0, 
-        tipoEspecie: 'Perro', 
-        descripcion: 'Cita para Desparacitación', 
-        horaCita: '10:00 AM', 
-        idEstado: 1, 
-        idEstadoValor: 'Si' },
-    { 
-      id: 2, 
-      nombre: 'Whiskers', 
-      idestado: 0, 
-      primer_nombre: 'María', 
-      primer_apellido: 'López', 
-      idTipoEspecie: 1,
-      tipoEspecie: 'Gato', 
-      descripcion: 'Cita de control', 
-      horaCita: '11:30 AM', 
-      idEstado: 0, 
-      idEstadoValor: 'No' },
-    { 
-      id: 3, 
-      nombre: 'Buddy', 
-      idestado: 0, 
-      primer_nombre: 'Carlos', 
-      primer_apellido: 'Gómez', 
-      idTipoEspecie: 0, 
-      tipoEspecie: 'Perro', 
-      descripcion: 'Cita de cirugia', 
-      horaCita: '02:15 PM', 
-      idEstado: 1, 
-      idEstadoValor: 'Si' },
-    { 
-      id: 4, 
-      nombre: 'Mittens', 
-      idestado: 0, 
-      primer_nombre: 'Laura', 
-      primer_apellido: 'Martínez', 
-      idTipoEspecie: 1, 
-      tipoEspecie: 'Gato', 
-      descripcion: 'Aplicacion de Vacunación', 
-      horaCita: '03:45 PM', 
-      idEstado: 0, 
-      idEstadoValor: 'No' 
-    },
-    { 
-      id: 5, 
-      nombre: 'Rocky', 
-      idestado: 1, 
-      primer_nombre: 'Pedro', 
-      primer_apellido: 'Rodríguez', 
-      idTipoEspecie: 0, 
-      tipoEspecie: 'Perro', 
-      descripcion: 'Cita General', 
-      horaCita: '09:30 AM', 
-      idEstado: 1, 
-      idEstadoValor: 'Si' 
-    },
-    { 
-      id: 6, 
-      nombre: 'Misty', 
-      idestado: 0, 
-      primer_nombre: 'Ana', 
-      primer_apellido: 'Sánchez', 
-      idTipoEspecie: 1, 
-      tipoEspecie: 'Gato', 
-      descripcion: 'Cita de control', 
-      horaCita: '01:00 PM', 
-      idEstado: 0, 
-      idEstadoValor: 'No' },
-    { 
-      id: 7, 
-      nombre: 'Charlie', 
-      idestado: 1, 
-      primer_nombre: 'Mario', 
-      primer_apellido: 'Fernández', 
-      idTipoEspecie: 0, 
-      tipoEspecie: 'Perro', 
-      descripcion: 'Cita de cirugia', 
-      horaCita: '11:45 AM', 
-      idEstado: 1, 
-      idEstadoValor: 'Si' },
-    { 
-      id: 8, 
-      nombre: 'Luna', 
-      idestado: 0, 
-      primer_nombre: 'Isabel', 
-      primer_apellido: 'Díaz', 
-      idTipoEspecie: 1, 
-      tipoEspecie: 'Gato', 
-      descripcion: 'Toma de Examenes', 
-      horaCita: '04:30 PM', 
-      idEstado: 0, idEstadoValor: 'No' },
-    { 
-      id: 9, 
-      nombre: 'Maximus', 
-      idestado: 1, 
-      primer_nombre: 'Héctor', 
-      primer_apellido: 'Luna', 
-      idTipoEspecie: 0, 
-      tipoEspecie: 'Perro', 
-      descripcion: 'Expedicion de Certificado', 
-      horaCita: '02:00 PM', 
-      idEstado: 1, idEstadoValor: 'Si' },
-    { 
-      id: 10, 
-      nombre: 'Oliver', 
-      idestado: 0, 
-      primer_nombre: 'Elena', 
-      primer_apellido: 'García', 
-      idTipoEspecie: 1, 
-      tipoEspecie: 'Gato', 
-      descripcion: 'Cita de control', 
-      horaCita: '10:45 AM', 
-      idEstado: 0, 
-      idEstadoValor: 'No' }
-];
 
+const defaultValues ={
+  fechaCita: dayjs()
+}
 export default function AgendaVeterinario() {
   const {selectId, saveSelectId} = useSelectId()
-  const {saveSelectRow} = useSelectRow()
+  const {values, handleInputChangeDate} = useForm(defaultValues)
+
+  const [rows, setRows] = useState([])
+  const [actualizar, setActualizar] = useState(false)
+
+  useEffect(()=>{
+    const fetchData= async ()=>{
+      try {
+        const {data} = await axios.get(`http://localhost:4321/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/1efc31a0-dccf-11ee-992f-42010a400007`)
+        setRows(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  },[actualizar, values.fechaCita])
 
   return (
     <div className='flex gap-9'>
@@ -186,10 +81,27 @@ export default function AgendaVeterinario() {
   >
         <Botonera 
           title='Gestiona tu Agenda'
-          editar={
-            <AlertaCanceclarCita idSeleccionado={selectId} tooltip={'Cancelar cita'}/>
-          }/>
-        <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
+          eliminar={<AlertEliminar 
+            idSeleccionado={selectId} 
+            tooltip='Cancelar Cita' 
+            titulo='¿Desea Cancelar la cita seleccionada?'
+            endPoint='agendar/desabilitar'
+            menssage='Por favor, especifique el motivo por el cual desea cancelar esta cita. Tenga en cuenta que este cambio es irreversible.'
+            actualizar= {setActualizar}
+            dato={actualizar}/>}
+          />
+          <div className='flex'>
+            <InputDate
+              id='fechaCita'
+              fullWidth
+              label='Fecha cita'
+              name='fechaCita'
+              fecha={values.fechaCita}
+              onChange={handleInputChangeDate}
+              disabled={false}
+              required />
+          </div>
+        <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
         </Stack>
     </div>
   )

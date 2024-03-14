@@ -66,11 +66,7 @@ function Login() {
     const user = JSON.parse(localStorage.getItem('user'));
 
 
-    if (user.estado_verificacion_usuario === 0) {
-      setMostrarAlerta(true);
-      setMensajeError('Tu cuenta está desactivada.');
-      return;
-    }
+
 
     if (user) {
       const userRoutes = {

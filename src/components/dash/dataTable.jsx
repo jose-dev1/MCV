@@ -10,10 +10,6 @@ export default function DataTable(props) {
       primary: { main: '#1976d2' }
     }
   }, esES)
-
-
-
-
   return (
     <ThemeProvider theme={theme}>
       <div className='mt-3 pl-10 pr-10' style={{ height: 'auto', width: '100%' }}>

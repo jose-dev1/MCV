@@ -2,7 +2,7 @@ import React from 'react';
 import Sidebar from '../../components/sidebarComponent';
 import { Stack } from '@mui/material';
 import FormAgendarCitas from '../../components/client/formAgendarCitas';
-
+import WhatsAppComponent from '../../components/whatsappComponent';
 
 export default function AgendarCita() {
 
@@ -24,6 +24,7 @@ export default function AgendarCita() {
         }}
       >
         <FormAgendarCitas />
+        <WhatsAppComponent />
       </Stack>
     </div>
   );

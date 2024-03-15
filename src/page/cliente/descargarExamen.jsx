@@ -7,6 +7,7 @@ import useSelectRow from '../../Hooks/useSelectRow';
 import Swal from "sweetalert2";
 import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
+import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 
 const columns = [
@@ -80,6 +81,7 @@ export default function DescargarExamen() {
         />
         <DataTable rows={datos} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
       </div>
+      <WhatsAppComponent />
     </div>
   )
 }

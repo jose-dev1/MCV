@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 const columns = [
   { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
@@ -80,7 +81,7 @@ export default function DescargarCertificado() {
         />
         <DataTable rows={examen} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
       </div>
-
+      <WhatsAppComponent />
     </div>
   )
 }

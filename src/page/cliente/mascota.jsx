@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Stack from '@mui/material/Stack';
 import Sidebar from '../../components/sidebarComponent'
 import Logo from '../../assets/img/gatito.avif'
-
+import WhatsAppComponent from '../../components/whatsappComponent';
 
 
 export default function Mascota() {
@@ -53,7 +53,7 @@ export default function Mascota() {
                     </div>
                 </div>
             </Stack>
-
+            <WhatsAppComponent />
         </div>
     )
 }

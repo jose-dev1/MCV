@@ -15,7 +15,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import '../../assets/css/sidebar.css';
 import Infocard from '../../components/client/infoComponent';
 import Swal from 'sweetalert2';
-
+import WhatsAppComponent from '../../components/whatsappComponent';
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
 
@@ -251,6 +251,7 @@ function Perfil() {
           </form>
         </div>
       </Stack>
+      <WhatsAppComponent />
     </div>
   );
 }

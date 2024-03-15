@@ -9,20 +9,23 @@ import AlertEliminar from '../../components/dash/alertEliminar'
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import dayjs from 'dayjs';
-
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 const columns = [
   {
-    field: 'nombreDueño', headerName: 'Nombre Cliente', width: 200,
+    field: 'nombreDueño', headerName: 'Nombre Cliente', width: 230,
     valueGetter: (params) =>
       `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`
   },
-  { field: 'nombre_mascota', headerName: 'Nombre Paciente', width: 170 },
+  { field: 'nombre_mascota', headerName: 'Nombre Paciente', width: 200 },
   {
-    field: 'telefono_cliente', headerName: 'Telefono contacto', width: 200
+    field: 'telefono_cliente', headerName: 'Telefono contacto', width: 230
   },
-  { field: 'fecha_hospitalizacion', headerName: 'Fecha ingreso', width: 130,
+  { field: 'fecha_hospitalizacion', headerName: 'Fecha ingreso', width: 160,
   valueGetter: (params) =>
-  `${dayjs(params.row.fecha_hospitalizacion).format('MM-DD-YYYY') || ''}`},
+  `${dayjs(params.row.fecha_hospitalizacion).format('MM-DD-YYYY')}`},
+  { field: 'fecha_salida', headerName: 'Fecha salida', width: 160,
+  valueGetter: (params) =>
+  `${params.row.fecha_salida_hospitalizacion? dayjs(params.row.fecha_salida_hospitalizacion).format('MM-DD-YYYY'):'Ahun ingresado'}`},
   { field: 'servicioFinalizado', headerName: 'Servicio Finalizado', width: 200
   ,
   valueGetter: (params) =>
@@ -35,6 +38,7 @@ export default function Hospitalizaciones () {
   const [dataMostrar, setDataMostrar] = useState([]);
   const [error, setError] = useState(null)
   const [actualizar, setActualizar] = useState(false)
+  const [success,setSuccess] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +46,8 @@ export default function Hospitalizaciones () {
         const result = await axios.get('http://localhost:4321/hospitalizaciones');
         setDataMostrar(result.data)
       } catch (error) {
-        setError('Error: ' + error.message);
+        setDataMostrar([])
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
     };
   
@@ -75,7 +80,9 @@ export default function Hospitalizaciones () {
             label='Agregar Hospitalización'
             actualizar= {setActualizar}
             dato={actualizar}
-            id={null}/>}
+            id={null}
+            successMessage={setSuccess}
+            errorMessage={setError}/>}
           editar={
             <FormAgregarHozpitalizaciones 
               icon={<PencilSquareIcon className='w-6 h-6' />}
@@ -85,6 +92,8 @@ export default function Hospitalizaciones () {
               id={selectId}
               actualizar= {setActualizar}
               dato={actualizar}
+              successMessage={setSuccess}
+              errorMessage={setError}
             />
           } 
           eliminar={<AlertEliminar 
@@ -98,6 +107,8 @@ export default function Hospitalizaciones () {
         />
         <DataTable rows={dataMostrar} columns={columns} selectId={saveSelectId} />
         </Stack>
+        <AlertPrincipal severity='error' message={error}/>
+        <AlertPrincipal severity='success' message={success}/>
     </div>
   )
 }

@@ -1,11 +1,12 @@
 import { HospitalizationsModel } from '../models/hospitalizations_model.js'
 import { NoDataFound, NotFoundUser, InfoAlreadyExisting, AccountAlreadyDisable } from '../squemas/errors_squemas.js'
+import { validatehospitalizationCreate, validateHospitalizationUpdate, validateHospitalizationDelete } from '../squemas/hospitalizations.js'
 
 export class HospitalizationsController {
   static async getAll (req, res) {
     const response = await HospitalizationsModel.getAll()
     if (response instanceof NoDataFound) {
-      res.status(404).json({ message: 'No se encuentran hoospitalizaciones registadas' })
+      res.status(404).json({ message: 'No se encuentran hospitalizaciones registadas' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error en el servidor' })
     } else {
@@ -26,8 +27,12 @@ export class HospitalizationsController {
   }
 
   static async create (req, res) {
-    const data = req.body
-    const response = await HospitalizationsModel.create({ input: data })
+    const result = validatehospitalizationCreate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+
+    const response = await HospitalizationsModel.create({ input: result.data })
     if (response instanceof InfoAlreadyExisting) {
       res.status(400).json({ message: 'La mascota ya tiene una hospitalizacion activa en el sistema' })
     } else if (response instanceof Error) {
@@ -39,8 +44,11 @@ export class HospitalizationsController {
 
   static async update (req, res) {
     const { id } = req.params
-    const data = req.body
-    const response = await HospitalizationsModel.update({ id, input: data })
+    const result = validateHospitalizationUpdate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await HospitalizationsModel.update({ id, input: result.data })
     if (response instanceof AccountAlreadyDisable) {
       res.status(400).json({ message: 'la hospitalizacion ya fue eliminada con anterioridad' })
     } else if (response instanceof NoDataFound) {
@@ -54,8 +62,11 @@ export class HospitalizationsController {
 
   static async delete (req, res) {
     const { id } = req.params
-    const data = req.body
-    const response = await HospitalizationsModel.delete({ id, input: data })
+    const result = validateHospitalizationDelete(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await HospitalizationsModel.delete({ id, input: result.data })
     if (response instanceof NotFoundUser) {
       res.status(404).json({ message: 'No se encuentra la historia clinica a eliminar' })
     } else if (response instanceof AccountAlreadyDisable) {

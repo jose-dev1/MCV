@@ -54,6 +54,7 @@ export class HospitalizationsModel {
   static async update ({ id, input }) {
     try {
       const { fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion } = input
+      console.log(fechaSalida)
       const datosAntiguos = await this.getId({ id })
       if (datosAntiguos instanceof NoDataFound) throw new NoDataFound()
 

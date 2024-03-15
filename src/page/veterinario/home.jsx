@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ExclamationTriangleIcon, ClipboardDocumentCheckIcon, CalendarDaysIcon, BugAntIcon } from '@heroicons/react/24/outline';
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 const defaultValues={
     hospitalizaciones_activas: 0,
     citas_dia: 0,
@@ -15,6 +16,7 @@ export default function Home() {
     const [data, setData] = useState(defaultValues)
     const [lastUpdateTime, setLastUpdateTime] = useState(new Date());
     const [timeElapsed, setTimeElapsed] = useState(0);
+    const [error, setError] = useState('')
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,7 +25,7 @@ export default function Home() {
                 setData(data);
                 setLastUpdateTime(new Date());
             } catch (error) {
-                console.log(error);
+                error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
             }
         };
 
@@ -111,6 +113,7 @@ export default function Home() {
                     </div>
                 </div>
             </Stack>
+            <AlertPrincipal severity='error' message={error}/>
         </div>
 
     );

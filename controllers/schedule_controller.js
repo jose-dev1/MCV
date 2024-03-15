@@ -1,5 +1,8 @@
 import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
 import { ScheduleModel } from '../models/schedule_model.js'
+import { validateScheduleCreate, validateScheduleUPdate } from '../squemas/schedule.js'
+import { validateHospitalizationDelete } from '../squemas/hospitalizations.js'
+
 export class ScheduleController {
   static async getEspecialista (req, res) {
     const { especialista } = req.params
@@ -70,7 +73,7 @@ export class ScheduleController {
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentra especialistas para la solicitud' })
     } else if (response instanceof Error) {
-      res.status(500).json({ message: 'Error interno del servidor' })
+      res.status(500).json({ message: 'Error interno del servido' })
     } else {
       res.json(response)
     }
@@ -90,8 +93,11 @@ export class ScheduleController {
   // fin metodos de otros controladores
 
   static async create (req, res) {
-    const result = req.body
-    const response = await ScheduleModel.create({ input: result })
+    const result = validateScheduleCreate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await ScheduleModel.create({ input: result.data })
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'Ya existe una cita registrada en el espacio seleccionado' })
     } else if (response instanceof InfoAlreadyExisting) {
@@ -106,9 +112,12 @@ export class ScheduleController {
   }
 
   static async updateCita (req, res) {
-    const result = req.body
     const { id } = req.params
-    const response = await ScheduleModel.updateCita({ id, input: result })
+    const result = validateScheduleUPdate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await ScheduleModel.updateCita({ id, input: result.data })
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'Ya existe una cita registrada en el espacio seleccionado' })
     } else if (response instanceof InfoAlreadyExisting) {
@@ -121,10 +130,12 @@ export class ScheduleController {
   }
 
   static async desactivarCita (req, res) {
-    const anotacion = req.body
     const { id } = req.params
-
-    const response = await ScheduleModel.desactivarCita({ id, input: anotacion })
+    const result = validateHospitalizationDelete(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await ScheduleModel.desactivarCita({ id, input: result.data })
 
     if (response instanceof AccountAlreadyDisable) {
       res.status(409).json({ message: 'La cita ya ha sido eliminado con aterioridad' })

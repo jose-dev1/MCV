@@ -74,7 +74,7 @@ export default function AddEmploye() {
                     title='Gestionar Vacuna'
                     agregar={<Maurisio
                         icon={<PlusIcon className='w-6 h-6' />}
-                        tooltip='Agregar Empleado'
+                        tooltip='Agregar vacuna'
                         bgColor='secondary'
                         label='Agregar Empleado'
                         actualizar={setActualizar}
@@ -85,7 +85,7 @@ export default function AddEmploye() {
                             icon={<PencilSquareIcon className='w-6 h-6' />}
                             tooltip='Editar Empleado'
                             bgColor='primary'
-                            label='Editar Empleado'
+                            label='Editar empleado'
                             datosEditables={selectRow}
                             actualizar={setActualizar}
                             dato={actualizar}

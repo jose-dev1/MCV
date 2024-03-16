@@ -1,4 +1,5 @@
 import { AdminEmpleadoModel } from '../models/admin_empleado_model.js'
+import { validateEmployeeDataCreate } from '../squemas/admin.js'
 import { AccountAlreadyDisable, DuplicateInfo, InfoAlreadyExisting, NoDataFound, NotFoundUser } from '../squemas/errors_squemas.js'
 
 export class AdminEmpleadoController {
@@ -26,8 +27,11 @@ export class AdminEmpleadoController {
   }
 
   static async create (req, res) {
-    const input = req.body
-    const response = await AdminEmpleadoModel.createEmployee(input)
+    const result = validateEmployeeDataCreate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await AdminEmpleadoModel.createEmployee(result.data)
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'el usuario o empleado ya esta registrado' })
     } else if (response instanceof Error) {

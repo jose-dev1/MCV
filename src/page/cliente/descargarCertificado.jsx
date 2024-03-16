@@ -80,7 +80,7 @@ export default function DescargarCertificado() {
       }
     };
     fetchDataCertificado();
-  }, []);
+  }, [])
 
   return (
     <div className='flex gap-20'>

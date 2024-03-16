@@ -84,7 +84,7 @@ export default function Desparacitacion() {
                         tooltip='Desactivar Desparacitacion'
                         titulo='¿Desea desactivar el examen seleccionada?'
                         endPoint='desparacitacion/delete'
-                        menssage='Por favor, especifique el motivo por el cual desea desactivar la desparacitacion. Tenga en cuenta que este cambio es irreversible.'
+                        menssage='Por favor especifique el motivo por el cual desea desactivar la desparacitacion. Tenga en cuenta que este cambio es irreversible.'
                         actualizar={setActualizar}
                         dato={actualizar} />}
                 />

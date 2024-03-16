@@ -75,7 +75,7 @@ export default function DescargarExamen() {
         console.error("No estoy trayendo los datos", error);
       }
     };
-    fetchData();
+    fetchData()
   }, []);
 
   return (

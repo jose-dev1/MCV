@@ -93,7 +93,7 @@ export const FromAgregarDesparacitacion = (props) => {
             const response = await axios.post('http://localhost:4321/desparacitaciones', values);
             setSuccess('Desparacitación creada con éxito.');
         } catch (error) {
-            setError('Error al crear la desparacitación.');
+            setError('Error al crear la desparacitación.')
         }
     }
 

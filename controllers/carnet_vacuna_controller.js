@@ -1,6 +1,6 @@
 import { VacunasModel } from '../models/vacunas_carnet_model.js'
 import { NoDataFound, DuplicateInfo, AccountAlreadyDisable, NotFoundUser } from '../squemas/errors_squemas.js'
-
+import { manejoErrorVacunaCrear } from '../squemas/carnet_validacion.js'
 export class CarnetController {
   static async getAll (req, res) {
     const response = await VacunasModel.getVacunas()
@@ -37,8 +37,11 @@ export class CarnetController {
   }
 
   static async createVacuna (req, res) {
-    const data = req.body
-    const response = await VacunasModel.createVacunas({ input: data })
+    const result = manejoErrorVacunaCrear(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await VacunasModel.createVacunas({ input: result.data })
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'Ya existe una vacuna registrada' })
     } else if (response instanceof Error) {

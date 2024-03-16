@@ -44,7 +44,8 @@ export class ScheduleModel {
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
       INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
       INNER JOIN tipo_mascota ON mascotas.id_tipo_mascota = tipo_mascota.id_tipo_mascota
-      WHERE fecha_cita = ? AND estado_cita = 1 AND empleados.id_empleado = UUID_TO_BIN(?);`, [fechaCita, idEmpleado])
+      INNER JOIN usuarios ON empleados.id_usuario = usuarios.id_usuario
+      WHERE fecha_cita = ? AND estado_cita = 1 AND usuarios.id_usuario = UUID_TO_BIN(?);`, [fechaCita, idEmpleado])
       if (!getCita) throw new NoDataFound()
       if (getCita.length === 0) throw new NoDataFound()
       return (getCita)

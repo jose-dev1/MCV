@@ -2,14 +2,8 @@ import connection from "./connection_database.js"
 import "dotenv/config"
 import bcrypt from "bcrypt"
 import crypto from "crypto"
-<<<<<<< HEAD
-import Mailjet from "node-mailjet"
-import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
-
-=======
 import Mailjet from 'node-mailjet'
 import { NoDataFound, NotFoundUser } from "../squemas/errors_squemas.js"
->>>>>>> 95e2bbdd2f835e08cfbd152116e0011679907da9
 
 export class registroModel {
   static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
@@ -111,27 +105,6 @@ export class registroModel {
     }
   }
 
-<<<<<<< HEAD
-  static async getExamenes(){
-    try{
-      const [tipoExamenes] = await connection.query(`SELECT * FROM examenes`)
-      if (!tipoExamenes) throw new NoDataFound()
-      if (tipoExamenes.length === 0) throw new NoDataFound()
-      return (tipoExamenes)
-    }catch(error){
-      return (error)
-    }
-  }
-
-  static async getCertificados(){
-    try{
-      const [tipoCertificados] = await connection.query(`SELECT * FROM certificados`)
-      if(!tipoCertificados) throw new NoDataFound()
-      if(tipoCertificados.length === 0) throw new NoDataFound()
-      return(tipoCertificados)
-    }catch (error){
-      return (error)
-=======
 
   static async eliminarCuenta({ correo_u }) {
     try {
@@ -189,7 +162,47 @@ export class registroModel {
     } catch (error) {
       console.error("Error al actualizar:", error)
       return error
->>>>>>> 95e2bbdd2f835e08cfbd152116e0011679907da9
     }
+  }
+
+  static async getExamenes({ numero_documento_cliente }){
+    const query = `
+        SELECT examenes.*
+        FROM examenes
+        JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
+        JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+        WHERE clientes.numero_documento_cliente = ?;
+    `;
+    
+    try {
+        const examenes = await connection.query(query, [numero_documento_cliente]);
+        return examenes;
+    } catch (error) {
+        console.error('Error al obtener los exámenes:', error);
+        throw error;
+    }
+
+  
+  }
+
+  static async getCertificados({ numero_documento_cliente }){
+    console.log(numero_documento_cliente)
+    const query = `SELECT certificados.*
+    FROM certificados
+    JOIN mascotas ON certificados.id_mascota = mascotas.id_mascota
+    JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+    WHERE clientes.numero_documento_clientes = ?;
+    
+    `; 
+
+    try{
+      const certificados = await connection.query(query, [numero_documento_cliente]);
+      return certificados
+
+    }catch(error) {
+      console.error('Error al obtener los certificado:', error)
+      throw error
+    }
+
   }
 }

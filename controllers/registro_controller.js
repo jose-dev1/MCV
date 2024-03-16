@@ -1,8 +1,7 @@
 import { registroModel } from "../models/registro_model.js"
 import connection from "../models/connection_database.js"
 import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
-import { query } from "express"
-import { AccountAlreadyDisable, NoDataFound, NotFoundUser } from "../squemas/errors_squemas.js"
+
 
 export class RegistroController {
   static async registro(req, res) {
@@ -121,7 +120,9 @@ export class RegistroController {
   }
 
   static async getExamen(req, res){
-    const response = await registroModel.getExamenes()
+    const {numero_documento_cliente} = req.params
+    console.log(req.params)
+    const response = await registroModel.getExamenes({ numero_documento_cliente })
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran los examenes' })
     } else if (response instanceof Error) {
@@ -130,8 +131,10 @@ export class RegistroController {
       res.json(response)
     }
   }
+
   static async getCertificado(req, res){
-    const response = await registroModel.getCertificados()
+    const {numero_documento_cliente} = req.params
+    const response = await registroModel.getCertificados({ numero_documento_cliente })
     if (response instanceof NoDataFound){
       res.status(404).json({message: 'No se encuentran los certificados'})
     }else if (response instanceof Error){

@@ -11,5 +11,5 @@ registroRoutes.put('/actualizar_cliente/:id', RegistroController.actualizarClien
 registroRoutes.post("/registro_cliente", RegistroController.registroCliente)
 registroRoutes.post("/desactivar/", RegistroController.deleteUser)
 
-registroRoutes.get("/descarga_certificado", RegistroController.getCertificado)
-registroRoutes.get("/descarga_examen", RegistroController.getExamen)
+registroRoutes.get("/descarga_certificado/:numero_documento_cliente", RegistroController.getCertificado)
+registroRoutes.get("/descarga_examen/:numero_documento_cliente", RegistroController.getExamen)

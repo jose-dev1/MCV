@@ -6,72 +6,72 @@ import Mailjet from 'node-mailjet'
 import { NoDataFound, NotFoundUser } from "../squemas/errors_squemas.js"
 
 export class registroModel {
-  static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
+  static async registrar ({ userCorreo, userPassword, userRol, userGenero }) {
     try {
-      const secret = crypto.randomBytes(32).toString("hex")
+      const secret = crypto.randomBytes(32).toString('hex')
       const [existingUser] = await connection.query(
-        "SELECT * FROM usuarios WHERE correo_usuario = ?",
+        'SELECT * FROM usuarios WHERE correo_usuario = ?',
         [userCorreo]
       )
       if (existingUser.length > 0) {
-        return { error: "El correo electrónico ya está en uso" }
+        return { error: 'El correo electrónico ya está en uso' }
       }
       const saltRounds = 10
       const encryPassword = await bcrypt.hash(userPassword, saltRounds)
       const [registro] = await connection.query(
-        "INSERT INTO usuarios (correo_usuario, password_usuario, id_tipo_usuario, id_genero) VALUES (?, ?, ?, ?)",
+        'INSERT INTO usuarios (correo_usuario, password_usuario, id_tipo_usuario, id_genero) VALUES (?, ?, ?, ?)',
         [userCorreo, encryPassword, userRol, userGenero]
       )
       const [validar] = await connection.query(
-        "INSERT INTO verificacion_correo (fk_id_usuario , codigo_verificacion , correo_usuario) VALUES ((SELECT id_usuario FROM usuarios WHERE correo_usuario = ?), ? , ?) ",
+        'INSERT INTO verificacion_correo (fk_id_usuario , codigo_verificacion , correo_usuario) VALUES ((SELECT id_usuario FROM usuarios WHERE correo_usuario = ?), ? , ?) ',
         [userCorreo, secret, userCorreo]
       )
 
-      return { success: true, secret: secret }
+      return { success: true, secret }
     } catch (err) {
-      console.error("Error al registrar:", err)
-      return { error: "Error interno del servidor" }
+      console.error('Error al registrar:', err)
+      return { error: 'Error interno del servidor' }
     }
   }
 
-  static async enviarCorreo({ userCorreo, secret }) {
+  static async enviarCorreo ({ userCorreo, secret }) {
     const mailjetClient = Mailjet.apiConnect(
       '34538d099c891c567832df06c3604b5d',
       '90ae5d5f8d216c7842159b9af30b2280'
-    );
-    var str = userCorreo;
-    var res = str.split("@");
+    )
+    const str = userCorreo
+    const res = str.split('@')
 
-    const request = mailjetClient.post("send", { version: "v3.1" }).request({
+    const request = mailjetClient.post('send', { version: 'v3.1' }).request({
       Messages: [
         {
           From: {
-            Email: "william.castano@ingenews.co",
-            Name: "Verificacion de cuenta MCV",
+            Email: 'william.castano@ingenews.co',
+            Name: 'Verificacion de cuenta MCV'
           },
           To: [
             {
               Email: userCorreo,
-              Name: "Hola" + res[0],
-            },
+              Name: 'Hola' + res[0]
+            }
           ],
-          Subject: "Confirmacion de cuenta MCV",
+          Subject: 'Confirmacion de cuenta MCV',
           TextPart:
-            "Hola" + res[0] + ", este es un correo de verificacion para confirmar tu cuenta en MCV puedes dar click en el link para confirmar tu cuenta en el siguiente enlace.",
+            'Hola' + res[0] + ', este es un correo de verificacion para confirmar tu cuenta en MCV puedes dar click en el link para confirmar tu cuenta en el siguiente enlace.',
           HTMLPart:
-            '<h3>gracias por confiar en nosotros verifica tu cuenta aqui <a href="http://localhost:3000/verificar-cuenta?codigo_verificacion=' + secret + '">Verificacion MCV</a></h3>',
-        },
-      ],
+            '<h3>gracias por confiar en nosotros verifica tu cuenta aqui <a href="http://localhost:3000/verificar-cuenta?codigo_verificacion=' + secret + '">Verificacion MCV</a></h3>'
+        }
+      ]
     })
     try {
-      const result = await request;
-      console.log(result.body);
+      const result = await request
+      console.log(result.body)
     } catch (err) {
-      console.error(err.statusCode, err.message);
+      console.error(err.statusCode, err.message)
     }
   }
 
-  static async registroClientes({
+  static async registroClientes ({
     numero_documento_cliente,
     id_tipo_documento,
     lugar_expedicion_documento,
@@ -82,26 +82,26 @@ export class registroModel {
     telefono_cliente,
     direccion_cliente,
     estado_cliente,
-    id_usuario,
+    id_usuario
   }) {
     try {
-      let idRegistro = null;
+      let idRegistro = null
 
       if (id_usuario) {
-        const [[idUsuario]] = await connection.query(`SELECT BIN_TO_UUID(id_usuario) id_usuario FROM usuarios WHERE correo_usuario = ?`, [id_usuario]);
+        const [[idUsuario]] = await connection.query('SELECT BIN_TO_UUID(id_usuario) id_usuario FROM usuarios WHERE correo_usuario = ?', [id_usuario])
 
         if (idUsuario) {
-          idRegistro = idUsuario.id_usuario;
+          idRegistro = idUsuario.id_usuario
         }
       }
 
-      const [registrosCl] = await connection.query("INSERT INTO clientes (numero_documento_cliente, id_tipo_documento, lugar_expedicion_documento, primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente, telefono_cliente, direccion_cliente, estado_cliente, id_usuario) VALUES (?,?,?,?,?,?,?,?,?,?,UUID_TO_BIN(?))",
+      const [registrosCl] = await connection.query('INSERT INTO clientes (numero_documento_cliente, id_tipo_documento, lugar_expedicion_documento, primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente, telefono_cliente, direccion_cliente, estado_cliente, id_usuario) VALUES (?,?,?,?,?,?,?,?,?,?,UUID_TO_BIN(?))',
         [numero_documento_cliente, id_tipo_documento, lugar_expedicion_documento, primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente, telefono_cliente, direccion_cliente, estado_cliente, idRegistro]
-      );
-      return { success: true };
+      )
+      return { success: true }
     } catch (error) {
-      console.error("Error al registrar:", error);
-      return { error: "Error interno del servidor" };
+      console.error('Error al registrar:', error)
+      return { error: 'Error interno del servidor' }
     }
   }
 

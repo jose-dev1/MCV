@@ -3,6 +3,8 @@ import "dotenv/config"
 import bcrypt from "bcrypt"
 import crypto from "crypto"
 import Mailjet from "node-mailjet"
+import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
+
 
 export class registroModel {
   static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
@@ -95,4 +97,25 @@ export class registroModel {
     }
   }
 
+  static async getExamenes(){
+    try{
+      const [tipoExamenes] = await connection.query(`SELECT * FROM examenes`)
+      if (!tipoExamenes) throw new NoDataFound()
+      if (tipoExamenes.length === 0) throw new NoDataFound()
+      return (tipoExamenes)
+    }catch(error){
+      return (error)
+    }
+  }
+
+  static async getCertificados(){
+    try{
+      const [tipoCertificados] = await connection.query(`SELECT * FROM certificados`)
+      if(!tipoCertificados) throw new NoDataFound()
+      if(tipoCertificados.length === 0) throw new NoDataFound()
+      return(tipoCertificados)
+    }catch (error){
+      return (error)
+    }
+  }
 }

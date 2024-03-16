@@ -1,5 +1,6 @@
 import { registroModel } from "../models/registro_model.js"
 import connection from "../models/connection_database.js"
+import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
 import { query } from "express"
 
 export class RegistroController {
@@ -86,6 +87,28 @@ export class RegistroController {
       res.status(500).json({ message: "Error interno del servidor" })
     }
   }
+
+  static async getExamen(req, res){
+    const response = await registroModel.getExamenes()
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No se encuentran los examenes' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
+      res.json(response)
+    }
+  }
+  static async getCertificado(req, res){
+    const response = await registroModel.getCertificados()
+    if (response instanceof NoDataFound){
+      res.status(404).json({message: 'No se encuentran los certificados'})
+    }else if (response instanceof Error){
+      res.status(500).json({message: 'Error interno del servidor'})
+    }else{
+      res.json(response)
+    }
+  }
+
 
   // se hizo todo el metodo de registro
 }

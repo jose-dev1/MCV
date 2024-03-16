@@ -49,8 +49,13 @@ function Login() {
     }).then((response) => {
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        setuserAuth(true)
-
+        localStorage.setItem('client', JSON.stringify(response.data.client));
+        if (response.data.user.estado_usuario === 0 || response.data.user.estado_verificacion_usuario === 0) {
+          setMensajeError('Tu cuenta está desactivada');
+          setMostrarAlerta(true);
+        } else {
+          setuserAuth(true);
+        }
       } else {
         setMensajeError(response.data.message);
         setMostrarAlerta(true);
@@ -64,13 +69,6 @@ function Login() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-
-
-    if (user.estado_verificacion_usuario === 0) {
-      setMostrarAlerta(true);
-      setMensajeError('Tu cuenta está desactivada.');
-      return;
-    }
 
     if (user) {
       const userRoutes = {

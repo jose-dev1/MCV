@@ -15,15 +15,19 @@ import isBetween from 'dayjs/plugin/isBetween';
 import '../../assets/css/sidebar.css';
 import Infocard from '../../components/client/infoComponent';
 import Swal from 'sweetalert2';
+import { Password } from '@mui/icons-material';
 
 dayjs.extend(localizedFormat);
 dayjs.extend(isBetween);
 
 function Perfil() {
+  // Estados
   const [mostrarAlerta, setMostrarAlerta] = useState(true);
   const [error, setError] = useState('');
   const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
+  const [cliente, setCliente] = useState(null);
   const [documentos, setDocumentos] = useState([]);
+  const [contraseña, setContraseña] = useState('');
   const [datosFormulario, setDatosFormulario] = useState({
     primer_nombre_cliente: '',
     segundo_nombre_cliente: '',
@@ -37,36 +41,63 @@ function Perfil() {
     estado_cliente: '1',
     id_usuario: usuario.correo_usuario,
   });
+  const [datosActualizados, setDatosActualizados] = useState(null);
+  useEffect(() => {
+    const clientDataFromLocalStorage = localStorage.getItem('client');
+
+    if (clientDataFromLocalStorage) {
+      try {
+        const parsedClientData = JSON.parse(clientDataFromLocalStorage);
+        setCliente(parsedClientData);
+        setDatosFormulario(parsedClientData);
+      } catch (error) {
+        console.error('Error al analizar los datos del cliente como JSON:', error);
+        localStorage.removeItem('client');
+      }
+    }
+  }, []);
 
   const manejarCambio = (campo, valor) => {
     setDatosFormulario((datosAnteriores) => ({
       ...datosAnteriores,
       [campo]: valor,
     }));
+    setDatosActualizados((datosAnteriores) => ({
+      ...datosAnteriores,
+      [campo]: valor,
+    }));
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContraseña(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formErrores = {};
-    Object.entries(datosFormulario).forEach(([key, value]) => {
-      if (!value || (typeof value.trim === 'function' && value.trim() === '')) {
-        formErrores[key] = 'Error los campo no puede estar vacío';
-      }
-    });
-
-    if (Object.keys(formErrores).length > 0) {
-      setError('Por favor, complete todos los campos.');
-      return;
-    }
-
     try {
-      await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
-      Swal.fire({
-        title: "Buen trabajo!",
-        text: "Se ha registrado como cliente!",
-        icon: "success"
-      });
+      if (cliente) {
+        await axios.put(`http://localhost:4321/registro/actualizar_cliente/${cliente.id_cliente}`, {
+          correo_usuario: usuario.correo_usuario,
+          contraseña: contraseña,
+          ...datosActualizados
+        });
+        Swal.fire({
+          title: "¡Buen trabajo!",
+          text: "Se han actualizado los datos del cliente los cambios se veran cuando vuelva a iniciar session.",
+          icon: "success"
+        });
+      } else {
+        await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
+        Swal.fire({
+          title: "¡Buen trabajo!",
+          text: "Se ha registrado como cliente.",
+          icon: "success"
+        });
+      }
     } catch (error) {
       console.error('Error al enviar la petición:', error);
       setError('Error al enviar la petición.');
@@ -76,14 +107,12 @@ function Perfil() {
   useEffect(() => {
     setTimeout(() => {
       setMostrarAlerta(true);
-    },);
-
+    });
     axios.get('http://localhost:4321/registro/documento').then((response) => {
       setDocumentos(response.data);
+    }).catch((error) => {
+      console.log('error al obtener los datos:', error);
     })
-      .catch((error) => {
-        console.log('error al obtener los datos:', error);
-      })
   }, []);
 
   return (
@@ -135,24 +164,28 @@ function Perfil() {
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '250px' }}
                   onChange={(e) => manejarCambio('primer_nombre_cliente', e.target.value)}
+                  value={datosFormulario.primer_nombre_cliente}
                 />
                 <TextField
                   label="Segundo nombre"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '250px' }}
                   onChange={(e) => manejarCambio('segundo_nombre_cliente', e.target.value)}
+                  value={datosFormulario.segundo_nombre_cliente}
                 />
                 <TextField
                   label="Primer apellido"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '230px' }}
                   onChange={(e) => manejarCambio('primer_apellido_cliente', e.target.value)}
+                  value={datosFormulario.primer_apellido_cliente}
                 />
                 <TextField
                   label="Segundo apellido"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
                   onChange={(e) => manejarCambio('segundo_apellido_cliente', e.target.value)}
+                  value={datosFormulario.segundo_apellido_cliente}
                 />
               </Box>
 
@@ -169,19 +202,19 @@ function Perfil() {
                     id="tipo-documento"
                     label="Tipo de documento"
                     onChange={(e) => manejarCambio('id_tipo_documento', e.target.value)}
-
+                    value={datosFormulario.id_tipo_documento}
                   >
                     {documentos.map((documento, index) => (
                       <MenuItem key={index} value={documento.id_tipo_documento}>{documento.descripcion_documento}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
-
                 <TextField
                   label="Numero de documento"
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '450px' }}
                   onChange={(e) => manejarCambio('numero_documento_cliente', e.target.value)}
+                  value={datosFormulario.numero_documento_cliente}
                 />
 
                 <TextField
@@ -189,6 +222,7 @@ function Perfil() {
                   label="Lugar de expedicion"
                   variant='outlined'
                   onChange={(e) => manejarCambio('lugar_expedicion_documento', e.target.value)}
+                  value={datosFormulario.lugar_expedicion_documento}
                 />
               </Box>
 
@@ -203,6 +237,7 @@ function Perfil() {
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '450px' }}
                   onChange={(e) => manejarCambio('direccion_cliente', e.target.value)}
+                  value={datosFormulario.direccion_cliente}
                 />
 
                 <TextField
@@ -210,13 +245,14 @@ function Perfil() {
                   variant="outlined"
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
                   onChange={(e) => manejarCambio('telefono_cliente', e.target.value)}
+                  value={datosFormulario.telefono_cliente}
                 />
                 <TextField
                   label="Correo electronico"
                   value={usuario.correo_usuario}
+                  disabled
                   fullWidth
                   variant="outlined"
-                  disabled
                   sx={{ flex: '1 1 30%', minWidth: '295px' }}
                 />
 
@@ -230,23 +266,30 @@ function Perfil() {
               >
                 <TextField
                   label="Contraseña"
+                  name='contraseña'
                   fullWidth
-                  value={usuario.u_password}
+                  onChange={handleChange}
                   type="password"
                   variant="outlined"
-                  disabled
                   sx={{ flex: '1 1 30%', minWidth: '450px' }}
                 />
               </Box>
             </Box>
 
-            <div className="mt-4 ml-auto">
+            <div className="flex mt-5 gap-4 ml-auto">
               <button
                 type="submit"
-                className="w-48 rounded-md bg-indigo-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="w-48 inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md"
               >
-                Enviar
+                Registrar
               </button>
+              {cliente && (
+                <button
+                  className="w-48 mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white"
+                >
+                  Actualizar
+                </button>
+              )}
             </div>
           </form>
         </div>

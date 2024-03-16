@@ -25,6 +25,7 @@ import AgendarCita from "./page/cliente/agendarCita.jsx";
 import HistoriaClinica from "./page/veterinario/historiaClinica.jsx";
 import AgendaGroomer from "./page/groomer/agendaGro";
 import Desparacitacion from "./page/veterinario/desparacitacion.jsx";
+import Verificacion from "./page/verifcacion_cuenta.jsx";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/recuperar-contraseña" element={<Recuperar />} />
         <Route path="/actualizar-contraseña" element={<Nuevapw />} />
+        <Route path="/verificar-cuenta" element={<Verificacion />} />
         <Route
           path="/perfil-usuario"
           element={<ProtectedRoute element={<Perfil />} requiredUserRole={2} />}
@@ -155,7 +157,7 @@ function App() {
           element={
             <ProtectedRoute
               element={<HistoriaClinica />}
-              requiredUserRole={4}
+              requiredUserRole={3}
             />
           }
         />

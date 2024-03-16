@@ -1,32 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 
 const Sidebar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [clientData, setClientData] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    const [datosFormulario, setDatosFormulario] = useState({
+        correo_u: user.correo_usuario,
+    });
+    useEffect(() => {
 
-    const handleDesactivar = () => {
+        const clientDataFromLocalStorage = localStorage.getItem('client');
+        if (clientDataFromLocalStorage) {
+            try {
+                const parsedClientData = JSON.parse(clientDataFromLocalStorage);
+                setClientData(parsedClientData);
+            } catch (error) {
+                console.error('Error al analizar los datos del cliente como JSON:', error);
+                localStorage.removeItem('client');
+            }
+        }
+    }, []);
+
+
+
+    console.log(clientData)
+    const handleDesactivar = async () => {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¡Tu cuenta será desactivada este cambio no sera reversible en 30 dias!',
+            text: '¡Tu cuenta será desactivada y este cambio no será reversible en 30 días!',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Sí, desactivarla',
             cancelButtonText: 'Cancelar',
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');
+                try {
+                    console.log('datosFormulario', datosFormulario);
+                    const response = await axios.post('http://localhost:4321/registro/desactivar', datosFormulario);
+                    if (response.status === 200) {
+                        Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('client');
+                        navigate('/');
+                    } else {
+                        Swal.fire('Error', 'Hubo un problema al desactivar la cuenta. Por favor, inténtalo de nuevo más tarde.', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error al desactivar cuenta:', error);
+                    Swal.fire('Error', 'Hubo un problema al desactivar la cuenta. Por favor, inténtalo de nuevo más tarde.', 'error');
+                }
             }
         });
     };
+
 
     const isActive = (path) => {
         return location.pathname === path;
@@ -34,6 +70,8 @@ const Sidebar = () => {
 
     const cerrarSession = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('client');
+        setClientData(null);
         setUser(null);
         navigate('/');
     };
@@ -52,7 +90,11 @@ const Sidebar = () => {
                             <div className="font-medium relative text-xl leading-tight text-gray-900">
                                 <span className="flex">
                                     <span className="truncate relative pr-8">
-                                        {user.correo_usuario}
+                                        {clientData && (
+                                            <>
+                                                {clientData.primer_nombre_cliente} {clientData.primer_apellido_cliente}
+                                            </>
+                                        )}
                                         <span
                                             aria-label="verified"
                                             className="absolute top-1/2 -translate-y-1/2 right-0 inline-block rounded-full"
@@ -243,7 +285,7 @@ const Sidebar = () => {
                         {user.id_tipo_usuario === 3 && (
                             <Link
                                 to="/gestionar-agenda"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-orange-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/factura' ? 'bg-gray-100 text-red-800' : ''}`}>
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-orange-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/gestionar-agenda' ? 'bg-gray-100 text-red-800' : ''}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                 </svg>
@@ -289,10 +331,10 @@ const Sidebar = () => {
                                 <span>Carnet </span>
                             </Link>
                         )}
-                        {user.id_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 3 && (
                             <Link
                                 to="/historia-clinica"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/historia-clinica' ? 'bg-gray-100 text-blue-500' : ''
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/historia-clinica' ? 'bg-gray-100 text-blue-600' : ''
                                     }`}
 
                             >
@@ -375,7 +417,7 @@ const Sidebar = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

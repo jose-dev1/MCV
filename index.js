@@ -22,6 +22,8 @@ import { examenesVeteriarioRouter, examnTypes } from './routes/examenes_veterina
 import { homeVetRoutes } from './routes/home_vet_routes.js'
 import { envioEmailRouter } from './routes/sendEmail_routes.js'
 import { homeGroRoutes } from './routes/home_gro_routes.js'
+import { registroMascotas } from './routes/registro_mascotas.js'
+import { facturasRouter } from './routes/facturaRoutes.js'
 import fileUpload from 'express-fileupload'
 const PORT = process.env.PORT ?? 1234
 
@@ -34,7 +36,7 @@ app.use(fileUpload())
 // midewlere swagger
 
 app.disable('x-powered-by')
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/login', loginRoutes)
 app.use('/admin', adminRoutes)
@@ -55,6 +57,8 @@ app.use('/examTypes', examnTypes)
 app.use('/inicio-vet', homeVetRoutes)
 app.use('/envio-email', envioEmailRouter)
 app.use('/inicio-gro', homeGroRoutes)
+app.use('/registro-mascota', registroMascotas)
+app.use('/factura', facturasRouter)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

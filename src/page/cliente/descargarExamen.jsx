@@ -57,12 +57,19 @@ export default function DescargarExamen() {
   const { selectId, saveSelectId } = useSelectId();
   const { selectRow, saveSelectRow } = useSelectRow();
   const [datos, setDatos] = useState([]);
+  const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4321/registro/descargar_examen");
-        setDatos(response.data);
+        console.log(cliente.numero_documento_cliente)
+        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.numero_documento_cliente}`);
+        const datosConId = response.data.map((row, index) => ({
+          id: index + 1,
+          ...row
+        }));
+
+        setDatos(datosConId);
         console.log(response);
       } catch (error) {
         console.error("No estoy trayendo los datos", error);

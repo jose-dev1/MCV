@@ -1,8 +1,7 @@
 import Sidebar from '../../components/sidebarComponent'
 import { DashboardCard } from '../../components/dash/dashboardCart';
 import Stack from '@mui/material/Stack';
-import TablaFactura from '../../components/auxiliar/tablaFactura';
-import NotificationCard from '../../components/auxiliar/Agenda';
+
 
 
 export default function HomeAuxiliar() {
@@ -60,13 +59,6 @@ export default function HomeAuxiliar() {
 
     ];
 
-    const notificationData = {
-        titulo: 'nueva notificacion',
-        avatarSrc: 'https://i.pravatar.cc/300',
-        reactionUser: 'Un usuario',
-        comentario: 'Agende una cita para Groomer',
-        tiempo: 'hace 20 minutos',
-    };
 
     return (
         <div>
@@ -93,10 +85,6 @@ export default function HomeAuxiliar() {
                             <DashboardCard key={index} {...data} />
                         ))}
                     </div>
-                </div>
-                <div className='flex'>
-                    <TablaFactura />
-                    <NotificationCard notification={notificationData} />
                 </div>
             </Stack>
         </div>

@@ -58,16 +58,27 @@ export default function DescargarCertificado() {
   const { selectId, saveSelectId } = useSelectId()
   const { selectRow, saveSelectRow } = useSelectRow()
   const [examen, setExamen] = useState([]);
+  const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
+  const [datos, setDatos] = useState([])
 
   useEffect(() => {
     const fetchDataCertificado = async () => {
       try {
-        const response = await axios.get('http://localhost:4321/registro/descarga_examen')
-        setExamen(response.data);
+        console.log(cliente.numero_documento_cliente)
+        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.numero_documento_cliente}`);
+
+
+        const datosConId = response.data.map((row, index) => ({
+          id: index + 1,
+          ...row
+        }));
+
+        setDatos(datosConId);
+        console.log(response);
       } catch (error) {
-        console.log("No hay datos disponibles", error)
+        console.error("No estoy trayendo los datos", error);
       }
-    }
+    };
     fetchDataCertificado();
   }, []);
 
@@ -79,7 +90,7 @@ export default function DescargarCertificado() {
           title='Descargar Certificados'
           descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
         />
-        <DataTable rows={examen} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
+        <DataTable rows={datos} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
       </div>
       <WhatsAppComponent />
     </div>

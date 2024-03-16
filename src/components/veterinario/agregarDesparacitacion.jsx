@@ -1,107 +1,99 @@
-import { Alert, Grid, Modal } from '@mui/material'
+import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
-import { TextField } from '@mui/material';
-
-const Desparacitacion = [
-    { id: 1, value: 'Interna' },
-    { id: 2, value: 'Externa' },
-]
-const documentItems = [
-    { id: 'C.C', value: 'Cedula de Ciudadania' },
-    { id: 'C.E', value: 'Cedula de Extrangeria' }
-]
-
-const mascota = [
-    { id: '1', value: 'Tommy' },
-    { id: '2', value: 'Luna' }
-]
+import TextArea from '../dash/textArea'
+import dayjs from 'dayjs'
+import axios from 'axios';
+import { useBringDocument } from '../../Hooks/useDocument';
+import { getDataById } from '../../utils/getDataById';
+import { useHabilitar } from '../../Hooks/useHabilitar';
+import Message from '../dash/succesfulMessage'
 
 
-const vacuna = [
-    { id: '1', value: 'Rabia' },
-    { id: '2', value: 'Triple felina' },
-    { id: '3', value: 'Parvovirus' }
-]
-
-
-
+const defaultValues = {
+    id: '',
+    fecha_creacion: dayjs(),
+    idMascota: '',
+    numeroDocumento: '',
+    tipoDocumento: 'C.C',
+    idTipoDesparacitacion: 1,
+    fecha_aplicacion_desparacitacion: dayjs(),
+    fecha_vencimiento_desparacitacion: dayjs(),
+    medicamento_aplicado: '',
+    lote_desparacitacion: '',
+    registro_ica: '',
+    laboratorio_desparacitacion: '',
+    estado_desparacitacion: 1,
+    anotacion_desparacitacion: ''
+}
 
 export const FromAgregarDesparacitacion = (props) => {
-    const { label, datosEditables, bgColor, icon, tooltip, } = props
-
-    const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(datosEditables)
-    const [desabilitado, setDesabilitado] = useState(Object.keys(datosEditables).length === 0)
-    const [validarId, setValidarId] = useState(false)
-    const [open, setOpen] = useState(false)
+    const { label, bgColor, icon, tooltip, id, actualizar, dato } = props
+    const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
+    const { desabilitado, validarId } = useHabilitar({ id })
+    const [tipoDocuemento] = useBringDocument()
     const [error, setError] = useState('')
-    const [info, setInfo] = useState('');
-    const [success, setSuccess] = useState('');
+    const [success, setSuccess] = useState('')
+    const [open, setOpen] = useState(false)
+    const [dataMascota, setDataMascota] = useState([])
 
+    const reinicio = () => {
+        setDataMascota([])
+    }
 
-    const handleModal = () => setOpen(true)
+    const handleModal = async () => {
+        const { todosDatos, validacion } = await getDataById({ id, endpoind: 'desparacitacion', defaultValues })
+        if (validacion) {
+            if (todosDatos instanceof Error) {
+                setError(todosDatos)
+            } else {
+                setValues(todosDatos)
+            }
+        }
+        setOpen(true)
+    }
     const handleClose = () => {
+        reinicio()
+        setValues(defaultValues)
         setError('')
         setSuccess('')
         setOpen(false)
     }
 
-    useEffect(() => {
-        setValues(datosEditables)
-        setDesabilitado(Object.keys(datosEditables).length === 0)
-    }, [datosEditables, setValues])
-
-    useEffect(() => {
-        setValidarId(datosEditables.id !== '')
-    }, [datosEditables, setValidarId])
-
-    useEffect(() => {
-        const infoTimeout = setTimeout(() => {
-            setInfo(null);
-        }, 5000);
-        return () => {
-            clearTimeout(infoTimeout);
-        };
-    }, [info]);
-
-
-    const handleSubmitId = (event) => {
+    const handleSubmitId = async (event) => {
         event.preventDefault()
 
-        if (values.tipo_documento === '' || values.N_documento === '') {
-            setError('Por favor, complete los campos nesesarios.');
+        if (values.tipoDocumento === '' || values.numeroDocumento === '') {
+            setError('Por favor, complete los campos necesarios.');
         }
         else {
-            setError('');
-            setInfo('Datos cargados exitosamente.')
+            try {
+                const response = await axios.get(`http://localhost:4321/mascotas/${values.tipoDocuemento}/${values.numeroDocumento}`);
+                if (response.data.length === 0) {
+                    setError('No se encontraron mascotas asociadas a este documento.');
+                } else {
+                    setDataMascota(response.data);
+                    setError('');
+                    setSuccess('Datos cargados exitosamente.');
+                }
+            } catch (error) {
+                setError('Error al cargar las mascotas.');
+            }
         }
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
-
-        const formErrores = {};
-        Object.entries(values).forEach(([key, value]) => {
-            if (key !== 'secondName' && key !== 'secondLastName') {
-                if (!value || (typeof value.trim === 'function' && value.trim() === '')) {
-                    formErrores[key] = 'Error los campo no puede estar vacíos';
-
-                }
-            }
-        });
-
-        if (Object.keys(formErrores).length > 0) {
-            setError('Por favor, complete los campos nesesarios.');
-            return;
-        } else {
-            setError('')
-            setSuccess('Datos guardados exitosamente.')
-            return
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:4321/desparacitaciones', values);
+            setSuccess('Desparacitación creada con éxito.');
+        } catch (error) {
+            setError('Error al crear la desparacitación.');
         }
     }
 
@@ -120,47 +112,42 @@ export const FromAgregarDesparacitacion = (props) => {
             >
                 <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
                     <h1 className='text-3xl text-center mb-2'>{label}</h1>
-                    {info && (
-                        <Alert className='mb-2' severity="info">
-                            {info}
-                        </Alert>
-                    )}
                     {error && (
-                        <Alert className='mb-2' severity="error">
+                        <Message className='mb-2' severity="error">
                             {error}
-                        </Alert>
+                        </Message>
                     )}
                     {success && (
-                        <Alert className='mb-2' severity="success">
+                        <Message className='mb-2' severity="success">
                             {success}
-                        </Alert>
+                        </Message>
                     )}
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>
                             <Selects
                                 id='tipo_documento'
                                 label='Tipo de Documento'
-                                name='idDocumento'
-                                value={values.tipo_documento}
+                                name='tipoDocumento'
+                                value={values.tipoDocumento}
                                 onChange={handleInputChange}
-                                items={documentItems}
+                                items={tipoDocuemento}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={6}>
                             <Input
-                                id='N_documento'
+                                id='numero_documento'
                                 fullWidth
-                                label='N°documento'
-                                name='N_documento'
-                                value={values.N_documento}
+                                label='Número de Documento'
+                                name='numeroDocumento'
+                                value={values.numeroDocumento}
                                 onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
-                        <Grid item xs={12} sm={2}>
+                        <Grid item xs={12} sm={6}>
                             <Boton
                                 onClick={handleSubmitId}
                                 bgColor='success'
@@ -171,34 +158,48 @@ export const FromAgregarDesparacitacion = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='mascota'
+                                id='id_mascota'
                                 label='Mascota'
-                                name='mascota'
-                                value={values.mascota}
+                                name='idMascota'
+                                value={values.idMascota}
                                 onChange={handleInputChange}
-                                items={mascota}
-                                disabled={validarId ? true : false}
+                                items={dataMascota.map(mascota => ({
+                                    label: `${mascota.nombre} - ${mascota.raza}`,
+                                    value: mascota.id
+                                }))}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id='tipo_desparacitacion'
-                                label='Tipo de desparacitacion'
-                                name='tipo_desparacitacion'
-                                value={values.tipo_desparacitacion}
+                                id='idTipoDesparacitacion'
+                                label='Tipo de Desparacitación'
+                                name='idTipoDesparacitacion'
+                                value={values.idTipoDesparacitacion}
                                 onChange={handleInputChange}
-                                items={Desparacitacion}
+                                items={['Tipo 1', 'Tipo 2', 'Tipo 3']}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <InputDate
-                                id='fecha_control'
+                                id='fecha_aplicacion_desparacitacion'
                                 fullWidth
-                                label='Fecha de aplicación'
-                                name='fecha_control'
-                                fecha={values.fecha_control}
+                                label='Fecha de Aplicación'
+                                name='fecha_aplicacion_desparacitacion'
+                                fecha={values.fecha_aplicacion_desparacitacion}
+                                onChange={handleInputChangeDate}
+                                disabled={validarId ? true : false}
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <InputDate
+                                id='fecha_vencimiento_desparacitacion'
+                                fullWidth
+                                label='Fecha de Vencimiento'
+                                name='fecha_vencimiento_desparacitacion'
+                                fecha={values.fecha_vencimiento_desparacitacion}
                                 onChange={handleInputChangeDate}
                                 disabled={validarId ? true : false}
                                 required
@@ -206,73 +207,61 @@ export const FromAgregarDesparacitacion = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Input
-                                id='peso'
+                                id='medicamento_aplicado'
                                 fullWidth
-                                label='Peso'
-                                name='peso'
-                                value={values.peso}
+                                label='Medicamento Aplicado'
+                                name='medicamento_aplicado'
+                                value={values.medicamento_aplicado}
                                 onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Selects
-                                id='tipo_vacuna'
-                                label='Tipo Vacuna'
-                                name='tipo_vacuna'
-                                value={values.vacuna}
+                            <Input
+                                id='lote_desparacitacion'
+                                fullWidth
+                                label='Lote de Desparacitación'
+                                name='lote_desparacitacion'
+                                value={values.lote_desparacitacion}
                                 onChange={handleInputChange}
-                                items={vacuna}
-                                required
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <InputDate
-                                id='proximo_control'
-                                fullWidth
-                                label='Fecha de aplicación'
-                                name='proximo_control'
-                                fecha={values.proximo_control}
-                                onChange={handleInputChangeDate}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <InputDate
-                                id='fecha_creacion'
+                            <Input
+                                id='registro_ica'
                                 fullWidth
-                                label='Proximo control'
-                                name='fecha_creacion'
-                                fecha={values.fecha_creacion}
-                                onChange={handleInputChangeDate}
+                                label='Registro ICA'
+                                name='registro_ica'
+                                value={values.registro_ica}
+                                onChange={handleInputChange}
                                 disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
-                        {validarId && (
-                            <Grid item xs={12}>
-                                <TextField
-                                    id="observaciones"
-                                    label="Observaciones Agegadas Anteriormente"
-                                    name="observaciones"
-                                    multiline
-                                    maxRows={7}
-                                    value={values.observaciones}
-                                    fullWidth
-                                    disabled
-                                />
-                            </Grid>
-                        )}
+                        <Grid item xs={12} sm={6}>
+                            <Input
+                                id='laboratorio_desparacitacion'
+                                fullWidth
+                                label='Laboratorio de Desparacitación'
+                                name='laboratorio_desparacitacion'
+                                value={values.laboratorio_desparacitacion}
+                                onChange={handleInputChange}
+                                disabled={validarId ? true : false}
+                                required
+                            />
+                        </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                id="observaciones"
-                                label="Nuevas Observaciones"
-                                name='observaciones'
-                                multiline
-                                maxRows={7}
+                            <TextArea
+                                id='anotacion_desparacitacion'
                                 fullWidth
+                                label='Anotación de Desparacitación'
+                                name='anotacion_desparacitacion'
+                                value={values.anotacion_desparacitacion}
+                                onChange={handleInputChange}
+                                disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>
@@ -284,6 +273,7 @@ export const FromAgregarDesparacitacion = (props) => {
                                 Registrar
                             </button>
                         </Grid>
+
                     </Grid>
                 </form>
             </Modal>

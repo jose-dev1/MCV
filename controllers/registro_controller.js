@@ -2,6 +2,7 @@ import { registroModel } from "../models/registro_model.js"
 import connection from "../models/connection_database.js"
 import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
 import { query } from "express"
+import { AccountAlreadyDisable, NoDataFound, NotFoundUser } from "../squemas/errors_squemas.js"
 
 export class RegistroController {
   static async registro(req, res) {
@@ -18,7 +19,7 @@ export class RegistroController {
         res.status(400).json({ error: response.error })
       } else {
         res.status(201).json({ message: "Registro exitoso" })
-        registroModel.enviarCorreo({ userCorreo })
+        registroModel.enviarCorreo({ userCorreo, secret: response.secret })
       }
     } catch (error) {
       console.error("Error al registrar:", error)
@@ -40,7 +41,6 @@ export class RegistroController {
       estado_cliente,
       id_usuario,
     } = req.body
-    console.log(req.body)
     try {
       const respuesta = await registroModel.registroClientes({
         numero_documento_cliente,
@@ -67,6 +67,22 @@ export class RegistroController {
     }
   }
 
+
+  static async verificarCuenta(req, res) {
+    const { codigo_verificacion } = req.body
+    try {
+      const response = await registroModel.verificacionCuentas({ codigo_verificacion })
+      if (response instanceof Error) {
+        res.status(400).json({ error: response.message });
+      } else {
+        res.status(200).json({ message: "Cuenta verificada exitosamente" });
+      }
+    } catch (error) {
+      console.error("Error al verificar:", error);
+      res.status(500).json({ message: "Error interno del servidor" });
+    }
+  }
+
   static async genero(req, res) {
     try {
       const query = ` SELECT * FROM genero`
@@ -84,6 +100,22 @@ export class RegistroController {
       res.json(doc)
     } catch (error) {
       console.error("Error al obtener los generos:", error)
+      res.status(500).json({ message: "Error interno del servidor" })
+    }
+  }
+
+  static async actualizarCliente(req, res) {
+    const { id } = req.params
+    const { contraseña, correo_usuario, ...data } = req.body
+    try {
+      const response = await registroModel.actualizarClientes({ contraseña, correo_usuario, id, ...data })
+      if (response instanceof Error) {
+        res.status(400).json({ error: response.message })
+      } else {
+        res.status(200).json({ message: "Cliente actualizado exitosamente" })
+      }
+    } catch (error) {
+      console.error("Error al actualizar:", error)
       res.status(500).json({ message: "Error interno del servidor" })
     }
   }
@@ -111,4 +143,20 @@ export class RegistroController {
 
 
   // se hizo todo el metodo de registro
+
+  static async deleteUser(req, res) {
+    const { correo_u } = req.body
+    const response = await registroModel.eliminarCuenta({ correo_u })
+    if (response instanceof AccountAlreadyDisable) {
+      res.status(409).json({ message: 'El usuario ya ha sido eliminado' })
+    } else if (response instanceof NotFoundUser) {
+      res.status(404).json({ message: 'Usuario no registrado' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
+      res.json({ message: 'Eliminado satisfactiriamente' })
+    }
+  }
+
+
 }

@@ -3,3 +3,4 @@
 **/.env
 **/index.http
 **/metodos.http
+**/pnpm-lock.yaml

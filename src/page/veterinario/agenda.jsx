@@ -53,7 +53,9 @@ export default function AgendaVeterinario() {
   useEffect(()=>{
     const fetchData= async ()=>{
       try {
-        const {data} = await axios.get(`http://localhost:4321/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/1efc31a0-dccf-11ee-992f-42010a400007`)
+        let localstorage = localStorage
+        const id = JSON.parse(localstorage.getItem('user'))
+        const {data} = await axios.get(`http://localhost:4321/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/${id.id_usuario}`)
         setRows(data)
       } catch (error) {
         console.log(error)

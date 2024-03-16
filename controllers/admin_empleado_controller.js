@@ -33,7 +33,7 @@ export class AdminEmpleadoController {
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {
-      res.json(response)
+      res.json({ message: 'Empleado creado exitosamente' })
     }
   }
 
@@ -44,13 +44,13 @@ export class AdminEmpleadoController {
     const response = await AdminEmpleadoModel.deleteEmployee({ id, input: anotacion })
 
     if (response instanceof AccountAlreadyDisable) {
-      res.status(409).json({ message: 'El usuario ya ha sido eliminado' })
+      res.status(409).json({ message: 'El Empleado ya ha sido eliminado' })
     } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ message: 'Usuario no registrado' })
+      res.status(404).json({ message: 'Empleado no registrado' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor' })
     } else {
-      res.json({ message: 'Eliminado satisfactiriamente' })
+      res.json({ message: 'Empleado desactivado satisfactoriamente' })
     }
   }
 
@@ -61,9 +61,7 @@ export class AdminEmpleadoController {
     if (response instanceof DuplicateInfo) {
       res.status(409).json({ message: 'El correo ya existe dentro del sistema' })
     } else if (response instanceof InfoAlreadyExisting) {
-      res.status(404).json({ message: 'El numeor de documento con el tipo de documento ya existe dentro del sistema' })
-    } else if (response instanceof NotFoundUser) {
-      res.status(404).json({ message: 'Usuario no registrado' })
+      res.status(404).json({ message: 'El numero de documento con el tipo de documento ya existe dentro del sistema' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor ' })
     } else {

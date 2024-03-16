@@ -1,5 +1,6 @@
 import { NotFoundUser, NoDataFound, DuplicateInfo, AccountAlreadyDisable, InfoAlreadyExisting } from '../squemas/errors_squemas.js'
 import connection from './connection_database.js'
+import bcrypt from 'bcrypt'
 
 export class AdminEmpleadoModel {
   static async getEmployee () {
@@ -54,9 +55,11 @@ export class AdminEmpleadoModel {
 
       await connection.beginTransaction()
 
+      const saltRounds = 10
+      const encryPassword = await bcrypt.hash(passwordUsuario, saltRounds)
       const [usuario] = await connection.query(`INSERT INTO usuarios (correo_usuario, password_usuario, estado_usuario, estado_verificacion_usuario, id_genero, id_tipo_usuario) 
       VALUES (?,?,?,?,?,?);
-      `, [correoUsuario, passwordUsuario, estadoUsuario, estadoVerificacionUsuario, idGenero, idTipoUsuario])
+      `, [correoUsuario, encryPassword, estadoUsuario, estadoVerificacionUsuario, idGenero, idTipoUsuario])
 
       await connection.query(`INSERT INTO empleados (numero_documento_empleado, id_tipo_documento, primer_nombre_empleado, segundo_nombre_empleado, primer_apellido_empleado, segundo_apellido_empleado, id_usuario)
       VALUES (?,?,?,?,?,?,(SELECT id_usuario FROM usuarios WHERE correo_usuario = ?));`, [numeroDocumentoEmpleado, idTipoDocumento, primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado, correoUsuario])

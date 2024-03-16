@@ -28,8 +28,8 @@ const servicioFinalizado = [
 const defaultValues = {
   id: '',
   fecha_salida_hospitalizacion: dayjs(),
-  servicio_finalizado_hospitalizacion: 0,
   idMascota: '',
+  servicio_finalizado_hospitalizacion:'',
   numeroDocumento: '',
   tipoDocumento: 'C.C',
   contenido_hospitalizacion:'',
@@ -38,7 +38,7 @@ const defaultValues = {
 }
 
 export const FormAgregarHozpitalizaciones = (props) => {
-  const { label, id, bgColor, icon, tooltip, actualizar,dato } = props
+  const { label, id, bgColor, icon, tooltip, actualizar,dato,successMessage,errorMessage } = props
 
   const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
 
@@ -48,23 +48,42 @@ export const FormAgregarHozpitalizaciones = (props) => {
     const [dataMoscota, setDataMascota] = useState([])
     const [tipoDocuemento] = useBringDocument()
     const {desabilitado, validarId} = useHabilitar({id})
+    const [disableBoton,setDisableBoton] = useState(true)
 
 
     const handleModal = async () => {
+      successMessage('')
+      errorMessage('')
       const {todosDatos, validacion} =  await getDataById({id, endpoind: 'hospitalizaciones', defaultValues})
       if (validacion) {
           if(todosDatos instanceof Error){
               setError(todosDatos)
           }else{
-              setValues(todosDatos)
+            if (todosDatos.servicio_finalizado_hospitalizacion === 0) {
+              setDisableBoton(false);
+              setValues(todosDatos);
+              setOpen(true)
+            } else {
+              handleClose()
+              errorMessage('HIstoria clinica ya finalizada no puede ser editada')
+            }
           }
       }
-      setOpen(true)
+      else {
+        setOpen(true)
+      }
   }
   const handleClose = () => {
     setError('')
     setSuccess('')
+    reinicio()
+    setDisableBoton(true)
     setOpen(false)
+  }
+
+  const reinicio = () =>{
+    setValues(defaultValues)
+    setDataMascota([])
   }
 
   const handleSubmitId = async (event) => {
@@ -80,6 +99,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
             const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
             if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
             setDataMascota(getPets)
+            setDisableBoton(false)
             setSuccess('Datos cargados exitosamente.')
         }
     }catch (error) {
@@ -91,6 +111,7 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   setError('')
   setSuccess('')
+  setDisableBoton(true)
   try {
       let endpoint = 'http://localhost:4321/hospitalizaciones'
       let httpMethod = 'post'
@@ -121,10 +142,12 @@ const handleSubmit = async (event) => {
           }
       }
       const response = await axios[httpMethod](endpoint, envio)
-      setSuccess(response.data.message)
+      successMessage(response.data.message)
       actualizar(!dato)
+      handleClose()
   } catch (error) {
       setError(`Error: ${error.response.data.message}`)
+      setDisableBoton(false)
   }
 }
 
@@ -170,7 +193,7 @@ const handleSubmit = async (event) => {
                   value={values.tipoDocumento}
                   onChange={handleInputChange}
                   items={tipoDocuemento}
-                  disabled={validarId ? true : false}
+                  disabled={!disableBoton ? true : false}
                   required
                 />
               )}
@@ -183,7 +206,7 @@ const handleSubmit = async (event) => {
                   name='numeroDocumento'
                   value={values.numeroDocumento}
                   onChange={handleInputChange}
-                  disabled={validarId ? true : false}
+                  disabled={!disableBoton ? true : false}
                   required
                 />
               </Grid>
@@ -193,7 +216,7 @@ const handleSubmit = async (event) => {
                     bgColor='success' 
                     icon={<MagnifyingGlassIcon/>}
                     tooltip='Buscar'
-                    desable={validarId ? true : false}
+                    desable={!disableBoton ? true : false}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -276,6 +299,7 @@ const handleSubmit = async (event) => {
                 <button
                   type='submit'
                   className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                  disabled={disableBoton}
                 >
                   Registrar
                 </button>

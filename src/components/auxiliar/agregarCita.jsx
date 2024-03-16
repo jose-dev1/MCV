@@ -36,7 +36,7 @@ const defaultValues = {
   }
 
 export const Maurisio = (props) => {
-    const { label, id, bgColor, icon, tooltip, actualizar,dato } = props
+    const { label, id, bgColor, icon, tooltip, actualizar,dato,successMessage,errorMessage  } = props
     const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
     
     const [open, setOpen] = useState(false)
@@ -47,6 +47,8 @@ export const Maurisio = (props) => {
     const [dataServicio, setDataServicio] = useState([])
     const [tipoDocuemento] = useBringDocument()
     const {desabilitado, validarId} = useHabilitar({id})
+    const [disableBoton,setDisableBoton] = useState(true)
+
 
     const reinicio = () =>{
         setDataMascota([])
@@ -55,12 +57,16 @@ export const Maurisio = (props) => {
     }
 
     const handleModal = async () => {
+        successMessage('')
+        errorMessage('')
         const {todosDatos, validacion} =  await getDataById({id, endpoind: 'agendar/citas', defaultValues})
         if (validacion) {
             if(todosDatos instanceof Error){
                 setError(todosDatos)
             }else{
-                setValues(todosDatos)
+                setDisableBoton(false);
+                setValues(todosDatos);
+                setOpen(true)
             }
         }
         setOpen(true)
@@ -68,6 +74,7 @@ export const Maurisio = (props) => {
 
     const handleClose = () => {
         reinicio()
+        setDisableBoton(true)
         setValues(defaultValues)
         setError('')
         setSuccess('')
@@ -96,7 +103,7 @@ export const Maurisio = (props) => {
                 const resultSer = await getServisWithSpecialist({specialist: values.especialista})
                 if (resultSer instanceof Error) throw new Error(resultSer.response.data.message) 
                 setDataServicio(resultSer)
-                
+                setDisableBoton(false)
                 setSuccess('Datos cargados exitosamente.')
             }
         }catch (error) {
@@ -109,6 +116,7 @@ export const Maurisio = (props) => {
         event.preventDefault();
         setError('')
         setSuccess('')
+        setDisableBoton(true)
         try {
             let endpoint = 'http://localhost:4321/agendar'
             let httpMethod = 'post'
@@ -136,10 +144,12 @@ export const Maurisio = (props) => {
                 }
             }
             const response = await axios[httpMethod](endpoint, envio)
-            setSuccess(response.data.message)
+            successMessage(response.data.message)
+            handleClose()
             actualizar(!dato)
         } catch (error) {
             setError(`Error: ${error.response.data.message}`)
+            setDisableBoton(false)
         }
     }
 
@@ -185,6 +195,7 @@ export const Maurisio = (props) => {
                                     value={values.especialista}
                                     onChange={handleInputChange}
                                     items={especialista}
+                                    disabled={!disableBoton ? true : false}
                                     required
                                 />
                             )}
@@ -209,7 +220,7 @@ export const Maurisio = (props) => {
                                 value={values.tipoDocumento}
                                 onChange={handleInputChange}
                                 items={tipoDocuemento}
-                                disabled={validarId ? true : false}
+                                disabled={!disableBoton ? true : false}
                                 required
                                 />
                             )}
@@ -222,7 +233,7 @@ export const Maurisio = (props) => {
                                 name='numeroDocumento'
                                 value={values.numero_documento_cliente}
                                 onChange={handleInputChange}
-                                disabled={validarId ? true : false}
+                                disabled={!disableBoton ? true : false}
                                 required
                             />
                         </Grid>
@@ -232,8 +243,8 @@ export const Maurisio = (props) => {
                                 bgColor='success'
                                 icon={<MagnifyingGlassIcon />}
                                 tooltip='Buscar'
-                                desable={validarId ? true : false}
-                            />
+                                desable={!disableBoton ? true : false}
+                                />
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             {validarId ? (
@@ -366,6 +377,7 @@ export const Maurisio = (props) => {
                             <button
                                 type='submit'
                                 className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                                disabled={disableBoton}
                             >
                                 Registrar
                             </button>

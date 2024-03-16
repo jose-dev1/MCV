@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AlertaEliminar from '../../components/dash/alertaEliminar';
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { CheckIcon,XMarkIcon } from "@heroicons/react/24/outline";
 
 const columns = [
@@ -29,6 +30,7 @@ export default function GestionarAsistencia() {
     const {selectId, saveSelectId} = useSelectId()
     const [actualizar,setActualizar] = useState(false)
     const [rows,setRows] = useState([])
+    const [error, setError] = useState('')
 
     useEffect(()=>{
       const fechtData = async () =>{
@@ -36,7 +38,7 @@ export default function GestionarAsistencia() {
           const response = await axios.get(`http://localhost:4321/asistencia`)
           setRows(response.data)
       }catch(error){
-        console.log(error)
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
       }
       console.log('hola')
@@ -87,6 +89,7 @@ export default function GestionarAsistencia() {
                 }/>
             <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
             </Stack>
+            <AlertPrincipal severity='error' message={error}/>
         </div>
     );
 }

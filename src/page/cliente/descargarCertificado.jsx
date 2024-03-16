@@ -8,86 +8,15 @@ import Swal from "sweetalert2";
 import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-
+import WhatsAppComponent from '../../components/whatsappComponent';
+import axios from 'axios';
 const columns = [
-  { field: 'nombre', headerName: 'Nombre del la mascota', width: 270 },
-  { field: 'Fecha', headerName: 'Fecha de expedidicon del certificado', width: 230 },
-  { field: 'documento', headerName: 'Numero de documento', width: 160 },
-  { field: 'tipo', headerName: 'Tipo de certificado', width: 180 },
+  { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
+  { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230 },
+  { field: 'estado_certificado', headerName: 'Estado del certificado', width: 160 },
+
 ]
 
-const rows = [
-  {
-    id: 1,
-    nombre: 'Tommy',
-    Fecha: '20-10-2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  },
-  {
-    id: 2,
-    nombre: 'Tommy',
-    Fecha: '20-10-2023',
-    documento: '1012438733',
-    tipo: "Certificado de desparacitacion"
-  },
-  {
-    id: 3,
-    nombre: 'Tommy',
-    Fecha: '20-10-2023',
-    documento: '1012438733',
-    tipo: "Vacunacion"
-  },
-  {
-    id: 4,
-    nombre: 'Tommy',
-    Fecha: '20-10-2023',
-    documento: '1012438733',
-    tipo: "Vacunacion"
-  },
-  {
-    id: 5,
-    nombre: 'Tommy',
-    Fecha: '20-10-2023',
-    documento: '1012438733',
-    tipo: "Certificado de desparacitacion"
-  },
-  {
-    id: 6,
-    nombre: 'Tommy',
-    Fecha: '20/10/2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  },
-  {
-    id: 7,
-    nombre: 'Tommy',
-    Fecha: '20/10/2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  },
-  {
-    id: 8,
-    nombre: 'Tommy',
-    Fecha: '20/10/2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  },
-  {
-    id: 9,
-    nombre: 'Tommy',
-    Fecha: '20/10/2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  },
-  {
-    id: 10,
-    nombre: 'Tommy',
-    Fecha: '20/10/2023',
-    documento: '1012438733',
-    tipo: "Viaje"
-  }
-];
 
 function AlertaDescargar(props) {
   const { idSeleccionado, tooltip } = props
@@ -128,6 +57,20 @@ function AlertaDescargar(props) {
 export default function DescargarCertificado() {
   const { selectId, saveSelectId } = useSelectId()
   const { selectRow, saveSelectRow } = useSelectRow()
+  const [examen, setExamen] = useState([]);
+
+  useEffect(() => {
+    const fetchDataCertificado = async () => {
+      try {
+        const response = await axios.get('http://localhost:4321/registro/descarga_examen')
+        setExamen(response.data);
+      } catch (error) {
+        console.log("No hay datos disponibles", error)
+      }
+    }
+    fetchDataCertificado();
+  }, []);
+
   return (
     <div className='flex gap-20'>
       <Sidebar />
@@ -136,9 +79,9 @@ export default function DescargarCertificado() {
           title='Descargar Certificados'
           descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
         />
-        <DataTable rows={rows} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
+        <DataTable rows={examen} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
       </div>
-
+      <WhatsAppComponent />
     </div>
   )
 }

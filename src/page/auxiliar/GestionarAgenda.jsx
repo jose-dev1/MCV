@@ -10,6 +10,8 @@ import AlertEliminar from '../../components/dash/alertEliminar'
 import { Stack } from '@mui/material'
 import BotonCam from '../../components/dash/botonCam'
 import axios from 'axios'
+import AlertPrincipal from '../../components/dash/alertPrincipal';
+
 const columns = [
   {
     field: 'nombreDueño', headerName: 'Nombre Cliente', width: 200,
@@ -37,22 +39,37 @@ function GestionarAgenda() {
   const [dataVeterinario,setDataVeterinario] = useState([])
   const [dataGroomer,SetDataGroomer] = useState([])
   const [estadoBoton,setEstadoBoton] = useState(true)
+  const [success,setSuccess] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await axios.get('http://localhost:4321/agendar/especialista/VET');
-        const result2 = await axios.get('http://localhost:4321/agendar/especialista/GRO');
         setDataVeterinario(result.data);
-        SetDataGroomer(result2.data);
-        estadoBoton ? setDataMostrar(result.data) : setDataMostrar(result2.data)
       } catch (error) {
-        setError('Error: ' + error.message);
+        setDataVeterinario([])
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor');
+      }
+      
+      try {
+        const result2 = await axios.get('http://localhost:4321/agendar/especialista/GRO');
+        SetDataGroomer(result2.data);
+      } catch (error) {
+        SetDataGroomer([])
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor');
       }
     };
   
     fetchData();
   }, [actualizar]);
+  
+  useEffect(() => {
+    if (estadoBoton) {
+      setDataMostrar(dataVeterinario);
+    } else {
+      setDataMostrar(dataGroomer);
+    }
+  }, [estadoBoton, dataVeterinario, dataGroomer]);
 
 
   const handleCam = async (nom) => {
@@ -87,7 +104,9 @@ function GestionarAgenda() {
             label='Agregar Cita'
             actualizar= {setActualizar}
             dato={actualizar}
-            id={null}/>
+            id={null}
+            successMessage={setSuccess}
+            errorMessage={setError}/>
           }
           editar={
             <Maurisio
@@ -98,6 +117,8 @@ function GestionarAgenda() {
               id={selectId}
               actualizar= {setActualizar}
               dato={actualizar}
+              successMessage={setSuccess}
+              errorMessage={setError}
             />
           }
           eliminar={<AlertEliminar 
@@ -117,10 +138,10 @@ function GestionarAgenda() {
           <DataTable rows={dataMostrar} columns={columns} selectId={saveSelectId} />
         </div>
       </Stack>
+      <AlertPrincipal severity='error' message={error}/>
+      <AlertPrincipal severity='success' message={success}/>
     </div>
   )
 }
-
-
 
 export default GestionarAgenda

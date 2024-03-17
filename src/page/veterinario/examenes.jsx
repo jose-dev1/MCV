@@ -5,10 +5,11 @@ import { AgrearExamen } from '../../components/veterinario/agrearExamen'
 import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId'
-import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
+// import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
 import { Stack } from '@mui/material'
 import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
+import dayjs from 'dayjs'
 
 const columns = [
     { field: 'nombre_mascota', headerName: 'Nombre Mascota', width: 150 },
@@ -17,7 +18,9 @@ const columns = [
     `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`},
     { field: 'numero_documento_cliente', headerName: 'Documento Del Dueño', width: 180 },
     { field: 'tipo_examen', headerName: 'Tipo de Examen', width: 150 },
-    { field: 'fecha_toma_muestra_examen', headerName: 'Fecha de Toma', width: 200 },
+    { field: 'fecha_toma_muestra_examen', headerName: 'Fecha de Toma', width: 200, 
+    valueGetter: (params) =>
+    `${dayjs(params.row.fecha_toma_muestra_examen).format('MM-DD-YYYY')}` },
     { field: 'registro_completo_examen', headerName: 'Examen Completo?', width: 140,valueGetter: (params) =>
     `${params.row.registro_completo_examen === 1 ? 'Si' : 'No'}` },
 ];
@@ -78,7 +81,7 @@ function Examenes() {
             id={selectId}/>
 
           }
-          descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Examen' />}
+          // descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Examen' />}
           eliminar={<AlertEliminar 
             idSeleccionado={selectId} 
             tooltip='Desactivar Examen' 

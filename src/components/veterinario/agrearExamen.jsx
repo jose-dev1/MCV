@@ -239,9 +239,9 @@ const handleSubmit = async (event) => {
                 />
               ) : (
                 <Selects
-                  id='tipoExamen'
+                  id='idTipoExamen'
                   label='Tipo Examen'
-                  name='tipoExamen'
+                  name='idTipoExamen'
                   value={values.tipoExamen}
                   onChange={handleInputChange}
                   items={examType}

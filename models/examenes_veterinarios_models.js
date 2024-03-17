@@ -48,8 +48,10 @@ export default class ExamenesVeteriarioModel {
       const { idMascota, idTipoExamen } = input
 
       const [[existingData]] = await connection.query(
-      `SELECT BIN_TO_UUID(id_examen) id FROM examenes
-      WHERE registro_completo_examen != 0 AND estado_examen = 1`)
+      `SELECT BIN_TO_UUID(id_examen) id 
+      FROM examenes
+      INNER JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
+      WHERE registro_completo_examen = 0 AND estado_examen = 1 AND id_tipo_examen = ? AND mascotas.id_mascota = UUID_TO_BIN(?)`, [idTipoExamen, idMascota])
       console.log(existingData)
 
       if (existingData) throw new DuplicateInfo()

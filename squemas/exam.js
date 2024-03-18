@@ -10,12 +10,27 @@ const examCreateSchema = z.object({
 })
 
 const examUpdateSchema = z.object({
-  fechaRegistroResultadosExamen: z.date().refine(value => !isNaN(value.getTime()), {
-    message: 'La fecha de registro de resultados del examen no es válida.'
+  fechaRegistroResultadosExamen: z.union([z.string().nullable(), z.null()]).refine(value => {
+    if (value === null) return true
+    if (typeof value === 'string') {
+      return /^\d{4}-\d{2}-\d{2}$/.test(value)
+    }
+    return value instanceof Date
+  }, {
+    invalid_type_error: 'falla fecha',
+    message: 'La fecha del resultado del examen debe ser una cadena en formato YYYY-MM-DD o nula'
   }),
-  resultadoExamen: z.string().min(1, { message: 'El resultado del examen no puede estar vacío.' }),
-  linkArchivoExamen: z.string().min(1, { message: 'El enlace al archivo del examen no puede estar vacío.' }),
-  registroCompletoExamen: z.string().min(1, { message: 'El registro completo del examen no puede estar vacío.' })
+
+  resultadoExamen: z.string({ invalid_type_error: 'falla resultado examen' }).min(1, { message: 'El resultado del examen no puede estar vacío.' }),
+
+  linkArchivoExamen: z.string({
+    invalid_type_error: 'falla link'
+  }).min(1, { message: 'El enlace al archivo del examen no puede estar vacío.' }),
+
+  registroCompletoExamen: z.number({
+    invalid_type_error: 'falla registro complesto',
+    message: 'El registro completo del examen no puede estar vacío.'
+  })
 })
 
 export function validateExamenCreate (input) {

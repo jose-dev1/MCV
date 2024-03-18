@@ -4,7 +4,7 @@ import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountA
 
 
 export class RegistroController {
-  static async registro (req, res) {
+  static async registro(req, res) {
     const { userCorreo, userPassword, userGenero, userRol } = req.body
     try {
       const response = await registroModel.registrar({
@@ -26,7 +26,7 @@ export class RegistroController {
     }
   }
 
-  static async registroCliente (req, res) {
+  static async registroCliente(req, res) {
     const {
       numero_documento_cliente,
       id_tipo_documento,
@@ -66,7 +66,7 @@ export class RegistroController {
     }
   }
 
-  static async verificarCuenta (req, res) {
+  static async verificarCuenta(req, res) {
     const { codigo_verificacion } = req.body
     try {
       const response = await registroModel.verificacionCuentas({ codigo_verificacion })
@@ -81,7 +81,7 @@ export class RegistroController {
     }
   }
 
-  static async genero (req, res) {
+  static async genero(req, res) {
     try {
       const query = ' SELECT * FROM genero'
       const [generos] = await connection.query(query)
@@ -91,7 +91,7 @@ export class RegistroController {
     }
   }
 
-  static async getDocumento (req, res) {
+  static async getDocumento(req, res) {
     try {
       const documento = 'SELECT * FROM tipo_documento'
       const [doc] = await connection.query(documento)
@@ -102,7 +102,7 @@ export class RegistroController {
     }
   }
 
-  static async actualizarCliente (req, res) {
+  static async actualizarCliente(req, res) {
     const { id } = req.params
     const { contraseña, correo_usuario, ...data } = req.body
     try {
@@ -118,10 +118,9 @@ export class RegistroController {
     }
   }
 
-  static async getExamen(req, res){
-    const {numero_documento_cliente} = req.params
-    console.log(req.params)
-    const response = await registroModel.getExamenes({ numero_documento_cliente })
+  static async getExamen(req, res) {
+    const { id } = req.params
+    const response = await registroModel.getExamenes({ id })
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran los examenes' })
     } else if (response instanceof Error) {
@@ -131,21 +130,21 @@ export class RegistroController {
     }
   }
 
-  static async getCertificado(req, res){
-    const {numero_documento_cliente} = req.params
-    const response = await registroModel.getCertificados({ numero_documento_cliente })
-    if (response instanceof NoDataFound){
-      res.status(404).json({message: 'No se encuentran los certificados'})
-    }else if (response instanceof Error){
-      res.status(500).json({message: 'Error interno del servidor'})
-    }else{
+  static async getCertificado(req, res) {
+    const { id } = req.params
+    const response = await registroModel.getCertificados({ id })
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No se encuentran los certificados' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
       res.json(response)
     }
   }
 
   // se hizo todo el metodo de registro
 
-  static async deleteUser (req, res) {
+  static async deleteUser(req, res) {
     const { correo_u } = req.body
     const response = await registroModel.eliminarCuenta({ correo_u })
     if (response instanceof AccountAlreadyDisable) {

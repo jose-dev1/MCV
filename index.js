@@ -26,6 +26,7 @@ import { registroMascotas } from './routes/registro_mascotas.js'
 import { facturasRouter } from './routes/facturaRoutes.js'
 import fileUpload from 'express-fileupload'
 import { desparacitacionesRouter, desparacitacionTypes } from './routes/desperacitacion_router.js'
+import { agendaRouter } from './routes/agenda_routes.js'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -62,6 +63,7 @@ app.use('/registro-mascota', registroMascotas)
 app.use('/factura', facturasRouter)
 app.use('/desparasitacion', desparacitacionesRouter)
 app.use('/despaTypes', desparacitacionTypes )
+app.use('/agenda_groomer', agendaRouter)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

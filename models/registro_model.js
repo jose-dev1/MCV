@@ -6,7 +6,7 @@ import Mailjet from 'node-mailjet'
 import { NoDataFound, NotFoundUser } from "../squemas/errors_squemas.js"
 
 export class registroModel {
-  static async registrar ({ userCorreo, userPassword, userRol, userGenero }) {
+  static async registrar({ userCorreo, userPassword, userRol, userGenero }) {
     try {
       const secret = crypto.randomBytes(32).toString('hex')
       const [existingUser] = await connection.query(
@@ -34,7 +34,7 @@ export class registroModel {
     }
   }
 
-  static async enviarCorreo ({ userCorreo, secret }) {
+  static async enviarCorreo({ userCorreo, secret }) {
     const mailjetClient = Mailjet.apiConnect(
       '34538d099c891c567832df06c3604b5d',
       '90ae5d5f8d216c7842159b9af30b2280'
@@ -71,7 +71,7 @@ export class registroModel {
     }
   }
 
-  static async registroClientes ({
+  static async registroClientes({
     numero_documento_cliente,
     id_tipo_documento,
     lugar_expedicion_documento,
@@ -165,41 +165,51 @@ export class registroModel {
     }
   }
 
-  static async getExamenes({ numero_documento_cliente }){
+  static async getExamenes({ id }) {
     const query = `
-        SELECT examenes.*
-        FROM examenes
-        JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
-        JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
-        WHERE clientes.numero_documento_cliente = ?;
+      SELECT BIN_TO_UUID(examenes.id_examen) id, examenes.*, mascotas.nombre_mascota
+      FROM examenes
+      JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
+      JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+      WHERE clientes.id_cliente = UUID_TO_BIN(?);
     `;
-    
     try {
-        const examenes = await connection.query(query, [numero_documento_cliente]);
-        return examenes;
+      const examenes = await connection.query(query, [id]);
+      return examenes;
     } catch (error) {
-        console.error('Error al obtener los exámenes:', error);
-        throw error;
+      console.error('Error al obtener los exámenes:', error);
+      throw error;
     }
-
-  
   }
 
-  static async getCertificados({ numero_documento_cliente }){
-    console.log(numero_documento_cliente)
-    const query = `SELECT certificados.*
-    FROM certificados
-    JOIN mascotas ON certificados.id_mascota = mascotas.id_mascota
-    JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
-    WHERE clientes.numero_documento_clientes = ?;
-    
-    `; 
 
-    try{
-      const certificados = await connection.query(query, [numero_documento_cliente]);
+
+
+  static async getCertificados({ id }) {
+    const query = `SELECT
+        BIN_TO_UUID(c.id_certificado) id,
+        c.informacion_sanitaria_certificado,
+        c.informacion_adicional_certificado,
+        c.fecha_certificado,
+        c.estado_certificado,
+        c.anotacion_certificado,
+        BIN_TO_UUID(c.id_mascota) AS id_mascota,
+        m.nombre_mascota
+    FROM
+        certificados AS c
+    JOIN
+        mascotas AS m ON c.id_mascota = m.id_mascota
+    JOIN
+        clientes AS cl ON m.id_cliente_mascota = cl.id_cliente
+    WHERE
+        cl.id_cliente = UUID_TO_BIN(?); 
+    `;
+
+    try {
+      const certificados = await connection.query(query, [id]);
       return certificados
 
-    }catch(error) {
+    } catch (error) {
       console.error('Error al obtener los certificado:', error)
       throw error
     }

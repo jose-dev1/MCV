@@ -26,8 +26,8 @@ export class DesparasitacionesController {
   }
 
   static async createDesparasitacion(req, res) {
-    const data = req.body;
-    const response = await DesparasitacionesModel.createDesparasitacion(data);
+    const values = req.body;
+    const response = await DesparasitacionesModel.createDesparasitacion(values);
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'Ya existe una desparasitación registrada' });
     } else if (response instanceof Error) {
@@ -63,7 +63,7 @@ export class DesparasitacionesController {
     }
   }
 
-  static async getTypeDesparacitacion(req, res){
+  static async getTypeDesparacitacion(req, res) {
     const response = await DesparasitacionesModel.getDesparacitacionTypes()
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentra los tipos de desparacitacion' })

@@ -5,9 +5,10 @@ export class DesparasitacionesModel {
   static async getAllDesparasitaciones() {
     try {
       const [res] = await connection.query(
-        `SELECT BIN_TO_UUID(id_desparacitacion) id, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, estado_desparacitacion, anotacion_desparacitacion, nombre_mascota
+        `SELECT BIN_TO_UUID(id_desparacitacion) id, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, estado_desparacitacion, anotacion_desparacitacion, nombre_mascota,primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente
         FROM desparacitaciones
         INNER JOIN mascotas ON desparacitaciones.id_mascota = mascotas.id_mascota
+        INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
         WHERE estado_desparacitacion = 1;`
       );
 
@@ -37,23 +38,21 @@ export class DesparasitacionesModel {
     }
   }
 
-  static async createDesparasitacion(input) {
+  static async createDesparasitacion(value) {
     try {
-      const { idMascota } = input;
 
-      const [[existingData]] = await connection.query(
-        `SELECT BIN_TO_UUID(id_desparacitacion) id FROM desparacitaciones
-        WHERE estado_desparacitacion = 1`
-      );
-
-      if (existingData) throw new DuplicateInfo();
 
       await connection.query(
-        `INSERT INTO desparacitaciones (estado_desparacitacion, id_mascota) VALUES
-        (1, UUID_TO_BIN(?));`,
-        [idMascota]
+        `INSERT INTO desparacitaciones 
+        (id_desparacitacion, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, estado_desparacitacion, id_tipo_desparacitacion, id_mascota) 
+        VALUES
+        (UUID_TO_BIN(UUID()), ?, CURDATE(), CURDATE(), ?, ?, ?, 1, ?, UUID_TO_BIN(?));`,
+        [value.medicamento_aplicado, value.lote_desparacitacion, value.registro_ica, value.laboratorio_desparacitacion, value.idTipoDesparacitacion, value.idMascota]
       );
+
+      return { message: 'Desparacitación registrada correctamente' };
     } catch (error) {
+      console.log("no se esta insertando los datos", error);
       return error;
     }
   }
@@ -93,17 +92,18 @@ export class DesparasitacionesModel {
       const [res] = await connection.query(
         `UPDATE desparacitaciones
         SET anotacion_desparacitacion = ?, estado_desparacitacion = 0
-        WHERE id_desparasitacion = UUID_TO_BIN(?);`,
+        WHERE id_desparacitacion = UUID_TO_BIN(?);`,
         [anotacion, id]
       );
 
       return res;
     } catch (error) {
+      console.log("no se puedo eliminar", error);
       return error;
     }
   }
 
-  static async getDesparacitacionTypes(){
+  static async getDesparacitacionTypes() {
     try {
       const [res] = await connection.query('SELECT id_tipo_desparacitacion AS id, tipo_desparacitacion AS value FROM tipo_desparacitacion')
 

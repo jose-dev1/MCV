@@ -3,39 +3,39 @@ import Sidebar from "../../components/sidebarComponent";
 import DataTable from '../../components/dash/dataTable';
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera';
-import useSelectRow from '../../Hooks/useSelectRow';
 import Swal from "sweetalert2";
+import Stack from '@mui/material/Stack';
 import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 
 const columns = [
-  { field: 'fecha_registro_resultados_examen', headerName: 'Fecha de resultado del examen', width: 270 },
-  { field: 'fecha_toma_muestra_examen', headerName: 'Fecha de muestra del examen', width: 230 },
-  { field: 'resultado_examen', headerName: 'Resultado del examen', width: 180 },
-  { field: 'estado_examen', headerName: 'Estado del examen', width: 180 },
-]
+  { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
+  { field: 'fecha_toma_muestra_examen', headerName: 'Fecha del examen', width: 230, valueGetter: (params) => new Date(params.row.fecha_toma_muestra_examen).toLocaleDateString('es-ES') },
+  { field: 'registro_completo_examen', headerName: 'Estado del examen', width: 160, valueGetter: (params) => params.row.registro_completo_examen === 1 ? 'Examen Completado' : 'Examen Pendiente' },
+  { field: 'resultado_examen', headerName: 'Resultado del examen', width: 300 },
+];
 
 function AlertaDescargar(props) {
-  const { idSeleccionado, tooltip } = props;
-  const [desabilitado, setDesabilitado] = useState(idSeleccionado ? idSeleccionado.length === 0 : true);
+  const { idSeleccionado, tooltip } = props
+  const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
 
   useEffect(() => {
-    setDesabilitado(idSeleccionado ? idSeleccionado.length === 0 : true);
-  }, [idSeleccionado]);
+    setDesabilitado(idSeleccionado.length === 0)
+  }, [idSeleccionado, setDesabilitado])
 
   const handleClick = () => {
     Swal.fire({
-      title: '¿Deseas descargar examen?',
+      title: '¿Deseas descargar el certificado?',
       showDenyButton: true,
       confirmButtonText: "Confirmar",
       denyButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Descargando el examen medico", "", "success");
+        Swal.fire("Descargando el certificado", "", "success");
       } else if (result.isDenied) {
-        Swal.fire("No se ha descargado el examen", "", "error");
+        Swal.fire("No se ha descargado el certificado", "", "error");
       }
     });
   }
@@ -47,48 +47,58 @@ function AlertaDescargar(props) {
         icon={<DocumentArrowDownIcon className='w-6 h-6' />}
         tooltip={tooltip}
         onClick={handleClick}
-        disabled={desabilitado}
+        desable={desabilitado}
       />
     </>
   )
 }
 
+
 export default function DescargarExamen() {
   const { selectId, saveSelectId } = useSelectId();
-  const { selectRow, saveSelectRow } = useSelectRow();
-  const [datos, setDatos] = useState([]);
+  const [rows, setRows] = useState([]);
   const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData1 = async () => {
       try {
-        console.log(cliente.numero_documento_cliente)
-        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.numero_documento_cliente}`);
-        const datosConId = response.data.map((row, index) => ({
-          id: index + 1,
-          ...row
-        }));
-
-        setDatos(datosConId);
-        console.log(response);
+        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.id}`);
+        const rowsWithIds = response.data[0].map((row, index) => ({ ...row, id: index + 1 }));
+        setRows(rowsWithIds);
       } catch (error) {
-        console.error("No estoy trayendo los datos", error);
+        console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
-    fetchData()
+    fetchData1();
   }, []);
 
+
   return (
-    <div className='flex gap-40'>
+    <div className='flex gap-3'>
       <Sidebar />
-      <div className='mt-10'>
+      <Stack
+        spacing={2}
+        sx={{
+          position: 'fixed',
+          top: 10,
+          right: 6,
+          bottom: 5,
+          left: 'calc(22% + 3px)',
+          p: [2, 3, 4],
+          width: '77%',
+          display: 'flex',
+          overflow: 'auto'
+        }}
+      >
         <Botonera
-          title='Descargar Examen Medicos'
+          title='Descargar Examenes'
           descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
         />
-        <DataTable rows={datos} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
-      <WhatsAppComponent />
+        <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
+        <WhatsAppComponent />
+      </Stack>
     </div>
   )
 }

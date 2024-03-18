@@ -5,15 +5,17 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
 import useSelectRow from '../../Hooks/useSelectRow';
 import Swal from "sweetalert2";
+import Stack from '@mui/material/Stack';
 import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 const columns = [
+  { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
   { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
   { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230 },
-  { field: 'estado_certificado', headerName: 'Estado del certificado', width: 160 },
+  { field: 'anotacion_certificado', headerName: 'Anotacion', width: 160 },
 
 ]
 
@@ -57,24 +59,16 @@ function AlertaDescargar(props) {
 export default function DescargarCertificado() {
   const { selectId, saveSelectId } = useSelectId()
   const { selectRow, saveSelectRow } = useSelectRow()
-  const [examen, setExamen] = useState([]);
   const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
   const [datos, setDatos] = useState([])
 
   useEffect(() => {
     const fetchDataCertificado = async () => {
       try {
-        console.log(cliente.numero_documento_cliente)
-        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.numero_documento_cliente}`);
-
-
-        const datosConId = response.data.map((row, index) => ({
-          id: index + 1,
-          ...row
-        }));
-
-        setDatos(datosConId);
-        console.log(response);
+        console.log(cliente.id)
+        const response = await axios.get(`http://localhost:4321/registro/descarga_certificado/${cliente.id}`);
+        const rowsWithIds = response.data[0].map((row, index) => ({ ...row, id: index + 1 }));
+        setDatos(rowsWithIds);
       } catch (error) {
         console.error("No estoy trayendo los datos", error);
       }
@@ -83,16 +77,29 @@ export default function DescargarCertificado() {
   }, [])
 
   return (
-    <div className='flex gap-20'>
+    <div className='flex gap-3'>
       <Sidebar />
-      <div className='mt-10'>
+      <Stack
+        spacing={2}
+        sx={{
+          position: 'fixed',
+          top: 10,
+          right: 6,
+          bottom: 5,
+          left: 'calc(22% + 3px)',
+          p: [2, 3, 4],
+          width: '77%',
+          display: 'flex',
+          overflow: 'auto'
+        }}
+      >
         <Botonera
           title='Descargar Certificados'
           descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
         />
-        <DataTable rows={datos} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
-      </div>
-      <WhatsAppComponent />
+        <DataTable rows={datos} columns={columns} selectId={saveSelectId} />
+        <WhatsAppComponent />
+      </Stack>
     </div>
   )
 }

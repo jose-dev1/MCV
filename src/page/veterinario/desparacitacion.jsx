@@ -18,8 +18,8 @@ const columns = [
             `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`
     },
     { field: 'numero_documento_cliente', headerName: 'Documento Del Dueño', width: 180 },
-    { field: 'medicamento_aplicado', headerName: 'Medicamento Aplicado', width: 150 },
-    { field: 'fecha_aplicacion_desparacitacion', headerName: 'Fecha de Toma', width: 200 },
+    { field: 'medicamento_aplicado', headerName: 'Medicamento Aplicado', width: 200 },
+    { field: 'fecha_aplicacion_desparacitacion', headerName: 'Fecha de Toma', width: 200, valueGetter: (params) => new Date(params.row.fecha_aplicacion_desparacitacion).toLocaleDateString('es-ES') },
 ];
 
 export default function Desparacitacion() {
@@ -83,7 +83,7 @@ export default function Desparacitacion() {
                         idSeleccionado={selectId}
                         tooltip='Desactivar Desparacitacion'
                         titulo='¿Desea desactivar el examen seleccionada?'
-                        endPoint='desparacitacion/delete'
+                        endPoint='desparasitacion/delete'
                         menssage='Por favor especifique el motivo por el cual desea desactivar la desparacitacion. Tenga en cuenta que este cambio es irreversible.'
                         actualizar={setActualizar}
                         dato={actualizar} />}

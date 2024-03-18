@@ -40,6 +40,18 @@ export class ScheduleController {
     }
   }
 
+  static async getFechaEmpleado (req, res) {
+    const { fechaCita, idEmpleado } = req.params
+    const response = await ScheduleModel.getFechaEmpleado({ fechaCita, idEmpleado })
+    if (response instanceof NoDataFound) {
+      res.status(404).json({ message: 'No se encuentran citas con la fecha seleccionada para el empleado cargado' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
+      res.json(response)
+    }
+  }
+
   // inicio metodos de otros controladores
   static async getMascotas (req, res) {
     const { tipoDocumento, numeroDocumento } = req.params

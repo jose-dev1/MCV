@@ -6,10 +6,10 @@ import axios from 'axios';
 import { ExclamationTriangleIcon, ClipboardDocumentCheckIcon, CalendarDaysIcon, BugAntIcon } from '@heroicons/react/24/outline';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 const defaultValues={
-    hospitalizaciones_activas: 0,
-    citas_dia: 0,
-    examenes_pendientes: 0,
-    cantidad_mascotas: 0
+    hospitalizaciones_activas: '',
+    citas_dia: '',
+    examenes_pendientes: '',
+    cantidad_mascotas: ''
 }
 
 export default function Home() {

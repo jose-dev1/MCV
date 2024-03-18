@@ -10,6 +10,7 @@ import useForm from '../../Hooks/useForm';
 import InputDate from '../../components/dash/inputDate'
 import dayjs from 'dayjs';
 import { dateFormater } from '../../utils/dateFormater';
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
     { 
@@ -46,7 +47,7 @@ const defaultValues ={
 export default function AgendaVeterinario() {
   const {selectId, saveSelectId} = useSelectId()
   const {values, handleInputChangeDate} = useForm(defaultValues)
-
+  const [error, setError] = useState(null)
   const [rows, setRows] = useState([])
   const [actualizar, setActualizar] = useState(false)
 
@@ -58,7 +59,8 @@ export default function AgendaVeterinario() {
         const {data} = await axios.get(`http://localhost:4321/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/${id.id_usuario}`)
         setRows(data)
       } catch (error) {
-        console.log(error)
+        setRows([])
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
     }
     fetchData()
@@ -105,6 +107,7 @@ export default function AgendaVeterinario() {
           </div>
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
         </Stack>
+        <AlertPrincipal severity='error' message={error}/>
     </div>
   )
 }

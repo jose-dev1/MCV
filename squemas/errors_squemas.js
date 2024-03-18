@@ -16,3 +16,4 @@ export const AccountAlreadyDisable = createErrorFactory('Account already disable
 export const InfoAlreadyExisting = createErrorFactory('The information already exists')
 export const DataAlreadyChange = createErrorFactory('The data alrready changed')
 export const OccupiedSpace = createErrorFactory('Space is already ocuipated')
+export const NotAllowed = createErrorFactory('action not allowed')

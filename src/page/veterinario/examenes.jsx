@@ -10,6 +10,7 @@ import { Stack } from '@mui/material'
 import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
 import dayjs from 'dayjs'
+import AlertPrincipal from '../../components/dash/alertPrincipal'
 
 const columns = [
     { field: 'nombre_mascota', headerName: 'Nombre Mascota', width: 150 },
@@ -29,6 +30,7 @@ function Examenes() {
   const {selectId, saveSelectId} = useSelectId()
   const [rows, setRows] = useState([])
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState('')
   const [actualizar, setActualizar] = useState(false)
   useEffect(() => {
     const fectchData = async () => {
@@ -67,7 +69,9 @@ function Examenes() {
             label='Agregar Examen Medico'
             actualizar={setActualizar}
             dato={actualizar}
-            id={null}/>
+            id={null}
+            successMessage={setSuccess}
+            errorMessage={setError}/>
             
           }
           editar={
@@ -78,7 +82,9 @@ function Examenes() {
             label='Agregar Examen Medico'
             actualizar={setActualizar}
             dato={actualizar}
-            id={selectId}/>
+            id={selectId}
+            successMessage={setSuccess}
+            errorMessage={setError}/>
 
           }
           // descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Examen' />}
@@ -93,6 +99,8 @@ function Examenes() {
         />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
       </Stack>
+      <AlertPrincipal severity='error' message={error}/>
+      <AlertPrincipal severity='success' message={success}/>
     </div>
   )
 }

@@ -15,6 +15,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useExamTypes } from '../../Hooks/useExamTypes'
 import Message from '../dash/succesfulMessage'
 import InputDate from '../dash/inputDate'
+import PetsIcon from '@mui/icons-material/Pets';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const registroCompletoExamen = [
   {
@@ -39,7 +41,7 @@ const defaultValues = {
 }
 
 export const AgrearExamen = (props) => {
-  const { label, bgColor, icon, tooltip, id, actualizar, dato } = props
+  const { label, bgColor, icon, tooltip, id, actualizar, dato, successMessage, errorMessage } = props
 
   const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
   const {desabilitado, validarId} = useHabilitar({id})
@@ -50,21 +52,32 @@ export const AgrearExamen = (props) => {
   const [success, setSuccess] = useState('')
   const [open, setOpen] = useState(false)
   const [dataMoscota, setDataMascota] = useState([])
+  const [disableBoton, setDisableBoton] = useState(true)
 
   const reinicio = () =>{
     setDataMascota([])
   }
 
   const handleModal = async () => {
+    successMessage('')
+    errorMessage('')
     const {todosDatos, validacion} =  await getDataById({id, endpoind: 'examenesVeterinario', defaultValues})
     if (validacion) {
         if(todosDatos instanceof Error){
             setError(todosDatos)
         }else{
-            setValues(todosDatos)
+            if (todosDatos.registro_completo_examen === 0){
+              setDisableBoton(false)
+              setValues(todosDatos)
+              setOpen(true)
+            }else{
+              handleClose()
+              errorMessage('El examen no puede ser editado')
+            }
         }
+    }else{
+      setOpen(true)
     }
-    setOpen(true)
   }
   const handleClose = () => {
     reinicio()
@@ -72,28 +85,35 @@ export const AgrearExamen = (props) => {
     setError('')
     setSuccess('')
     setOpen(false)
+    setDisableBoton(true)
   }
 
   const handleSubmitId = async (event) => {
     event.preventDefault()
-    try{
-        const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-        setSuccess('')
-        if (validation || values.especialista === '') {
-            setError('Por favor, complete los campos nesesarios.');
-            reinicio()
-        }
-        else {
-            setError('')
-            const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-            if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
-            setDataMascota(getPets)
-            
-            setSuccess('Datos cargados exitosamente.')
-        }
-    }catch (error) {
-        reinicio()
-        setError(`${error}`)
+    if (!disableBoton){
+      setSuccess('')
+      setDisableBoton(true)
+      setDataMascota([])
+    }else{
+      try{
+          const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+          setSuccess('')
+          if (validation || values.especialista === '') {
+              setError('Por favor, complete los campos nesesarios.');
+              reinicio()
+          }
+          else {
+              setError('')
+              const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+              if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
+              setDataMascota(getPets)
+              setDisableBoton(false)
+              setSuccess('Datos cargados exitosamente.')
+          }
+      }catch (error) {
+          reinicio()
+          setError(`${error}`)
+      }
     }
 }
 
@@ -102,6 +122,7 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   setError('')
   setSuccess('')
+  setDisableBoton(true)
   try {
       let endpoint = 'http://localhost:4321/examenesVeterinario/'
       let httpMethod = 'post'
@@ -111,12 +132,21 @@ const handleSubmit = async (event) => {
           resultado_examen: resultadoExamen,
           link_archivo_examen: linkArchivoExamen,
           registro_completo_examen: registroCompletoExamen} = values;
-          envio = {
-            fechaRegistroResultadosExamen: dateFormater({time: fechaRegistroResultadosExamen, format: 'YYYY-MM-DD'}),
-            resultadoExamen,
-            linkArchivoExamen,
-            registroCompletoExamen
-          };
+          if (registroCompletoExamen===0){
+            envio = {
+              fechaRegistroResultadosExamen: null,
+              resultadoExamen,
+              linkArchivoExamen,
+              registroCompletoExamen
+            };
+          }else {
+            envio = {
+              fechaRegistroResultadosExamen: dateFormater({time: fechaRegistroResultadosExamen, format: 'YYYY-MM-DD'}),
+              resultadoExamen,
+              linkArchivoExamen,
+              registroCompletoExamen
+            };
+          }
           endpoint += `/${values.id}`
           httpMethod = 'patch'
       } else {
@@ -127,10 +157,12 @@ const handleSubmit = async (event) => {
           }
       }
       const response = await axios[httpMethod](endpoint, envio)
-      setSuccess(response.data.message)
+      successMessage(response.data.message)
       actualizar(!dato)
+      handleClose()
   } catch (error) {
       setError(`Error: ${error.response.data.message}`)
+      setDisableBoton(false)
   }
 }
 
@@ -176,7 +208,7 @@ const handleSubmit = async (event) => {
                 value={values.tipoDocumento}
                 onChange={handleInputChange}
                 items={tipoDocuemento}
-                disabled={validarId ? true : false}
+                disabled={!disableBoton ? true : false}
                 required
                 />
             )}
@@ -188,18 +220,18 @@ const handleSubmit = async (event) => {
                 name='numeroDocumento'
                 value={values.numero_documento_cliente}
                 onChange={handleInputChange}
-                disabled={validarId ? true : false}
+                disabled={!disableBoton ? true : false}
                 required
               />
             </Grid>
             <Grid item xs={12} sm={2}>
-              <Boton
-                  onClick={handleSubmitId}
-                  bgColor='success'
-                  icon={<MagnifyingGlassIcon />}
-                  tooltip='Buscar'
-                  desable={validarId ? true : false}
-              />
+            <Boton
+              onClick={handleSubmitId}
+              bgColor={!disableBoton ?  'error': 'success'} 
+              icon={!disableBoton ? <DeleteIcon sx={{ fontSize: 40 }}/> : <PetsIcon sx={{ fontSize: 40 }}/>}
+              tooltip='Buscar'
+              desable={validarId ? true : false}
+            />
             </Grid>
             <Grid item xs={12} sm={6}>
             {validarId ? (
@@ -258,9 +290,9 @@ const handleSubmit = async (event) => {
                     fullWidth
                     label='Fecha registro resultados examen'
                     name='fecha_registro_resultados_examen'
-                    fecha={values.fecha_registro_resultados_examen}
+                    fecha={values.fecha_registro_resultados_examen ? values.fecha_registro_resultados_examen : values.fecha_registro_resultados_examen=dayjs()}
                     onChange={handleInputChangeDate}
-                    disabled={false}
+                    disabled={values.registro_completo_examen === 0 ? true : false}
                     required
                 />
               </Grid>
@@ -303,7 +335,8 @@ const handleSubmit = async (event) => {
             <Grid item xs={12}>
               <button
                 type='submit'
-                className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                disabled = {disableBoton}
               >
                 Registrar
               </button>

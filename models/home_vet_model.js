@@ -10,7 +10,7 @@ export class HomeVetModel {
       WHERE servicios.especialista = 'VET' AND (fecha_cita >= CURDATE() OR (fecha_cita = CURDATE() AND Hora_cita > CURTIME())) AND estado_cita=1 AND asistencia_cita = 0;
       `)
       const [[data3]] = await connection.query(`SELECT count(id_examen) AS examenes_pendientes FROM examenes
-      WHERE registro_completo_examen = 0;`)
+      WHERE registro_completo_examen = 0 AND estado_examen = 1 ;`)
       const [[data4]] = await connection.query(`SELECT count(id_mascota) cantidad_mascotas FROM mascotas 
       WHERE estado_mascota = 1;`)
       return ({ ...data1, ...data2, ...data3, ...data4 })

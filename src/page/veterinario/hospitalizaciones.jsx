@@ -10,6 +10,8 @@ import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
+import { VerInfoHospitalizacion } from '../../components/veterinario/verHospitalizacion';
+import { EyeIcon } from "@heroicons/react/24/outline";
 const columns = [
   {
     field: 'nombreDueño', headerName: 'Nombre Cliente', width: 230,
@@ -104,7 +106,14 @@ export default function Hospitalizaciones () {
             menssage='Por favor, especifique el motivo por el cual desea desactivar la hospitalizacion. Tenga en cuenta que este cambio es irreversible.'
             actualizar= {setActualizar}
             dato={actualizar}/>}
-        />
+          ver={<VerInfoHospitalizacion 
+            id={selectId} 
+            tooltip='Ver hospitalizacion'
+            icon={<EyeIcon className="w-6 h-6" />}
+            bgColor='success'
+            saveError={setError}
+            />}
+          />
         <DataTable rows={dataMostrar} columns={columns} selectId={saveSelectId} />
         </Stack>
         <AlertPrincipal severity='error' message={error}/>

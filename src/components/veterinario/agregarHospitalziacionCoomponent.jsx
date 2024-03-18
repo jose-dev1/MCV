@@ -4,7 +4,6 @@ import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useState } from 'react'
 import Boton from '../dash/boton'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 import TextArea from '../dash/textArea'
 import dayjs from 'dayjs'
@@ -15,6 +14,8 @@ import { getDataById } from '../../utils/getDataById';
 import { useHabilitar } from '../../Hooks/useHabilitar';
 import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner';
 import { dateFormater } from '../../utils/dateFormater';
+import PetsIcon from '@mui/icons-material/Pets';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const servicioFinalizado = [
   {
@@ -65,7 +66,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
               setOpen(true)
             } else {
               handleClose()
-              errorMessage('HIstoria clinica ya finalizada no puede ser editada')
+              errorMessage('Historia clinica ya finalizada no puede ser editada')
             }
           }
       }
@@ -88,7 +89,13 @@ export const FormAgregarHozpitalizaciones = (props) => {
 
   const handleSubmitId = async (event) => {
     event.preventDefault()
-    try{
+    if(!disableBoton)
+    {
+      setSuccess('')
+      setDisableBoton(true)
+      setDataMascota([])
+    } else {
+      try{
         const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
         setSuccess('')
         if (validation) {
@@ -105,6 +112,8 @@ export const FormAgregarHozpitalizaciones = (props) => {
     }catch (error) {
         setError(`${error}`)
     }
+    }
+
 }
 
 const handleSubmit = async (event) => {
@@ -213,10 +222,10 @@ const handleSubmit = async (event) => {
               <Grid item xs={12} sm={2}>
                 <Boton
                     onClick={handleSubmitId}
-                    bgColor='success' 
-                    icon={<MagnifyingGlassIcon/>}
+                    bgColor={!disableBoton ?  'error': 'success'} 
+                    icon={!disableBoton ? <DeleteIcon sx={{ fontSize: 40 }}/> : <PetsIcon sx={{ fontSize: 40 }}/>}
                     tooltip='Buscar'
-                    desable={!disableBoton ? true : false}
+                    desable={validarId ? true : false}
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -298,7 +307,7 @@ const handleSubmit = async (event) => {
               <Grid item xs={12}>
                 <button
                   type='submit'
-                  className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                  className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
                   disabled={disableBoton}
                 >
                   Registrar

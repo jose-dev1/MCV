@@ -3,6 +3,7 @@ import Boton from "../dash/boton";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import Modal from "react-modal";
 import axios from "axios";
+import dayjs from 'dayjs'
 // Establecemos la referencia al elemento raíz de la aplicación para React Modal
 
 export default function AlertaVer(props) {
@@ -81,7 +82,7 @@ export default function AlertaVer(props) {
                   <tbody>
                     <tr key={datosMostrados.id}>
                       <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.primer_nombre_cliente} {datosMostrados.primer_apellido_cliente}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.fecha_servicio_groomer}</td>
+                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{dayjs(datosMostrados.fecha_servicio_groomer).format('MM-DD-YYYY')}</td>
                       <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.servicio_finalizado_groomer === 1 ? 'Finalizado' : 'En proceso'}</td>
                       <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.nombre_mascota}</td>
                       <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.descripcion_servicio}</td>

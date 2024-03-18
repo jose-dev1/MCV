@@ -1,15 +1,14 @@
 import DataTable from '../../components/dash/dataTable'
 import React, { useEffect, useState } from "react";
 import useSelectId from '../../Hooks/useSelectId'
-import useSelectRow from '../../Hooks/useSelectRow'
 import Botonera from '../../components/dash/botonera'
 import { FormServisGroomer } from '../../components/groomer/agregarDataServis';
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import AlertaEliminar from '../../components/dash/alertaEliminar';
 import AlertaVer from './modalVerGroo';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import AlertEliminar from '../../components/dash/alertEliminar'
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
     {
@@ -39,19 +38,19 @@ const columns = [
 
 export default function VacunasRegistradas() {
     const { selectId, saveSelectId } = useSelectId()
-    const { selectRow, saveSelectRow } = useSelectRow()
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [actualizar, setActualizar] = useState(false)
+    const [success,setSuccess] = useState('')
 
     useEffect(() => {
         const fectcData = async () => {
-
             try {
                 const result = await axios.get('http://localhost:4321/groomer')
                 setData(result.data)
             } catch (error) {
-                setError('Error', error.message)
+                setData([])
+                error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
             }
         }
 
@@ -69,7 +68,8 @@ export default function VacunasRegistradas() {
                     label='Agregar Servicio'
                     actualizar={setActualizar}
                     dato={actualizar}
-
+                    successMessage={setSuccess}
+                    errorMessage={setError}
                 />
 
                 }
@@ -82,9 +82,10 @@ export default function VacunasRegistradas() {
                         id={selectId}
                         actualizar={setActualizar}
                         dato={actualizar}
+                        successMessage={setSuccess}
+                        errorMessage={setError}
                     />
                 }
-                //  eliminar={<AlertaEliminar idSeleccionado={selectId} tooltip='Eliminar Servicio' />}
                 ver={<AlertaVer idSeleccionado={selectId} tooltip='Ver' />}
                 eliminar={<AlertEliminar
                     idSeleccionado={selectId}
@@ -96,7 +97,9 @@ export default function VacunasRegistradas() {
                     dato={actualizar}/>}
             />
 
-            <DataTable rows={data} columns={columns} selectId={saveSelectId} selectRow={saveSelectRow} />
+            <DataTable rows={data} columns={columns} selectId={saveSelectId} />
+            <AlertPrincipal severity='error' message={error}/>
+            <AlertPrincipal severity='success' message={success}/>
         </>
     )
 }

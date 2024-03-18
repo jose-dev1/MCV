@@ -1,9 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-const result = async () => {
+const result = async (id) => {
     try {
-      const res = await axios.get('http://localhost:4321/carnet/tipovacuna')
+      const res = await axios.get(`http://localhost:4321/carnet/tipovacuna/${id}`)
       return res.data
     } catch (error) {
        return  `Error: ${error.response.data.message}`
@@ -11,11 +11,11 @@ const result = async () => {
   }
 
 
-  export const useBringVacuna = ()=>{
-    const [tipoVacuna, setVacuna] = useState()
-    const vacunaSet = ()=>{
-      result().then(vacuna => setVacuna(vacuna))
+  export const useBringVacuna = (id)=>{
+    const [tipoVacuna, setVacuna] = useState([])
+    const vacunaSet = (id)=>{
+      result(id).then(vacuna => setVacuna(vacuna))
     }
-    useEffect(vacunaSet,[])
+    useEffect(()=>vacunaSet(id),[id])
     return [tipoVacuna]
   };

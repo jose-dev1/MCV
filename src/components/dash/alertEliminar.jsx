@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 
-export default function AlertEliminar(props) {
+export default function  AlertEliminar(props) {
   const {idSeleccionado, titulo ,tooltip, menssage, endPoint,actualizar,dato} = props
   const [desabilitado, setDesabilitado] = useState(idSeleccionado===null ? false : true)
 

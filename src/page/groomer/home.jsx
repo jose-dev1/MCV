@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CalendarIcon, ClockIcon, CalendarDaysIcon, DocumentPlusIcon } from '@heroicons/react/24/outline';
 const defaultValues = {
-    citas_dia: 1,
-    citas_restantes: 1,
-    servicios_pendientes: 0,
-    servicios_agregados: 1
+    citas_dia: '',
+    citas_restantes: '',
+    servicios_pendientes: '',
+    servicios_agregados: ''
 }
 
 export default function Home() {

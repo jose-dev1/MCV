@@ -1,19 +1,19 @@
-import { Alert, Grid, Modal } from '@mui/material'
+import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { TextField } from '@mui/material';
-import InputDate from '../dash/inputDate'
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import axios from 'axios'
 import dayjs from 'dayjs'
+import { useBringDocument } from '../../Hooks/useDocument';
+import { useHabilitar } from '../../Hooks/useHabilitar';
+import { getDataById } from '../../utils/getDataById';
+import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner';
+import Message from '../dash/succesfulMessage';
+import PetsIcon from '@mui/icons-material/Pets';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const servicioFinalizado = [
     {
@@ -40,67 +40,60 @@ const defaultValues = {
 
 }
 
-
 export const FormServisGroomer = (props) => {
-    const { id, label, bgColor, icon, tooltip, actualizar, dato } = props
-    const [datosEditables, setDatosEditables] = useState(defaultValues)
-    const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(datosEditables)
-    const [desabilitado, setDesabilitado] = useState(id === null ? false : true)
-    const [validarId, setValidarId] = useState(false)
+    const { id, label, bgColor, icon, tooltip, actualizar, dato, successMessage, errorMessage } = props
+
+    const { values, setValues, handleInputChange } = useForm(defaultValues)
     const [open, setOpen] = useState(false)
     const [error, setError] = useState('')
-    const [info, setInfo] = useState('');
     const [success, setSuccess] = useState('');
+    const [dataMoscota, setDataMascota] = useState([])
     const [servi, setServi] = useState([])
-    const [tipoDocuemento, setTipodocumento] = useState([])
-    const [mascota, setMascota] = useState([])
+    const [tipoDocuemento] = useBringDocument()
+    const { desabilitado, validarId } = useHabilitar({ id })
+    const [disableBoton, setDisableBoton] = useState(true)
+
+
+
 
     const handleModal = async () => {
-        if (id !== null && id) {
-            try {
-                const result = await axios.get(`http://localhost:4321/groomer/${id}`)
-                const todosDatos = {
-                    ...defaultValues,
-                    ...result.data
+        successMessage('')
+        errorMessage('')
+        const { todosDatos, validacion } = await getDataById({ id, endpoind: 'groomer', defaultValues })
+        if (validacion) {
+            if (todosDatos instanceof Error) {
+                setError(todosDatos)
+            } else {
+                if (todosDatos.servicio_finalizado_groomer === 0) {
+                    setDisableBoton(false);
+                    setValues(todosDatos);
+                    setOpen(true)
                 }
-                setDatosEditables(todosDatos)
-                setValues(todosDatos)
-                console.log(result.data)
-            } catch (error) {
-                setError(`Error: ${error.response.data.message}`)
+                else {
+                    handleClose()
+                    errorMessage('Servicio ya finalizada no puede ser editado')
+                }
             }
         }
-        setOpen(true)
+        else {
+            setOpen(true)
+        }
     }
 
 
     const handleClose = () => {
-        reinicio()
-        setValues(defaultValues)
-        setDatosEditables(defaultValues)
         setError('')
         setSuccess('')
+        reinicio()
+        setDisableBoton(true)
         setOpen(false)
     }
 
     useEffect(() => {
-        const infoTimeout = setTimeout(() => {
-            setInfo(null);
-        }, 5000);
-        return () => {
-            clearTimeout(infoTimeout);
-        };
-    }, [info]);
-
-
-
-    useEffect(() => {
         const fectchData = async () => {
             try {
-                const resulDoc = await axios.get('http://localhost:4321/documentos')
                 const result = await axios.get('http://localhost:4321/servicios/GRO')
                 setServi(result.data)
-                setTipodocumento(resulDoc.data)
             } catch (error) {
                 setError(`Error: ${error.response.data.message}`)
             }
@@ -110,41 +103,32 @@ export const FormServisGroomer = (props) => {
 
 
     const reinicio = () => {
-        setMascota([])
+        setValues(defaultValues)
+        setDataMascota([])
     }
-
-
-    useEffect(() => {
-        if (id === null) {
-            setDesabilitado(false)
-        }
-        else if (id !== null && id) {
-            setDesabilitado(false)
-        }
-        else {
-            setDesabilitado(true)
-        }
-        setValidarId(id !== null && id)
-    }, [id])
-
 
     const handleSubmitId = async (event) => {
         event.preventDefault()
-
-        if (values.tipoDocumento === '' || values.numeroDocumento === '') {
-            setError('Por favor, complete los campos nesesarios.');
-        }
-        else {
-            setError('');
+        if (!disableBoton) {
+            setSuccess('')
+            setDisableBoton(true)
+            setDataMascota([])
+        } else {
             try {
-                const result = await axios.get(`http://localhost:4321/mascotas/${values.tipoDocumento}/${values.numeroDocumento}`)
-                setMascota(result.data)
-                setInfo('Datos cargados exitosamente.')
-
-
+                const validation = emptyValidation({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
+                setSuccess('')
+                if (validation) {
+                    setError('Por favor, complete los campos nesesarios.');
+                } else {
+                    setError('')
+                    const getPets = await getPetsWithOwner({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
+                    if (getPets instanceof Error) throw new Error(getPets.response.data.message)
+                    setDataMascota(getPets)
+                    setDisableBoton(false)
+                    setSuccess('Datos cargados exitosamente.')
+                }
             } catch (error) {
-                reinicio()
-                setError(`Error: ${error.response.data.message}`)
+                setError(`${error}`)
             }
         }
     }
@@ -152,13 +136,15 @@ export const FormServisGroomer = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('')
+        setSuccess('')
+        setDisableBoton(true)
         try {
             const fechaHoy = dayjs().format('MM-DD-YYYY')
             let endpoint = 'http://localhost:4321/groomer'
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {
-                const { servicio_finalizado_groomer:servicioFinalizado, contenido_servicio_groomer, notaServicio: notasSinFecha } = values;
+                const { servicio_finalizado_groomer: servicioFinalizado, contenido_servicio_groomer, notaServicio: notasSinFecha } = values;
                 envio = {
                     servicioFinalizado,
                     notaServicio: `${contenido_servicio_groomer} ${fechaHoy}:${notasSinFecha}`
@@ -176,11 +162,12 @@ export const FormServisGroomer = (props) => {
                 endpoint += `/create`
             }
             const response = await axios[httpMethod](endpoint, envio)
-            setInfo(response.data.message)
+            successMessage(response.data.message)
             actualizar(!dato)
-
+            handleClose()
         } catch (error) {
             setError(`Error: ${error.response.data.message}`)
+            setDisableBoton(false)
         }
     }
 
@@ -200,20 +187,11 @@ export const FormServisGroomer = (props) => {
             >
                 <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
                     <h1 className='text-3xl text-center mb-2'>{label}</h1>
-                    {info && (
-                        <Alert className='mb-2' severity="info">
-                            {info}
-                        </Alert>
-                    )}
                     {error && (
-                        <Alert className='mb-2' severity="error">
-                            {error}
-                        </Alert>
+                        <Message severity={'error'} message={error} />
                     )}
                     {success && (
-                        <Alert className='mb-2' severity="success">
-                            {success}
-                        </Alert>
+                        <Message severity={'success'} message={success} />
                     )}
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={12} sm={6}>
@@ -236,7 +214,7 @@ export const FormServisGroomer = (props) => {
                                     value={values.tipoDocumento}
                                     onChange={handleInputChange}
                                     items={tipoDocuemento}
-                                    disabled={validarId ? true : false}
+                                    disabled={!disableBoton ? true : false}
                                     required
                                 />
                             )}
@@ -249,15 +227,15 @@ export const FormServisGroomer = (props) => {
                                 name='numeroDocumento'
                                 value={values.numero_documento_cliente ? values.numero_documento_cliente : values.numeroDocumento}
                                 onChange={handleInputChange}
-                                disabled={validarId ? true : false}
+                                disabled={!disableBoton ? true : false}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
                             <Boton
                                 onClick={handleSubmitId}
-                                bgColor='success'
-                                icon={<MagnifyingGlassIcon />}
+                                bgColor={!disableBoton ? 'error' : 'success'}
+                                icon={!disableBoton ? <DeleteIcon sx={{ fontSize: 40 }} /> : <PetsIcon sx={{ fontSize: 40 }} />}
                                 tooltip='Buscar'
                                 desable={validarId ? true : false}
                             />
@@ -286,7 +264,8 @@ export const FormServisGroomer = (props) => {
                                     required
                                 />
                             )}
-                        </Grid>                        <Grid item xs={12} sm={6}>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
                             {validarId ? (
                                 <Input
                                     id='nombreMascota'
@@ -305,17 +284,17 @@ export const FormServisGroomer = (props) => {
                                     name='idMascota'
                                     value={values.idMascota}
                                     onChange={handleInputChange}
-                                    items={mascota}
+                                    items={dataMoscota}
                                     required
-                                    disabled={(validarId || mascota.length === 0) ? true : false}
+                                    disabled={(validarId || dataMoscota.length === 0) ? true : false}
                                 />
                             )}
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Selects
-                                id={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' :'servicio_finalizado_groomer'}
+                                id={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' : 'servicio_finalizado_groomer'}
                                 label='Servicio Finalizado'
-                                name={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' :'servicio_finalizado_groomer'}
+                                name={values.servicio_finalizado_groomer === '' ? 'servicioFinalizado' : 'servicio_finalizado_groomer'}
                                 value={values.servicio_finalizado_groomer === '' ? values.servicioFinalizado : values.servicio_finalizado_groomer}
                                 onChange={handleInputChange}
                                 items={servicioFinalizado}
@@ -353,7 +332,8 @@ export const FormServisGroomer = (props) => {
                             <button
                                 onClick={handleSubmit}
                                 type='submit'
-                                className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                                disabled={disableBoton}
                             >
                                 Registrar
                             </button>

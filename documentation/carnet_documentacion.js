@@ -1,19 +1,101 @@
 /**
  * @swagger
- * /vacunas/ver:
+ * /carnet/mascotas:
  *   get:
- *     summary: Obtiene todas las vacunas registradas
+ *     summary: Obtiene todas las mascotas con información relacionada a vacunas
  *     tags:
  *       - Gestión de Vacunas
  *     responses:
  *       200:
- *         description: Vacunas obtenidas exitosamente
+ *         description: Mascotas con información de vacunas obtenidas exitosamente
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/definitions/Vacuna'
+ *                 $ref: '#/definitions/MascotaVacunaInfo'
+ *       404:
+ *         description: No se encuentran vacunas registradas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: No se encuentran vacunas registradas
+ *       500:
+ *         description: Error en el servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Error en el servidor
+ *
+ * definitions:
+ *   MascotaVacunaInfo:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: string
+ *         example: "a71efb83-e393-11ee-992f-42010a400007"
+ *         description: ID único de la mascota
+ *       primer_nombre_cliente:
+ *         type: string
+ *         example: "Jose"
+ *         description: Primer nombre del cliente de la mascota
+ *       primer_apellido_cliente:
+ *         type: string
+ *         example: "Mora"
+ *         description: Primer apellido del cliente de la mascota
+ *       nombre_mascota:
+ *         type: string
+ *         example: "Tommy"
+ *         description: Nombre de la mascota
+ *       tipo_mascota:
+ *         type: string
+ *         example: "Perro"
+ *         description: Tipo de mascota
+ *       peso_mascota:
+ *         type: number
+ *         example: 10
+ *         description: Peso de la mascota
+ *       tamanno_mascota:
+ *         type: number
+ *         example: 0
+ *         description: Tamaño de la mascota
+ *       id_tipo_documento:
+ *         type: string
+ *         example: "C.C"
+ *         description: ID del tipo de documento del cliente
+ *       numero_documento_cliente:
+ *         type: string
+ *         example: "1234567890"
+ *         description: Número de documento del cliente
+ */
+/**
+ * @swagger
+ * /carnet/ver/{idMascota}:
+ *   get:
+ *     summary: Obtiene todas las vacunas registradas
+ *     tags:
+ *       - Gestión de Vacunas
+ *     parameters:
+ *       - name: idMascota
+ *         in: query
+ *         description: ID único de la mascota asociada a las vacunas
+ *         required: false
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Vacunas obtenidas exitosamente
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/definitions/Vacuna'
  *       404:
  *         description: No se encuentran vacunas registradas
  *       500:
@@ -70,13 +152,20 @@
  *         example: "Mora"
  *         description: Primer apellido del cliente asociado a la vacuna
  */
+
 /**
  * @swagger
- * /vacunas/tipovacuna:
+ * /carnet/tipovacuna/{idMascota}:
  *   get:
- *     summary: Obtiene todos los tipos de vacunas disponibles
+ *     summary: Obtiene todos los tipos de vacunas disponibles para esa mascota
  *     tags:
  *       - Gestión de Vacunas
+ *     parameters:
+ *       - in: query
+ *         name: idMascota
+ *         schema:
+ *           type: string
+ *         description: ID único de la mascota para filtrar los tipos de vacunas asociados a ella
  *     responses:
  *       200:
  *         description: Tipos de vacunas obtenidos exitosamente
@@ -110,7 +199,7 @@
  */
 /**
  * @swagger
- * /vacunas/busqueda/{id}:
+ * /carnet/busqueda/{id}:
  *   get:
  *     summary: Busca una vacuna por su ID
  *     tags:

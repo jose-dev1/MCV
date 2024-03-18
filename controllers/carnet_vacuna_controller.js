@@ -2,15 +2,19 @@ import { VacunasModel } from '../models/vacunas_carnet_model.js'
 import { NoDataFound, DuplicateInfo, AccountAlreadyDisable, NotFoundUser } from '../squemas/errors_squemas.js'
 import { manejoErrorVacunaCrear } from '../squemas/carnet_validacion.js'
 export class CarnetController {
+  static async getMascotasVacuna (req, res) {
+    const response = await VacunasModel.getMascotasVacuna()
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentran vacunas registradas' })
+    if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
+    res.json(response)
+  }
+
   static async getAll (req, res) {
-    const response = await VacunasModel.getVacunas()
-    if (response instanceof NoDataFound) {
-      res.status(404).json({ message: 'No se encuentran vacunas registradas' })
-    } else if (response instanceof Error) {
-      res.status(500).json({ message: 'Error en el servidor' })
-    } else {
-      res.json(response)
-    }
+    const { idMascota } = req.params
+    const response = await VacunasModel.getVacunas({ idMascota })
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentran vacunas registradas' })
+    if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
+    res.json(response)
   }
 
   static async busquedaVacunaId (req, res) {
@@ -26,7 +30,9 @@ export class CarnetController {
   }
 
   static async busquedaTipoVacuna (req, res) {
-    const response = await VacunasModel.getTipoVacuna()
+    const { idMascota } = req.params
+    console.log(req.params)
+    const response = await VacunasModel.getTipoVacuna({ idMascota })
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran vacunas para este tipo de mascota' })
     } else if (response instanceof Error) {

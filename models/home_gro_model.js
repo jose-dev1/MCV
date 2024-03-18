@@ -9,7 +9,7 @@ export class HomeGroModel {
       const [[data2]] = await connection.query(`SELECT count(id_cita) AS citas_restantes FROM cita
       WHERE estado_cita=1 AND fecha_cita = curdate();`)
       const [[data3]] = await connection.query(`SELECT count(id_servicio_groomer) AS servicios_pendientes FROM servicios_groomer
-      WHERE servicio_finalizado_groomer = 0;`)
+      WHERE servicio_finalizado_groomer = 0 AND estado_servicio_groomer = 1;`)
       const [[data4]] = await connection.query(`SELECT count(id_servicio_groomer) AS servicios_agregados FROM servicios_groomer
       WHERE estado_servicio_groomer = 1 AND DATE(fecha_servicio_groomer) = CURDATE();`)
       return ({ ...data1, ...data2, ...data3, ...data4 })

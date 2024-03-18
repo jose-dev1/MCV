@@ -2,7 +2,21 @@ import connection from './connection_database.js'
 import { NoDataFound, NotFoundUser, AccountAlreadyDisable } from '../squemas/errors_squemas.js'
 
 export class VacunasModel {
-  static async getVacunas () {
+  static async getMascotasVacuna () {
+    try {
+      const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, primer_nombre_cliente, primer_apellido_cliente,nombre_mascota,tipo_mascota,peso_mascota,tamanno_mascota, id_tipo_documento, numero_documento_cliente
+      FROM mascotas
+      INNER JOIN clientes ON clientes.id_cliente = mascotas.id_cliente_mascota
+      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota=mascotas.id_tipo_mascota;`)
+      if (!mascotas) throw new NoDataFound()
+      if (mascotas.length === 0) throw new NoDataFound()
+      return mascotas
+    } catch (error) {
+      return (error)
+    }
+  }
+
+  static async getVacunas ({ idMascota }) {
     try {
       const [getVacunas] = await connection.query(`
       SELECT 
@@ -12,41 +26,28 @@ export class VacunasModel {
       va.laboratorio, 
       va.lote_vacuna_aplicada, 
       va.estado_vacuna_aplicada,
-      m.nombre_mascota, 
-      tm.tipo_mascota, 
-      tv.nombre_vacuna,
-      primer_nombre_cliente,
-      primer_apellido_cliente
-      FROM 
-        vacunas_aplicadas va
-        INNER JOIN 
-        mascotas m ON va.id_mascota = m.id_mascota
-        INNER JOIN 
-        tipo_mascota tm ON m.id_tipo_mascota = tm.id_tipo_mascota
-        INNER JOIN 
-        tipo_vacuna tv ON va.id_tipo_vacuna = tv.id_tipo_vacuna
-        INNER JOIN 
-        clientes on m.id_cliente_mascota  = clientes.id_cliente  
-        WHERE estado_vacuna_aplicada = 1  
-        ;
-  
-      `)
+      tv.nombre_vacuna
+      FROM vacunas_aplicadas va
+        INNER JOIN tipo_vacuna tv ON va.id_tipo_vacuna = tv.id_tipo_vacuna
+        WHERE estado_vacuna_aplicada = 1 AND id_mascota=UUID_TO_BIN(?);`, [idMascota])
       if (!getVacunas) throw new NoDataFound()
-      return (getVacunas)
+      if (getVacunas.length === 0) throw new NoDataFound()
+      return getVacunas
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
 
-  static async getTipoVacuna () {
+  static async getTipoVacuna ({ idMascota }) {
     try {
       const [response] = await connection.query(`
         SELECT id_tipo_vacuna as id , nombre_vacuna as value , id_tipo_mascota
-        FROM tipo_vacuna`)
+        FROM tipo_vacuna
+        WHERE id_tipo_mascota = (SELECT id_tipo_mascota FROM mascotas WHERE id_mascota = UUID_TO_BIN(?))`, [idMascota])
       return response
     } catch (error) {
       console.log(error)
+      return error
     }
   }
 

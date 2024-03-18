@@ -1,6 +1,7 @@
 import { AdminEmpleadoModel } from '../models/admin_empleado_model.js'
-import { validateEmployeeDataCreate } from '../squemas/admin.js'
+import { validateEmployeeDataCreate, validateEmployeeDataUpdate } from '../squemas/admin.js'
 import { AccountAlreadyDisable, DuplicateInfo, InfoAlreadyExisting, NoDataFound, NotFoundUser } from '../squemas/errors_squemas.js'
+import { validateHospitalizationDelete } from '../squemas/hospitalizations.js'
 
 export class AdminEmpleadoController {
   static async getEmployee (req, res) {
@@ -42,11 +43,13 @@ export class AdminEmpleadoController {
   }
 
   static async disableEmployee (req, res) {
-    const anotacion = req.body
     const { id } = req.params
+    const result = validateHospitalizationDelete(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
 
-    const response = await AdminEmpleadoModel.deleteEmployee({ id, input: anotacion })
-
+    const response = await AdminEmpleadoModel.deleteEmployee({ id, input: result.data })
     if (response instanceof AccountAlreadyDisable) {
       res.status(409).json({ message: 'El Empleado ya ha sido eliminado' })
     } else if (response instanceof NotFoundUser) {
@@ -60,8 +63,11 @@ export class AdminEmpleadoController {
 
   static async updateEmployee (req, res) {
     const { id } = req.params
-    const data = req.body
-    const response = await AdminEmpleadoModel.updateEmployee({ id, input: data })
+    const result = validateEmployeeDataUpdate(req.body)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await AdminEmpleadoModel.updateEmployee({ id, input: result.data })
     if (response instanceof DuplicateInfo) {
       res.status(409).json({ message: 'El correo ya existe dentro del sistema' })
     } else if (response instanceof InfoAlreadyExisting) {

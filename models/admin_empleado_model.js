@@ -1,4 +1,4 @@
-import { NotFoundUser, NoDataFound, DuplicateInfo, AccountAlreadyDisable, InfoAlreadyExisting } from '../squemas/errors_squemas.js'
+import { NotFoundUser, NoDataFound, DuplicateInfo, AccountAlreadyDisable, InfoAlreadyExisting, NotAllowed } from '../squemas/errors_squemas.js'
 import connection from './connection_database.js'
 import bcrypt from 'bcrypt'
 
@@ -42,7 +42,7 @@ export class AdminEmpleadoModel {
 
   static async createEmployee (input) {
     try {
-      const { correoUsuario, passwordUsuario, estadoUsuario, estadoVerificacionUsuario, idGenero, idTipoUsuario, numeroDocumentoEmpleado, idTipoDocumento, primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado } = input
+      const { correoUsuario, passwordUsuario, idGenero, idTipoUsuario, numeroDocumentoEmpleado, idTipoDocumento, primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado } = input
 
       const [[existingData]] = await connection.query(`
         SELECT u.id_usuario, e.numero_documento_empleado, e.id_tipo_documento
@@ -58,8 +58,8 @@ export class AdminEmpleadoModel {
       const saltRounds = 10
       const encryPassword = await bcrypt.hash(passwordUsuario, saltRounds)
       const [usuario] = await connection.query(`INSERT INTO usuarios (correo_usuario, password_usuario, estado_usuario, estado_verificacion_usuario, id_genero, id_tipo_usuario) 
-      VALUES (?,?,?,?,?,?);
-      `, [correoUsuario, encryPassword, estadoUsuario, estadoVerificacionUsuario, idGenero, idTipoUsuario])
+      VALUES (?,?,1,1,?,?);
+      `, [correoUsuario, encryPassword, idGenero, idTipoUsuario])
 
       await connection.query(`INSERT INTO empleados (numero_documento_empleado, id_tipo_documento, primer_nombre_empleado, segundo_nombre_empleado, primer_apellido_empleado, segundo_apellido_empleado, id_usuario)
       VALUES (?,?,?,?,?,?,(SELECT id_usuario FROM usuarios WHERE correo_usuario = ?));`, [numeroDocumentoEmpleado, idTipoDocumento, primerNombreEmpleado, segundoNombreEmpleado, primerApellidoEmpleado, segundoApellidoEmpleado, correoUsuario])
@@ -82,6 +82,14 @@ export class AdminEmpleadoModel {
       WHERE empleados.id_empleado = UUID_TO_BIN(?);`, [id])
       if (!estadoCuenta) throw new NotFoundUser()
       if (estadoCuenta.estado_usuario !== 1) throw new AccountAlreadyDisable()
+
+      const [[conteoCuentas]] = await connection.query(`SELECT COUNT(id_tipo_usuario) AS cuentas_existentes 
+      FROM usuarios
+      WHERE id_tipo_usuario = (SELECT id_tipo_usuario FROM usuarios 
+        INNER JOIN empleados ON empleados.id_usuario = usuarios.id_usuario
+        WHERE id_empleado = UUID_TO_BIN(?)) AND estado_usuario = 1;`, [id])
+
+      if (conteoCuentas.cuentas_existentes === 1) throw new NotAllowed()
 
       const [res] = await connection.query(`UPDATE usuarios 
       INNER JOIN empleados ON usuarios.id_usuario = empleados.id_usuario
@@ -123,6 +131,7 @@ export class AdminEmpleadoModel {
 
       return res
     } catch (err) {
+      console.log(err)
       return err
     }
   }

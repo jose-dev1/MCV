@@ -1,6 +1,6 @@
 import { AdminEmpleadoModel } from '../models/admin_empleado_model.js'
 import { validateEmployeeDataCreate, validateEmployeeDataUpdate } from '../squemas/admin.js'
-import { AccountAlreadyDisable, DuplicateInfo, InfoAlreadyExisting, NoDataFound, NotFoundUser } from '../squemas/errors_squemas.js'
+import { AccountAlreadyDisable, DuplicateInfo, InfoAlreadyExisting, NoDataFound, NotAllowed, NotFoundUser } from '../squemas/errors_squemas.js'
 import { validateHospitalizationDelete } from '../squemas/hospitalizations.js'
 
 export class AdminEmpleadoController {
@@ -54,6 +54,8 @@ export class AdminEmpleadoController {
       res.status(409).json({ message: 'El Empleado ya ha sido eliminado' })
     } else if (response instanceof NotFoundUser) {
       res.status(404).json({ message: 'Empleado no registrado' })
+    } else if (response instanceof NotAllowed) {
+      res.status(409).json({ message: 'No se puede deshabilitar este usuario ya que no existen otros de este tipo' })
     } else if (response instanceof Error) {
       res.status(500).json({ message: 'Error interno del servidor' })
     } else {

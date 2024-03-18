@@ -29,7 +29,7 @@ const defaultValues = {
 
 
 export const FormAgregar = (props) => {
-  const { label, id, bgColor, icon, tooltip, actualizar, dato } = props
+  const { label, id, bgColor, icon, tooltip, actualizar, dato, successMessage, errorMessage} = props
   const { values, setValues, handleInputChange } = useForm(defaultValues)
   const {desabilitado, validarId} = useHabilitar({id})
 
@@ -41,6 +41,8 @@ export const FormAgregar = (props) => {
   const [genreTypes] = useGenreTypes()
 
   const handleModal = async () => {
+    successMessage('')
+    errorMessage('')
     const {todosDatos, validacion} =  await getDataById({id, endpoind: 'admin', defaultValues})
     if (validacion) {
         if(todosDatos instanceof Error){
@@ -79,8 +81,9 @@ export const FormAgregar = (props) => {
             }
         }
         const response = await axios[httpMethod](endpoint, envio)
-        setSuccess(response.data.message)
+        successMessage(response.data.message)
         actualizar(!dato)
+        handleClose()
     } catch (error) {
         setError(`Error: ${error.response.data.message}`)
     }
@@ -220,7 +223,7 @@ export const FormAgregar = (props) => {
             <Grid item xs={12}>
               <button
                 type='submit'
-                className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
               >
                 Registrar
               </button>

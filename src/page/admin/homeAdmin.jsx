@@ -10,6 +10,7 @@ import AlertaVer from '../../components/admin/modalVerAdmin'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import AlertEliminar from '../../components/dash/alertEliminar';
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
   { field: 'primer_nombre_empleado', headerName: 'Primer Nombre', width: 140 },
@@ -31,13 +32,14 @@ export default function AddEmploye() {
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const [actualizar, setActualizar] = useState(false)
+  const [success, setSuccess] = useState('')
   useEffect(() => {
     const fectchData = async () => {
       try {
         const result = await axios.get('http://localhost:4321/admin')
         setData(result.data)
       } catch (error) {
-        setError('Error' + error.message)
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
     }
     fectchData()
@@ -72,7 +74,9 @@ export default function AddEmploye() {
             label='Agregar Empleado' 
             actualizar= {setActualizar}
             dato={actualizar}
-            id={null}/>}
+            id={null}
+            successMessage={setSuccess}
+            errorMessage={setError}/>}
           editar={
             <FormAgregar
               icon={<PencilSquareIcon className='w-6 h-6' />}
@@ -83,6 +87,8 @@ export default function AddEmploye() {
               actualizar= {setActualizar}
               dato={actualizar}
               id={selectId}
+              successMessage={setSuccess}
+              errorMessage={setError}
             />
           }
           eliminar={<AlertEliminar 
@@ -97,6 +103,8 @@ export default function AddEmploye() {
         />
         <DataTable rows={data} columns={columns} selectId={saveSelectId}/>
       </Stack>
+      <AlertPrincipal severity='error' message={error}/>
+        <AlertPrincipal severity='success' message={success}/>
     </div>
   )
 }

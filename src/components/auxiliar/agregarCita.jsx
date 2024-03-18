@@ -5,7 +5,6 @@ import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useState } from 'react'
 import Boton from '../dash/boton'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 import InputTime from '../dash/inputTime';
 import axios from 'axios';
@@ -17,6 +16,10 @@ import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner'
 import { getSpecialist } from '../../utils/getSpecialist';
 import { getServisWithSpecialist } from '../../utils/getServisWithSpecialist';
 import { dateFormater } from '../../utils/dateFormater';
+import PetsIcon from '@mui/icons-material/Pets';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { VerCitasDia } from './VerAgenda';
 
 const especialista = [
     { id: 4, value: 'Veterinario' },
@@ -83,32 +86,40 @@ export const Maurisio = (props) => {
 
     const handleSubmitId = async (event) => {
         event.preventDefault()
-        try{
-            const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-            setSuccess('')
-            if (validation || values.especialista === '') {
-                setError('Por favor, complete los campos nesesarios.');
+        if(!disableBoton)
+        {
+          setSuccess('')
+          setDisableBoton(true)
+          reinicio()
+          setValues(defaultValues)
+        } else {
+            try{
+                const validation = emptyValidation({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+                setSuccess('')
+                if (validation || values.especialista === '') {
+                    setError('Por favor, complete los campos nesesarios.');
+                    reinicio()
+                }
+                else {
+                    setError('')
+                    const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
+                    if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
+                    setDataMascota(getPets)
+                    
+                    const resultEs = await getSpecialist({specialist:values.especialista})
+                    if (resultEs instanceof Error) throw new Error(resultEs.response.data.message) 
+                    setDataEspecialista(resultEs)
+                    
+                    const resultSer = await getServisWithSpecialist({specialist: values.especialista})
+                    if (resultSer instanceof Error) throw new Error(resultSer.response.data.message) 
+                    setDataServicio(resultSer)
+                    setDisableBoton(false)
+                    setSuccess('Datos cargados exitosamente.')
+                }
+            }catch (error) {
                 reinicio()
+                setError(`${error}`)
             }
-            else {
-                setError('')
-                const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-                if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
-                setDataMascota(getPets)
-                
-                const resultEs = await getSpecialist({specialist:values.especialista})
-                if (resultEs instanceof Error) throw new Error(resultEs.response.data.message) 
-                setDataEspecialista(resultEs)
-                
-                const resultSer = await getServisWithSpecialist({specialist: values.especialista})
-                if (resultSer instanceof Error) throw new Error(resultSer.response.data.message) 
-                setDataServicio(resultSer)
-                setDisableBoton(false)
-                setSuccess('Datos cargados exitosamente.')
-            }
-        }catch (error) {
-            reinicio()
-            setError(`${error}`)
         }
     }
 
@@ -231,7 +242,7 @@ export const Maurisio = (props) => {
                                 fullWidth
                                 label='N°documento'
                                 name='numeroDocumento'
-                                value={values.numero_documento_cliente}
+                                value={values.numero_documento_cliente??values.numeroDocumento}
                                 onChange={handleInputChange}
                                 disabled={!disableBoton ? true : false}
                                 required
@@ -240,13 +251,13 @@ export const Maurisio = (props) => {
                         <Grid item xs={12} sm={2}>
                             <Boton
                                 onClick={handleSubmitId}
-                                bgColor='success'
-                                icon={<MagnifyingGlassIcon />}
+                                bgColor={!disableBoton ?  'error': 'success'} 
+                                icon={!disableBoton ? <DeleteIcon sx={{ fontSize: 40 }}/> : <PetsIcon sx={{ fontSize: 40 }}/>}
                                 tooltip='Buscar'
-                                desable={!disableBoton ? true : false}
-                                />
+                                desable={validarId ? true : false}
+                            />
                         </Grid>
-                        <Grid item xs={12} sm={12}>
+                        <Grid item xs={12} sm={10}>
                             {validarId ? (
                                 <Input
                                     id='idEmpleado'
@@ -270,6 +281,17 @@ export const Maurisio = (props) => {
                                     required
                                 />
                             )}
+                        </Grid>
+                        <Grid item xs={12} sm={2}>
+                            <VerCitasDia
+                                bgColor='success'
+                                icon={<AssignmentIcon sx={{ fontSize: 40 }}/>}
+                                desable={disableBoton ? true : false}
+                                tooltip='Ver Citas'
+                                saveError={setError}
+                                idEmpleado={values.id_empleado ?? values.idEmpleado}
+                                fechaCita={values.fechaCita}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             {validarId ? (
@@ -376,7 +398,7 @@ export const Maurisio = (props) => {
                         <Grid item xs={12}>
                             <button
                                 type='submit'
-                                className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
                                 disabled={disableBoton}
                             >
                                 Registrar

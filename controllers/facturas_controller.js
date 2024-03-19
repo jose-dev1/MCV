@@ -39,4 +39,17 @@ export class FacturasController {
 
     }
 
+
+    static async getFacturaById(req, res) {
+        const { id } = req.params
+        const facturas = await FacturaModel.getFacturasbyId({ id })
+        if (facturas instanceof NoDataFound) {
+            res.status(404).json({ message: 'No se encuentran facturas' })
+        } else if (facturas instanceof Error) {
+            res.status(500).json({ message: 'Error interno del servidor' })
+        } else {
+            res.json(facturas)
+        }
+    }
+
 }

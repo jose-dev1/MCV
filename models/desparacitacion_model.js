@@ -5,7 +5,7 @@ export class DesparasitacionesModel {
   static async getAllDesparasitaciones() {
     try {
       const [res] = await connection.query(
-        `SELECT BIN_TO_UUID(id_desparacitacion) id, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, estado_desparacitacion, anotacion_desparacitacion, nombre_mascota,primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente
+        `SELECT BIN_TO_UUID(id_desparacitacion) id, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, estado_desparacitacion, anotacion_desparacitacion, nombre_mascota,primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente, id_tipo_desparacitacion 
         FROM desparacitaciones
         INNER JOIN mascotas ON desparacitaciones.id_mascota = mascotas.id_mascota
         INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente

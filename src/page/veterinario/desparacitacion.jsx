@@ -8,6 +8,7 @@ import { Stack } from '@mui/material'
 import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
 import { FromAgregarDesparacitacion } from '../../components/veterinario/agregarDesparacitacion'
+import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
     { field: 'nombre_mascota', headerName: 'Nombre Mascota', width: 150 },
@@ -17,8 +18,13 @@ const columns = [
             `${params.row.primer_nombre_cliente || ''} ${params.row.primer_apellido_cliente || ''}`
     },
     { field: 'numero_documento_cliente', headerName: 'Documento Del Dueño', width: 180 },
+    {
+        field: 'tipoDesparacitacion', headerName: 'Tipo Desparacitacion', width: 160,
+        valueGetter: (params) =>
+            `${params.row.id_tipo_desparacitacion === 'INT' ? 'Interna':'Externa'} `
+    },
     { field: 'medicamento_aplicado', headerName: 'Medicamento Aplicado', width: 200 },
-    { field: 'fecha_aplicacion_desparacitacion', headerName: 'Fecha de Toma', width: 200, valueGetter: (params) => new Date(params.row.fecha_aplicacion_desparacitacion).toLocaleDateString('es-ES') },
+    { field: 'fecha_aplicacion_desparacitacion', headerName: 'Fecha de Aplicacion', width: 200, valueGetter: (params) => new Date(params.row.fecha_aplicacion_desparacitacion).toLocaleDateString('es-ES') },
 ];
 
 export default function Desparacitacion() {
@@ -26,12 +32,15 @@ export default function Desparacitacion() {
     const [rows, setRows] = useState([])
     const [error, setError] = useState(null)
     const [actualizar, setActualizar] = useState(false)
+    const [success,setSuccess] = useState('')
+
     useEffect(() => {
         const fectchData = async () => {
             try {
                 const result = await axios.get('http://localhost:4321/desparasitacion')
                 setRows(result.data)
             } catch (error) {
+                setRows([])
                 setError('Error' + error.message)
             }
         }
@@ -63,7 +72,9 @@ export default function Desparacitacion() {
                         label='Agregar Desparacitacion'
                         actualizar={setActualizar}
                         dato={actualizar}
-                        id={null} />
+                        id={null} 
+                        successMessage={setSuccess}
+                        errorMessage={setError}/>
 
                     }
                     editar={
@@ -74,7 +85,9 @@ export default function Desparacitacion() {
                             label='Actualizar Desparacitacion'
                             actualizar={setActualizar}
                             dato={actualizar}
-                            id={selectId} />
+                            id={selectId} 
+                            successMessage={setSuccess}
+                            errorMessage={setError}/>
 
                     }
 
@@ -89,6 +102,8 @@ export default function Desparacitacion() {
                 />
                 <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
             </Stack>
+            <AlertPrincipal severity='error' message={error}/>
+            <AlertPrincipal severity='success' message={success}/>
         </div>
     )
 }

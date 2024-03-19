@@ -2,13 +2,11 @@ import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Boton from '../dash/boton'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
-import TextArea from '../dash/textArea'
 import dayjs from 'dayjs'
-import { MenuItem, Select } from '@mui/material'
 import axios from 'axios';
 import { useBringDocument } from '../../Hooks/useDocument';
 import { getDataById } from '../../utils/getDataById';
@@ -24,7 +22,7 @@ const defaultValues = {
     idMascota: '',
     numeroDocumento: '',
     tipoDocumento: 'C.C',
-    idTipoDesparacitacion: '',
+    idTipoDesparacitacion: 'EXT',
     fecha_aplicacion_desparacitacion: dayjs(),
     fecha_vencimiento_desparacitacion: dayjs(),
     medicamento_aplicado: '',
@@ -35,11 +33,10 @@ const defaultValues = {
 }
 
 export const FromAgregarDesparacitacion = (props) => {
-    const { label, bgColor, icon, tooltip, id, actualizar, dato } = props
+    const { label, bgColor, icon, tooltip, id, actualizar, dato, successMessage,errorMessage } = props
     const { values, setValues, handleInputChange, handleInputChangeDate } = useForm(defaultValues)
     const [dataMascota, setDataMascota] = useState([])
     const [despaTypes] = useTypeDespa();
-    const [selectedDespaType, setSelectedDespaType] = useState('');
     const { desabilitado, validarId } = useHabilitar({ id })
     const [tipoDocuemento] = useBringDocument()
     const [error, setError] = useState('')
@@ -52,11 +49,14 @@ export const FromAgregarDesparacitacion = (props) => {
     }
 
     const handleModal = async () => {
+        successMessage('')
+        errorMessage('')
         const { todosDatos, validacion } = await getDataById({ id, endpoind: 'desparasitacion', defaultValues })
         if (validacion) {
             if (todosDatos instanceof Error) {
                 setError(todosDatos)
             } else {
+                setDisableBoton(false)
                 setValues(todosDatos)
             }
         }
@@ -72,23 +72,31 @@ export const FromAgregarDesparacitacion = (props) => {
 
     const handleSubmitId = async (event) => {
         event.preventDefault()
-        try {
-            const validation = emptyValidation({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
-            setSuccess('')
-            if (validation) {
-                setError('Por favor, complete los campos nesesarios.');
+        if(!disableBoton)
+        {
+          setSuccess('')
+          setDisableBoton(true)
+          setDataMascota([])
+        } else {
+            try {
+                const validation = emptyValidation({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
+                setSuccess('')
+                if (validation) {
+                    setError('Por favor, complete los campos nesesarios.');
+                    reinicio()
+                }
+                else {
+                    setError('')
+                    const getPets = await getPetsWithOwner({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
+                    if (getPets instanceof Error) throw new Error(getPets.response.data.message)
+                    setDataMascota(getPets)
+                    setDisableBoton(false)
+                    setSuccess('Datos cargados exitosamente.')
+                }
+            } catch (error) {
                 reinicio()
+                setError(`${error}`)
             }
-            else {
-                setError('')
-                const getPets = await getPetsWithOwner({ DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento })
-                if (getPets instanceof Error) throw new Error(getPets.response.data.message)
-                setDataMascota(getPets)
-                setSuccess('Datos cargados exitosamente.')
-            }
-        } catch (error) {
-            reinicio()
-            setError(`${error}`)
         }
     }
 
@@ -96,6 +104,7 @@ export const FromAgregarDesparacitacion = (props) => {
         event.preventDefault();
         setError('');
         setSuccess('');
+        setDisableBoton(true)
         try {
             let endpoint = 'http://localhost:4321/desparasitacion';
             let httpMethod = 'post';
@@ -127,12 +136,12 @@ export const FromAgregarDesparacitacion = (props) => {
 
             }
             const response = await axios[httpMethod](endpoint, envio);
-            console.log(response.data.message)
-            setSuccess(response.data.message);
+            successMessage(response.data.message)
             actualizar(!dato);
+            handleClose()
         } catch (error) {
             setError(`Error: ${error.response.data.message}`);
-
+            setDisableBoton(false)
         }
     }
 
@@ -183,7 +192,7 @@ export const FromAgregarDesparacitacion = (props) => {
                                     value={values.tipoDocumento}
                                     onChange={handleInputChange}
                                     items={tipoDocuemento}
-                                    disabled={validarId ? true : false}
+                                    disabled={!disableBoton ? true : false}
                                     required
                                 />
                             )}
@@ -196,15 +205,15 @@ export const FromAgregarDesparacitacion = (props) => {
                                 name='numeroDocumento'
                                 value={values.numero_documento_cliente}
                                 onChange={handleInputChange}
-                                disabled={validarId ? true : false}
+                                disabled={!disableBoton ? true : false}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
                             <Boton
                                 onClick={handleSubmitId}
-                                bgColor='success'
-                                icon={<MagnifyingGlassIcon />}
+                                bgColor={!disableBoton ?  'error': 'success'} 
+                                icon={!disableBoton ? <DeleteIcon sx={{ fontSize: 40 }}/> : <PetsIcon sx={{ fontSize: 40 }}/>}
                                 tooltip='Buscar'
                                 desable={validarId ? true : false}
                             />
@@ -333,7 +342,8 @@ export const FromAgregarDesparacitacion = (props) => {
                         <Grid item xs={12}>
                             <button
                                 type='submit'
-                                className='block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-all duration-100 active:transform active:translate-y-1'
+                                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                                disabled={disableBoton}
                             >
                                 Registrar
                             </button>

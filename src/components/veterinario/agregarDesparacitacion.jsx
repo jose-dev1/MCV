@@ -16,7 +16,9 @@ import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner'
 import { useHabilitar } from '../../Hooks/useHabilitar';
 import Message from '../dash/succesfulMessage'
 import { useTypeDespa } from '../../Hooks/useDespaType'
-
+import { dateFormater } from '../../utils/dateFormater'
+import PetsIcon from '@mui/icons-material/Pets';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const defaultValues = {
     idMascota: '',
@@ -43,13 +45,14 @@ export const FromAgregarDesparacitacion = (props) => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const [open, setOpen] = useState(false)
+    const [disableBoton, setDisableBoton] = useState(true)
 
     const reinicio = () => {
         setDataMascota([])
     }
 
     const handleModal = async () => {
-        const { todosDatos, validacion } = await getDataById({ id, endpoind: 'desparacitacion', defaultValues })
+        const { todosDatos, validacion } = await getDataById({ id, endpoind: 'desparasitacion', defaultValues })
         if (validacion) {
             if (todosDatos instanceof Error) {
                 setError(todosDatos)
@@ -99,24 +102,16 @@ export const FromAgregarDesparacitacion = (props) => {
             let envio = {};
             if (id !== null && id) {
                 const { fecha_aplicacion_desparacitacion: fechaAplicacionDesparacitacion,
-                    fecha_vencimiento_desparacitacion: fechaVencimientoDesparacitacion,
-                    lote_desparacitacion: loteDesparacitacion,
-                    laboratorio_desparacitacion: laboratorioDesparacitacion,
-                    medicamento_aplicado: medicamentoAplicado,
-                    registro_ica: registroIca } = values;
+                } = values;
                 envio = {
-                    fechaAplicacionDesparacitacion,
-                    fechaVencimientoDesparacitacion,
-                    loteDesparacitacion,
-                    laboratorioDesparacitacion,
-                    medicamentoAplicado,
-                    registroIca,
+                    fechaAplicacionDesparacitacion: dateFormater({ time: fechaAplicacionDesparacitacion, format: "YYYY-MM-DD" })
+
 
                 };
                 endpoint += `/actualizar_desparasitacion/${values.id}`;
                 httpMethod = 'put';
             } else {
-                const { idMascota, idTipoDesparacitacion, medicamento_aplicado, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, anotacion_desparacitacion } = values
+                const { idMascota, idTipoDesparacitacion, medicamento_aplicado, lote_desparacitacion, registro_ica, laboratorio_desparacitacion, anotacion_desparacitacion, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion } = values
                 envio = {
                     idMascota,
                     idTipoDesparacitacion,
@@ -124,16 +119,20 @@ export const FromAgregarDesparacitacion = (props) => {
                     lote_desparacitacion,
                     registro_ica,
                     laboratorio_desparacitacion,
-                    anotacion_desparacitacion
+                    anotacion_desparacitacion,
+                    fecha_aplicacion_desparacitacion: dateFormater({ time: fecha_aplicacion_desparacitacion, format: "YYYY-MM-DD" }),
+                    fecha_vencimiento_desparacitacion: dateFormater({ time: fecha_vencimiento_desparacitacion, format: "YYYY-MM-DD" }),
                 };
                 endpoint += '/crear_desparasitacion';
 
             }
             const response = await axios[httpMethod](endpoint, envio);
+            console.log(response.data.message)
             setSuccess(response.data.message);
             actualizar(!dato);
         } catch (error) {
             setError(`Error: ${error.response.data.message}`);
+
         }
     }
 
@@ -153,13 +152,14 @@ export const FromAgregarDesparacitacion = (props) => {
                 <form onSubmit={handleSubmit} className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] border border-solid border-black rounded-lg shadow p-4 bg-white' autoComplete='off' id='form' noValidate>
                     <h1 className='text-3xl text-center mb-2'>{label}</h1>
                     {error && (
-                        <Message className='mb-2' severity="error">
-                            {error}
+                        <Message className='mb-2' severity="error" message={error}>
+
                         </Message>
                     )}
                     {success && (
-                        <Message className='mb-2' severity="success">
-                            {success}
+
+                        <Message className='mb-2' severity="success" message={success}>
+
                         </Message>
                     )}
                     <Grid container spacing={2} columns={12}>
@@ -241,7 +241,7 @@ export const FromAgregarDesparacitacion = (props) => {
                                     fullWidth
                                     label='Tipo de Desparacitación'
                                     name='idTipoDesparacitacion'
-                                    value={values.id_tipo_desparacitacion}
+                                    value={values.tipo_desparacitacion}
                                     onChange={handleInputChange}
                                     disabled={true}
                                     required
@@ -265,9 +265,8 @@ export const FromAgregarDesparacitacion = (props) => {
                                 fullWidth
                                 label='Fecha de Aplicación'
                                 name='fecha_aplicacion_desparacitacion'
-                                fecha={values.fecha_aplicacion_desparacitacion}
+                                fecha={dayjs(values.fecha_aplicacion_desparacitacion).format("YYYY-MM-DD")}
                                 onChange={handleInputChangeDate}
-                                disabled={validarId ? true : false}
                                 required
                             />
                         </Grid>

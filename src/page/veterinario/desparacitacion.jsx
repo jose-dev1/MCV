@@ -4,7 +4,6 @@ import Botonera from '../../components/dash/botonera'
 import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId'
-import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
 import { Stack } from '@mui/material'
 import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
@@ -70,15 +69,15 @@ export default function Desparacitacion() {
                     editar={
                         <FromAgregarDesparacitacion
                             icon={<PencilSquareIcon className='w-6 h-6' />}
-                            tooltip='Agregar Desparacitacion'
-                            bgColor='secondary'
-                            label='Agregar Examen Medico'
+                            tooltip='Actualizar Desparacitacion'
+                            bgColor='primary'
+                            label='Actualizar Desparacitacion'
                             actualizar={setActualizar}
                             dato={actualizar}
                             id={selectId} />
 
                     }
-                    descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Examen' />}
+
                     eliminar={<AlertEliminar
                         idSeleccionado={selectId}
                         tooltip='Desactivar Desparacitacion'

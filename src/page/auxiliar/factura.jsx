@@ -5,6 +5,9 @@ import Sidebar from '../../components/sidebarComponent';
 import Swal from 'sweetalert2';
 import SearchIcon from '@mui/icons-material/Search';
 import ModalFactura from '../../components/auxiliar/modalFactura';
+import { Logo } from '../../assets/img/MVC.png'
+import Botonera from '../../components/dash/botonera';
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const FormAgregarFactura = () => {
     const [cliente, setCliente] = useState({
@@ -41,48 +44,110 @@ const FormAgregarFactura = () => {
     };
 
     const handleImprimirFactura = () => {
+        const iva = cliente.precioTotal * 0.19;
+        const totalConIva = cliente.precioTotal + iva;
+
         const ventanaImpresion = window.open('', '_blank');
         const contenidoImpresion = `
-            <html>
-                <head>
-                    <title>Factura</title>
-                    <style>
-                        /* Estilos para la impresión */
-                        body {
-                            font-family: Arial, sans-serif;
-                            margin: 20px;
-                        }
-                        h2 {
-                            color: #333;
-                        }
-                        p {
-                            margin-bottom: 10px;
-                        }
-                        ul {
-                            list-style-type: none;
-                            padding: 0;
-                        }
-                        li {
-                            margin-bottom: 5px;
-                        }
-                        strong {
-                            font-weight: bold;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h2>Información de la Factura</h2>
-                    <p><strong>Nombre:</strong> ${clienteEncontrado ? clienteEncontrado.primer_nombre_cliente : ''} ${clienteEncontrado ? clienteEncontrado.primer_apellido_cliente : ''}</p>
-                    <p><strong>Fecha de Facturación:</strong> ${cliente.fechaFacturacion}</p>
-                    <p><strong>Observaciones:</strong> ${cliente.observaciones}</p>
-                    <h3>Servicios:</h3>
-                    <ul>
-                        ${cliente.servicios.map((servicio, index) => `
-                            <li key=${index}>${servicio.descripcion} - $${servicio.precio}</li>
-                        `).join('')}
-                    </ul>   
-                    <p><strong>Total:</strong> $${cliente.precioTotal}</p>
-                </body>
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Factura Electrónica</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .container {
+                        max-width: 300px; /* Ancho máximo de la impresora térmica */
+                        margin: 0 auto;
+                        padding: 10px;
+                    }
+                    .header img {
+                        width: 100px;
+                        height: auto;
+                        margin-bottom: 5px;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                    .header, .factura-info, .cliente-info, .observaciones, .servicios, .total {
+                        margin-bottom: 10px;
+                        
+                    }
+
+                    .factura-info{
+                        text-align: center;
+                    }
+                    .servicios th, .servicios td {
+                        border: none;
+                        padding: 3px 0;
+                    }
+                    .servicios th {
+                        font-weight: bold;
+                    }
+                    .total {
+                        text-align: left;
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    .iva {
+                        display: block;
+                        font-size: 14px;
+                        color: #666;
+                        text-align: left;
+                    }
+                    .precio-total {
+                        display: block;
+                        font-size: 18px;
+                        text-align: left;
+                        margin-top: 10px;
+                        font-weight: bold;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <img src="../../assets/img/MVC.png" alt="Logo de la Veterinaria">
+                        <div class="nombre-veterinaria">MCV - Mi Can Veterinaria</div>
+                        <div class="direccion-veterinaria">123 Calle Principal, Bogotá, Colombia</div>
+                    </div>
+                    <div class="factura-info">
+                        <p><strong>Fecha de Emisión:</strong> ${new Date().toLocaleDateString()}</p>
+                        <p><strong>NIT Veterinaria:</strong> 123456789-0</p>
+                    </div>
+                    <h2>Factura</h2>
+                    <div class="cliente-info">
+                        <p><strong>Nombre del Cliente:</strong> ${clienteEncontrado ? clienteEncontrado.primer_nombre_cliente + ' ' + clienteEncontrado.primer_apellido_cliente : ''}</p>
+                        <p><strong>Fecha de Facturación:</strong> ${cliente.fechaFacturacion}</p>
+                    </div>
+                    <div class="observaciones">
+                        <p><strong>Observaciones:</strong> ${cliente.observaciones}</p>
+                    </div>
+                    <table class="servicios">
+                        <thead>
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${cliente.servicios.map((servicio, index) => `
+                                <tr key=${index}>
+                                    <td>${servicio.descripcion}</td>
+                                    <td>$${servicio.precio.toFixed(2)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="total">
+                        <strong>Total:</strong> <span class="precio-total">$${totalConIva.toFixed(2)}</span>
+                        <span class="iva">(IVA del 19%: $${iva.toFixed(2)})</span>
+                    </div>
+                </div>
+            </body>
             </html>
         `;
 
@@ -90,6 +155,10 @@ const FormAgregarFactura = () => {
         ventanaImpresion.print();
         ventanaImpresion.close();
     };
+
+
+
+
 
     useEffect(() => {
         axios.get('http://localhost:4321/factura/servicios')
@@ -156,13 +225,17 @@ const FormAgregarFactura = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const iva = cliente.precioTotal * 0.19;
+        const precioFinal = cliente.precioTotal + iva;
+
         const dataToSend = {
             cliente,
             servicios: cliente.servicios.map(servicio => ({
                 id_servicio: servicio.id_servicio,
                 precio: servicio.precio
             })),
-            numero_documento: documento
+            numero_documento: documento,
+            precioFinal: precioFinal
         };
         console.log(dataToSend);
         axios.post('http://localhost:4321/factura/registrar_factura', dataToSend)
@@ -183,6 +256,7 @@ const FormAgregarFactura = () => {
                 console.error('Error al guardar la factura:', error);
             });
     };
+
 
     return (
         <div>
@@ -213,6 +287,11 @@ const FormAgregarFactura = () => {
                                         <SearchIcon />
                                     </IconButton>
                                 </Tooltip>
+                                <ModalFactura
+                                    bgColor="secondary"
+                                    icon={<EyeIcon className="w-6 h-6" />}
+                                    tooltip='Visualizar Facturas'
+                                />
                             </div>
                             <div className="flex space-x-4">
                                 <TextField type="text" name="nombre" label="Nombre" value={clienteEncontrado ? clienteEncontrado.primer_nombre_cliente : ''} onChange={handleChange} />
@@ -281,6 +360,7 @@ const FormAgregarFactura = () => {
                                     onClick={handleImprimirFactura}
                                 />
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -49,7 +49,7 @@ export default function Hospitalizaciones () {
         setDataMostrar(result.data)
       } catch (error) {
         setDataMostrar([])
-        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
+        error.response ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
     };
   

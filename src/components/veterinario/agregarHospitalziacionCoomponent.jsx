@@ -110,7 +110,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
             setSuccess('Datos cargados exitosamente.')
         }
     }catch (error) {
-        setError(`${error}`)
+      error.response ? setError(`Error: ${error.response.data.message}`) : setError('Error al conectar con el servidor')
     }
     }
 
@@ -125,19 +125,19 @@ const handleSubmit = async (event) => {
       let endpoint = 'http://localhost:4321/hospitalizaciones'
       let httpMethod = 'post'
       let envio = {}
-      const fechaHoy = dayjs().format('MM-DD-YYYY')
+      const fechaHoy = `${dayjs().format('MM-DD-YYYY')} ${dayjs().format('HH:MM')}`
       if (id !== null && id) {
           const { fecha_salida_hospitalizacion:fechaSalida,contenido_hospitalizacion, observaciones, servicio_finalizado_hospitalizacion:servicioFinializadoHospitalizacion } = values;
           if(servicioFinializadoHospitalizacion === 0){
             envio = {
               fechaSalida:null,
-              contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}`,
+              contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}\n`,
               servicioFinializadoHospitalizacion
           }
           } else {
               envio = {
                 fechaSalida:dateFormater({time: fechaSalida, format: 'YYYY-MM-DD'}),
-                contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}`,
+                contenidoHospitalizacion: `${contenido_hospitalizacion} ${fechaHoy}: ${observaciones}\n`,
                 servicioFinializadoHospitalizacion
             }
           }
@@ -147,7 +147,7 @@ const handleSubmit = async (event) => {
           const { idMascota, observaciones } = values
           envio = {
               idMascota, 
-              contenidoHospitalizacion:`${fechaHoy}: ${observaciones}`
+              contenidoHospitalizacion:`${fechaHoy}: ${observaciones}\n`
           }
       }
       const response = await axios[httpMethod](endpoint, envio)
@@ -155,8 +155,7 @@ const handleSubmit = async (event) => {
       actualizar(!dato)
       handleClose()
   } catch (error) {
-      setError(`Error: ${error.response.data.message}`)
-      setDisableBoton(false)
+      error.response ? setError(`Error: ${error.response.data.message}`) : setError('Error al conectar con el servidor')
   }
 }
 
@@ -210,10 +209,7 @@ const handleSubmit = async (event) => {
               <Grid item xs={12} sm={4}>
               <Input
                   id='numeroDocumento'
-                  fullWidth
-                  label='N°documento'
-                  name='numeroDocumento'
-                  value={values.numeroDocumento}
+
                   onChange={handleInputChange}
                   disabled={!disableBoton ? true : false}
                   required
@@ -288,7 +284,7 @@ const handleSubmit = async (event) => {
                     id="contenido_hospitalizacion"
                     label="Observaciones Agegadas Anteriormente"
                     name="contenido_hospitalizacion"
-                    value={values.contenido_hospitalizacion}
+                    value={values.contenido_hospitalizacion.trim()}
                     onChange={handleInputChange}
                     disabled
                   />

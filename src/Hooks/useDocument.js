@@ -6,7 +6,7 @@ const result = async () => {
       const res = await axios.get('http://localhost:4321/documentos')
       return res.data
     } catch (error) {
-       return  `Error: ${error.response.data.message}`
+      return([])
     }
   }
 

@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import { VerVacunasMascota } from './verVacunasMascota';
 import { EyeIcon } from "@heroicons/react/24/outline";
 import AlertPrincipal from '../../components/dash/alertPrincipal';
-
-
+import Swal from "sweetalert2";
+import Boton from "../../components/dash/boton";
+import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
+import { DescargaCarnet } from './descargarVacuan';
 
 const columns = [
     {
@@ -30,6 +32,42 @@ const columns = [
     { field: 'peso_mascota', headerName: 'Peso mascota', width: 140 },
     { field: 'tamanno_mascota', headerName: 'Tamaño mascota', width: 140 },
 ];
+
+function AlertaDescargar(props) {
+    const { idSeleccionado, tooltip } = props
+    const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
+
+    useEffect(() => {
+        setDesabilitado(idSeleccionado.length === 0)
+    }, [idSeleccionado, setDesabilitado])
+
+    const handleClick = () => {
+        Swal.fire({
+            title: '¿Deseas descargar el certificado?',
+            showDenyButton: true,
+            confirmButtonText: "Confirmar",
+            denyButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Descargando el certificado", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("No se ha descargado el certificado", "", "error");
+            }
+        });
+    }
+
+    return (
+        <>
+            <Boton
+                bgColor='success'
+                icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+                tooltip={tooltip}
+                onClick={handleClick}
+                desable={desabilitado}
+            />
+        </>
+    )
+}
 
 
 
@@ -78,10 +116,17 @@ export default function AddEmploye() {
                         icon={<EyeIcon className="w-6 h-6" />}
                         tooltip='Visualizar Vacunas'
                     />}
+
+                    descarga={<DescargaCarnet
+                        selectId={selectId}
+                        tooltip='Descargar Factura'
+                        bgColor='success'
+                        icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+                    />}
                 />
                 <DataTable rows={data} columns={columns} selectId={saveSelectId} />
             </Stack>
-            <AlertPrincipal severity='error' message={error}/>
+            <AlertPrincipal severity='error' message={error} />
         </div>
     )
 }

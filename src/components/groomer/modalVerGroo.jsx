@@ -11,7 +11,6 @@ export default function AlertaVer(props) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [datosMostrados, setDatosMostrados] = useState(null);
   const [deshabilitado, setDeshabilitado] = useState(false);
-
   const customStyles = {
     content: {
       top: "20%",
@@ -48,6 +47,8 @@ export default function AlertaVer(props) {
     }
   };
 
+
+
   return (
     <>
       <>
@@ -66,32 +67,48 @@ export default function AlertaVer(props) {
         >
           {datosMostrados && (
             <div>
-              <h2 style={{ color: "#333", textAlign: "center", fontSize: "24px", marginBottom: "20px" }}>Información del registro seleccionado</h2>
-              <div style={{ maxHeight: "300px", overflowY: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", borderRadius: "10px", overflow: "hidden" }}>
-                  <thead style={{ backgroundColor: "#f0f0f0" }}>
+              <h2 className="text-gray-700 text-center text-3xl mb-8">Información del registro seleccionado</h2>
+              <div className="max-h-80 overflow-y-auto mb-4">
+                <table className="w-full rounded-lg overflow-hidden">
+                  <thead className="bg-gray-200">
                     <tr>
-                      <th>Nombre cliente</th>
-                      <th>Fecha</th>
-                      <th>Servicio Finalizado</th>
-                      <th>Nombre Mascota</th>
-                      <th>Servicio</th>
-                      <th>Observaciones</th>
+                      <th className="py-2 px-4">Nombre cliente</th>
+                      <th className="py-2 px-4">Fecha</th>
+                      <th className="py-2 px-4">Servicio Finalizado</th>
+                      <th className="py-2 px-4">Nombre Mascota</th>
+                      <th className="py-2 px-4">Servicio</th>
+                      <th className="py-2 px-4">Observaciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr key={datosMostrados.id}>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.primer_nombre_cliente} {datosMostrados.primer_apellido_cliente}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{dayjs(datosMostrados.fecha_servicio_groomer).format('MM-DD-YYYY')}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.servicio_finalizado_groomer === 1 ? 'Finalizado' : 'En proceso'}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.nombre_mascota}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "150px" }}>{datosMostrados.descripcion_servicio}</td>
-                      <td style={{ ...styles.tableData, maxWidth: "350px " }}>{datosMostrados.contenido_servicio_groomer}</td>
+                    <tr>
+                      <td className="py-2 px-4 max-w-xs">{datosMostrados.primer_nombre_cliente} {datosMostrados.primer_apellido_cliente}</td>
+                      <td className="py-2 px-4 max-w-xs">{dayjs(datosMostrados.fecha_servicio_groomer).format('MM-DD-YYYY')}</td>
+                      <td className="py-2 px-4 max-w-xs">{datosMostrados.servicio_finalizado_groomer === 1 ? 'Finalizado' : 'En proceso'}</td>
+                      <td className="py-2 px-4 max-w-xs">{datosMostrados.nombre_mascota}</td>
+                      <td className="py-2 px-4 max-w-xs">{datosMostrados.descripcion_servicio}</td>
+                      <td className="py-2 px-4 max-w-sm">
+                        <ul className="list-none p-0 h-36 overflow-auto">
+                          {datosMostrados.contenido_servicio_groomer.split("\n").map((nota, index, line) => {
+                            const notasSeparadas = nota.split(/(\d{2}-\d{2}-\d{4}):/).filter(Boolean);
+                            return notasSeparadas.map((notaSeparada, i) => (
+                              <li key={`${index}-${i}`} className="my-2 py-2 px-4 bg-gray-200 rounded">
+                                {i % 2 === 0 ? <strong>{notaSeparada.trim()}</strong> : notaSeparada.trim()}
+                              </li>
+                            ));
+                          })}
+                        </ul>
+                      </td>
+
+
+
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
+
+
           )}
           <button style={{ marginTop: "20px", padding: "10px 20px", backgroundColor: "#f44336", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer", display: "block", marginLeft: "auto", marginRight: "auto" }} onClick={() => setModalIsOpen(false)}>Cerrar</button>
         </Modal>

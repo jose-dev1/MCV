@@ -41,7 +41,7 @@ export default function VacunasRegistradas() {
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [actualizar, setActualizar] = useState(false)
-    const [success,setSuccess] = useState('')
+    const [success, setSuccess] = useState('')
 
     useEffect(() => {
         const fectcData = async () => {
@@ -90,16 +90,16 @@ export default function VacunasRegistradas() {
                 eliminar={<AlertEliminar
                     idSeleccionado={selectId}
                     tooltip='Desactivar Servicio'
-                    titulo='¿Desea desactivar la cita seleccionada?'
+                    titulo='¿Desea desactivar el servicio?'
                     endPoint='groomer/delete'
-                    menssage='Por favor, especifique el motivo por el cual desea desactivar la cita. Tenga en cuenta que este cambio es irreversible.' 
+                    menssage='Por favor, especifique el motivo por el cual desea desactivar el servicio. Tenga en cuenta que este cambio es irreversible.'
                     actualizar={setActualizar}
-                    dato={actualizar}/>}
+                    dato={actualizar} />}
             />
 
             <DataTable rows={data} columns={columns} selectId={saveSelectId} />
-            <AlertPrincipal severity='error' message={error}/>
-            <AlertPrincipal severity='success' message={success}/>
+            <AlertPrincipal severity='error' message={error} />
+            <AlertPrincipal severity='success' message={success} />
         </>
     )
 }

@@ -16,6 +16,40 @@ export class VacunasModel {
     }
   }
 
+  static async getDatosDeImpresion ({ id }) {
+    try {
+      const [response] = await connection.query(`
+        SELECT  
+          nombre_vacuna,
+          laboratorio,
+          lote_vacuna_aplicada,
+          fecha_vacuna_aplicada,
+          nombre_mascota,
+          fecha_nacimiento_mascota,
+          genero_mascota,
+          raza_mascota,
+          tipo_mascota,
+          CONCAT(primer_nombre_cliente , ' ' , primer_apellido_cliente) nombre_cliente ,
+          direccion_cliente,
+          telefono_cliente
+        FROM vacunas_aplicadas
+        INNER JOIN tipo_vacuna ON vacunas_aplicadas.id_tipo_vacuna = tipo_vacuna.id_tipo_vacuna
+        INNER JOIN mascotas ON vacunas_aplicadas.id_mascota = mascotas.id_mascota
+        INNER JOIN tipo_mascota on mascotas.id_tipo_mascota = tipo_mascota.id_tipo_mascota
+        INNER JOIN genero_mascota on mascotas.id_genero_mascota = genero_mascota.id_genero_mascota
+        INNER JOIN clientes on mascotas.id_cliente_mascota = clientes.id_cliente
+        WHERE vacunas_aplicadas.id_mascota = UUID_TO_BIN(?)
+      `, [id])
+
+      if (!response) throw new NoDataFound()
+      if (response.length === 0) throw new NoDataFound()
+      return response
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+
   static async getVacunas ({ idMascota }) {
     try {
       const [getVacunas] = await connection.query(`
@@ -128,7 +162,6 @@ WHERE id_vacuna_aplicada = UUID_TO_BIN(?)
 
       return res
     } catch (err) {
-      console.log('este es tu papa :', err)
       return err
     }
   }

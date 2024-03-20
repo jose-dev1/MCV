@@ -2,11 +2,12 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
 
+// Este es el export de generar pedf de vacuna resive id de mascota para generar pddf
 
-export const handleCrearPdf = async  (id) => {
+export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No olvidar que es id de mascota 
 
     try {
-    const result = await axios.get(`http://localhost:4321/carnet/datos-pdf/${id}`)
+    const result = await axios.get(`http://localhost:4321/carnet/datos-pdf/${id}` ) 
     const data = result.data
 
     const ventanaImpresion = window.open('', '_blank');

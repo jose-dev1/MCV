@@ -47,7 +47,7 @@ export const FormAgregarHozpitalizaciones = (props) => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('');
     const [dataMoscota, setDataMascota] = useState([])
-    const [tipoDocuemento] = useBringDocument()
+    const [tipoDocumento] = useBringDocument()
     const {desabilitado, validarId} = useHabilitar({id})
     const [disableBoton,setDisableBoton] = useState(true)
 
@@ -155,6 +155,7 @@ const handleSubmit = async (event) => {
       actualizar(!dato)
       handleClose()
   } catch (error) {
+      setDisableBoton(false)
       error.response ? setError(`Error: ${error.response.data.message}`) : setError('Error al conectar con el servidor')
   }
 }
@@ -195,12 +196,12 @@ const handleSubmit = async (event) => {
                 />
               ) : (
                 <Selects
-                  id='tipoDocuemento'
+                  id='tipoDocumento'
                   label='Tipo de Documento'
-                  name='tipoDocuemento'
+                  name='tipoDocumento'
                   value={values.tipoDocumento}
                   onChange={handleInputChange}
-                  items={tipoDocuemento}
+                  items={tipoDocumento}
                   disabled={!disableBoton ? true : false}
                   required
                 />
@@ -209,7 +210,10 @@ const handleSubmit = async (event) => {
               <Grid item xs={12} sm={4}>
               <Input
                   id='numeroDocumento'
-
+                  fullWidth
+                  label='N°documento'
+                  name='numeroDocumento'
+                  value={values.numeroDocumento}
                   onChange={handleInputChange}
                   disabled={!disableBoton ? true : false}
                   required

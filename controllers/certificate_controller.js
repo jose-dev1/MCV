@@ -21,7 +21,7 @@ export default class CertificateController {
 
   static async getCertificateById (req, res) {
     const { id } = req.params
-    const response = await CertificateModel.getCertificateById({ id })
+    const response = await CertificateModel.getCertificatesById({ id })
     if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentra ningun certificado' })
     if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
 
@@ -49,7 +49,7 @@ export default class CertificateController {
   static async updateCertificate (req, res) {
     const { id } = req.params
     const data = req.body
-    const response = await CertificateModel.deleteCetificate({ id, input: data })
+    const response = await CertificateModel.updateCertificate({ id, input: data })
     if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
 
     res.status(201).json({ message: 'Certificado actualizado satisfactoriamente' })

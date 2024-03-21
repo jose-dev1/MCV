@@ -2,6 +2,7 @@ import { Router } from 'express'
 import ExamenesVeterinariosController from '../controllers/examenes_veterinarios_controllers.js'
 
 export const examenesVeteriarioRouter = Router()
+export const infoClienteMascotaRouter = Router()
 
 examenesVeteriarioRouter.get('/', ExamenesVeterinariosController.getAllExams)
 examenesVeteriarioRouter.get('/:id', ExamenesVeterinariosController.getExmanById)
@@ -11,3 +12,5 @@ examenesVeteriarioRouter.patch('/delete/:id', ExamenesVeterinariosController.del
 
 export const examnTypes = Router()
 examnTypes.get('/', ExamenesVeterinariosController.getExamTypes)
+
+infoClienteMascotaRouter.get('/:id', ExamenesVeterinariosController.getInfoClienteMascota)

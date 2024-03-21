@@ -18,7 +18,7 @@ import { appointmentAssistanceRouter } from './routes/appointment_assistance_rou
 import { hospitalizacionRouter } from './routes/hospitalizations_routes.js'
 import { vacunasRouter } from './routes/vacunas_routes.js'
 import { swagger } from './middlewares/swagger.js'
-import { examenesVeteriarioRouter, examnTypes } from './routes/examenes_veterinarios_routes.js'
+import { examenesVeteriarioRouter, examnTypes, infoClienteMascotaRouter } from './routes/examenes_veterinarios_routes.js'
 import { homeVetRoutes } from './routes/home_vet_routes.js'
 import { envioEmailRouter } from './routes/sendEmail_routes.js'
 import { homeGroRoutes } from './routes/home_gro_routes.js'
@@ -68,6 +68,7 @@ app.use('/despaTypes', desparacitacionTypes)
 app.use('/agenda_groomer', agendaRouter)
 app.use('/certificados', certificateRouter)
 app.use('/info_mascotas', traerMascotas)
+app.use('/infoClienteMascota', infoClienteMascotaRouter)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

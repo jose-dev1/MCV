@@ -85,4 +85,13 @@ export default class ExamenesVeterinariosController {
       res.json(response)
     }
   }
+
+  static async getInfoClienteMascota (req, res) {
+    const { id } = req.params
+    const response = await ExamenesVeteriarioModel.getInfoClienteMascota({ id })
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No existe informacion correspondiente' })
+    if (response instanceof Error) return res.status(500).json({ message: 'Error interno en el servidor' })
+
+    res.json(response)
+  }
 };

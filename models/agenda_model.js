@@ -30,7 +30,7 @@ export class AgendaModel {
             servicios s ON c.id_servicio = s.id_servicio
         WHERE 
             u.id_tipo_usuario = ? AND estado_cita = 1; `
-            const response = await connection.query(query, [id_usuario])
+            const response = await connection.query(query, [id_usuario.id_usuario])
             return response
         } catch (error) {
             console.log(error)

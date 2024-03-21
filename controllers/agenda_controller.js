@@ -2,7 +2,7 @@ import { AgendaModel } from '../models/agenda_model.js'
 
 export class AgendaController {
     static async getAgenda(req, res) {
-        const id_usuario = req.params.id_usuario
+        const id_usuario = req.params
         const response = await AgendaModel.getAgendas(id_usuario)
         if (response instanceof Error) {
             res.status(500).json({ message: 'Error interno del servidor' })

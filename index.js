@@ -29,6 +29,7 @@ import { desparacitacionesRouter, desparacitacionTypes } from './routes/desperac
 import { agendaRouter } from './routes/agenda_routes.js'
 import { certificateRouter } from './routes/certificate_routes.js'
 import { historiaClinica, traerMascotas, gestionMascota } from './routes/traer_mascota.js'
+import { AuxilInicioRouter } from './routes/auxil_inicio_routes.js'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -71,6 +72,7 @@ app.use('/info_mascotas', traerMascotas)
 app.use('/infoClienteMascota', infoClienteMascotaRouter)
 app.use('/historia_clinica', historiaClinica)
 app.use('/gestionar_mascotas', gestionMascota)
+app.use('/inicio_auxil', AuxilInicioRouter )
 swagger(app, PORT)
 
 app.listen(PORT, () => {

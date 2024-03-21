@@ -76,7 +76,7 @@ export default function DescargarCertificado() {
     };
     fetchDataCertificado();
   }, [])
-
+  console.log(datos)
   return (
     <div className='flex gap-3'>
       <Sidebar />
@@ -101,7 +101,7 @@ export default function DescargarCertificado() {
             tooltip='Descargar Certificado'
             bgColor='success'
             icon={<DocumentArrowDownIcon className='w-6 h-6' />}
-            />}
+          />}
         />
         <DataTable rows={datos} columns={columns} selectId={saveSelectId} />
         <WhatsAppComponent />

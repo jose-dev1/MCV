@@ -1,15 +1,62 @@
 import Sidebar from '../../components/sidebarComponent'
 import { DashboardCard } from '../../components/dash/dashboardCart';
 import Stack from '@mui/material/Stack';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+const defaultValue = {
+    total_facturas: '',
+    estado_hospitalizacion: '',
+    total_desparacitaciones: '',
+    asistencia_cita: '',
+    total_citas: ''
+}
 
 
 export default function HomeAuxiliar() {
+    const [data, setData] = useState(defaultValue)
+    const [lastUpdateTime, setLastUpdateTime] = useState(new Date());
+    const [timeElapsed, setTimeElapsed] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axios.get('http://localhost:4321/inicio_auxil');
+                setData(data);
+                setLastUpdateTime(new Date());
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+
+        const interval = setInterval(() => {
+            fetchData();
+        }, 15 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date();
+            const elapsedTime = Math.floor((now - lastUpdateTime) / 1000);
+            setTimeElapsed(elapsedTime);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [lastUpdateTime]);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        return `${minutes} m`;
+    };
     const infoCard = [
         {
-            titulo: "Total facturado del dia",
-            Info: "$530.000",
-            estado: "Actualizado",
+            titulo: "Total facutras",
+            Info: data.total_facturas,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-blue-600-to-blue-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -20,9 +67,9 @@ export default function HomeAuxiliar() {
         },
 
         {
-            titulo: "Asistencia Hospitalaraia",
-            Info: "15",
-            estado: "Actualizado",
+            titulo: "Estado Hospitalizacion",
+            Info: data.estado_hospitalizacion,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-pink-600-to-pink-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -32,9 +79,9 @@ export default function HomeAuxiliar() {
             ),
         },
         {
-            titulo: "Asistencia de cirugias",
-            Info: "4",
-            estado: "Actualizado",
+            titulo: "Desparacitaciones",
+            Info: data.total_desparacitaciones,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-orange-600-to-orange-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -44,9 +91,9 @@ export default function HomeAuxiliar() {
             ),
         },
         {
-            titulo: "Asistencia de citas",
-            Info: "4",
-            estado: "Actualizado",
+            titulo: "Total citas",
+            Info: data.total_citas,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-green-600-to-green-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

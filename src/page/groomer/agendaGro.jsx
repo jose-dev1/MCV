@@ -49,7 +49,6 @@ export default function AgendaGroomer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(usuario.id_tipo_usuario)
         const response = await axios.get(`http://localhost:4321/agenda_groomer/mostrar/5`)
         setRows(response.data[0])
       } catch (error) {

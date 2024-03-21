@@ -17,6 +17,7 @@ import DescargarCerficado from "./page/cliente/descargarCertificado";
 import DescargarExamen from "./page/cliente/descargarExamen";
 import { ProtectedRoute } from "./routes/routes.js";
 import Examenes from "./page/veterinario/examenes.jsx";
+import ServicioMascota from "./page/veterinario/servicioMascota.jsx";
 import GestionarAsistencia from "./page/auxiliar/GestionAsistencia.jsx";
 import AgendaVeterinario from "./page/veterinario/agenda.jsx";
 import Servicioprestado from "./page/groomer/servicio-prestado";
@@ -26,7 +27,7 @@ import HistoriaClinica from "./page/veterinario/historiaClinica.jsx";
 import AgendaGroomer from "./page/groomer/agendaGro";
 import Desparacitacion from "./page/veterinario/desparacitacion.jsx";
 import Verificacion from "./page/verifcacion_cuenta.jsx";
-
+import GestionMascota from "./page/veterinario/gestionMascota.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +53,11 @@ function App() {
           element={<ProtectedRoute element={<Inicio />} requiredUserRole={4} />}
         />
         <Route
+          path="/Gestionar-mascotas"
+          element={<ProtectedRoute element={<GestionMascota />} requiredUserRole={4} />}
+        />
+
+        <Route
           path="/hospitalizaciones"
           element={
             <ProtectedRoute
@@ -64,6 +70,12 @@ function App() {
           path="/examenes-medicos"
           element={
             <ProtectedRoute element={<Examenes />} requiredUserRole={4} />
+          }
+        />
+        <Route
+          path="/Servicio-Mascota"
+          element={
+            <ProtectedRoute element={<ServicioMascota />} requiredUserRole={4} />
           }
         />
         <Route

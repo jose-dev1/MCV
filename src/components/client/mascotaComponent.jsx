@@ -18,8 +18,6 @@ import { DescargarHistoria } from './DescargarHistoria';
 const columns = [
 
     { field: 'fecha_creacion', headerName: 'Fecha de historial', width: 150, valueGetter: (params) => new Date(params.row.fecha_creacion).toLocaleDateString('es-ES') },
-    { field: 'anotacion_registro_historia_clinica', headerName: 'Anotacion de historia', width: 250 },
-    { field: 'descripcion_registro_historia_clinica', headerName: 'Descripcion de historia', width: 250 },
     { field: 'descripcion_servicio', headerName: 'Servicios prestados', width: 250 },
     { field: 'registro_historia_clinica_finalizado', headerName: 'Servicio finalizado', width: 150, valueGetter: (params) => params.row.registro_historia_clinica_finalizado === 1 ? 'Servicio Finalizado' : 'Servicio en proceso' },
 
@@ -41,6 +39,7 @@ export default function MascotaPerfil(props) {
             const result = await axios.get(`http://localhost:4321/info_mascotas/historial/${id}`)
             setData(result.data[0])
         } catch (error) {
+            setData([])
             setError(error.response.data)
         }
         setOpen(true)

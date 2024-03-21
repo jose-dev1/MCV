@@ -5,6 +5,7 @@ export const vacunasRouter = Router()
 
 vacunasRouter.get('/mascotas', CarnetController.getMascotasVacuna)
 vacunasRouter.get('/ver/:idMascota', CarnetController.getAll)
+vacunasRouter.get('/datos-pdf/:id', CarnetController.getDatosImpresion)
 vacunasRouter.get('/tipovacuna/:idMascota', CarnetController.busquedaTipoVacuna)
 vacunasRouter.get('/busqueda/:id', CarnetController.busquedaVacunaId)
 vacunasRouter.post('/create', CarnetController.createVacuna)

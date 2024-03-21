@@ -17,6 +17,14 @@ export class CarnetController {
     res.json(response)
   }
 
+  static async getDatosImpresion (req, res) {
+    const { id } = req.params
+    const response = await VacunasModel.getDatosDeImpresion({ id })
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentran vacunas registradas' })
+    if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
+    res.json(response)
+  }
+
   static async busquedaVacunaId (req, res) {
     const { id } = req.params
     const response = await VacunasModel.vacunaAplicadaId({ id })

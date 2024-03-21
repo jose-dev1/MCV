@@ -13,19 +13,17 @@ import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { DescargarHistoria } from './DescargarHistoria';
 
-
-
 const columns = [
 
-    { field: 'fecha_creacion', headerName: 'Fecha de historial', width: 150, valueGetter: (params) => new Date(params.row.fecha_creacion).toLocaleDateString('es-ES') },
-    { field: 'anotacion_registro_historia_clinica', headerName: 'Anotacion de historia', width: 250 },
-    { field: 'descripcion_registro_historia_clinica', headerName: 'Descripcion de historia', width: 250 },
+    { field: 'fecha_servicio_groomer', headerName: 'Fecha del servicio', width: 150, valueGetter: (params) => new Date(params.row.fecha_servicio_groomer).toLocaleDateString('es-ES') },
+    { field: 'anotacion_servicio_groomer', headerName: 'Anotacion del servicio', width: 250 },
+    { field: 'contenido_servicio_groomer', headerName: 'Contenido del servicio', width: 250 },
     { field: 'descripcion_servicio', headerName: 'Servicios prestados', width: 250 },
     { field: 'registro_historia_clinica_finalizado', headerName: 'Servicio finalizado', width: 150, valueGetter: (params) => params.row.registro_historia_clinica_finalizado === 1 ? 'Servicio Finalizado' : 'Servicio en proceso' },
 
 ]
 
-export default function MascotaPerfil(props) {
+export default function ServiciosGroomer(props) {
     const { bgColor, icon, tooltip, id, name } = props
     const [open, setOpen] = useState(false)
     const { selectId, saveSelectId } = useSelectId()
@@ -38,17 +36,16 @@ export default function MascotaPerfil(props) {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`http://localhost:4321/info_mascotas/historial/${id}`)
-            setData(result.data[0])
+            const result = await axios.get(`http://localhost:4321/info_mascotas/serviciosGroo/${id}`)
+            setData(result.data)
         } catch (error) {
-            setError(error.response.data)
+            setError(error.result.data)
         }
         setOpen(true)
 
     }
 
-    console.log(name)
-
+    console.log(id)
     const handleClose = () => {
         saveSelectId('')
         setOpen(false)
@@ -69,7 +66,7 @@ export default function MascotaPerfil(props) {
             >
                 <div className='min-h-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-solid border-black rounded-lg shadow p-4 bg-white'>
                     <Botonera
-                        title={`Historial de la mascota ${name}`}
+                        title={`Servicios groomer prestado a ${name}`}
                         descarga={<DescargarHistoria
                             selectId={selectId}
                             tooltip='Descargar Historia Clinica'

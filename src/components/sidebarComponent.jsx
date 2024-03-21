@@ -31,7 +31,7 @@ const Sidebar = () => {
 
 
 
-    console.log(clientData)
+
     const handleDesactivar = async () => {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -45,7 +45,6 @@ const Sidebar = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    console.log('datosFormulario', datosFormulario);
                     const response = await axios.post('http://localhost:4321/registro/desactivar', datosFormulario);
                     if (response.status === 200) {
                         Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');

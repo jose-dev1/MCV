@@ -122,4 +122,24 @@ export default class ExamenesVeteriarioModel {
       return error
     }
   }
+
+  static async getInfoClienteMascota ({ id }) {
+    try {
+      const [[res]] = await connection.query(
+        `SELECT CONCAT_WS(' ', primer_nombre_cliente, primer_apellido_cliente) as nombre_propieario, nombre_mascota, fecha_nacimiento_mascota, tipo_mascota, raza_mascota, genero_mascota
+        INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+        INNER JOIN tipo_mascota ON mascotas.id_tipo_mascota = tipo_mascota.id_tipo_mascota
+        INNER JOIN genero_mascota ON mascotas.id_genero_mascota = genero_mascota.id_genero_mascota
+        WHERE id_mascota = UUID_TO_BIN(?);`,
+        [id]
+      )
+
+      if (!res) throw new NoDataFound()
+      if (res.length === 0) throw new NoDataFound()
+
+      return res
+    } catch (error) {
+      return error
+    }
+  }
 };

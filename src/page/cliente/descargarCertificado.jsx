@@ -11,6 +11,7 @@ import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
+import { DescargaCertificado } from '../../components/veterinario/descargarCertificado';
 const columns = [
   { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
   { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
@@ -95,7 +96,12 @@ export default function DescargarCertificado() {
       >
         <Botonera
           title='Descargar Certificados'
-          descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
+          descarga={<DescargaCertificado
+            selectId={selectId}
+            tooltip='Descargar Certificado'
+            bgColor='success'
+            icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+            />}
         />
         <DataTable rows={datos} columns={columns} selectId={saveSelectId} />
         <WhatsAppComponent />

@@ -28,6 +28,7 @@ import AgendaGroomer from "./page/groomer/agendaGro";
 import Desparacitacion from "./page/veterinario/desparacitacion.jsx";
 import Verificacion from "./page/verifcacion_cuenta.jsx";
 import GestionMascota from "./page/veterinario/gestionMascota.jsx";
+import Certificado from "./page/veterinario/cerficado.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -184,6 +185,15 @@ function App() {
           element={
             <ProtectedRoute
               element={<Desparacitacion />}
+              requiredUserRole={4}
+            />
+          }
+        />
+                <Route
+          path="/certificados"
+          element={
+            <ProtectedRoute
+              element={<Certificado />}
               requiredUserRole={4}
             />
           }

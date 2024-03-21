@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon, BookmarkSquareIcon, ClipboardDocumentCheckIcon, HomeIcon, CheckBadgeIcon, CalendarIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import '../../src/assets/css/sidebar.css'
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -385,6 +385,17 @@ const Sidebar = () => {
 
 
                                 <span>Gestionar Mascotas </span>
+                            </Link>
+                        )}
+                                                                    {user.id_tipo_usuario === 4 && (
+                            <Link
+                                to="/certificados"
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/certificados' ? 'bg-gray-100 text-blue-500' : ''
+                                    }`}
+                            >
+                                <DocumentTextIcon className='w-6 h-6' />
+
+                                <span>Certificados</span>
                             </Link>
                         )}
 

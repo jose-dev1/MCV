@@ -104,13 +104,13 @@ export const FormAgregarHozpitalizaciones = (props) => {
         else {
             setError('')
             const getPets = await getPetsWithOwner({DocumentType: values.tipoDocumento, DocumentNumber: values.numeroDocumento})
-            if (getPets instanceof Error) throw new Error(getPets.response.data.message) 
+            if (getPets instanceof Error) throw new Error(getPets.response ? `Error: ${getPets.response.data.message}` : 'Error al conectar con el servidor') 
             setDataMascota(getPets)
             setDisableBoton(false)
             setSuccess('Datos cargados exitosamente.')
         }
     }catch (error) {
-      error.response ? setError(`Error: ${error.response.data.message}`) : setError('Error al conectar con el servidor')
+      setError(`${error}`)    
     }
     }
 

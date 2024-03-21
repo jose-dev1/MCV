@@ -116,4 +116,15 @@ export class MascotasController {
         }
     }
 
+    static async getAllMascotas(req, res) {
+        const response = await MascotasModel.getAllMascota()
+        if (response instanceof NoDataFound) {
+            res.status(404).json({ message: 'No se encuentran historial de mascotas' })
+        } else if (response instanceof Error) {
+            res.status(500).json({ message: 'Error interno del servidor' })
+        } else {
+            res.json(response)
+        }
+    }
+
 }

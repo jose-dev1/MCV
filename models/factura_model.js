@@ -9,7 +9,7 @@ export class FacturaModel {
             if (rows.length === 0) throw new NoDataFound()
             return rows
         } catch (error) {
-            throw error
+            return error
         }
     }
 
@@ -37,7 +37,7 @@ export class FacturaModel {
             };
 
         } catch (error) {
-            throw error;
+            return error;
         }
     }
 
@@ -63,7 +63,7 @@ export class FacturaModel {
             }
 
         } catch (error) {
-            throw error
+            return error
         }
     }
 
@@ -78,7 +78,7 @@ export class FacturaModel {
             if (rows.length === 0) throw new NoDataFound();
             return rows;
         } catch (error) {
-            throw error;
+            return error;
         }
     }
 
@@ -107,7 +107,7 @@ export class FacturaModel {
 
             return { ...rows[0], servicio: servicio };
         } catch (error) {
-            throw error;
+            return error;
         }
     }
 

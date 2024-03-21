@@ -63,38 +63,41 @@ export class MascotasModel {
 
     static async getAllMascotas({ id }) {
         try {
-            const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota, foto_mascota , fecha_nacimiento_mascota, raza_mascota, estado_mascota , tipo_sangre_mascota
-            FROM mascotas WHERE id_cliente_mascota = UUID_TO_BIN(?)`, [id])
+            const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota, foto_mascota , fecha_nacimiento_mascota, raza_mascota, estado_mascota , tipo_sangre_mascota, BIN_TO_UUID(id_historia_clinica) id_historia_clinica
+            FROM mascotas
+            INNER JOIN historias_clinicas ON historias_clinicas.id_mascota_historia = mascotas.id_mascota
+            WHERE id_cliente_mascota = UUID_TO_BIN(?) AND estado_mascota = 1`, [id])
             if (!mascotas) throw new NoDataFound()
             if (mascotas.length === 0) throw new NoDataFound()
             return (mascotas)
         } catch (error) {
-
+            console.log(error)
         }
     }
 
     static async getAllHistorialMascotas({ id }) {
         try {
             const historial = await connection.query(`SELECT 
-            BIN_TO_UUID(hc.id_historia_clinica) id, 
-            hc.fecha_creacion, 
-            BIN_TO_UUID(rhc.id_registro_historia_clinica) AS id_registro_historia_clinica, 
-            rhc.registro_historia_clinica_finalizado, 
-            rhc.descripcion_registro_historia_clinica, 
+            BIN_TO_UUID(rhc.id_registro_historia_clinica) AS id,
+            rhc.fecha_registro_historia_clinica,
+            rhc.registro_historia_clinica_finalizado,
+            rhc.descripcion_registro_historia_clinica,
+            rhc.estado_registro_historia_clinica,
             rhc.anotacion_registro_historia_clinica,
-            servicios.descripcion_servicio AS descripcion_servicio
+            rhc.id_historia_clinica,
+            rhc.id_servicio,
+            s.descripcion_servicio
         FROM 
-            historias_clinicas hc
-        LEFT JOIN 
-            registros_historias_clinicas rhc ON hc.id_historia_clinica = rhc.id_historia_clinica
-        LEFT JOIN 
-            servicios ON rhc.id_servicio = servicios.id_servicio
+            registros_historias_clinicas rhc
+        JOIN 
+            servicios s ON rhc.id_servicio = s.id_servicio
         WHERE 
-            hc.id_mascota_historia = UUID_TO_BIN(?);`, [id])
+            rhc.id_historia_clinica = UUID_TO_BIN(?) AND rhc.estado_registro_historia_clinica = 1;`, [id])
             if (!historial) throw new NoDataFound()
             if (historial.length === 0) throw new NoDataFound()
             return (historial)
         } catch (error) {
+            console.log(error)
             return (error)
         }
     }
@@ -126,6 +129,121 @@ export class MascotasModel {
         }
     }
 
+    static async getAllMascota() {
+        try {
+            const [mascota] = await connection.query(`SELECT 
+            BIN_TO_UUID(m.id_mascota) id,
+            m.nombre_mascota,
+            m.fecha_nacimiento_mascota,
+            m.tipo_sangre_mascota,
+            m.color_mascota,
+            m.raza_mascota,
+            m.peso_mascota,
+            m.tamanno_mascota,
+            m.microchip_mascota,
+            m.foto_mascota,
+            m.estado_mascota,
+            m.anotacion_mascota,
+            BIN_TO_UUID(m.id_cliente_mascota) AS id_cliente_mascota_uuid,
+            c.primer_nombre_cliente,
+            c.primer_apellido_cliente
+        FROM 
+            mascotas m
+        JOIN 
+            clientes c ON m.id_cliente_mascota = c.id_cliente
+            
+        WHERE m.estado_mascota = 1;`,)
+            if (!mascota) throw new NoDataFound()
+            if (mascota.length === 0) throw new NoDataFound()
+            return (mascota)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async getMascotaId({ id }) {
+        try {
+            const [[mascota]] = await connection.query(`SELECT 
+            BIN_TO_UUID(m.id_mascota) AS id,
+            m.nombre_mascota,
+            m.fecha_nacimiento_mascota,
+            m.tipo_sangre_mascota,
+            m.color_mascota,
+            m.raza_mascota,
+            m.peso_mascota,
+            m.tamanno_mascota,
+            m.microchip_mascota,
+            m.foto_mascota,
+            m.estado_mascota,
+            m.anotacion_mascota,
+            BIN_TO_UUID(m.id_cliente_mascota) AS id_cliente_mascota_uuid,
+            c.primer_nombre_cliente,
+            c.primer_apellido_cliente,
+            tm.tipo_mascota, 
+            gm.genero_mascota 
+        FROM 
+            mascotas m
+        JOIN 
+            clientes c ON m.id_cliente_mascota = c.id_cliente
+        JOIN 
+            tipo_mascota tm ON m.id_tipo_mascota = tm.id_tipo_mascota 
+        JOIN 
+            genero_mascota gm ON m.id_genero_mascota = gm.id_genero_mascota 
+        WHERE 
+            m.id_mascota = UUID_TO_BIN(?);
+        `, [id])
+            if (!mascota) throw new NoDataFound()
+            if (mascota.length === 0) throw new NoDataFound()
+            return (mascota)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async deleteMascota({ id, input }) {
+        const { anotacion } = input
+        try {
+            const [[updateMascota]] = await connection.query(`UPDATE mascotas SET estado_mascota = 0, anotacion_mascota = ? WHERE id_mascota = UUID_TO_BIN(?)`, [anotacion, id])
+            if (!updateMascota) throw new NoDataFound()
+            return (updateMascota)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    static async updateMascota({ id, input }) {
+        try {
+            const query = `
+                UPDATE mascotas
+                SET 
+                    nombre_mascota = ?,
+                    fecha_nacimiento_mascota = ?,
+                    color_mascota = ?,
+                    raza_mascota = ?,
+                    peso_mascota = ?,
+                    tamanno_mascota = ?,
+                    microchip_mascota = ?
+                WHERE 
+                    id_mascota = UUID_TO_BIN(?)
+            `;
+
+            const result = await connection.query(query, [
+                input.nombre_mascota,
+                input.fecha_nacimiento_mascota,
+                input.color_mascota,
+                input.raza_mascota,
+                input.peso_mascota,
+                input.tamanno_mascota,
+                input.microchip_mascota,
+                id
+            ]);
+
+            return { success: true, message: "Mascota actualizada exitosamente." };
+        } catch (error) {
+            console.error("Error al actualizar la mascota:", error);
+            return { success: false, message: "Error al actualizar la mascota." };
+        }
+    }
 
 
 

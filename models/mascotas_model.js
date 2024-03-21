@@ -61,6 +61,72 @@ export class MascotasModel {
     }
 
 
+    static async getAllMascotas({ id }) {
+        try {
+            const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota, foto_mascota , fecha_nacimiento_mascota, raza_mascota, estado_mascota , tipo_sangre_mascota
+            FROM mascotas WHERE id_cliente_mascota = UUID_TO_BIN(?)`, [id])
+            if (!mascotas) throw new NoDataFound()
+            if (mascotas.length === 0) throw new NoDataFound()
+            return (mascotas)
+        } catch (error) {
+
+        }
+    }
+
+    static async getAllHistorialMascotas({ id }) {
+        try {
+            const historial = await connection.query(`SELECT 
+            BIN_TO_UUID(hc.id_historia_clinica) id, 
+            hc.fecha_creacion, 
+            BIN_TO_UUID(rhc.id_registro_historia_clinica) AS id_registro_historia_clinica, 
+            rhc.registro_historia_clinica_finalizado, 
+            rhc.descripcion_registro_historia_clinica, 
+            rhc.anotacion_registro_historia_clinica,
+            servicios.descripcion_servicio AS descripcion_servicio
+        FROM 
+            historias_clinicas hc
+        LEFT JOIN 
+            registros_historias_clinicas rhc ON hc.id_historia_clinica = rhc.id_historia_clinica
+        LEFT JOIN 
+            servicios ON rhc.id_servicio = servicios.id_servicio
+        WHERE 
+            hc.id_mascota_historia = UUID_TO_BIN(?);`, [id])
+            if (!historial) throw new NoDataFound()
+            if (historial.length === 0) throw new NoDataFound()
+            return (historial)
+        } catch (error) {
+            return (error)
+        }
+    }
+
+    static async getServiciosGroobyId({ id }) {
+        try {
+            const [servicios] = await connection.query(`SELECT 
+            BIN_TO_UUID(sg.id_servicio_groomer) id,
+            sg.fecha_servicio_groomer,
+            sg.contenido_servicio_groomer,
+            sg.estado_servicio_groomer,
+            sg.anotacion_servicio_groomer,
+            sg.servicio_finalizado_groomer,
+            m.nombre_mascota,
+            s.descripcion_servicio
+        FROM 
+            servicios_groomer sg
+        INNER JOIN 
+            mascotas m ON sg.id_mascota = m.id_mascota
+        INNER JOIN 
+            servicios s ON sg.id_servicio = s.id_servicio
+        WHERE
+            sg.id_mascota = UUID_TO_BIN(?)`, [id])
+            if (!servicios) throw new NoDataFound()
+            if (servicios.length === 0) throw new NoDataFound()
+            return (servicios)
+        } catch (error) {
+            return (error)
+        }
+    }
+
+
 
 
 

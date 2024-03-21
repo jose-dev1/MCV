@@ -27,6 +27,7 @@ import { facturasRouter } from './routes/facturaRoutes.js'
 import fileUpload from 'express-fileupload'
 import { desparacitacionesRouter, desparacitacionTypes } from './routes/desperacitacion_router.js'
 import { agendaRouter } from './routes/agenda_routes.js'
+import { traerMascotas } from './routes/traer_mascota.js'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -62,8 +63,9 @@ app.use('/inicio-gro', homeGroRoutes)
 app.use('/registro-mascota', registroMascotas)
 app.use('/factura', facturasRouter)
 app.use('/desparasitacion', desparacitacionesRouter)
-app.use('/despaTypes', desparacitacionTypes )
+app.use('/despaTypes', desparacitacionTypes)
 app.use('/agenda_groomer', agendaRouter)
+app.use('/info_mascotas', traerMascotas)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

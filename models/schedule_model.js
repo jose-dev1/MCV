@@ -1,5 +1,6 @@
 import connection from './connection_database.js'
 import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
+import transporter from './coneccionEmail.js'
 
 export class ScheduleModel {
   static async getEspecialista ({ especialista }) {
@@ -195,8 +196,50 @@ export class ScheduleModel {
 
       const [res] = await connection.query('UPDATE cita SET estado_cita = 0, anotacion_cita = ? WHERE id_cita = UUID_TO_BIN(?)', [anotacion, id])
 
+      const [[datosUsuarios]] = await connection.query(`SELECT correo_usuario, CONCAT(primer_nombre_cliente, ' ' , primer_apellido_cliente) nombre_cliente, nombre_mascota, fecha_cita, Hora_cita, descripcion_servicio, CONCAT(primer_nombre_empleado, ' ' , primer_apellido_empleado) nombre_empleado
+      FROM cita
+      INNER JOIN mascotas ON cita.id_mascota = mascotas.id_mascota
+      INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+      INNER JOIN usuarios ON clientes.id_usuario = usuarios.id_usuario
+      INNER JOIN servicios ON cita.id_servicio = servicios.id_servicio
+      INNER JOIN empleados ON cita.id_empleado = empleados.id_empleado
+      WHERE id_cita = UUID_TO_BIN(?);`, [id])
+
+      if (datosUsuarios) {
+        console.log(datosUsuarios)
+        const { correo_usuario: correo, nombre_cliente: cliente, nombre_mascota: mascota, fecha_cita: fecha, Hora_cita: hora, descripcion_servicio: servicio, nombre_empleado: empleado } = datosUsuarios
+        const mailOptions = {
+          from: 'samivazqueles@gmail.com',
+          to: `${correo}`,
+          subject: 'Cancelacion cita',
+          html: `
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: 'Arial', sans-serif; background-color: #F3F4F6; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: relative;">
+              <i class="fas fa-dog" style="color: #4CAF50; font-size: 48px; position: absolute; top: -25px; left: 20px;"></i>
+              <h2 style="color: #4CAF50; font-size: 28px; font-weight: bold; margin-bottom: 20px;">Hemos cancelado la cita agendada para la sigueinte mascota:</h2>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Nombre del cliente:</strong> ${cliente}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Nombre mascota:</strong> ${mascota}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Fecha cita:</strong> ${`${fecha}`.split('T')[0]}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Hora cita:</strong> ${hora}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Servicio:</strong> ${servicio}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Nombre especialista:</strong> ${empleado}</p>
+              <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Motivo:</strong> ${anotacion}</p>
+              <h2 style="color: #4CAF50; font-size: 28px; font-weight: bold; margin-bottom: 20px;">Por favor vuelve a contactar con nosotros si deseas reagendar el servicio</h2>
+            </div>
+          `
+        }
+
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error)
+          } else {
+            console.log('Correo electrónico enviado: ' + info.response)
+          }
+        })
+      }
+
       return res
     } catch (err) {
+      console.log(err)
       return err
     }
   }

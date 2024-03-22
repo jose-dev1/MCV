@@ -2,7 +2,7 @@ import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountA
 import { ScheduleModel } from '../models/schedule_model.js'
 import { validateScheduleCreate, validateScheduleUPdate } from '../squemas/schedule.js'
 import { validateHospitalizationDelete } from '../squemas/hospitalizations.js'
-
+import { validateDocument } from '../squemas/document.js'
 export class ScheduleController {
   static async getEspecialista (req, res) {
     const { especialista } = req.params
@@ -54,8 +54,11 @@ export class ScheduleController {
 
   // inicio metodos de otros controladores
   static async getMascotas (req, res) {
-    const { tipoDocumento, numeroDocumento } = req.params
-    const response = await ScheduleModel.getMascotas({ tipoDocumento, numeroDocumento })
+    const result = validateDocument(req.params)
+    if (!result.success) {
+      return res.status(400).json({ message: JSON.parse(result.error.message)[0].message })
+    }
+    const response = await ScheduleModel.getMascotas({ tipoDocumento: result.data.tipoDocumento, numeroDocumento: result.data.numeroDocumento })
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran mascotas para el cliente seleccionado' })
     } else if (response instanceof NotFoundUser) {

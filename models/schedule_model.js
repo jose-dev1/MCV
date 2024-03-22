@@ -86,7 +86,7 @@ export class ScheduleModel {
 
       const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, nombre_mascota as value FROM mascotas
       INNER JOIN clientes ON clientes.id_cliente = mascotas.Id_cliente_mascota
-      WHERE id_cliente = ?`, [idCliente])
+      WHERE id_cliente = ? AND estado_mascota = 1`, [idCliente])
       if (!mascotas) throw new NoDataFound()
       if (mascotas.length === 0) throw new NoDataFound()
       return (mascotas)

@@ -137,25 +137,69 @@ export class ScheduleModel {
     const { fechaCita, horaCita, estadoCita, idEmpleado, idServicio, idMascota, especialista } = input
     try {
       const [[existenciaCita]] = await connection.query(`SELECT estado_cita FROM cita
-      WHERE fecha_cita= ? AND hora_cita= ? AND estado_cita = 1 AND id_empleado = UUID_TO_BIN(?)`, [fechaCita, horaCita, idEmpleado])
+      WHERE fecha_cita = ? AND hora_cita = ? AND estado_cita = 1 AND id_empleado = UUID_TO_BIN(?)`, [fechaCita, horaCita, idEmpleado])
       if (existenciaCita) throw new DuplicateInfo()
 
       const [[pacienteYaCita]] = await connection.query(`SELECT estado_cita FROM cita
       INNER JOIN servicios ON servicios.id_servicio = cita.id_servicio
-      WHERE id_mascota = UUID_TO_BIN(?) AND asistencia_cita = 0 AND estado_cita = 1 AND (fecha_cita >= CURDATE() OR (fecha_cita = CURDATE() AND Hora_cita > CURTIME())) AND especialista = ?`, [idMascota, especialista])
+      WHERE id_mascota = UUID_TO_BIN(?) AND asistencia_cita = 0 AND estado_cita = 1 AND (fecha_cita >= CURDATE() OR (fecha_cita = CURDATE() AND hora_cita > CURTIME())) AND especialista = ?`, [idMascota, especialista])
 
       if (pacienteYaCita) throw new InfoAlreadyExisting()
 
       const [[pacienteCitaHora]] = await connection.query(`SELECT estado_cita FROM cita
-      WHERE id_mascota = UUID_TO_BIN(?) AND fecha_cita= ? AND hora_cita= ? AND estado_cita = 1`, [idMascota, fechaCita, horaCita])
+      WHERE id_mascota = UUID_TO_BIN(?) AND fecha_cita = ? AND hora_cita = ? AND estado_cita = 1`, [idMascota, fechaCita, horaCita])
 
       if (pacienteCitaHora) throw new OccupiedSpace()
 
-      const insertCita = await connection.query(`INSERT INTO cita (fecha_cita,Hora_cita,estado_cita,
-        id_empleado,id_servicio,id_mascota) VALUES (?,?,?,UUID_TO_BIN(?),?,UUID_TO_BIN(?));`, [fechaCita, horaCita, estadoCita, idEmpleado, idServicio, idMascota])
-      return (insertCita)
+      const insertCita = await connection.query(`INSERT INTO cita (fecha_cita, Hora_cita, estado_cita,
+        id_empleado, id_servicio, id_mascota) VALUES (?, ?, ?, UUID_TO_BIN(?), ?, UUID_TO_BIN(?));`, [fechaCita, horaCita, estadoCita, idEmpleado, idServicio, idMascota])
+
+      if (insertCita) {
+        try {
+          const [[datsoEmail]] = await connection.query(`
+              SELECT nombre_mascota, primer_nombre_cliente, primer_apellido_cliente, correo_usuario
+              FROM mascotas
+              INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+              INNER JOIN usuarios ON clientes.id_usuario = usuarios.id_usuario
+              WHERE mascotas.id_mascota = UUID_TO_BIN(?);
+            `, [idMascota])
+
+          if (datsoEmail) {
+            const { nombre_mascota: mascota, primer_nombre_cliente: pNombre, primer_apellido_cliente: pApellido, correo_usuario: correo } = datsoEmail
+
+            const mailOptions = {
+              from: 'samivazqueles@gmail.com',
+              to: `${correo}`,
+              subject: 'Cita Agendada',
+              html: `
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: 'Arial', sans-serif; background-color: #F3F4F6; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); position: relative;">
+                  <i class="fas fa-dog" style="color: #4CAF50; font-size: 48px; position: absolute; top: -25px; left: 20px;"></i>
+                  <h2 style="color: #4CAF50; font-size: 28px; font-weight: bold; margin-bottom: 20px;">Hemos agendado cita:</h2>
+                  <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Hola</strong> ${pNombre} ${pApellido}, confirmamos tu cita para ${mascota}</p>
+                  <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Fecha cita:</strong> ${fechaCita}</p>
+                  <p style="color: #333; font-size: 18px; margin-bottom: 10px;"><strong>Hora cita:</strong> ${horaCita}</p>
+                  <h2 style="color: #4CAF50; font-size: 28px; font-weight: bold; margin-bottom: 20px;">Confirmamos la cita</h2>
+                </div>
+              `
+            }
+
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.error(error)
+              } else {
+                console.log('Correo electrónico enviado: ' + info.response)
+              }
+            })
+          }
+        } catch (error) {
+          console.error('Error al enviar el correo electrónico:', error)
+        }
+      }
+
+      return insertCita
     } catch (error) {
-      return (error)
+      console.log(error)
+      return error
     }
   }
 

@@ -7,7 +7,9 @@ export class VacunasModel {
       const [mascotas] = await connection.query(`SELECT BIN_TO_UUID(id_mascota) id, primer_nombre_cliente, primer_apellido_cliente,nombre_mascota,tipo_mascota,peso_mascota,tamanno_mascota, id_tipo_documento, numero_documento_cliente
       FROM mascotas
       INNER JOIN clientes ON clientes.id_cliente = mascotas.id_cliente_mascota
-      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota=mascotas.id_tipo_mascota;`)
+      INNER JOIN tipo_mascota ON tipo_mascota.id_tipo_mascota=mascotas.id_tipo_mascota
+      where  mascotas.estado_mascota=1;
+      ;`)
       if (!mascotas) throw new NoDataFound()
       if (mascotas.length === 0) throw new NoDataFound()
       return mascotas

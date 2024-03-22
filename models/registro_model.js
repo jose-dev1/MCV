@@ -167,11 +167,28 @@ export class registroModel {
 
   static async getExamenes({ id }) {
     const query = `
-      SELECT BIN_TO_UUID(examenes.id_examen) id, examenes.*, mascotas.nombre_mascota
-      FROM examenes
-      JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
-      JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
-      WHERE clientes.id_cliente = UUID_TO_BIN(?);
+    SELECT 
+    BIN_TO_UUID(examenes.id_examen) id,
+    examenes.fecha_registro_resultados_examen,
+    examenes.fecha_toma_muestra_examen,
+    examenes.resultado_examen,
+    examenes.link_archivo_examen,
+    examenes.estado_examen,
+    examenes.anotacion_examen,
+    examenes.registro_completo_examen,
+    mascotas.nombre_mascota,
+    tipo_examen.tipo_examen
+FROM 
+    examenes
+JOIN 
+    mascotas ON examenes.id_mascota = mascotas.id_mascota
+JOIN 
+    tipo_examen ON examenes.id_tipo_examen = tipo_examen.id_tipo_examen
+JOIN 
+    clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
+WHERE 
+    clientes.id_cliente = UUID_TO_BIN(?);
+
     `;
     try {
       const examenes = await connection.query(query, [id]);
@@ -186,23 +203,17 @@ export class registroModel {
 
 
   static async getCertificados({ id }) {
-    const query = `SELECT
-        BIN_TO_UUID(c.id_certificado) id,
-        c.informacion_sanitaria_certificado,
-        c.informacion_adicional_certificado,
-        c.fecha_certificado,
-        c.estado_certificado,
-        c.anotacion_certificado,
-        BIN_TO_UUID(c.id_mascota) AS id_mascota,
-        m.nombre_mascota
-    FROM
-        certificados AS c
-    JOIN
-        mascotas AS m ON c.id_mascota = m.id_mascota
-    JOIN
-        clientes AS cl ON m.id_cliente_mascota = cl.id_cliente
-    WHERE
-        cl.id_cliente = UUID_TO_BIN(?); 
+    const query = `SELECT BIN_TO_UUID(certificados.id_certificado) id , BIN_TO_UUID(mascotas.id_mascota) AS id_mascota,
+    certificados.informacion_sanitaria_certificado,
+    certificados.informacion_adicional_certificado,
+    certificados.fecha_certificado,
+    certificados.estado_certificado,
+    certificados.anotacion_certificado,
+    mascotas.nombre_mascota
+FROM clientes
+JOIN mascotas ON clientes.id_cliente = mascotas.id_cliente_mascota
+JOIN certificados ON mascotas.id_mascota = certificados.id_mascota
+WHERE clientes.id_cliente = UUID_TO_BIN(?) 
     `;
 
     try {

@@ -11,6 +11,8 @@ import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
 import dayjs from 'dayjs'
 import AlertPrincipal from '../../components/dash/alertPrincipal'
+import { DescargaExamen } from '../../components/veterinario/descargarExamen'
+import {DocumentArrowDownIcon} from '@heroicons/react/24/outline'
 
 const columns = [
     { field: 'nombre_mascota', headerName: 'Nombre Mascota', width: 150 },
@@ -78,7 +80,7 @@ function Examenes() {
             <AgrearExamen
             icon={<PencilSquareIcon className='w-6 h-6' /> }
             tooltip='Agregar Examen'
-            bgColor='secondary'
+            bgColor='primary'
             label='Agregar Examen Medico'
             actualizar={setActualizar}
             dato={actualizar}
@@ -87,7 +89,6 @@ function Examenes() {
             errorMessage={setError}/>
 
           }
-          // descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Examen' />}
           eliminar={<AlertEliminar 
             idSeleccionado={selectId} 
             tooltip='Desactivar Examen' 
@@ -96,6 +97,12 @@ function Examenes() {
             menssage='Por favor, especifique el motivo por el cual desea desactivar el examen. Tenga en cuenta que este cambio es irreversible.'
             actualizar= {setActualizar}
             dato={actualizar}/>}
+          descarga={<DescargaExamen
+              selectId={selectId}
+              tooltip='Descargar Certificado'
+              bgColor='success'
+              icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+            />}
         />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
       </Stack>

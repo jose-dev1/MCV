@@ -9,6 +9,7 @@ import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
+import { DescargaExamen } from '../../components/veterinario/descargarExamen'
 
 const columns = [
   { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
@@ -94,7 +95,12 @@ export default function DescargarExamen() {
       >
         <Botonera
           title='Descargar Examenes'
-          descarga={<AlertaDescargar idSeleccionado={selectId} tooltip='Descargar Certificado' />}
+          descarga={<DescargaExamen
+            selectId={selectId}
+            tooltip='Descargar Certificado'
+            bgColor='success'
+            icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+          />}
         />
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
         <WhatsAppComponent />

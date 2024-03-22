@@ -11,12 +11,15 @@ import { useBringDocument } from '../../Hooks/useDocument'
 import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner'
 import { dateFormater } from '../../utils/dateFormater'
 import axios from 'axios'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useExamTypes } from '../../Hooks/useExamTypes'
 import Message from '../dash/succesfulMessage'
 import InputDate from '../dash/inputDate'
 import PetsIcon from '@mui/icons-material/Pets';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { handleExamenesPdf } from '../../utils/formatoExamenes'
 
 const registroCompletoExamen = [
   {
@@ -26,6 +29,27 @@ const registroCompletoExamen = [
       id: 1, value: 'Si'
   }
 ]
+
+const resultadoExamen = [
+  {
+      id: 'Negativo', value: 'Negativo'
+  },
+  {
+      id: 'Positivo', value: 'Positivo'
+  }
+]
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const defaultValues = {
   id: '',
@@ -37,7 +61,13 @@ const defaultValues = {
   fecha_registro_resultados_examen: dayjs(),
   resultado_examen:'',
   link_archivo_examen:'',
-  registro_completo_examen: 0
+  registro_completo_examen: 0,
+  lote:'',
+  fechaVencimiento:dayjs(),
+  resultadoFiv:'Negativo',
+  resultadoFelv:'Negativo',
+  resultadoCpv:'Negativo',
+  resultadoCdv:'Negativo',
 }
 
 export const AgrearExamen = (props) => {
@@ -53,9 +83,32 @@ export const AgrearExamen = (props) => {
   const [open, setOpen] = useState(false)
   const [dataMoscota, setDataMascota] = useState([])
   const [disableBoton, setDisableBoton] = useState(true)
+  const [tipo_examen,SetTipoExamen] = useState()
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedPdf, setSelectedPdf] = useState(null)
 
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleFileChangePdf = (event) => {
+    setSelectedPdf(event.target.files[0]);
+  };
   const reinicio = () =>{
     setDataMascota([])
+  }
+
+  const handlePdf = async () => {
+    try {
+      setError('')
+      if(selectedFile){
+        const dataMascota = await axios.get(`http://localhost:4321/infoClienteMascota/${values.idMascota}`)
+        handleExamenesPdf(selectedFile, tipo_examen, values,dataMascota.data);
+      }else{
+        setError('Carge una imagen para generar el pdf')
+      }
+  } catch (error) {
+      console.error('Error al generar el PDF:', error);
+  }
   }
 
   const handleModal = async () => {
@@ -69,6 +122,7 @@ export const AgrearExamen = (props) => {
             if (todosDatos.registro_completo_examen === 0){
               setDisableBoton(false)
               setValues(todosDatos)
+              SetTipoExamen(todosDatos.tipo_examen)
               setOpen(true)
             }else{
               handleClose()
@@ -85,7 +139,9 @@ export const AgrearExamen = (props) => {
     setError('')
     setSuccess('')
     setOpen(false)
-    setDisableBoton(true)
+    setDisableBoton(true)  
+    setSelectedFile(null);
+    setSelectedPdf(null)
   }
 
   const handleSubmitId = async (event) => {
@@ -128,33 +184,47 @@ const handleSubmit = async (event) => {
       let httpMethod = 'post'
       let envio = {};
       if (id !== null && id) {
+        if(selectedPdf){
           const { fecha_registro_resultados_examen: fechaRegistroResultadosExamen,
-          resultado_examen: resultadoExamen,
-          link_archivo_examen: linkArchivoExamen,
-          registro_completo_examen: registroCompletoExamen} = values;
-          if (registroCompletoExamen===0){
-            envio = {
-              fechaRegistroResultadosExamen: null,
-              resultadoExamen,
-              linkArchivoExamen,
-              registroCompletoExamen
-            };
-          }else {
-            envio = {
-              fechaRegistroResultadosExamen: dateFormater({time: fechaRegistroResultadosExamen, format: 'YYYY-MM-DD'}),
-              resultadoExamen,
-              linkArchivoExamen,
-              registroCompletoExamen
-            };
-          }
-          endpoint += `/${values.id}`
-          httpMethod = 'patch'
+            resultado_examen: resultadoExamen,
+            registro_completo_examen: registroCompletoExamen} = values;
+            const formData = new FormData();
+            formData.append('pdf', selectedPdf);
+        
+            const link = await axios.post('http://localhost:4321/files/examenes', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            if (registroCompletoExamen===0){
+              envio = {
+                fechaRegistroResultadosExamen: null,
+                resultadoExamen,
+                linkArchivoExamen:link.data.link,
+                registroCompletoExamen
+              };
+            }else {
+              envio = {
+                fechaRegistroResultadosExamen: dateFormater({time: fechaRegistroResultadosExamen, format: 'YYYY-MM-DD'}),
+                resultadoExamen,
+                linkArchivoExamen:link.data.link,
+                registroCompletoExamen
+              };
+            }
+            endpoint += `/${values.id}`
+            httpMethod = 'patch'
+        }
+        else {
+          setDisableBoton(false)
+          setError('No ha cargado ningun archivo pdf por favor carge uno')
+          return
+        }
       } else {
           const { idMascota, idTipoExamen } = values
           envio = {
-              idMascota,
-              idTipoExamen
-          }
+            idMascota,
+            idTipoExamen
+        }
       }
       const response = await axios[httpMethod](endpoint, envio)
       successMessage(response.data.message)
@@ -274,7 +344,7 @@ const handleSubmit = async (event) => {
                   id='idTipoExamen'
                   label='Tipo Examen'
                   name='idTipoExamen'
-                  value={values.tipoExamen}
+                  value={values.idTipoExamen}
                   onChange={handleInputChange}
                   items={examType}
                   required
@@ -284,18 +354,91 @@ const handleSubmit = async (event) => {
             
             {validarId && (
               <>
-                <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
+                <Input
+                  id='lote'
+                  label='Lote'
+                  name='lote'
+                  value={values.lote}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <InputDate
-                    id='fecha_registro_resultados_examen'
+                    id='fechaVencimiento'
                     fullWidth
-                    label='Fecha registro resultados examen'
-                    name='fecha_registro_resultados_examen'
-                    fecha={values.fecha_registro_resultados_examen ? values.fecha_registro_resultados_examen : values.fecha_registro_resultados_examen=dayjs()}
+                    label='Fecha vencimiento prueba'
+                    name='fechaVencimiento'
+                    fecha={values.fechaVencimiento}
                     onChange={handleInputChangeDate}
-                    disabled={values.registro_completo_examen === 0 ? true : false}
                     required
                 />
               </Grid>
+              </>
+            )}
+            {tipo_examen === 'Test VIF-VILEF' && (
+              <>
+                <Grid item xs={12} sm={6}>
+                <Selects
+                    id='resultadoFiv'
+                    label='Resultado FIV'
+                    name='resultadoFiv'
+                    value={values.resultadoFiv}
+                    onChange={handleInputChange}
+                    items={resultadoExamen}
+                    disabled={false}
+                    required
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                <Selects
+                    id='resultadoFelv'
+                    label='Resultado FELV'
+                    name='resultadoFelv'
+                    value={values.resultadoFelv}
+                    onChange={handleInputChange}
+                    items={resultadoExamen}
+                    disabled={false}
+                    required
+                  />
+                </Grid>
+              </>
+            )}
+            {tipo_examen === 'Test CPV' && (
+              <>
+                <Grid item xs={12} sm={12}>
+                <Selects
+                    id='resultadoCpv'
+                    label='Resultado CPV'
+                    name='resultadoCpv'
+                    value={values.resultadoCpv}
+                    onChange={handleInputChange}
+                    items={resultadoExamen}
+                    disabled={false}
+                    required
+                  />
+                </Grid>
+              </>
+            )}
+            {tipo_examen === 'Test CDV' && (
+              <>
+                <Grid item xs={12} sm={12}>
+                <Selects
+                    id='resultadoCdv'
+                    label='Resultado CDV'
+                    name='resultadoCdv'
+                    value={values.resultadoCdv}
+                    onChange={handleInputChange}
+                    items={resultadoExamen}
+                    disabled={false}
+                    required
+                  />
+                </Grid>
+              </>
+            )}
+            {validarId && (
+              <>
               <Grid item xs={12} sm={6}>
                 <Input
                   id='resultado_examen'
@@ -303,20 +446,20 @@ const handleSubmit = async (event) => {
                   name='resultado_examen'
                   value={values.resultado_examen}
                   onChange={handleInputChange}
-
                   required
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Input
-                  id='link_archivo_examen'
-                  label='link Archivo Examen'
-                  name='link_archivo_examen'
-                  value={values.link_archivo_examen}
-                  onChange={handleInputChange}
-
-                  required
-                />
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              >
+                Subir imagen resultado
+                <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+              </Button>
               </Grid>
                 <Grid item xs={12} sm={6}>
                   <Selects
@@ -330,17 +473,57 @@ const handleSubmit = async (event) => {
                     required
                   />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                <InputDate
+                    id='fecha_registro_resultados_examen'
+                    fullWidth
+                    label='Fecha registro resultados examen'
+                    name='fecha_registro_resultados_examen'
+                    fecha={values.fecha_registro_resultados_examen ? values.fecha_registro_resultados_examen : values.fecha_registro_resultados_examen=dayjs()}
+                    onChange={handleInputChangeDate}
+                    disabled={values.registro_completo_examen === 0 ? true : false}
+                    required
+                />
+              </Grid> 
               </>
             )}
-            <Grid item xs={12}>
-              <button
-                type='submit'
-                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
-                disabled = {disableBoton}
-              >
-                Registrar
-              </button>
-            </Grid>
+            {validarId && (
+              <>
+              <Grid item xs={12} sm={4}>
+              <input type="button" className='w-full mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white' value="Generar Examen" disabled={disableBoton} onClick={handlePdf}/>
+              </Grid>
+              <Grid item xs={12} sm={2}>
+              <Button
+                component="label"
+                className='w-full h-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              ><VisuallyHiddenInput type="file" onChange={handleFileChangePdf}/></Button>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <button
+                  type='submit'
+                  className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                  disabled={disableBoton}
+                >
+                  Registrar
+                </button>
+              </Grid>
+              </>
+            )}
+            {!validarId && (
+              <Grid item xs={12} sm={12}>
+                <button
+                  type='submit'
+                  className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                  disabled = {disableBoton}
+                  >
+                  Registrar
+                </button>
+              </Grid>
+            )}
           </Grid>
         </form>
       </Modal>

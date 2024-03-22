@@ -43,21 +43,26 @@ function Perfil() {
     id_usuario: usuario.correo_usuario,
   });
   const [datosActualizados, setDatosActualizados] = useState(null);
-  useEffect(() => {
-    const clientDataFromLocalStorage = localStorage.getItem('client');
 
-    if (clientDataFromLocalStorage) {
-      try {
+  useEffect(() => {
+    cargarDatos();
+  }, []);
+
+  const cargarDatos = async () => {
+    try {
+      const response = await axios.get('http://localhost:4321/registro/documento');
+      setDocumentos(response.data);
+
+      const clientDataFromLocalStorage = localStorage.getItem('client');
+      if (clientDataFromLocalStorage) {
         const parsedClientData = JSON.parse(clientDataFromLocalStorage);
         setCliente(parsedClientData);
         setDatosFormulario(parsedClientData);
-      } catch (error) {
-        console.error('Error al analizar los datos del cliente como JSON:', error);
-        localStorage.removeItem('client');
       }
+    } catch (error) {
+      console.log('error al obtener los datos:', error);
     }
-  }, []);
-
+  };
   const manejarCambio = (campo, valor) => {
     setDatosFormulario((datosAnteriores) => ({
       ...datosAnteriores,
@@ -91,6 +96,7 @@ function Perfil() {
           text: "Se han actualizado los datos del cliente los cambios se veran cuando vuelva a iniciar session.",
           icon: "success"
         });
+        setCliente({ ...cliente, ...datosFormulario });
       } else {
         await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
         Swal.fire({
@@ -104,17 +110,6 @@ function Perfil() {
       setError('Error al enviar la petición.');
     }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setMostrarAlerta(true);
-    });
-    axios.get('http://localhost:4321/registro/documento').then((response) => {
-      setDocumentos(response.data);
-    }).catch((error) => {
-      console.log('error al obtener los datos:', error);
-    })
-  }, []);
 
   return (
     <div style={{ display: 'flex' }}>

@@ -13,68 +13,42 @@ import { DescargaExamen } from '../../components/veterinario/descargarExamen'
 
 const columns = [
   { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
-  { field: 'fecha_toma_muestra_examen', headerName: 'Fecha del examen', width: 230, valueGetter: (params) => new Date(params.row.fecha_toma_muestra_examen).toLocaleDateString('es-ES') },
+  { field: 'fecha_toma_muestra_examen', headerName: 'Fecha del examen', width: 150, valueGetter: (params) => new Date(params.row.fecha_toma_muestra_examen).toLocaleDateString('es-ES') },
+  { field: 'tipo_examen', headerName: 'Tipo del examen', width: 150 },
   { field: 'registro_completo_examen', headerName: 'Estado del examen', width: 160, valueGetter: (params) => params.row.registro_completo_examen === 1 ? 'Examen Completado' : 'Examen Pendiente' },
   { field: 'resultado_examen', headerName: 'Resultado del examen', width: 300 },
 ];
 
-function AlertaDescargar(props) {
-  const { idSeleccionado, tooltip } = props
-  const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
-
-  useEffect(() => {
-    setDesabilitado(idSeleccionado.length === 0)
-  }, [idSeleccionado, setDesabilitado])
-
-  const handleClick = () => {
-    Swal.fire({
-      title: '¿Deseas descargar el certificado?',
-      showDenyButton: true,
-      confirmButtonText: "Confirmar",
-      denyButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Descargando el certificado", "", "success");
-      } else if (result.isDenied) {
-        Swal.fire("No se ha descargado el certificado", "", "error");
-      }
-    });
-  }
-
-  return (
-    <>
-      <Boton
-        bgColor='success'
-        icon={<DocumentArrowDownIcon className='w-6 h-6' />}
-        tooltip={tooltip}
-        onClick={handleClick}
-        desable={desabilitado}
-      />
-    </>
-  )
-}
-
-
 export default function DescargarExamen() {
   const { selectId, saveSelectId } = useSelectId();
   const [rows, setRows] = useState([]);
-  const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
+  const [cliente, setCliente] = useState(JSON.parse(localStorage.getItem('client')));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente.id}`);
-        const rowsWithIds = response.data[0].map((row, index) => ({ ...row, id: index + 1 }));
-        setRows(rowsWithIds);
+        const response = await axios.get(`http://localhost:4321/registro/descarga_examen/${cliente?.id}`);
+        setRows(response.data[0]);
       } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
-    fetchData1();
-  }, []);
 
+    if (!cliente) {
+      Swal.fire({
+        title: 'No registrado como cliente',
+        text: 'Por favor regístrese como cliente para acceder a esta funcionalidad.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar'
+      });
+    } else {
+      fetchData1();
+    }
+  }, [cliente]);
+
+  console.log(rows);
 
   return (
     <div className='flex gap-3'>

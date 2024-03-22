@@ -63,6 +63,11 @@ const RegistroMascota = () => {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al registrar mascota',
+                    text: 'Necesita de un numero de documento.',
+                });
             });
     };
 

@@ -4,8 +4,6 @@ import Boton from '../dash/boton'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import { Maurisio } from '../../components/veterinario/agregarVacuanciom'
-import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import AlertEliminar from '../../components/dash/alertEliminar';
 import dayjs from 'dayjs';
@@ -69,12 +67,7 @@ export default function MascotaPerfil(props) {
                 <div className='min-h-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-solid border-black rounded-lg shadow p-4 bg-white'>
                     <Botonera
                         title={`Historial de la mascota ${name}`}
-                        descarga={<DescargarHistoria
-                            selectId={selectId}
-                            tooltip='Descargar Historia Clinica'
-                            bgColor='success'
-                            icon={<DocumentArrowDownIcon className='w-6 h-6' />}
-                        />}
+
                     />
                     <DataTable rows={data} columns={columns} selectId={saveSelectId} />
                     <AlertPrincipal severity='error' message={error} />

@@ -19,23 +19,22 @@ export function DescargaExamen(props) {
             setDesabilitado(true)
         }
     }, [selectId])
-
     const handleModal = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4321/examenesVeterinario/${selectId}`)
-        if(response.data.link_archivo_examen){
-            window.open(response.data.link_archivo_examen, '_blank');
-        }else {
-            Swal.fire({
-                title: "Error",
-                text: "No hay ningun archivo cargado para este examen",
-                icon: "error"
-              });
+        try {
+            const response = await axios.get(`http://localhost:4321/examenesVeterinario/${selectId}`)
+            if (response.data.link_archivo_examen) {
+                window.open(response.data.link_archivo_examen, '_blank');
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: "No hay ningun archivo cargado para este examen",
+                    icon: "error"
+                });
+            }
+
+        } catch (error) {
+            console.log(error)
         }
-        
-      } catch (error) {
-        console.log(error)
-      }
     }
 
     return (

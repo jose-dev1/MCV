@@ -50,8 +50,11 @@ function Login() {
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.user));
         localStorage.setItem('client', JSON.stringify(response.data.client));
-        if (response.data.user.estado_usuario === 0 || response.data.user.estado_verificacion_usuario === 0) {
-          setMensajeError('Tu cuenta está desactivada');
+        if (response.data.user.estado_usuario === 0) {
+          setMensajeError('Tu cuenta está desactivada contactanos si necitas alguna información');
+          setMostrarAlerta(true);
+        } else if (response.data.user.estado_verificacion_usuario === 0) {
+          setMensajeError('Verifica tu correo para poder iniciar sesión');
           setMostrarAlerta(true);
         } else {
           setuserAuth(true);
@@ -62,32 +65,38 @@ function Login() {
       }
     })
       .catch((error) => {
-        setMensajeError('Error en la autenticación');
+        setMensajeError('Error al conectar con el servidor');
         setMostrarAlerta(true);
       });
   };
 
-  useEffect(() => {
+  const verificarAutenticacion = () => {
     const user = JSON.parse(localStorage.getItem('user'));
+    return !!user;
+  };
 
-    if (user) {
-      const userRoutes = {
-        1: '/admin',
-        2: '/perfil-usuario',
-        3: '/inicio-auxiliar',
-        4: '/veterinario',
-        5: '/inicio-groomer',
-      };
+  useEffect(() => {
+    if (verificarAutenticacion()) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        const userRoutes = {
+          1: '/admin',
+          2: '/perfil-usuario',
+          3: '/inicio-auxiliar',
+          4: '/veterinario',
+          5: '/inicio-groomer',
+        };
 
-      const userRoute = userRoutes[user.id_tipo_usuario];
+        const userRoute = userRoutes[user.id_tipo_usuario];
 
-      if (userRoute) {
-        navigate(userRoute);
+        if (userRoute) {
+          navigate(userRoute);
+        } else {
+          console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
+        }
       } else {
-        console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
+        console.log('No hay usuario en localStorage');
       }
-    } else {
-      console.log('No hay usuario en localStorage');
     }
   }, [userAuth, navigate]);
 

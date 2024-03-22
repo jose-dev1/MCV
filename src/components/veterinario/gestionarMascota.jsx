@@ -3,20 +3,13 @@ import useForm from '../../Hooks/useForm'
 import { useState } from 'react'
 import Boton from '../dash/boton'
 import Input from '../admin/Input'
-import Selects from '../admin/Selects'
 import dayjs from 'dayjs'
 import { useHabilitar } from '../../Hooks/useHabilitar'
 import { getDataById } from '../../utils/getDataById'
-import { useBringDocument } from '../../Hooks/useDocument'
-import { emptyValidation, getPetsWithOwner } from '../../utils/getPetsWithOwner'
-import { dateFormater } from '../../utils/dateFormater'
 import axios from 'axios'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import { useExamTypes } from '../../Hooks/useExamTypes'
 import Message from '../dash/succesfulMessage'
 import InputDate from '../dash/inputDate'
-import PetsIcon from '@mui/icons-material/Pets';
-import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2';
 
 
 
@@ -67,6 +60,13 @@ export const FromGestionarMascota = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+
+            const isEmptyField = Object.values(values).some(value => value === '');
+            if (isEmptyField) {
+                setError('Por favor, completa todos los campos.');
+                return;
+            }
+
             const formattedFechaNacimiento = new Date(values.fecha_nacimiento_mascota).toISOString().slice(0, 19).replace('T', ' ');
 
             const updatedValues = {
@@ -74,11 +74,15 @@ export const FromGestionarMascota = (props) => {
                 fecha_nacimiento_mascota: formattedFechaNacimiento
             };
             const response = await axios.patch(`http://localhost:4321/gestionar_mascotas/actualizar/${id}`, updatedValues);
-            setSuccess(response.data.message);
+            Swal.fire({
+                title: "Actualizado...",
+                text: "Mascota actualizada con exito",
+                icon: "success"
+            });
             actualizar(!dato);
             handleClose();
         } catch (error) {
-            errorMessage(`Error: ${error.response.data.message}`);;
+            console.log(error);;
         }
     };
 

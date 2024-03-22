@@ -15,68 +15,35 @@ import { DescargaCertificado } from '../../components/veterinario/descargarCerti
 const columns = [
   { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
   { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
-  { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230 },
-  { field: 'anotacion_certificado', headerName: 'Anotacion', width: 160 },
+  { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230, width: 150, valueGetter: (params) => new Date(params.row.fecha_certificado).toLocaleDateString('es-ES') },
+  { field: 'informacion_adicional_certificado', headerName: 'Informacion Adicional', width: 270 },
 
 ]
 
-
-function AlertaDescargar(props) {
-  const { idSeleccionado, tooltip } = props
-  const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
-
-  useEffect(() => {
-    setDesabilitado(idSeleccionado.length === 0)
-  }, [idSeleccionado, setDesabilitado])
-
-  const handleClick = () => {
-    Swal.fire({
-      title: '¿Deseas descargar el certificado?',
-      showDenyButton: true,
-      confirmButtonText: "Confirmar",
-      denyButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Descargando el certificado", "", "success");
-      } else if (result.isDenied) {
-        Swal.fire("No se ha descargado el certificado", "", "error");
-      }
-    });
-  }
-
-  return (
-    <>
-      <Boton
-        bgColor='success'
-        icon={<DocumentArrowDownIcon className='w-6 h-6' />}
-        tooltip={tooltip}
-        onClick={handleClick}
-        desable={desabilitado}
-      />
-    </>
-  )
-}
-
 export default function DescargarCertificado() {
-  const { selectId, saveSelectId } = useSelectId()
-  const { selectRow, saveSelectRow } = useSelectRow()
-  const [cliente, setCiente] = useState(JSON.parse(localStorage.getItem('client')));
-  const [datos, setDatos] = useState([])
+  const { selectId, saveSelectId } = useSelectId();
+  const [cliente, setCliente] = useState(JSON.parse(localStorage.getItem('client')));
+
+  const [datos, setDatos] = useState([]);
 
   useEffect(() => {
-    const fetchDataCertificado = async () => {
-      try {
-        console.log(cliente.id)
-        const response = await axios.get(`http://localhost:4321/registro/descarga_certificado/${cliente.id}`);
-        const rowsWithIds = response.data[0].map((row, index) => ({ ...row, id: index + 1 }));
-        setDatos(rowsWithIds);
-      } catch (error) {
-        console.error("No estoy trayendo los datos", error);
+    fetchData();
+  }, [cliente]);
+
+  const fetchData = async () => {
+    try {
+      if (cliente && cliente.id) {
+        const responseCertificado = await axios.get(`http://localhost:4321/registro/descarga_certificado/${cliente?.id}`);
+        setDatos(responseCertificado.data[0]);
+      } else {
+        setDatos([]);
       }
-    };
-    fetchDataCertificado();
-  }, [])
-  console.log(datos)
+    } catch (error) {
+      console.error("No se pueden cargar los datos", error);
+    }
+  };
+
+
   return (
     <div className='flex gap-3'>
       <Sidebar />
@@ -107,7 +74,7 @@ export default function DescargarCertificado() {
         <WhatsAppComponent />
       </Stack>
     </div>
-  )
+  );
 }
 
 

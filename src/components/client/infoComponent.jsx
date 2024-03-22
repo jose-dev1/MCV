@@ -1,12 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DashboardCard } from '../../components/dash/dashboardCart';
+import axios from 'axios';
+
+const defaultValues = {
+    total_examenes_generados: '',
+    total_solicitudes_citas: '',
+    total_certificados_generados: '',
+    total_mascotas: ''
+}
+
 
 const Infocard = () => {
+    const [client] = useState(JSON.parse(localStorage.getItem('client')));
+    const [data, setData] = useState(defaultValues)
+    const [lastUpdateTime, setLastUpdateTime] = useState(new Date());
+    const [timeElapsed, setTimeElapsed] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log(client.id);
+                const response = await axios.get(`http://localhost:4321/home_perfil/${client.id}`);
+                if (response.data) {
+                    setData(response.data);
+                    setLastUpdateTime(new Date());
+                } else {
+                    console.log('Cliente no encontrado');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+
+        const interval = setInterval(() => {
+            fetchData();
+        }, 15 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const now = new Date();
+            const elapsedTime = Math.floor((now - lastUpdateTime) / 1000);
+            setTimeElapsed(elapsedTime);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [lastUpdateTime]);
+
+    const formatTime = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        return `${minutes} m`;
+    };
+
     const infoCard = [
         {
-            titulo: "Servicios solicutados",
-            Info: "10",
-            estado: "Actualizado",
+            titulo: "Examenes generado",
+            Info: data.total_examenes_generados,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-blue-600-to-blue-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -17,9 +72,9 @@ const Infocard = () => {
         },
 
         {
-            titulo: "Mascotas Hospitalizadas",
-            Info: "15",
-            estado: "Actualizado",
+            titulo: "Total de mascotas",
+            Info: data.total_mascotas,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-pink-600-to-pink-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -30,8 +85,8 @@ const Infocard = () => {
         },
         {
             titulo: "Solicitud de citas",
-            Info: "4",
-            estado: "Actualizado",
+            Info: data.total_solicitudes_citas,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-orange-600-to-orange-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -42,8 +97,8 @@ const Infocard = () => {
         },
         {
             titulo: "Certificados generados",
-            Info: "4",
-            estado: "Actualizado",
+            Info: data.total_certificados_generados,
+            estado: formatTime(timeElapsed),
             iconColor: "bg-gradient-from-green-600-to-green-400",
             icon: (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

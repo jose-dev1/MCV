@@ -50,6 +50,9 @@ const Sidebar = () => {
                         Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');
                         localStorage.removeItem('user');
                         localStorage.removeItem('client');
+                        setClientData(null);
+                        setUser(null);
+                        localStorage.clear();
                         navigate('/');
                     } else {
                         Swal.fire('Error', 'Hubo un problema al desactivar la cuenta. Por favor, inténtalo de nuevo más tarde.', 'error');
@@ -70,6 +73,7 @@ const Sidebar = () => {
     const cerrarSession = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('client');
+        localStorage.clear();
         setClientData(null);
         setUser(null);
         navigate('/');
@@ -387,7 +391,7 @@ const Sidebar = () => {
                                 <span>Gestionar Mascotas </span>
                             </Link>
                         )}
-                                                                    {user.id_tipo_usuario === 4 && (
+                        {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/certificados"
                                 className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/certificados' ? 'bg-gray-100 text-blue-500' : ''

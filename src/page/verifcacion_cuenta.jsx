@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const VerificarCuenta = () => {
     const [errorMessage, setErrorMessage] = useState(null);
+    const [verificationSuccess, setVerificationSuccess] = useState(false);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -12,6 +15,7 @@ const VerificarCuenta = () => {
             .post('http://localhost:4321/registro/verificar_cuenta', { codigo_verificacion: codigoVerificacion })
             .then((response) => {
                 console.log(response.data);
+                setVerificationSuccess(true);
             })
             .catch((error) => {
                 console.error(error);
@@ -24,9 +28,19 @@ const VerificarCuenta = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Verificación de Cuenta</h1>
-            {errorMessage && <p>{errorMessage}</p>}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+            {verificationSuccess ? (
+                <>
+                    <FaCheckCircle style={{ color: 'green', fontSize: '74px', marginBottom: '40px' }} />
+                    <p>¡Cuenta verificada con éxito!</p>
+                    <Link to="/login">Puede iniciar sesión</Link>
+                </>
+            ) : (
+                <>
+                    <FaTimesCircle style={{ color: 'red', fontSize: '64px', marginBottom: '20px' }} />
+                    {errorMessage ? <p>{errorMessage}</p> : <p>El código ya ha sido utilizado.</p>}
+                </>
+            )}
         </div>
     );
 };

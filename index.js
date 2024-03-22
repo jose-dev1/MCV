@@ -30,6 +30,7 @@ import { agendaRouter } from './routes/agenda_routes.js'
 import { certificateRouter } from './routes/certificate_routes.js'
 import { historiaClinica, traerMascotas, gestionMascota } from './routes/traer_mascota.js'
 import { AuxilInicioRouter } from './routes/auxil_inicio_routes.js'
+import { uploadRouter } from './routes/upload_files.js'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -73,6 +74,7 @@ app.use('/infoClienteMascota', infoClienteMascotaRouter)
 app.use('/historia_clinica', historiaClinica)
 app.use('/gestionar_mascotas', gestionMascota)
 app.use('/inicio_auxil', AuxilInicioRouter )
+app.use('/files', uploadRouter)
 swagger(app, PORT)
 
 app.listen(PORT, () => {

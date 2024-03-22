@@ -10,16 +10,17 @@ const __dirname = path.dirname(__filename)
 export class UploadFilesModel {
   static async uploadExams (files) {
     try {
-      const { image } = files
-      const uploadPath = path.join(__dirname, '../temp', image.name)
-      await image.mv(uploadPath)
-      const storageRef = ref(storage, `pdf_examenes/${Date.now()}${image.name}`)
+      const { pdf } = files
+      const uploadPath = path.join(__dirname, '../temp', pdf.name)
+      await pdf.mv(uploadPath)
+      const storageRef = ref(storage, `pdf_examenes/${Date.now()}${pdf.name}`)
       await uploadBytes(storageRef, fs.readFileSync(uploadPath))
       const downloadURL = await getDownloadURL(storageRef)
       fs.unlinkSync(uploadPath)
 
       return downloadURL
     } catch (error) {
+      console.log(error)
       return (error)
     }
   }

@@ -25,7 +25,7 @@ export default class ExamenesVeteriarioModel {
   static async getExamById ({ id }) {
     try {
       const [[res]] = await connection.query(
-        `SELECT BIN_TO_UUID(id_examen) id, fecha_registro_resultados_examen, fecha_toma_muestra_examen, resultado_examen, link_archivo_examen, estado_examen, anotacion_examen, nombre_mascota, tipo_examen, primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente, registro_completo_examen, descripcion_documento, numero_documento_cliente
+        `SELECT BIN_TO_UUID(id_examen) id, fecha_registro_resultados_examen, fecha_toma_muestra_examen, resultado_examen, link_archivo_examen, estado_examen, anotacion_examen, nombre_mascota, tipo_examen, primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente, registro_completo_examen, descripcion_documento, numero_documento_cliente, BIN_TO_UUID(mascotas.id_mascota) idMascota
         FROM examenes
         INNER JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
         INNER JOIN tipo_examen ON examenes.id_tipo_examen = tipo_examen.id_tipo_examen
@@ -127,6 +127,7 @@ export default class ExamenesVeteriarioModel {
     try {
       const [[res]] = await connection.query(
         `SELECT CONCAT_WS(' ', primer_nombre_cliente, primer_apellido_cliente) as nombre_propieario, nombre_mascota, fecha_nacimiento_mascota, tipo_mascota, raza_mascota, genero_mascota
+        FROM mascotas
         INNER JOIN clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
         INNER JOIN tipo_mascota ON mascotas.id_tipo_mascota = tipo_mascota.id_tipo_mascota
         INNER JOIN genero_mascota ON mascotas.id_genero_mascota = genero_mascota.id_genero_mascota
@@ -139,6 +140,7 @@ export default class ExamenesVeteriarioModel {
 
       return res
     } catch (error) {
+      console.log(error)
       return error
     }
   }

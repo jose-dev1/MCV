@@ -65,38 +65,32 @@ function Login() {
       }
     })
       .catch((error) => {
-        setMensajeError('Error al conectar con el servidor');
+        setMensajeError('Correo o contraseña invalida');
         setMostrarAlerta(true);
       });
   };
 
-  const verificarAutenticacion = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return !!user;
-  };
 
   useEffect(() => {
-    if (verificarAutenticacion()) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        const userRoutes = {
-          1: '/admin',
-          2: '/perfil-usuario',
-          3: '/inicio-auxiliar',
-          4: '/veterinario',
-          5: '/inicio-groomer',
-        };
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const userRoutes = {
+        1: '/admin',
+        2: '/perfil-usuario',
+        3: '/inicio-auxiliar',
+        4: '/veterinario',
+        5: '/inicio-groomer',
+      };
 
-        const userRoute = userRoutes[user.id_tipo_usuario];
+      const userRoute = userRoutes[user.id_tipo_usuario];
 
-        if (userRoute) {
-          navigate(userRoute);
-        } else {
-          console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
-        }
+      if (userRoute) {
+        navigate(userRoute);
       } else {
-        console.log('No hay usuario en localStorage');
+        console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
       }
+    } else {
+      console.log('No hay usuario en localStorage');
     }
   }, [userAuth, navigate]);
 

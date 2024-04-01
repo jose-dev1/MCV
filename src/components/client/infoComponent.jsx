@@ -3,44 +3,52 @@ import { DashboardCard } from '../../components/dash/dashboardCart';
 import axios from 'axios';
 
 const defaultValues = {
-    total_examenes_generados: '',
-    total_solicitudes_citas: '',
-    total_certificados_generados: '',
-    total_mascotas: ''
+    total_examenes_generados: 0,
+    total_solicitudes_citas: 0,
+    total_certificados_generados: 0,
+    total_mascotas: 0
 }
 
-
 const Infocard = () => {
-    const [client] = useState(JSON.parse(localStorage.getItem('client')));
-    const [data, setData] = useState(defaultValues)
+    const storedClient = localStorage.getItem('client');
+    let parsedClient = null;
+
+    try {
+        parsedClient = storedClient ? JSON.parse(storedClient) : null;
+    } catch (error) {
+        console.error('Error al analizar el cliente desde el almacenamiento local:', error);
+    }
+
+    const [client] = useState(parsedClient);
+    const [data, setData] = useState(defaultValues);
     const [lastUpdateTime, setLastUpdateTime] = useState(new Date());
     const [timeElapsed, setTimeElapsed] = useState(0);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                console.log(client.id);
-                const response = await axios.get(`http://localhost:4321/home_perfil/${client.id}`);
-                if (response.data) {
-                    setData(response.data);
-                    setLastUpdateTime(new Date());
-                } else {
-                    console.log('Cliente no encontrado');
+        if (client && client.id) {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get(`http://localhost:4321/home_perfil/${client.id}`);
+                    if (response.data) {
+                        setData(response.data);
+                        setLastUpdateTime(new Date());
+                    } else {
+                        console.log('Cliente no encontrado');
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
-            }
-        };
+            };
 
-        fetchData();
-
-        const interval = setInterval(() => {
             fetchData();
-        }, 15 * 60 * 1000);
 
-        return () => clearInterval(interval);
-    }, []);
+            const interval = setInterval(() => {
+                fetchData();
+            }, 15 * 60 * 1000);
 
+            return () => clearInterval(interval);
+        }
+    }, [client]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -127,4 +135,3 @@ const Infocard = () => {
 
 
 export default Infocard;
-

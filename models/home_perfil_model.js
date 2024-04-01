@@ -26,7 +26,7 @@ export class HomePerfilModel {
         FROM certificados c
         JOIN mascotas m ON c.id_mascota = m.id_mascota
         WHERE m.id_cliente_mascota = UUID_TO_BIN(?);
-        
+            
         
         `, [id.id])
         return ({ ...data1, ...data2, ...data3, ...data4 })

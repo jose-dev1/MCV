@@ -26,6 +26,14 @@ export class HospitalizationsController {
     }
   }
 
+  static async getHospitalizationsByPetId (req, res) {
+    const { id } = req.params
+    const response = await HospitalizationsModel.getHospitalizationsByPetId({ id })
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentran historias clinicas para la mascota seleccionada' })
+    if (response instanceof Error) return res.status(500).json({ message: 'Error interno en el servidor' })
+    res.json(response)
+  }
+
   static async create (req, res) {
     const result = validatehospitalizationCreate(req.body)
     if (!result.success) {

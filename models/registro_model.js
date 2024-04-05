@@ -226,4 +226,19 @@ WHERE clientes.id_cliente = UUID_TO_BIN(?)
     }
 
   }
+
+  static async updatePassword ({ id, input }) {
+    try {
+      console.log(input)
+      const saltRounds = 10
+      const encryPassword = await bcrypt.hash(input, saltRounds)
+      const [updatePassword] = await connection.query(`UPDATE usuarios
+      SET password_usuario = ?
+      WHERE correo_usuario = ?`, [encryPassword, id])
+      return (updatePassword)
+    } catch (error) {
+      console.log(error)
+      return (error)
+    }
+  }
 }

@@ -157,4 +157,16 @@ export class RegistroController {
       res.json({ message: 'Eliminado satisfactiriamente' })
     }
   }
+
+  static async updatePassword (req, res) {
+    const { correo } = req.params
+    const { contraseña } = req.body
+
+    const response = await registroModel.updatePassword({ id: correo, input: contraseña })
+    if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
+      res.status(201).json({ message: 'Contraseña actualizada correctamente' })
+    }
+  }
 }

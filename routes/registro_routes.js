@@ -7,6 +7,7 @@ registroRoutes.get("/genero", RegistroController.genero)
 registroRoutes.get("/documento", RegistroController.getDocumento)
 registroRoutes.post('/verificar_cuenta', RegistroController.verificarCuenta)
 registroRoutes.put('/actualizar_cliente/:id', RegistroController.actualizarCliente)
+registroRoutes.patch('/actualizarPassword/:correo', RegistroController.updatePassword)
 //registro cliente
 registroRoutes.post("/registro_cliente", RegistroController.registroCliente)
 registroRoutes.post("/desactivar/", RegistroController.deleteUser)

@@ -37,7 +37,7 @@ export class registroModel {
   static async enviarCorreo({ userCorreo, secret }) {
     const mailjetClient = Mailjet.apiConnect(
       '34538d099c891c567832df06c3604b5d',
-      '90ae5d5f8d216c7842159b9af30b2280'
+      '1273185153fd42b6678d4ab340a50e71'
     )
     const str = userCorreo
     const res = str.split('@')

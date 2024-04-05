@@ -77,6 +77,7 @@ app.use('/gestionar_mascotas', gestionMascota)
 app.use('/inicio_auxil', AuxilInicioRouter)
 app.use('/files', uploadRouter)
 app.use('/home_perfil', HomePerfilRoutes)
+
 swagger(app, PORT)
 
 app.listen(PORT, () => {

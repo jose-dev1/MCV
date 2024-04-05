@@ -135,8 +135,7 @@
  *           type: integer
  *           example: 1
  *           description: Estado de la desparasitación (activo o inactivo)
- *         ...
- *         
+ *   
  *     NewDesparasitacion:
  *       type: object
  *       properties:

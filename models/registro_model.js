@@ -227,8 +227,9 @@ WHERE clientes.id_cliente = UUID_TO_BIN(?)
 
   }
 
-  static async updatePassword ({ id, input }) {
+  static async updatePassword({ id, input }) {
     try {
+      console.log(id)
       console.log(input)
       const saltRounds = 10
       const encryPassword = await bcrypt.hash(input, saltRounds)
@@ -239,6 +240,43 @@ WHERE clientes.id_cliente = UUID_TO_BIN(?)
     } catch (error) {
       console.log(error)
       return (error)
+    }
+  }
+
+  static async recuperarCuenta(correo_u) {
+    const mailjetClient = Mailjet.apiConnect(
+      '34538d099c891c567832df06c3604b5d',
+      '1273185153fd42b6678d4ab340a50e71'
+    )
+    const str = correo_u
+    const res = str.split('@')
+
+    const request = mailjetClient.post('send', { version: 'v3.1' }).request({
+      Messages: [
+        {
+          From: {
+            Email: 'william.castano@ingenews.co',
+            Name: 'Actualizacion de constraseña MCV'
+          },
+          To: [
+            {
+              Email: correo_u,
+              Name: 'Hola' + res[0]
+            }
+          ],
+          Subject: 'Confirmacion de cuenta MCV',
+          TextPart:
+            'Hola' + res[0] + ', este es un correo para actualizar su contraseña de click en el siguiente enlace.',
+          HTMLPart:
+            '<h3>Acualiza tu contraseña aqui <a href="http://localhost:3000/actualizar-password?correo_verificacion=' + correo_u + '">Acualizacion MCV</a></h3>'
+        }
+      ]
+    })
+    try {
+      const result = await request
+      console.log(result.body)
+    } catch (err) {
+      console.error(err.statusCode, err.message)
     }
   }
 }

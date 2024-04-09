@@ -158,9 +158,10 @@ export class RegistroController {
     }
   }
 
-  static async updatePassword (req, res) {
+  static async updatePassword(req, res) {
     const { correo } = req.params
-    const { contraseña } = req.body
+    const { value: contraseña } = req.body
+    console.log(req.body)
 
     const response = await registroModel.updatePassword({ id: correo, input: contraseña })
     if (response instanceof Error) {
@@ -169,4 +170,18 @@ export class RegistroController {
       res.status(201).json({ message: 'Contraseña actualizada correctamente' })
     }
   }
+
+  static async recuperarCuenta(req, res) {
+    const correo_u = req.body.email
+    const response = await registroModel.recuperarCuenta(correo_u)
+    if (response instanceof NotFoundUser) {
+      res.status(404).json({ message: 'Usuario no registrado' })
+    } else if (response instanceof Error) {
+      res.status(500).json({ message: 'Error interno del servidor' })
+    } else {
+      res.json({ message: 'Enviado satisfactiriamente' })
+    }
+  }
 }
+
+

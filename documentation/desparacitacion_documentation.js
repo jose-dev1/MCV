@@ -40,7 +40,7 @@
  *         description: Ya existe una desparasitación registrada
  *       500:
  *         description: Error interno del servidor
- * 
+ *
  * /desparasitacion/{id}:
  *   get:
  *     summary: Obtener una desparasitación por su ID
@@ -135,7 +135,8 @@
  *           type: integer
  *           example: 1
  *           description: Estado de la desparasitación (activo o inactivo)
- *   
+ *
+ *
  *     NewDesparasitacion:
  *       type: object
  *       properties:
@@ -148,5 +149,5 @@
  *           format: date-time
  *           example: "2024-04-04T12:00:00Z"
  *           description: Fecha de aplicación de la desparasitación
- *        
+ *
  */

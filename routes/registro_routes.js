@@ -12,5 +12,7 @@ registroRoutes.patch('/actualizarPassword/:correo', RegistroController.updatePas
 registroRoutes.post("/registro_cliente", RegistroController.registroCliente)
 registroRoutes.post("/desactivar/", RegistroController.deleteUser)
 
+registroRoutes.post("/recuperar_password", RegistroController.recuperarCuenta)
+
 registroRoutes.get("/descarga_certificado/:id", RegistroController.getCertificado)
 registroRoutes.get("/descarga_examen/:id", RegistroController.getExamen)

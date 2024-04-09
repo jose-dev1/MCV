@@ -34,6 +34,23 @@ export class HospitalizationsModel {
     }
   }
 
+  static async getHospitalizationsByPetId ({ id }) {
+    try {
+      const [res] = await connection.query(
+        `SELECT fecha_hospitalizacion, fecha_salida_hospitalizacion, servicio_finalizado_hospitalizacion, contenido_hospitalizacion, primer_nombre_cliente, nombre_mascota, telefono_cliente FROM hospitalizaciones
+        INNER JOIN mascotas ON mascotas.id_mascota = hospitalizaciones.id_mascota
+        INNER JOIN clientes ON clientes.id_cliente = mascotas.id_cliente_mascota
+        WHERE estado_hospitalizacion = 1 AND mascotas.id_mascota = UUID_TO_BIN(?)`, [id]
+      )
+      if (!res) throw new NoDataFound()
+      if (res.length === 0) throw new NoDataFound()
+      return (res)
+    } catch (error) {
+      console.log(error)
+      return error
+    }
+  }
+
   static async create ({ input }) {
     try {
       const { contenidoHospitalizacion, idMascota } = input

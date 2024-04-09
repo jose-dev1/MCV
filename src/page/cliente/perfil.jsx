@@ -98,12 +98,14 @@ function Perfil() {
         });
         setCliente({ ...cliente, ...datosFormulario });
       } else {
-        await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
+        const response = await axios.post('http://localhost:4321/registro/registro_cliente', datosFormulario);
         Swal.fire({
           title: "¡Buen trabajo!",
           text: "Se ha registrado como cliente.",
           icon: "success"
         });
+        const nuevoCliente = response.data; // Obtener el cliente creado del response
+        setCliente(nuevoCliente);
       }
     } catch (error) {
       console.error('Error al enviar la petición:', error);
@@ -279,13 +281,12 @@ function Perfil() {
               >
                 Registrar
               </button>
-              {cliente && (
-                <button
-                  className="w-48 mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white"
-                >
-                  Actualizar
-                </button>
-              )}
+              <button
+                className="w-48 mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white"
+                style={{ display: cliente ? 'inline-block' : 'none' }}
+              >
+                Actualizar
+              </button>
             </div>
           </form>
         </div>

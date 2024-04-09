@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Logo from "../assets/img/MVC.png"
+import Logo from "../assets/img/MVC.png";
 import { FormControl, Select, MenuItem, Alert } from '@mui/material';
-import 'remixicon/fonts/remixicon.css'
+import 'remixicon/fonts/remixicon.css';
 import '../assets/css/login.css';
 
 const Registro = () => {
@@ -16,7 +16,6 @@ const Registro = () => {
     genero: '',
   });
   const [generos, setGeneros] = useState([]);
-  const [selectedGenero, setSelectedGenero] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -30,6 +29,13 @@ const Registro = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
+    if (!formData.email || !formData.password || !formData.genero) {
+      setErrorMessage('Por favor completa todos los campos.');
+      return;
+    }
+
     try {
       const userData = {
         ...formData,

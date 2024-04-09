@@ -37,7 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/recuperar-contraseña" element={<Recuperar />} />
-        <Route path="/actualizar-contraseña" element={<Nuevapw />} />
+        <Route path="/actualizar-password" element={<Nuevapw />} />
         <Route path="/verificar-cuenta" element={<Verificacion />} />
         <Route
           path="/perfil-usuario"
@@ -189,7 +189,7 @@ function App() {
             />
           }
         />
-                <Route
+        <Route
           path="/certificados"
           element={
             <ProtectedRoute

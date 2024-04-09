@@ -2,36 +2,53 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from "../assets/img/MVC.png";
 import { FormControl } from '@mui/material';
 import axios from 'axios';
 import 'remixicon/fonts/remixicon.css';
 import '../assets/css/login.css';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ValidarPw = () => {
   const [newPw, setNewPw] = useState('');
-  const [confirmarPw, setConfirmarPw] = useState('');
+  const [value, setValue] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const correo_verificacion = new URLSearchParams(location.search).get('correo_verificacion');
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (newPw !== confirmarPw) {
-      alert('Las contraseñas no coinciden');
+    if (newPw !== value) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Las contraseñas no coinciden',
+      });
       return;
     }
 
     try {
-      const response = await axios.post('URL_DE_TU_ENDPOINT', {
-        newPw,
-        confirmarPw
+      const response = await axios.patch(`http://localhost:4321/registro/actualizarPassword/${correo_verificacion}`, {
+        value
       });
-
+      Swal.fire({
+        icon: 'success',
+        title: 'Contraseña actualizada correctamente',
+      });
       console.log(response.data);
-
+      navigate('/login');
       setNewPw('');
-      setConfirmarPw('');
+      setValue('');
     } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al enviar la solicitud',
+      });
       console.error('Error al enviar la solicitud:', error);
     }
   };
@@ -60,7 +77,7 @@ const ValidarPw = () => {
               <div className="login">
                 <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                   <TextField
-                    label="Nueva password"
+                    label="Nueva contraseña"
                     variant="outlined"
                     fullWidth
                     type="password"
@@ -70,18 +87,18 @@ const ValidarPw = () => {
                 </FormControl>
                 <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
                   <TextField
-                    label="Confirmar password"
+                    label="Confirmar contraseña"
                     variant="outlined"
                     fullWidth
                     type="password"
-                    value={confirmarPw}
-                    onChange={(e) => setConfirmarPw(e.target.value)}
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
                   />
                 </FormControl>
                 <input
                   className='btn'
                   type="submit"
-                  value="Enviar"
+                  value="Actualizar"
                 /><br />
                 <div className='hover-link'>
                   <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>

@@ -173,7 +173,7 @@ export const FormAgregar = (props) => {
                   required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {!validarId && <Grid item xs={12} sm={6}>
               <Input
                 id='passwordUsuario'
                 fullWidth
@@ -185,7 +185,7 @@ export const FormAgregar = (props) => {
                 required
                 disabled={validarId ? true : false}
               />
-            </Grid>
+            </Grid>}
             <Grid item xs={12} sm={6}>
               <Input
                 id='correoUsuario'

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const RegistroMascota = () => {
     const [avatar, setAvatar] = useState(null);
+    const [buffer,setBuffer] = useState(null)
     const [razas, setRazas] = useState([]);
     const [generoMascota, setGeneroMascota] = useState([]);
     const [tipooMascota, setTipoMascota] = useState([]);
@@ -21,7 +22,7 @@ const RegistroMascota = () => {
         peso_mascota: '',
         tamanno_mascota: '',
         microship_mascota: '1',
-        foto_mascota: 'esto_es_una_url',
+        foto_mascota: '',
         estado_mascota: '1',
         anotacion_mascota: '',
         id_cliente_mascota: '',
@@ -33,6 +34,7 @@ const RegistroMascota = () => {
 
     const handleAvatarChange = (event) => {
         setAvatar(URL.createObjectURL(event.target.files[0]));
+        setBuffer(event.target.files[0])
     };
 
     const handleChange = (e) => {
@@ -42,13 +44,32 @@ const RegistroMascota = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const idCliente = clienteData && clienteData.numero_documento_cliente ? clienteData.numero_documento_cliente : '';
         const newData = {
             ...data,
             id_cliente_mascota: idCliente
         };
+        if(buffer){
+            const formData = new FormData();
+            formData.append('archivo',buffer)
+            try {
+                const link = await axios.post('http://localhost:4321/files/avatarMascota', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                newData.foto_mascota = link.data.link
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al cargar la imagen',
+                    text: 'Por favor vuelva a reintentar la solicitud.',
+                });
+                return
+            }
+        }
         axios.post('http://localhost:4321/registro-mascota/generar_1', newData)
             .then((response) => {
                 Swal.fire({
@@ -103,7 +124,7 @@ const RegistroMascota = () => {
             peso_mascota: '',
             tamanno_mascota: '',
             microship_mascota: '1',
-            foto_mascota: 'esto_es_una_url',
+            foto_mascota: '',
             estado_mascota: '1',
             anotacion_mascota: '',
             id_cliente_mascota: '',

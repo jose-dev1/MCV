@@ -111,7 +111,7 @@ export class ScheduleModel {
     try {
       const [especialistas] = await connection.query(`SELECT BIN_TO_UUID(id_empleado) id, CONCAT(primer_nombre_empleado, ' ', primer_apellido_empleado) AS value FROM empleados
       INNER JOIN usuarios ON usuarios.id_usuario = empleados.id_usuario
-      WHERE id_tipo_usuario = ?`, [idTipoUsuario])
+      WHERE id_tipo_usuario = ? AND estado_usuario = 1`, [idTipoUsuario])
       if (!especialistas) throw new NoDataFound()
       if (especialistas.length === 0) throw new NoDataFound()
       return (especialistas)

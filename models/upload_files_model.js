@@ -8,16 +8,15 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export class UploadFilesModel {
-  static async uploadExams (files) {
+  static async uploadExams (files, dir) {
     try {
-      const { pdf } = files
-      const uploadPath = path.join(__dirname, '../temp', pdf.name)
-      await pdf.mv(uploadPath)
-      const storageRef = ref(storage, `pdf_examenes/${Date.now()}${pdf.name}`)
+      const { archivo } = files
+      const uploadPath = path.join(__dirname, '../temp', archivo.name)
+      await archivo.mv(uploadPath)
+      const storageRef = ref(storage, `${dir}/${Date.now()}${archivo.name}`)
       await uploadBytes(storageRef, fs.readFileSync(uploadPath))
       const downloadURL = await getDownloadURL(storageRef)
       fs.unlinkSync(uploadPath)
-
       return downloadURL
     } catch (error) {
       console.log(error)

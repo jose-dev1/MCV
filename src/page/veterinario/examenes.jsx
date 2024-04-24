@@ -5,7 +5,6 @@ import { AgrearExamen } from '../../components/veterinario/agrearExamen'
 import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId'
-// import AlertaDescargar from '../../components/veterinario/descargarHospitalizacion'
 import { Stack } from '@mui/material'
 import axios from 'axios'
 import AlertEliminar from '../../components/dash/alertEliminar'
@@ -24,7 +23,7 @@ const columns = [
     { field: 'fecha_toma_muestra_examen', headerName: 'Fecha de Toma', width: 200, 
     valueGetter: (params) =>
     `${dayjs(params.row.fecha_toma_muestra_examen).format('MM-DD-YYYY')}` },
-    { field: 'registro_completo_examen', headerName: 'Examen Completo?', width: 140,valueGetter: (params) =>
+    { field: 'registro_completo_examen', headerName: 'Examen Completo', width: 140,valueGetter: (params) =>
     `${params.row.registro_completo_examen === 1 ? 'Si' : 'No'}` },
 ];
 
@@ -79,27 +78,26 @@ function Examenes() {
           editar={
             <AgrearExamen
             icon={<PencilSquareIcon className='w-6 h-6' /> }
-            tooltip='Agregar Examen'
+            tooltip='Editar Examen'
             bgColor='primary'
-            label='Agregar Examen Medico'
+            label='Editar Examen Medico'
             actualizar={setActualizar}
             dato={actualizar}
             id={selectId}
             successMessage={setSuccess}
             errorMessage={setError}/>
-
           }
           eliminar={<AlertEliminar 
             idSeleccionado={selectId} 
             tooltip='Desactivar Examen' 
-            titulo='¿Desea desactivar el examen seleccionada?'
+            titulo='¿Desea desactivar el examen seleccionado?'
             endPoint='examenesVeterinario/delete'
             menssage='Por favor, especifique el motivo por el cual desea desactivar el examen. Tenga en cuenta que este cambio es irreversible.'
             actualizar= {setActualizar}
             dato={actualizar}/>}
           descarga={<DescargaExamen
               selectId={selectId}
-              tooltip='Descargar Certificado'
+              tooltip='Descargar Examen'
               bgColor='success'
               icon={<DocumentArrowDownIcon className='w-6 h-6' />}
             />}

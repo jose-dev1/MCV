@@ -119,7 +119,7 @@ export default function AddEmploye() {
 
                     descarga={<DescargaCarnet
                         selectId={selectId}
-                        tooltip='Descargar Factura'
+                        tooltip='Descargar Vacunas'
                         bgColor='success'
                         icon={<DocumentArrowDownIcon className='w-6 h-6' />}
                     />}

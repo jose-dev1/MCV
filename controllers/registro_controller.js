@@ -142,7 +142,6 @@ export class RegistroController {
     }
   }
 
-  // se hizo todo el metodo de registro
 
   static async deleteUser(req, res) {
     const { correo_u } = req.body

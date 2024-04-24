@@ -1,5 +1,5 @@
 import connection from './connection_database.js'
-import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
+import { NoDataFound } from '../squemas/errors_squemas.js'
 
 export class FacturaModel {
     static async getAllServicios() {

@@ -124,24 +124,39 @@ export class registroModel {
 
   }
 
+
   static async actualizarClientes({ contraseña, correo_usuario, id, ...data }) {
     try {
+
       const [[idUsuario]] = await connection.query(`SELECT BIN_TO_UUID(id_usuario) id_usuario FROM usuarios WHERE correo_usuario = ?`, [correo_usuario]);
       const { id_usuario: idRegistro } = idUsuario;
 
-      const [res] = await connection.query(`UPDATE clientes SET ? WHERE id_usuario = UUID_TO_BIN(?)`, [data, idRegistro]);
+      const saltRounds = 10
+      const encryPassword = await bcrypt.hash(contraseña.contraseña, saltRounds)
 
+      let res1 = null;
+      let res2 = null;
 
-      if (res.affectedRows === 0) {
+      if (Object.keys(data).length > 0) {
+        res1 = await connection.query(`UPDATE clientes SET ? WHERE id_usuario = UUID_TO_BIN(?)`, [data, idRegistro]);
+      }
+
+      if (encryPassword !== '') {
+        res2 = await connection.query(`UPDATE usuarios SET password_usuario = ? WHERE id_usuario = UUID_TO_BIN(?)`, [encryPassword, idRegistro]);
+      }
+
+      if ((res1 === null || res1[0].affectedRows === 0) && (res2 === null || res2[0].affectedRows === 0)) {
         throw new NotFoundUser();
       }
 
-      return { res };
+      return { res1, res2 };
     } catch (error) {
       console.error("Error al actualizar:", error)
       return error;
     }
   }
+
+
 
   static async verificacionCuentas({ codigo_verificacion }) {
     try {
@@ -229,8 +244,6 @@ WHERE clientes.id_cliente = UUID_TO_BIN(?)
 
   static async updatePassword({ id, input }) {
     try {
-      console.log(id)
-      console.log(input)
       const saltRounds = 10
       const encryPassword = await bcrypt.hash(input, saltRounds)
       const [updatePassword] = await connection.query(`UPDATE usuarios

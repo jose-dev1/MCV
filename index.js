@@ -32,6 +32,7 @@ import { historiaClinica, traerMascotas, gestionMascota } from './routes/traer_m
 import { AuxilInicioRouter } from './routes/auxil_inicio_routes.js'
 import { uploadRouter } from './routes/upload_files.js'
 import { HomePerfilRoutes } from './routes/perfil_home_routes.js'
+import { Clientes } from './routes/get_cliente_routes.js'
 const PORT = process.env.PORT ?? 1234
 
 const app = express()
@@ -77,6 +78,7 @@ app.use('/gestionar_mascotas', gestionMascota)
 app.use('/inicio_auxil', AuxilInicioRouter)
 app.use('/files', uploadRouter)
 app.use('/home_perfil', HomePerfilRoutes)
+app.use('/get_clientes', Clientes)
 
 swagger(app, PORT)
 

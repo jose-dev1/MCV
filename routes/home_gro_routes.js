@@ -3,4 +3,4 @@ import { HomeGroController } from '../controllers/home_gro_controller.js'
 
 export const homeGroRoutes = Router()
 
-homeGroRoutes.get('/', HomeGroController.getData)
+homeGroRoutes.get('/:idUsuario', HomeGroController.getData)

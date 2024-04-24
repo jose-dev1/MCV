@@ -222,7 +222,8 @@ export class MascotasModel {
                     raza_mascota = ?,
                     peso_mascota = ?,
                     tamanno_mascota = ?,
-                    microchip_mascota = ?
+                    microchip_mascota = ?,
+                    foto_mascota = ?
                 WHERE 
                     id_mascota = UUID_TO_BIN(?)
             `;
@@ -235,6 +236,7 @@ export class MascotasModel {
                 input.peso_mascota,
                 input.tamanno_mascota,
                 input.microchip_mascota,
+                input.foto_mascota,
                 id
             ]);
 

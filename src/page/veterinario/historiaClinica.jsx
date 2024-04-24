@@ -131,6 +131,7 @@ const RegistroMascota = () => {
             id_tipo_mascota: '',
             id_genero_mascota: '',
         });
+        setBuffer(null)
         setAvatar(null);
         setDocumento('');
         setClienteEncontrado(null);

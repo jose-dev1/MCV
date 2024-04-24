@@ -7,7 +7,6 @@ import dayjs from 'dayjs';
 export function DescargaFactura(props) {
     const { selectId, bgColor, icon, tooltip } = props
     const [desabilitado, setDesabilitado] = useState(selectId === null ? false : true)
-    //const [data, setData] = useState(null)
 
     useEffect(() => {
         if (selectId === null) {
@@ -133,6 +132,7 @@ export function DescargaFactura(props) {
     };
 
     const handleModal = async () => {
+        console.log(selectId)
         try {
             const result = await axios.get(`http://localhost:4321/factura/${selectId}`)
             const data = result.data

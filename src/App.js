@@ -29,6 +29,7 @@ import Desparacitacion from "./page/veterinario/desparacitacion.jsx";
 import Verificacion from "./page/verifcacion_cuenta.jsx";
 import GestionMascota from "./page/veterinario/gestionMascota.jsx";
 import Certificado from "./page/veterinario/cerficado.jsx";
+import UserCliente from "./page/user_client.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -39,6 +40,8 @@ function App() {
         <Route path="/recuperar-contraseña" element={<Recuperar />} />
         <Route path="/actualizar-password" element={<Nuevapw />} />
         <Route path="/verificar-cuenta" element={<Verificacion />} />
+        <Route path="/user-cliente" element={<UserCliente />} />
+
         <Route
           path="/perfil-usuario"
           element={<ProtectedRoute element={<Perfil />} requiredUserRole={2} />}

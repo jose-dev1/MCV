@@ -20,7 +20,7 @@ const Header = () => {
         setAnchorEl(null);
     };
     const navigation = [
-        { name: 'Home', href: '/' },
+        { name: 'Inicio', href: '/' },
         { name: 'Equipo veterinario', href: '#Team' },
         { name: 'Servicios', href: '#servicio' },
         { name: 'Contactanos', href: '#contacto' },
@@ -88,7 +88,7 @@ const Header = () => {
                             </div>
                         ) : (
                             <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-                                Log in <span aria-hidden="true">&rarr;</span>
+                                Iniciar sesion <span aria-hidden="true">&rarr;</span>
                             </Link>
                         )}
                     </div>
@@ -150,7 +150,7 @@ const Header = () => {
                                         </div>
                                     ) : (
                                         <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-                                            Log in <span aria-hidden="true">&rarr;</span>
+                                            Iniciar sesion <span aria-hidden="true">&rarr;</span>
                                         </Link>
                                     )}
                                 </div>

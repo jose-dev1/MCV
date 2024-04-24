@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Agrega useNavigate
 import Logo from '../assets/img/MVC.png';
 import { FormControl } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import 'remixicon/fonts/remixicon.css';
 import Alert from '@mui/material/Alert';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/css/login.css';
 
@@ -48,16 +47,31 @@ function Login() {
       recuerdame: recuerdame,
     }).then((response) => {
       if (response.data.success) {
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('client', JSON.stringify(response.data.client));
+
         if (response.data.user.estado_usuario === 0) {
-          setMensajeError('Tu cuenta está desactivada contactanos si necitas alguna información');
+          setMensajeError('Tu cuenta está desactivada, contáctanos si necesitas alguna información');
           setMostrarAlerta(true);
         } else if (response.data.user.estado_verificacion_usuario === 0) {
           setMensajeError('Verifica tu correo para poder iniciar sesión');
           setMostrarAlerta(true);
         } else {
-          setuserAuth(true);
+          if (response.data.user.id_tipo_usuario === 2) {
+            const client = response.data.client;
+            if (client && Object.keys(client).length !== 0) {
+              localStorage.setItem('user', JSON.stringify(response.data.user));
+              localStorage.setItem('client', JSON.stringify(response.data.client));
+              setuserAuth(true);
+              navigate('/perfil-usuario');
+            } else {
+              localStorage.setItem('user', JSON.stringify(response.data.user));
+              setuserAuth(true);
+              navigate('/user-cliente');
+            }
+          } else {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('client', JSON.stringify(response.data.client));
+            setuserAuth(true);
+          }
         }
       } else {
         setMensajeError(response.data.message);
@@ -65,11 +79,11 @@ function Login() {
       }
     })
       .catch((error) => {
-        setMensajeError('Correo o contraseña invalida');
+        setMensajeError('Correo o contraseña inválida');
         setMostrarAlerta(true);
       });
-  };
 
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -89,8 +103,6 @@ function Login() {
       } else {
         console.warn('Tipo de usuario no reconocido:', user.id_tipo_usuario);
       }
-    } else {
-      console.log('No hay usuario en localStorage');
     }
   }, [userAuth, navigate]);
 

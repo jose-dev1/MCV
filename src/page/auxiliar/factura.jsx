@@ -352,15 +352,6 @@ const FormAgregarFactura = () => {
                             <div className="mb-6">
                                 <p><strong>Total:</strong> ${cliente.precioTotal}</p>
                             </div>
-                            <div className="text-center">
-                                <input
-                                    type="submit"
-                                    className="px-6 py-3 bg-gradient-to-tl from-blue-500 to-violet-500 text-white font-bold uppercase rounded-lg cursor-pointer hover:from-blue-600 hover:to-violet-600 active:opacity-75 hover:shadow-md transition duration-300"
-                                    value="Imprimir"
-                                    onClick={handleImprimirFactura}
-                                />
-                            </div>
-
                         </div>
                     </div>
                 </div>

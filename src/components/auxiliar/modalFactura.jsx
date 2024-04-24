@@ -4,11 +4,8 @@ import Boton from '../dash/boton'
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import { Maurisio } from '../../components/veterinario/agregarVacuanciom'
-import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import AlertEliminar from '../../components/dash/alertEliminar';
-import dayjs from 'dayjs';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { DescargaFactura } from './descargaFactura'

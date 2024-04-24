@@ -21,7 +21,9 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get('http://localhost:4321/inicio-vet');
+                let localstorage = localStorage
+                const id = JSON.parse(localstorage.getItem('user'))
+                const { data } = await axios.get(`http://localhost:4321/inicio-vet/${id.id_usuario}`);
                 setData(data);
                 setLastUpdateTime(new Date());
             } catch (error) {

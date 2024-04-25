@@ -17,3 +17,6 @@ export const InfoAlreadyExisting = createErrorFactory('The information already e
 export const DataAlreadyChange = createErrorFactory('The data alrready changed')
 export const OccupiedSpace = createErrorFactory('Space is already ocuipated')
 export const NotAllowed = createErrorFactory('action not allowed')
+export const MissingInternaldeworming = createErrorFactory('Internal deworming not found')
+export const MissingExternalDeworming = createErrorFactory('External deworming not found')
+export const MissingVaccines = createErrorFactory('Vaccines not found')

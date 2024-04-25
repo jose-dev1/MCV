@@ -1,4 +1,4 @@
-import { NoDataFound } from '../squemas/errors_squemas.js'
+import { NoDataFound, MissingInternaldeworming, MissingExternalDeworming, MissingVaccines } from '../squemas/errors_squemas.js'
 import connection from './connection_database.js'
 
 export default class CertificateModel {
@@ -85,8 +85,8 @@ export default class CertificateModel {
         ORDER BY fecha_aplicacion_desparacitacion DESC LIMIT 1;`,
         [id]
       )
-      if (!desparacitacionesInternas) throw new NoDataFound()
-      if (desparacitacionesInternas.length === 0) throw new NoDataFound()
+      if (!desparacitacionesInternas) throw new MissingInternaldeworming()
+      if (desparacitacionesInternas.length === 0) throw new MissingInternaldeworming()
 
       const [[desparacitacionesExternas]] = await connection.query(
         `SELECT BIN_TO_UUID(id_desparacitacion) id_desparacitacion, laboratorio_desparacitacion, medicamento_aplicado, fecha_aplicacion_desparacitacion, fecha_vencimiento_desparacitacion, lote_desparacitacion, registro_ica FROM desparacitaciones
@@ -96,8 +96,8 @@ export default class CertificateModel {
         ORDER BY fecha_aplicacion_desparacitacion DESC LIMIT 1;`,
         [id]
       )
-      if (!desparacitacionesExternas) throw new NoDataFound()
-      if (desparacitacionesExternas.length === 0) throw new NoDataFound()
+      if (!desparacitacionesExternas) throw new MissingExternalDeworming()
+      if (desparacitacionesExternas.length === 0) throw new MissingExternalDeworming()
 
       const [vacunasAplicadas] = await connection.query(
         `SELECT BIN_TO_UUID(id_vacuna_aplicada) id_vacuna_aplicada, laboratorio, nombre_vacuna, fecha_vacuna_aplicada, fecha_vencimiento_vacuna_aplicada,  lote_vacuna_aplicada 
@@ -106,8 +106,8 @@ export default class CertificateModel {
         WHERE vacunas_aplicadas.id_mascota = UUID_TO_BIN(?) AND estado_vacuna_aplicada=1`,
         [id]
       )
-      if (!vacunasAplicadas) throw new NoDataFound()
-      if (vacunasAplicadas.length === 0) throw new NoDataFound()
+      if (!vacunasAplicadas) throw new MissingVaccines()
+      if (vacunasAplicadas.length === 0) throw new MissingVaccines()
 
       const [[res]] = await connection.query(
         `SELECT nombre_mascota, fecha_nacimiento_mascota, color_mascota, raza_mascota, peso_mascota, tamanno_mascota, microchip_mascota, tipo_mascota, CONCAT_WS(' ', primer_nombre_cliente, segundo_nombre_cliente, primer_apellido_cliente, segundo_apellido_cliente) as nombre_completo, descripcion_documento, numero_documento_cliente, lugar_expedicion_documento, telefono_cliente, direccion_cliente, id_genero_mascota

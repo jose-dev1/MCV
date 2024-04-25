@@ -1,5 +1,5 @@
 import CertificateModel from '../models/certificate_model.js'
-import { NoDataFound } from '../squemas/errors_squemas.js'
+import { NoDataFound, MissingInternaldeworming, MissingExternalDeworming, MissingVaccines } from '../squemas/errors_squemas.js'
 
 export default class CertificateController {
   static async getCertificates (req, res) {
@@ -13,9 +13,11 @@ export default class CertificateController {
   static async getInfoForCertificateByPetId (req, res) {
     const { id } = req.params
     const response = await CertificateModel.getInfoForCertificateByPetId({ id })
-    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentra informacion  sufucuiente para generar el certificado' })
+    if (response instanceof MissingInternaldeworming) return res.status(404).json({ message: 'No se encuentra ninguna desparacitacion interna para generar el certificado' })
+    if (response instanceof MissingExternalDeworming) return res.status(404).json({ message: 'No se encuentra ninguna desparacitacion externa para generar el certificado' })
+    if (response instanceof MissingVaccines) return res.status(404).json({ message: 'No se encuentra ningun esquema de vacunacion para generar el certificado' })
+    if (response instanceof NoDataFound) return res.status(404).json({ message: 'No se encuentra informacion de la mascota sufucuiente para generar el certificado' })
     if (response instanceof Error) return res.status(500).json({ message: 'Error en el servidor' })
-
     res.json(response)
   }
 

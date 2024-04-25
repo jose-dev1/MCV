@@ -1,4 +1,4 @@
-import { Grid, Modal } from '@mui/material'
+import { Grid, Modal, Tooltip } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import { useState } from 'react'
 import Boton from '../dash/boton'
@@ -189,7 +189,7 @@ const handleSubmit = async (event) => {
             resultado_examen: resultadoExamen,
             registro_completo_examen: registroCompletoExamen} = values;
             const formData = new FormData();
-            formData.append('pdf', selectedPdf);
+            formData.append('archivo', selectedPdf);
         
             const link = await axios.post('http://localhost:4321/files/examenes', formData, {
                 headers: {
@@ -489,28 +489,32 @@ const handleSubmit = async (event) => {
             )}
             {validarId && (
               <>
-              <Grid item xs={12} sm={4}>
-              <input type="button" className='w-full mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white' value="Generar Examen" disabled={disableBoton} onClick={handlePdf}/>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-              <Button
-                component="label"
-                className='w-full h-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              ><VisuallyHiddenInput type="file" onChange={handleFileChangePdf}/></Button>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <button
-                  type='submit'
-                  className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
-                  disabled={disableBoton}
-                >
-                  Registrar
-                </button>
-              </Grid>
+                <Grid item xs={12} sm={4}>
+                  <input type="button" className='w-full mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white' value="Generar Examen" disabled={disableBoton} onClick={handlePdf}/>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <Tooltip title="Cargar examen">
+                    <Button
+                      component="label"
+                      className='w-full h-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                    >
+                      <VisuallyHiddenInput type="file" onChange={handleFileChangePdf}/>
+                    </Button>
+                  </Tooltip>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <button
+                    type='submit'
+                    className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                    disabled={disableBoton}
+                  >
+                    Registrar
+                  </button>
+                </Grid>
               </>
             )}
             {!validarId && (

@@ -4,7 +4,7 @@ import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 export default function InputTime(props) {
-  const { label, hour, name, id, onChange, required, disabled } = props;
+  const { label, hour, name, id, onChange, required, disabled, blockPastHours} = props;
   
   // Parseamos la hora recibida a formato dayjs
   const initialHour = hour ? dayjs(hour, 'HH:mm') : dayjs();
@@ -33,8 +33,11 @@ export default function InputTime(props) {
         onChange={(time) => handleTimeChange(time)}
         required={required}
         disabled={disabled}
+        minTime={blockPastHours ? dayjs() : null}
         fullWidth
       />
     </LocalizationProvider>
   );
 }
+
+

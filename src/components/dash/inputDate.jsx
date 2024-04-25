@@ -4,7 +4,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 export default function InputDate(props) {
-  const { label, fecha, name, id, onChange, required, disabled } = props;
+  const { label, fecha, name, id, onChange, required, disabled, blockPastDates } = props;
   const [value, setValue] = useState(fecha==='' ? dayjs() : dayjs(fecha));
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function InputDate(props) {
         onChange={(date) => handleDateChange(date)}
         required={required}
         disabled={disabled}
+        minDate={blockPastDates ? dayjs() : null}
         fullWidth
       />
     </LocalizationProvider>

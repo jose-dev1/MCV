@@ -3,7 +3,7 @@ import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Boton from '../dash/boton'
 import InputDate from '../dash/inputDate'
 import InputTime from '../dash/inputTime';
@@ -51,6 +51,11 @@ export const Maurisio = (props) => {
     const [tipoDocuemento] = useBringDocument()
     const {desabilitado, validarId} = useHabilitar({id})
     const [disableBoton,setDisableBoton] = useState(true)
+    const [blockPastHours,setBlockPastHours] = useState(true)
+
+    useEffect(()=>{
+        dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})===(dayjs().format('YYYY-MM-DD')) ? setBlockPastHours(true) : setBlockPastHours(false)
+    },[values.fechaCita])
 
 
     const reinicio = () =>{
@@ -378,6 +383,7 @@ export const Maurisio = (props) => {
                                 name='fechaCita'
                                 fecha={values.fechaCita}
                                 onChange={handleInputChangeDate}
+                                blockPastDates={true}
                                 disabled={false}
                                 required
                             />
@@ -390,6 +396,7 @@ export const Maurisio = (props) => {
                                 name='horaCita'
                                 hour={values.horaCita}
                                 onChange={handleInputChangeDate}
+                                blockPastHours={blockPastHours}
                                 disabled={false}
                                 required
                             />

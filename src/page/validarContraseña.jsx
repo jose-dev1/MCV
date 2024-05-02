@@ -1,23 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, } from 'react-router-dom';
 import Logo from "../assets/img/MVC.png";
 import { FormControl } from '@mui/material';
 import axios from 'axios';
 import 'remixicon/fonts/remixicon.css';
-import '../assets/css/login.css';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/login.css';
 import Swal from 'sweetalert2';
 
 const ValidarPw = () => {
   const [newPw, setNewPw] = useState('');
   const [value, setValue] = useState('');
   const location = useLocation();
+  const [correo_verificacion, setCorreoVerificacion] = useState('');
+  const [originalCorreo, setOriginalCorreo] = useState('');
   const navigate = useNavigate();
-  const correo_verificacion = new URLSearchParams(location.search).get('correo_verificacion');
 
+  useEffect(() => {
+    const correo = new URLSearchParams(location.search).get('correo_verificacion');
+    setCorreoVerificacion(correo);
+    if (!correo) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo de verificación no está presente en la URL',
+      }).then(() => {
+        navigate('/login');
+      });
+    } else {
+      setOriginalCorreo(correo);
+    }
+  }, [location.search, navigate]);
+
+  useEffect(() => {
+    if (originalCorreo && correo_verificacion && correo_verificacion !== originalCorreo) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo de verificación ha sido alterado',
+      }).then(() => {
+        navigate('/login');
+      });
+    }
+  }, [correo_verificacion, originalCorreo, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,7 +129,7 @@ const ValidarPw = () => {
                   value="Actualizar"
                 /><br />
                 <div className='hover-link'>
-                  <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
+                  <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i className="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
                 </div>
               </div>
             </form>

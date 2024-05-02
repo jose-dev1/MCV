@@ -18,7 +18,6 @@ function Login() {
   const [mensajeError, setMensajeError] = useState('');
   const [errorCorreo, setErrorCorreo] = useState(false);
   const [errorContraseña, setErrorContraseña] = useState(false);
-  const [recuerdame, setRecuerdame] = useState(false);
   const [userAuth, setuserAuth] = useState(false);
   const navigate = useNavigate();
 
@@ -44,15 +43,13 @@ function Login() {
     axios.post('http://localhost:4321/login', {
       userCorreo: correo,
       userPassword: contraseña,
-      recuerdame: recuerdame,
     }).then((response) => {
       if (response.data.success) {
-
-        if (response.data.user.estado_usuario === 0) {
-          setMensajeError('Tu cuenta está desactivada, contáctanos si necesitas alguna información');
-          setMostrarAlerta(true);
-        } else if (response.data.user.estado_verificacion_usuario === 0) {
+        if (response.data.user.estado_verificacion_usuario === 0) {
           setMensajeError('Verifica tu correo para poder iniciar sesión');
+          setMostrarAlerta(true);
+        } else if (response.data.user.estado_usuario === 0) {
+          setMensajeError('Tu cuenta está desactivada, contáctanos si necesitas alguna información');
           setMostrarAlerta(true);
         } else {
           if (response.data.user.id_tipo_usuario === 2) {
@@ -170,16 +167,6 @@ function Login() {
                       error={errorContraseña}
                     />
                   </FormControl>
-                  <div className="form-check">
-                    <Checkbox
-                      color="secondary"
-                      checked={recuerdame}
-                      onChange={(e) => setRecuerdame(e.target.checked)}
-                    />
-                    <label className="form-check-label" htmlFor="customControlInline">
-                      Recuérdame
-                    </label>
-                  </div>
                   <input className="btn" type="submit" value="Iniciar Sesión" />
                   <br />
                   <div className="hover-link">

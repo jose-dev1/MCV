@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, FormControl, InputLabel, Select, MenuItem, Avatar, Stack, Modal } from '@mui/material';
+import { TextField, FormControl, InputLabel, Select, MenuItem, Avatar, Stack, Alert } from '@mui/material';
+import Swal from 'sweetalert2';
 import SideNav from '../../components/sidebarComponent';
 import RegistroCliente from '../../components/client/registro_component';
-import Swal from 'sweetalert2';
 import axios from 'axios';
 
 const RegistroMascota = () => {
     const [avatar, setAvatar] = useState(null);
-    const [buffer,setBuffer] = useState(null)
-    const [razas, setRazas] = useState([]);
+    const [buffer, setBuffer] = useState(null);
     const [generoMascota, setGeneroMascota] = useState([]);
     const [tipooMascota, setTipoMascota] = useState([]);
     const [documento, setDocumento] = useState('');
@@ -31,49 +30,74 @@ const RegistroMascota = () => {
     });
     const [clienteEncontrado, setClienteEncontrado] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const handleAvatarChange = (event) => {
         setAvatar(URL.createObjectURL(event.target.files[0]));
-        setBuffer(event.target.files[0])
+        setBuffer(event.target.files[0]);
     };
 
     const handleChange = (e) => {
+        const { name, value } = e.target;
         setData({
             ...data,
-            [e.target.name]: e.target.value,
+            [name]: value,
         });
+        if (errors[name]) {
+            setErrors({
+                ...errors,
+                [name]: '',
+            });
+        }
     };
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const requiredFields = ['nombre_mascota', 'fecha_nacimiento_mascota', 'color_mascota', 'raza_mascota', 'id_tipo_mascota', 'id_genero_mascota'];
+        const errors = {};
+
+        requiredFields.forEach(field => {
+            if (!data[field]) {
+                errors[field] = 'Campo requerido';
+            }
+        });
+
+        if (Object.keys(errors).length > 0) {
+            setErrors(errors);
+            return;
+        }
+
         const idCliente = clienteData && clienteData.numero_documento_cliente ? clienteData.numero_documento_cliente : '';
         const newData = {
             ...data,
             id_cliente_mascota: idCliente
         };
-        if(buffer){
+
+        if (buffer) {
             const formData = new FormData();
-            formData.append('archivo',buffer)
+            formData.append('archivo', buffer);
             try {
                 const link = await axios.post('http://localhost:4321/files/avatarMascota', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                newData.foto_mascota = link.data.link
+                newData.foto_mascota = link.data.link;
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al cargar la imagen',
                     text: 'Por favor vuelva a reintentar la solicitud.',
                 });
-                return
+                return;
             }
         }
+
         axios.post('http://localhost:4321/registro-mascota/generar_1', newData)
             .then((response) => {
                 Swal.fire({
-                    title: "Buen trabajo!",
+                    title: "¡Buen trabajo!",
                     text: "Su mascota ha sido registrada pertenece al cliente: " + clienteData.primer_nombre_cliente,
                     icon: "success"
                 }).then((result) => {
@@ -83,11 +107,11 @@ const RegistroMascota = () => {
                 });
             })
             .catch((error) => {
-                console.error('Error:', error);
+                console.log(error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error al registrar mascota',
-                    text: 'Necesita de un numero de documento.',
+                    title: 'Error al registrar la mascota',
+                    text: 'Por favor vuelva a reintentar la solicitud.',
                 });
             });
     };
@@ -131,7 +155,7 @@ const RegistroMascota = () => {
             id_tipo_mascota: '',
             id_genero_mascota: '',
         });
-        setBuffer(null)
+        setBuffer(null);
         setAvatar(null);
         setDocumento('');
         setClienteEncontrado(null);
@@ -224,6 +248,8 @@ const RegistroMascota = () => {
                                     variant="outlined"
                                     fullWidth
                                     sx={{ width: '100%' }}
+                                    error={!!errors.nombre_mascota}
+                                    helperText={errors.nombre_mascota}
                                 />
                                 <TextField
                                     name="fecha_nacimiento_mascota"
@@ -235,6 +261,8 @@ const RegistroMascota = () => {
                                     type="date"
                                     fullWidth
                                     sx={{ width: '100%' }}
+                                    error={!!errors.fecha_nacimiento_mascota}
+                                    helperText={errors.fecha_nacimiento_mascota}
                                 />
                                 <TextField
                                     name="tipo_sangre_mascota"
@@ -253,6 +281,8 @@ const RegistroMascota = () => {
                                     variant="outlined"
                                     fullWidth
                                     sx={{ width: '100%' }}
+                                    error={!!errors.color_mascota}
+                                    helperText={errors.color_mascota}
                                 />
                                 <FormControl fullWidth variant="outlined" sx={{ flex: '1 1 30%', minWidth: '359px' }} >
                                     <InputLabel id="tipo-mascota-label">Tipo de Mascota</InputLabel>
@@ -263,6 +293,7 @@ const RegistroMascota = () => {
                                         onChange={handleChange}
                                         value={data.id_tipo_mascota}
                                         name="id_tipo_mascota"
+                                        error={!!errors.id_tipo_mascota}
                                     >
                                         {tipooMascota.map((raza, index) => (
                                             <MenuItem key={index} value={raza.id_tipo_mascota}>{raza.tipo_mascota}</MenuItem>
@@ -299,6 +330,7 @@ const RegistroMascota = () => {
                                         onChange={handleChange}
                                         value={data.id_genero_mascota}
                                         name="id_genero_mascota"
+                                        error={!!errors.id_genero_mascota}
                                     >
                                         {generoMascota.map((genero, index) => (
                                             <MenuItem key={index} value={genero.id_genero_mascota}>{genero.genero_mascota}</MenuItem>
@@ -313,6 +345,8 @@ const RegistroMascota = () => {
                                     variant="outlined"
                                     fullWidth
                                     sx={{ width: '100%' }}
+                                    error={!!errors.raza_mascota}
+                                    helperText={errors.raza_mascota}
                                 />
                             </div>
                             <div>

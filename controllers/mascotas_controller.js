@@ -100,9 +100,24 @@ export class MascotasController {
         } else if (response instanceof Error) {
             res.status(500).json({ message: 'Error interno del servidor' })
         } else {
-            res.json(response)
+            res.json(response[0])
         }
     }
+
+    static async getServiciosByMascotasId(req, res) {
+        const { id } = req.params;
+        const response = await MascotasModel.getServiciosByMascotasId({ id });
+
+        if (response instanceof NoDataFound) {
+            res.status(404).json({ message: 'No se encuentran historial de mascotas' });
+        } else if (response instanceof Error) {
+            res.status(500).json({ message: 'Error interno del servidor' });
+        } else {
+
+            res.json(response[0]);
+        }
+    }
+
 
     static async getServiciosGroobyId(req, res) {
         const { id } = req.params

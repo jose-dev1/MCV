@@ -102,6 +102,37 @@ export class MascotasModel {
         }
     }
 
+    static async getServiciosByMascotasId({ id }) {
+        try {
+            const query = `
+            SELECT 
+            BIN_TO_UUID(rhc.id_registro_historia_clinica) AS id,
+            rhc.fecha_registro_historia_clinica,
+            rhc.registro_historia_clinica_finalizado,
+            rhc.descripcion_registro_historia_clinica,
+            rhc.estado_registro_historia_clinica,
+            rhc.anotacion_registro_historia_clinica,
+            rhc.id_historia_clinica,
+            rhc.id_servicio,
+            s.descripcion_servicio
+        FROM 
+            registros_historias_clinicas rhc
+        JOIN 
+            servicios s ON rhc.id_servicio = s.id_servicio
+        WHERE 
+            rhc.id_registro_historia_clinica = UUID_TO_BIN(?) AND rhc.estado_registro_historia_clinica = 1;
+            `;
+            const [historialServicio] = await connection.query(query, [id]);
+            console.log(historialServicio);
+            return (historialServicio);
+        } catch (error) {
+            console.error("Error al obtener los servicios por ID de mascota:", error);
+            throw error;
+        }
+    }
+
+
+
     static async getServiciosGroobyId({ id }) {
         try {
             const [servicios] = await connection.query(`SELECT 

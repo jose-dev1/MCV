@@ -8,6 +8,7 @@ export const traerMascotas = Router();
 traerMascotas.get("/", MascotasController.getAllMascotas);
 traerMascotas.get("/:id", MascotasController.getAllMascotasbyId);
 traerMascotas.get("/historial/:id", MascotasController.getAllHistorialMascotasbyId)
+traerMascotas.get("/getServicios/:id", MascotasController.getServiciosByMascotasId)
 traerMascotas.get("/serviciosGroo/:id", MascotasController.getServiciosGroobyId)
 
 

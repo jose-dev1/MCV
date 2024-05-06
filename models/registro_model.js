@@ -202,7 +202,7 @@ JOIN
 JOIN 
     clientes ON mascotas.id_cliente_mascota = clientes.id_cliente
 WHERE 
-    clientes.id_cliente = UUID_TO_BIN(?);
+    clientes.id_cliente = UUID_TO_BIN(?) AND estado_examen = 1;
 
     `;
     try {
@@ -228,7 +228,7 @@ WHERE
 FROM clientes
 JOIN mascotas ON clientes.id_cliente = mascotas.id_cliente_mascota
 JOIN certificados ON mascotas.id_mascota = certificados.id_mascota
-WHERE clientes.id_cliente = UUID_TO_BIN(?) 
+WHERE clientes.id_cliente = UUID_TO_BIN(?) AND estado_certificado = 1
     `;
 
     try {

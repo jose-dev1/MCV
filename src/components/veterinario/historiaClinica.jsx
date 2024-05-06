@@ -5,16 +5,20 @@ import { useHabilitar } from '../../Hooks/useHabilitar';
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import { Maurisio } from '../../components/veterinario/agregarVacuanciom'
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import AlertEliminar from '../../components/dash/alertEliminar';
 import dayjs from 'dayjs';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { FormAgregarHistoriaClinica } from './agregarHistoria'
+import { VerHistorialServicio } from '../../components/veterinario/verHistorialServicio';
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const columns = [
-    { field: 'fecha_registro_historia_clinica', headerName: 'Fecha de historial', width: 150, valueGetter: (params) => new Date(params.row.fecha_registro_historia_clinica).toLocaleDateString('es-ES') },
+    {
+        field: 'fecha_registro_historia_clinica', headerName: 'Fecha de historial', width: 150, valueGetter: (params) =>
+            `${dayjs(params.row.fecha_registro_historia_clinica).format('MM-DD-YYYY')}`
+    },
     { field: 'descripcion_servicio', headerName: 'Servicios prestados', width: 250 },
     { field: 'registro_historia_clinica_finalizado', headerName: 'Servicio finalizado', width: 150, valueGetter: (params) => params.row.registro_historia_clinica_finalizado === 1 ? 'Servicio Finalizado' : 'Servicio en proceso' },
 ];
@@ -35,7 +39,7 @@ export const HistoriaClinica = (props) => {
         const fectchData = async () => {
             try {
                 const result = await axios.get(`http://localhost:4321/info_mascotas/historial/${id}`)
-                setData(result.data[0])
+                setData(result.data)
             } catch (error) {
                 setData([])
                 error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
@@ -44,14 +48,12 @@ export const HistoriaClinica = (props) => {
         if (id) fectchData()
     }, [actualizar])
 
-    console.log(id)
-
     const handleModal = async () => {
         try {
             setSuccess('')
             setError('')
             const result = await axios.get(`http://localhost:4321/info_mascotas/historial/${id}`)
-            setData(result.data[0])
+            setData(result.data)
         } catch (error) {
             setData([])
             error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
@@ -119,7 +121,15 @@ export const HistoriaClinica = (props) => {
                             actualizar={setActualizar}
                             dato={actualizar}
                         />
+
                         }
+                        ver={<VerHistorialServicio
+                            id={selectId}
+                            tooltip='Ver Observaciones'
+                            icon={<EyeIcon className="w-6 h-6" />}
+                            bgColor='success'
+                            saveError={setError}
+                        />}
                     />
                     <DataTable rows={data} columns={columns} selectId={saveSelectId} />
                     <AlertPrincipal severity='error' message={error} />

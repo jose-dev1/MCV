@@ -8,6 +8,7 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { HistoriaClinica } from '../../components/veterinario/historiaClinica';
 import Sidebar from '../../components/sidebarComponent'
+import dayjs from 'dayjs';
 const columns = [
     {
         field: 'nombreDueño',
@@ -19,7 +20,10 @@ const columns = [
     { field: 'descripcion_documento', headerName: 'Tipo documento', width: 180 },
     { field: 'numero_documento_cliente', headerName: 'Numero documento', width: 140 },
     { field: 'nombre_mascota', headerName: 'Nombre mascota', width: 140 },
-    { field: 'fecha_creacion', headerName: 'Fecha de registro', width: 140, valueGetter: (params) => new Date(params.row.fecha_creacion).toLocaleDateString('es-ES') },
+    {
+        field: 'fecha_creacion', headerName: 'Fecha de historial', width: 150, valueGetter: (params) =>
+            `${dayjs(params.row.fecha_creacion).format('MM-DD-YYYY')}`
+    },
 ];
 
 export default function ServicioMascota() {

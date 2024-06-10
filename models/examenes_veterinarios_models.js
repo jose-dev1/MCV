@@ -25,7 +25,7 @@ export default class ExamenesVeteriarioModel {
   static async getExamById ({ id }) {
     try {
       const [[res]] = await connection.query(
-        `SELECT BIN_TO_UUID(id_examen) id, fecha_registro_resultados_examen, fecha_toma_muestra_examen, resultado_examen, link_archivo_examen, estado_examen, anotacion_examen, nombre_mascota, tipo_examen, primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente, registro_completo_examen, descripcion_documento, numero_documento_cliente, BIN_TO_UUID(mascotas.id_mascota) idMascota
+        `SELECT BIN_TO_UUID(id_examen) id, fecha_registro_resultados_examen, lote_examne AS lote,fecha_vencimeinto_prueba AS fechaVencimiento,link_imagen_examen AS linkImagen , fecha_toma_muestra_examen, resultado_examen, link_archivo_examen, estado_examen, anotacion_examen, nombre_mascota, tipo_examen, primer_nombre_cliente, primer_apellido_cliente, numero_documento_cliente, registro_completo_examen, descripcion_documento, numero_documento_cliente, BIN_TO_UUID(mascotas.id_mascota) idMascota
         FROM examenes
         INNER JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
         INNER JOIN tipo_examen ON examenes.id_tipo_examen = tipo_examen.id_tipo_examen
@@ -45,7 +45,7 @@ export default class ExamenesVeteriarioModel {
 
   static async createExam (input) {
     try {
-      const { idMascota, idTipoExamen } = input
+      const { idMascota, idTipoExamen, lote, linkImagen, fechaVencimiento } = input
 
       const [[existingData]] = await connection.query(
       `SELECT BIN_TO_UUID(id_examen) id 
@@ -57,8 +57,8 @@ export default class ExamenesVeteriarioModel {
       if (existingData) throw new DuplicateInfo()
 
       await connection.query(
-      `INSERT INTO examenes (estado_examen, id_mascota, id_tipo_examen) VALUES
-      (1,UUID_TO_BIN(?),?)`, [idMascota, idTipoExamen])
+      `INSERT INTO examenes (estado_examen, id_mascota, id_tipo_examen, lote_examne, fecha_vencimeinto_prueba, link_imagen_examen) VALUES
+      (1,UUID_TO_BIN(?),?,?,?,?)`, [idMascota, idTipoExamen, lote, fechaVencimiento, linkImagen])
     } catch (error) {
       console.log(error)
       return error

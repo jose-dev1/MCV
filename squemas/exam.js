@@ -1,12 +1,15 @@
 import { z } from 'zod'
 
 const examCreateSchema = z.object({
-  idMascota: z.string().min(1).refine(value => value.trim() !== '', {
+  idMascota: z.string().min(1, { message: 'Debe seleccionar una mascota' }).refine(value => value.trim() !== '', {
     message: 'Tiene que escoger alguna mascota.'
   }),
   idTipoExamen: z.number().min(1, {
     message: 'Tiene que escoger algun tipo de examen.'
-  })
+  }),
+  lote: z.string({ message: 'Ha ingresado un lote invalido' }).min(1, { message: 'El lote no puede estar vacio' }),
+  fechaVencimiento: z.string({ message: 'Fecha ingresada invalida' }).date({ message: 'La fecha de vencimiento no tiene un formato adecuado' }),
+  linkImagen: z.string('Link de imagen invalido').min(1, { message: 'El link de la imagen no puede ser vacio' })
 })
 
 const examUpdateSchema = z.object({

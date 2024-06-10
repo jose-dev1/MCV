@@ -1,15 +1,9 @@
 import dayjs from 'dayjs';
 
 // Este es el export de generar pdf de certificado 
-export const handleExamenesPdf = async  (img,tipo_examen,values,dataMascota) => {
+export const handleExamenesPdf = async  (tipo_examen,values,dataMascota) => {
     try {
-    const ventanaImpresion = window.open('', '_blank');
-
-    const reader = new FileReader()
-    reader.readAsDataURL(img)
-    reader.onload = () => {
-      const imagenDataUrl = reader.result
-     
+    const ventanaImpresion = window.open('', '_blank');     
     const contenidoImpresion = `
     <!DOCTYPE html>                  
     <html lang="es">
@@ -136,9 +130,10 @@ export const handleExamenesPdf = async  (img,tipo_examen,values,dataMascota) => 
                 text-align: center;
             }
     
-            .todo_img{
+            .todo_img {
                 display: flex;
-            }
+                min-height: 150px;
+            }            
             /* Estilos para el footer */
             * {
                 margin: 0;
@@ -265,7 +260,7 @@ export const handleExamenesPdf = async  (img,tipo_examen,values,dataMascota) => 
                 </div>
                 <div class="result">
                     <h2>Resultado</h2>
-                    <img src="${imagenDataUrl}" alt="Imagen de Resultado">
+                    <img src="${values.linkImagen}" alt="Imagen de Resultado">
                 </div>
             </div>    
     
@@ -309,10 +304,9 @@ export const handleExamenesPdf = async  (img,tipo_examen,values,dataMascota) => 
     setTimeout(() => {
         ventanaImpresion.print();
         ventanaImpresion.close();
-    }, 60)
-    }
+       }, 2000)
     } catch (error) {
         console.log(error)
     }
 };
-
+ 

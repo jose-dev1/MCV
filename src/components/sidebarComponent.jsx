@@ -367,7 +367,7 @@ const Sidebar = () => {
                         {user.id_tipo_usuario === 4 && (
                             <Link
                                 to="/Servicio-Mascota"
-                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/Carnet-vacunas' ? 'bg-gray-100 text-blue-500' : ''
+                                className={`flex items-center leading-6 space-x-3 py-3 px-4 w-full text-lg text-gray-600 focus:outline-none hover:bg-gray-100 hover:text-blue-500 rounded-md transition duration-300 ease-in-out transform hover:scale-105 ${location.pathname === '/Servicio-Mascota' ? 'bg-gray-100 text-blue-500' : ''
                                     }`}
 
                             >

@@ -374,7 +374,7 @@ const handleSubmit = async (event) => {
                   value={values.lote}
                   onChange={handleInputChange}
                   required
-                  disabled={true}
+                  disabled={validarId ? true : false}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -386,7 +386,7 @@ const handleSubmit = async (event) => {
                     fecha={values.fechaVencimiento}
                     onChange={handleInputChangeDate}
                     required
-                    disabled={true}
+                    disabled={validarId ? true : false}
                 />
               </Grid>
               </>

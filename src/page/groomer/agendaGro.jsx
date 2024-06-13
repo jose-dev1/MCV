@@ -6,6 +6,12 @@ import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AlertEliminar from '../../components/dash/alertEliminar';
+import useForm from '../../Hooks/useForm';
+import InputDate from '../../components/dash/inputDate'
+import dayjs from 'dayjs';
+import { dateFormater } from '../../utils/dateFormater';
+import AlertPrincipal from '../../components/dash/alertPrincipal';
+
 
 
 const columns = [
@@ -38,25 +44,31 @@ const columns = [
   }
 ]
 
+const defaultValues = {
+  fechaCita: dayjs()
+}
 
 export default function AgendaGroomer() {
   const { selectId, saveSelectId } = useSelectId()
-  const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
-
+  const { values, handleInputChangeDate } = useForm(defaultValues)
+  const [error, setError] = useState(null)
   const [rows, setRows] = useState([])
   const [actualizar, setActualizar] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4321/agenda_groomer/mostrar/5`)
-        setRows(response.data[0])
+        let localstorage = localStorage
+        const id = JSON.parse(localstorage.getItem('user'))
+        const { data } = await axios.get(`http://localhost:4321/agenda_groomer/${dateFormater({ time: values.fechaCita, format: 'YYYY-MM-DD' })}/${id.id_usuario}`)
+        setRows(data)
       } catch (error) {
-        console.log(error)
+        setRows([])
+        error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')
       }
     }
     fetchData()
-  }, [actualizar])
+  }, [actualizar, values.fechaCita])
 
   return (
     <div className='flex gap-9'>
@@ -86,8 +98,20 @@ export default function AgendaGroomer() {
             actualizar={setActualizar}
             dato={actualizar} />}
         />
+        <div className='flex'>
+          <InputDate
+            id='fechaCita'
+            fullWidth
+            label='Fecha cita'
+            name='fechaCita'
+            fecha={values.fechaCita}
+            onChange={handleInputChangeDate}
+            disabled={false}
+            required />
+        </div>
         <DataTable rows={rows} columns={columns} selectId={saveSelectId} />
       </Stack>
+      <AlertPrincipal severity='error' message={error} />
     </div>
   )
 }

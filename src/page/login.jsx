@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link, useNavigate } from 'react-router-dom'; // Agrega useNavigate
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../assets/img/MVC.png';
 import { FormControl } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
 import 'remixicon/fonts/remixicon.css';
 import Alert from '@mui/material/Alert';
 import axios from 'axios';

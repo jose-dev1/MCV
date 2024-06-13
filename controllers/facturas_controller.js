@@ -1,4 +1,4 @@
-import { NoDataFound, NotFoundUser, DuplicateInfo, InfoAlreadyExisting, AccountAlreadyDisable, OccupiedSpace } from '../squemas/errors_squemas.js'
+import { NoDataFound } from '../squemas/errors_squemas.js'
 import { FacturaModel } from '../models/factura_model.js'
 
 
@@ -28,7 +28,6 @@ export class FacturasController {
     static async registrarFactura(req, res) {
         const datoToSend = req.body
         const response = await FacturaModel.postFactura(datoToSend)
-        const response1 = await FacturaModel.postHasFactura(datoToSend)
         if (response instanceof NoDataFound) {
             res.status(404).json({ message: 'No se encuentran facturas' })
         } else if (response instanceof Error) {
@@ -49,6 +48,19 @@ export class FacturasController {
             res.status(500).json({ message: 'Error interno del servidor' })
         } else {
             res.json(facturas)
+        }
+    }
+
+    static async deleteFactura(req, res) {
+        const { id } = req.params
+        const data = req.body
+        const response = await FacturaModel.deleteFactura(id, data)
+        if (response instanceof NoDataFound) {
+            res.status(404).json({ message: 'No se encuentran facturas' })
+        } else if (response instanceof Error) {
+            res.status(500).json({ message: 'Error interno del servidor' })
+        } else {
+            res.json({ message: 'Factura eliminada correctamente' })
         }
     }
 

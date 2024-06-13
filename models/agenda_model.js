@@ -1,10 +1,11 @@
 import connection from './connection_database.js'
-import { NotFoundUser } from "../squemas/errors_squemas.js";
+import { NoDataFound } from "../squemas/errors_squemas.js";
 
 export class AgendaModel {
-    static async getAgendas(id_usuario) {
+    static async getAgendas({ fechaCita, idEmpleado }) {
         try {
-            const query = ` SELECT 
+            const [getCita] = await connection.query(
+                ` SELECT 
             BIN_TO_UUID(c.id_cita) id,
             c.fecha_cita,
             c.Hora_cita,
@@ -29,11 +30,14 @@ export class AgendaModel {
         INNER JOIN 
             servicios s ON c.id_servicio = s.id_servicio
         WHERE 
-            u.id_tipo_usuario = ? AND estado_cita = 1; `
-            const response = await connection.query(query, [id_usuario.id_usuario])
-            return response
+            fecha_cita = ? AND estado_cita = 1 AND u.id_usuario = UUID_TO_BIN(?); `, [fechaCita, idEmpleado]
+            )
+            if (!getCita) throw new NoDataFound()
+            if (getCita.length === 0) throw new NoDataFound()
+            return (getCita)
         } catch (error) {
             console.log(error)
+            return (error)
         }
     }
     static async deleteCita({ id, input }) {

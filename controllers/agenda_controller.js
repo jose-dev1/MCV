@@ -1,13 +1,17 @@
 import { AgendaModel } from '../models/agenda_model.js'
+import { NoDataFound } from "../squemas/errors_squemas.js";
 
 export class AgendaController {
     static async getAgenda(req, res) {
-        const id_usuario = req.params
-        const response = await AgendaModel.getAgendas(id_usuario)
-        if (response instanceof Error) {
+        const { fechaCita, idEmpleado } = req.params
+        const response = await AgendaModel.getAgendas({ fechaCita, idEmpleado })
+        if (response instanceof NoDataFound) {
+            res.status(404).json({ message: 'No se encuentran citas con la fecha seleccionada para el empleado cargado' })
+        } else if (response instanceof Error) {
             res.status(500).json({ message: 'Error interno del servidor' })
+        } else {
+            res.json(response)
         }
-        res.json(response)
     }
 
     static async updateAgenda(req, res) {

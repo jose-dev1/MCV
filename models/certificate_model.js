@@ -70,7 +70,6 @@ export default class CertificateModel {
 
       return { ...res, vacunasAplicadas, desparacitacionesExternas, desparacitacionesInternas }
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -124,7 +123,6 @@ export default class CertificateModel {
 
       return { ...res, vacunasAplicadas, desparacitacionesExternas, desparacitacionesInternas }
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -144,7 +142,6 @@ export default class CertificateModel {
       const [[lastInsertId]] = await connection.query(
         'SELECT BIN_TO_UUID(id_certificado) id_certificado FROM certificados WHERE estado_certificado = 1 ORDER BY fecha_certificado DESC LIMIT 1'
       )
-      console.log(lastInsertId.id_certificado)
 
       for (const vacuna of vacunas) {
         await connection.query(
@@ -160,13 +157,11 @@ export default class CertificateModel {
             VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?));`,
             [lastInsertId.id_certificado, desparacitacion.id_desparacitacion]
         )
-        console.log(desparacitacion)
       }
 
       await connection.commit()
     } catch (error) {
       await connection.rollback()
-      console.log(error)
       return error
     }
   }
@@ -197,7 +192,6 @@ export default class CertificateModel {
       )
       return res
     } catch (error) {
-      console.log(error)
       return error
     }
   }

@@ -23,12 +23,10 @@ export class enviarCorreoModelos {
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error)
-        } else {
-          console.log('Correo electrónico enviado: ' + info.response)
         }
       })
     } catch (error) {
-      console.error('Error al enviar el correo electrónico:', error)
+      return error
     }
   }
 }

@@ -44,10 +44,10 @@ const adminUpdateSchema = z.object({
   idTipoDocumento: z.string().min(1, { message: 'Tiene que escoger el tipo de documento para el empleado' })
 })
 
-export function validateEmployeeDataCreate(input) {
+export function validateEmployeeDataCreate (input) {
   return adminCreateSchema.safeParse(input)
 }
 
-export function validateEmployeeDataUpdate(input) {
+export function validateEmployeeDataUpdate (input) {
   return adminUpdateSchema.safeParse(input)
 }

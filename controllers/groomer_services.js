@@ -43,7 +43,6 @@ export class GroomerServicesController {
   static async updateServis (req, res) {
     const { id } = req.params
     const data = req.body
-    console.log(data)
     const response = await GroomerServicesModel.updateServis({ id, input: data })
     if (response instanceof DuplicateInfo) {
       res.status(400).json({ message: 'Ya existe un servico registrado' })

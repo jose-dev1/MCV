@@ -3,7 +3,7 @@
  * /home_perfil/{id}:
  *   get:
  *     summary: Obtener información del perfil de inicio del usuario
- *     tags: 
+ *     tags:
  *       - Informacion del perfil de inicio
  *     parameters:
  *       - in: path

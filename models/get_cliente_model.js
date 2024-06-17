@@ -2,9 +2,9 @@ import connection from './connection_database.js'
 import { NotFoundUser } from '../squemas/errors_squemas.js'
 
 export class GetClienteModel {
-    static async getCliente(id) {
-        try {
-            const [rows] = await connection.query(`
+  static async getCliente (id) {
+    try {
+      const [rows] = await connection.query(`
                 SELECT 
                     BIN_TO_UUID(id_cliente) AS id,
                     numero_documento_cliente,
@@ -22,29 +22,28 @@ export class GetClienteModel {
                 FROM clientes
                 WHERE numero_documento_cliente = ?
             `, [id])
-            if (rows.length == 0) {
-                throw new NotFoundUser()
-            }
-            return rows[0];
-        } catch (error) {
-            console.log(error)
-            return error
-        }
+      if (rows.length === 0) {
+        throw new NotFoundUser()
+      }
+      return rows[0]
+    } catch (error) {
+      return error
     }
+  }
 
-    static async updateCliente(id, data) {
-        try {
-            const [rows] = await connection.query(`
+  static async updateCliente (id, data) {
+    try {
+      const [rows] = await connection.query(`
                 UPDATE clientes
                 SET id_usuario = UUID_TO_BIN(?)
                 WHERE numero_documento_cliente = ?
-            `, [data.data, id]);
+            `, [data.data, id])
 
-            if (rows.affectedRows === 0) {
-                throw new NotFoundUser();
-            }
+      if (rows.affectedRows === 0) {
+        throw new NotFoundUser()
+      }
 
-            const [updatedRows] = await connection.query(`
+      const [updatedRows] = await connection.query(`
             SELECT 
             BIN_TO_UUID(id_cliente) AS id,
             numero_documento_cliente,
@@ -61,17 +60,14 @@ export class GetClienteModel {
             BIN_TO_UUID(id_usuario) AS id_usuario
         FROM clientes
         WHERE numero_documento_cliente = ?
-            `, [id]);
+            `, [id])
 
-            if (updatedRows.length === 0) {
-                throw new NotFoundUser();
-            }
-            return updatedRows[0];
-        } catch (error) {
-            console.log(error);
-            return error;
-        }
+      if (updatedRows.length === 0) {
+        throw new NotFoundUser()
+      }
+      return updatedRows[0]
+    } catch (error) {
+      return error
     }
-
-
+  }
 }

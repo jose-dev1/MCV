@@ -8,4 +8,3 @@ export const loginRoutes = Router()
 // Creacion endpoints
 
 loginRoutes.post('/', LoginController.login)
-

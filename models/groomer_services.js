@@ -34,7 +34,6 @@ export class GroomerServicesModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }
@@ -47,14 +46,12 @@ export class GroomerServicesModel {
             INSERT INTO servicios_groomer (contenido_servicio_groomer, anotacion_servicio_groomer, servicio_finalizado_groomer, estado_servicio_groomer, id_mascota, id_servicio)
             VALUES (?, ?, ?, 1, UUID_TO_BIN(?), ?)
         `, [notaServicio, anotacionServicio, servicioFinalizado, idMascota, idServicio])
-      console.log(res)
       if (res.affectedRows === 1) {
         return { success: true, message: 'Servicio creado exitosamente' }
       } else {
         throw new Error('No se pudo insertar el servicio')
       }
     } catch (err) {
-      console.log(err)
       return err
     }
   }
@@ -66,19 +63,11 @@ export class GroomerServicesModel {
         [id])
       if (!existeServicio) throw new Error('El servicio no existe.')
 
-      const datosAntiguos = await this.getServiceById({ id })
-      const datosActualizar = {
-        ...datosAntiguos,
-        ...input
-      }
-      console.log(datosActualizar)
       const [updateServis] = await connection.query('UPDATE servicios_groomer SET servicio_finalizado_groomer = ?, contenido_servicio_groomer = ? WHERE id_servicio_groomer = UUID_TO_BIN(?)',
         [servicioFinalizado, notaServicio, id]
       )
-      console.log(updateServis)
       return updateServis
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -95,7 +84,6 @@ export class GroomerServicesModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return (err)
     }
   }

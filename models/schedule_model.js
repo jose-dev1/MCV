@@ -15,7 +15,6 @@ export class ScheduleModel {
       if (getCita.length === 0) throw new NoDataFound()
       return (getCita)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -69,7 +68,6 @@ export class ScheduleModel {
       if (getCita.length === 0) throw new NoDataFound()
       return (getCita)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -186,19 +184,16 @@ export class ScheduleModel {
             transporter.sendMail(mailOptions, function (error, info) {
               if (error) {
                 console.error(error)
-              } else {
-                console.log('Correo electrónico enviado: ' + info.response)
               }
             })
           }
         } catch (error) {
-          console.error('Error al enviar el correo electrónico:', error)
+          return error
         }
       }
 
       return insertCita
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -250,7 +245,6 @@ export class ScheduleModel {
       WHERE id_cita = UUID_TO_BIN(?);`, [id])
 
       if (datosUsuarios) {
-        console.log(datosUsuarios)
         const { correo_usuario: correo, nombre_cliente: cliente, nombre_mascota: mascota, fecha_cita: fecha, Hora_cita: hora, descripcion_servicio: servicio, nombre_empleado: empleado } = datosUsuarios
         const mailOptions = {
           from: 'samivazqueles@gmail.com',
@@ -275,15 +269,12 @@ export class ScheduleModel {
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {
             console.log(error)
-          } else {
-            console.log('Correo electrónico enviado: ' + info.response)
           }
         })
       }
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }

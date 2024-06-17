@@ -39,7 +39,6 @@ export class CarnetController {
 
   static async busquedaTipoVacuna (req, res) {
     const { idMascota } = req.params
-    console.log(req.params)
     const response = await VacunasModel.getTipoVacuna({ idMascota })
     if (response instanceof NoDataFound) {
       res.status(404).json({ message: 'No se encuentran vacunas para este tipo de mascota' })

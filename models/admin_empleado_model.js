@@ -112,7 +112,6 @@ export class AdminEmpleadoModel {
       FROM usuarios
       INNER JOIN empleados ON empleados.id_usuario = usuarios.id_usuario
       WHERE correo_usuario = ? AND id_empleado != UUID_TO_BIN(?)`, [correoUsuario, id])
-      console.log(verifyEmail)
       if (verifyEmail.length > 0) throw new DuplicateInfo()
 
       const [verifyUser] = await connection.query(`
@@ -131,7 +130,6 @@ export class AdminEmpleadoModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }

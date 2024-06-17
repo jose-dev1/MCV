@@ -10,7 +10,6 @@ export class UploadFilesModel {
       const downloadURL = await getDownloadURL(storageRef)
       return downloadURL
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }

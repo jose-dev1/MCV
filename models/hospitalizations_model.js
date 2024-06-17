@@ -13,7 +13,6 @@ export class HospitalizationsModel {
       if (getAll.length === 0) throw new NoDataFound()
       return (getAll)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -29,7 +28,6 @@ export class HospitalizationsModel {
       if (!getAll) throw new NoDataFound()
       return (getAll)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -46,7 +44,6 @@ export class HospitalizationsModel {
       if (res.length === 0) throw new NoDataFound()
       return (res)
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -63,7 +60,6 @@ export class HospitalizationsModel {
       (?,1,0,UUID_TO_BIN(?))`, [contenidoHospitalizacion, idMascota])
       return (insert)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -71,7 +67,6 @@ export class HospitalizationsModel {
   static async update ({ id, input }) {
     try {
       const { fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion } = input
-      console.log(fechaSalida)
       const datosAntiguos = await this.getId({ id })
       if (datosAntiguos instanceof NoDataFound) throw new NoDataFound()
 
@@ -87,7 +82,6 @@ export class HospitalizationsModel {
       `, [fechaSalida, contenidoHospitalizacion, servicioFinializadoHospitalizacion, id])
       return (update)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -107,7 +101,6 @@ export class HospitalizationsModel {
       WHERE id_hospitalizacion = UUID_TO_BIN(?)`, [anotacion, id])
       return (response)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }

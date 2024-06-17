@@ -19,7 +19,6 @@ export class AppointmentAssistanceModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }
@@ -35,7 +34,6 @@ export class AppointmentAssistanceModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }
@@ -52,7 +50,6 @@ export class AppointmentAssistanceModel {
 
       return res
     } catch (err) {
-      console.log(err)
       return err
     }
   }

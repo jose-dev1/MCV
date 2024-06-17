@@ -3,7 +3,7 @@
  * /login:
  *   post:
  *     summary: Iniciar sesión
- *     tags: 
+ *     tags:
  *       - Login
  *     requestBody:
  *       required: true

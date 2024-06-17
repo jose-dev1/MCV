@@ -50,7 +50,6 @@ export class VacunasModel {
       if (response.length === 0) throw new NoDataFound()
       return response
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -85,7 +84,6 @@ export class VacunasModel {
         WHERE id_tipo_mascota = (SELECT id_tipo_mascota FROM mascotas WHERE id_mascota = UUID_TO_BIN(?))`, [idMascota])
       return response
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -121,7 +119,6 @@ WHERE id_vacuna_aplicada = UUID_TO_BIN(?)
       if (!getTipoVacunas) throw new NoDataFound()
       return (getTipoVacunas)
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -134,7 +131,6 @@ WHERE id_vacuna_aplicada = UUID_TO_BIN(?)
       VALUES (?, ?, ?, ?, 1, UUID_TO_BIN(?), ?);`, [fechaVacunaAplicada, fechaVencimiento, laboratorio, loteVacuna, idMascota, idTipoVacuna])
       return response
     } catch (error) {
-      console.log(error)
       return (error)
     }
   }
@@ -150,7 +146,6 @@ WHERE id_vacuna_aplicada = UUID_TO_BIN(?)
 
       return response
     } catch (error) {
-      console.log(error)
       return error
     }
   }

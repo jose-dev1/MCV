@@ -36,10 +36,10 @@ const examUpdateSchema = z.object({
   })
 })
 
-export function validateExamenCreate(input) {
+export function validateExamenCreate (input) {
   return examCreateSchema.safeParse(input)
 }
 
-export function validateExamUpdate(input) {
+export function validateExamUpdate (input) {
   return examUpdateSchema.safeParse(input)
 }

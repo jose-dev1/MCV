@@ -51,7 +51,7 @@
  * /info_mascotas:
  *   get:
  *     summary: Obtener información de todas las mascotas
- *     tags: 
+ *     tags:
  *       - Mascotas
  *     responses:
  *       200:

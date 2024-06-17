@@ -149,4 +149,3 @@
  *                   type: string
  *                   example: "Error interno del servidor"
  */
-

@@ -52,7 +52,6 @@ export default class ExamenesVeteriarioModel {
       FROM examenes
       INNER JOIN mascotas ON examenes.id_mascota = mascotas.id_mascota
       WHERE registro_completo_examen = 0 AND estado_examen = 1 AND id_tipo_examen = ? AND mascotas.id_mascota = UUID_TO_BIN(?)`, [idTipoExamen, idMascota])
-      console.log(existingData)
 
       if (existingData) throw new DuplicateInfo()
 
@@ -60,7 +59,6 @@ export default class ExamenesVeteriarioModel {
       `INSERT INTO examenes (estado_examen, id_mascota, id_tipo_examen, lote_examne, fecha_vencimeinto_prueba, link_imagen_examen) VALUES
       (1,UUID_TO_BIN(?),?,?,?,?)`, [idMascota, idTipoExamen, lote, fechaVencimiento, linkImagen])
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -105,7 +103,6 @@ export default class ExamenesVeteriarioModel {
 
       return res
     } catch (error) {
-      console.log(error)
       return error
     }
   }
@@ -140,7 +137,6 @@ export default class ExamenesVeteriarioModel {
 
       return res
     } catch (error) {
-      console.log(error)
       return error
     }
   }

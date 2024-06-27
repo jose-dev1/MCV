@@ -27,7 +27,7 @@ function Perfil() {
   const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
   const [cliente, setCliente] = useState(null);
   const [documentos, setDocumentos] = useState([]);
-  const [contraseña, setContraseña] = useState('');
+  const [contraseña, setContraseña] = useState({contraseña: ''});
   const [datosFormulario, setDatosFormulario] = useState({
     primer_nombre_cliente: '',
     segundo_nombre_cliente: '',
@@ -123,10 +123,9 @@ function Perfil() {
 
     try {
       if (cliente) {
-        console.log(contraseña)
         await axios.put(`http://localhost:4321/registro/actualizar_cliente/${cliente.id_cliente}`, {
           correo_usuario: usuario.correo_usuario,
-          contraseña: contraseña,
+          password: contraseña.contraseña,
           ...datosActualizados
         });
         Swal.fire({
